@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const Activities = ({local_varaiable}) => {
 	return (
 		<div>
-			<PageHeader currentpage="Activities Log" activepage="Home" mainpage="Activities Log"/>
+			<PageHeader currentpage="Activity Log" activepage="Home" mainpage="Activity Log"/>
 
 			<div className="grid grid-cols-12 gap-x-5">
 				<div className="col-span-12 md:col-span-6 xxl:col-span-3">
