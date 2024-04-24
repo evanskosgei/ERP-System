@@ -36,24 +36,19 @@ export const MenuItems = [
 			{ id: 2,icon: Dashboardsvg, title: "Dashboards", type: "sub", active: false, selected: false, children: [
 
 					{ id: 3, path: `${import.meta.env.BASE_URL}dashboards/sales`, type: "link", active: false, selected: false, title: "Home" },
-					// { id: 4, path: `${import.meta.env.BASE_URL}dashboards/ecommerce`, type: "link", active: false, selected: false, title: "Ecommerce" },
-					// { id: 5, path: `${import.meta.env.BASE_URL}dashboards/crypto`, type: "link", active: false, selected: false, title: "Crypto" },
-					// { id: 6, path: `${import.meta.env.BASE_URL}dashboards/jobs`, type: "link", active: false, selected: false, title: "Jobs" },
-					{ id: 7, path: `${import.meta.env.BASE_URL}dashboards/nft`, type: "link", active: false, selected: false, title: "Activities" },
-					// { id: 8, path: `${import.meta.env.BASE_URL}dashboards/analytics`, type: "link", active: false, selected: false, title: "Analytics" },
-					// { id: 9, path: `${import.meta.env.BASE_URL}dashboards/projects`, type: "link", active: false, selected: false, title: "Projects" },
-					{ id: 10, path: `${import.meta.env.BASE_URL}dashboards/hrm`, type: "link", active: false, selected: false, title: "Notification" },
+					{ id: 7, path: `${import.meta.env.BASE_URL}activities`, type: "link", active: false, selected: false, title: "Activities" },
+					{ id: 10, path: `${import.meta.env.BASE_URL}notifications`, type: "link", active: false, selected: false, title: "Notification" },
 
 
 					// { id: 11, path: `${import.meta.env.BASE_URL}dashboards/crm`, type: "link", active: false, selected: false, title: "CRM" },
 					// { id: 12, path: `${import.meta.env.BASE_URL}dashboards/personal`, type: "link", active: false, selected: false, title: "Personal" },
 					// { id: 13, path: `${import.meta.env.BASE_URL}dashboards/stocks`, type: "link", active: false, selected: false, title: "Stocks" },
 					// { id: 14, path: `${import.meta.env.BASE_URL}dashboards/course`, type: "link", active: false, selected: false, title: "My Profile" },
-					{ id: 88, path: `${import.meta.env.BASE_URL}pagecomponent/profile/home`, type: "link", active: false, selected: false, title: "My Profile" },
+					{ id: 88, path: `${import.meta.env.BASE_URL}my_profile`, type: "link", active: false, selected: false, title: "My Profile" },
 				],
 			},
 
-			{ id: 15, path: `${import.meta.env.BASE_URL}widgets`, icon: WidgetsSvg, title: "Analytics", type: "link", active: false, selected: false },
+			{ id: 15, path: `${import.meta.env.BASE_URL}widgets`, icon: WidgetsSvg, title: "Widgets", type: "link", active: false, selected: false },
 
 			{ id: 15, path: `${import.meta.env.BASE_URL}components/blockquotes`, icon: NestedSvg, title: "Users", type: "link", active: false, selected: false },
 

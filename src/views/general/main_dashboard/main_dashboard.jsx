@@ -1,11 +1,10 @@
 import React from "react";
-import { SalesOverView, SalesValue, SocialVisitor } from "../../../common/chartdata";
 import ALLImages from "../../../common/imagesdata";
 import PageHeader from "../../../layout/layoutsection/pageHeader/pageHeader";
 import { connect } from "react-redux"
 import { Link } from 'react-router-dom';
 
-const Sales = ({local_varaiable}) => {
+const MainDashboard = ({local_varaiable}) => {
 	return (
 		<div>
 			<PageHeader currentpage="Dashboard" activepage="Home" mainpage="Dashboard"/>
@@ -930,4 +929,4 @@ const mapStateToProps = (state) => ({
 	local_varaiable: state
   })
 
-export default connect(mapStateToProps,{})(Sales)
+export default connect(mapStateToProps,{})(MainDashboard)

@@ -1,14 +1,13 @@
 import React from "react";
-import { SalesOverView, SalesValue, SocialVisitor } from "../../../common/chartdata";
 import ALLImages from "../../../common/imagesdata";
 import PageHeader from "../../../layout/layoutsection/pageHeader/pageHeader";
 import { connect } from "react-redux"
 import { Link } from 'react-router-dom';
 
-const Sales = ({local_varaiable}) => {
+const Notifications = ({local_varaiable}) => {
 	return (
 		<div>
-			<PageHeader currentpage="Dashboard" activepage="Home" mainpage="Dashboard"/>
+			<PageHeader currentpage="Notifications" activepage="Home" mainpage="Notifications"/>
 
 			<div className="grid grid-cols-12 gap-x-5">
 				<div className="col-span-12 md:col-span-6 xxl:col-span-3">
@@ -930,4 +929,4 @@ const mapStateToProps = (state) => ({
 	local_varaiable: state
   })
 
-export default connect(mapStateToProps,{})(Sales)
+export default connect(mapStateToProps,{})(Notifications)

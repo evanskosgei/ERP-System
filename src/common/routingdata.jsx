@@ -1,3 +1,15 @@
+//Dashboards 
+import MainDashboard from "../views/general/main_dashboard/main_dashboard";
+
+
+//Other Pages
+import Activities from "../views/general/activities/activities";
+import Notifications from "../views/general/notifications/notifications";
+
+//User Pages
+import Profile from "../views/user_module/profile/home/home";
+
+
 import Calender from "../component/advancedUi/calender/calender";
 import Carousel from "../component/advancedUi/carousel/carousel";
 import Filedetails from "../component/advancedUi/filemanager/filedetails/filedetails";
@@ -104,7 +116,10 @@ export const RouteData = [
 
     // {/* Dashboard content */}
 
+    
+
     { path: `${import.meta.env.BASE_URL}dashboards/sales`, element: <Sales /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}dashboards/main`, element: <MainDashboard /> , title: ''},
     { path: `${import.meta.env.BASE_URL}dashboards/ecommerce`, element: <Ecommerce /> , title: ''},
     { path: `${import.meta.env.BASE_URL}dashboards/crypto`, element: <Crypto /> , title: ''},
     { path: `${import.meta.env.BASE_URL}dashboards/jobs`, element: <Jobs /> , title: ''},
@@ -116,6 +131,14 @@ export const RouteData = [
     { path: `${import.meta.env.BASE_URL}dashboards/personal`, element: <Personal /> , title: ''},
     { path: `${import.meta.env.BASE_URL}dashboards/stocks`, element: <Stocks /> , title: ''},
     { path: `${import.meta.env.BASE_URL}dashboards/course`, element: <Course /> , title: ''},
+
+
+    // {/* Activities content */}
+    { path: `${import.meta.env.BASE_URL}activities`, element: <Activities /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}notifications`, element: <Notifications /> , title: ''},
+
+    // {/* User content */}
+    { path: `${import.meta.env.BASE_URL}my_profile`, element: <Profile /> , title: ''},
 
     // {/* Widgets content */}
 
@@ -259,7 +282,9 @@ export const RouteData = [
 export const SearchData = [
 
     // {/* Dashboard content */}
+    
 
+    { path: `${import.meta.env.BASE_URL}dashboards/main`, element: <MainDashboard /> , title: 'main'},
     { path: `${import.meta.env.BASE_URL}dashboards/sales`, element: <Sales /> , title: 'sales'},
     { path: `${import.meta.env.BASE_URL}dashboards/ecommerce`, element: <Ecommerce /> , title: 'ecommerce'},
     { path: `${import.meta.env.BASE_URL}dashboards/crypto`, element: <Crypto /> , title: 'crypto'},
@@ -272,6 +297,12 @@ export const SearchData = [
     { path: `${import.meta.env.BASE_URL}dashboards/personal`, element: <Personal /> , title: 'personal'},
     { path: `${import.meta.env.BASE_URL}dashboards/stocks`, element: <Stocks /> , title: 'stocks'},
     { path: `${import.meta.env.BASE_URL}dashboards/course`, element: <Course /> , title: 'course'},
+
+
+        // {/* Other Pages content */}
+    { path: `${import.meta.env.BASE_URL}activities`, element: <Course /> , title: 'course'},
+    
+
 
     // {/* Widgets content */}
 
