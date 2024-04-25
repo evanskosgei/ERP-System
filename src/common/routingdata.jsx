@@ -1,3 +1,93 @@
+//Dashboards 
+import MainDashboard from "../views/general/main_dashboard/main_dashboard";
+
+
+//Other Pages
+import Activities from "../views/general/activities/activities";
+import Notifications from "../views/general/notifications/notifications";
+
+import Widgets from "../views/widgets/dashboard/widgets";
+
+//User Pages
+import Profile from "../views/user_module/profile/home/home";
+import UserDashboard from "../views/user_module/dashboard/user_dashboard";
+
+//Supplier Pages
+import SupplierDashboard from "../views/supplier_module/dashboard/supplier_dashboard";
+import SupplyChain from "../views/supplier_module/supply_chain/supply_chain";
+import SmsManagement from "../views/supplier_module/sms_management/sms_management";
+
+//Inventory Pages
+import InventoryDashboard from "../views/inventory_module/dashboard/inventory_dashboard";
+import ProductManagement from "../views/inventory_module/product_management/product_management";
+import QualityControl from "../views/inventory_module/quality_control/quality_control";
+import InventoryManagement from "../views/inventory_module/inventory_management/inventory_management";
+
+
+//Transport Pages
+import TransportDashboard from "../views/transport_module/dashboard/transport_dashboard";
+import ProductTransit from "../views/transport_module/transit/listjourneys";
+
+//Customer Pages
+import CustomerDashboard from "../views/crm_module/dashboard/crm_dashboard";
+import TicketManagement from "../views/crm_module/ticket_management/ticket_dashboard";
+
+
+//Sales Pages
+import SalesDashboard from "../views/sales_module/dashboard/sales_dashboard";
+
+//Payments Pages
+import PaymentsDashboard from "../views/payments_module/dashboard/payments_dashboard";
+import MobileMoney from "../views/payments_module/mobile_money/mobile_money_dashboard";
+import BankPayments from "../views/payments_module/bank_payments/bank_payments_dashboard";
+import CashPayments from "../views/payments_module/cash_payments/cash_payments_dashboard";
+
+//Finance Accounting Pages
+import AccountingDashboard from "../views/finance_module/dashboard/accouting_dashboard";
+
+//Finance Expenses Pages
+import ExpensesDashboard from "../views/finance_module/dashboard/expenses_dashboard";
+
+//Email-SMS SMS Pages
+import SmsDashboard from "../views/email_sms_module/dashboard/sms_dashboard";
+
+//Email-SMS Email Pages
+import EmailDashboard from "../views/email_sms_module/dashboard/email_dashboard";
+
+//HR Pages
+import HrDashboard from "../views/hr_module/dashboard/hr_dashboard";
+import EmployeeProfile from "../views/hr_module/profile/employee_profile";
+import PerformanceManagement from "../views/hr_module/performance/performance_management";
+import PayrollManagement from "../views/hr_module/payroll/payroll_management";
+
+//Analytics Pages
+import AnalyticsDashboard from "../views/analytics_module/dashboard/analytics_dashboard";
+import SalesAnalysis from "../views/analytics_module/sales/sales_analysis";
+import InventoryAnalysis from "../views/analytics_module/inventory/inventory_analysis";
+import SupplierAnalysis from "../views/analytics_module/supplier/supplier_analysis";
+
+
+//Reports Module
+import ReportsDashboard from "../views/reports_module/dashboard/reports_dashboard";
+import FinanceReports from "../views/reports_module/finance_reports/finance_reports";
+import InventoryReports from "../views/reports_module/inventory_reports/inventory_reports";
+import SalesReports from "../views/reports_module/sales_reports/sales_reports";
+import SupplierReports from "../views/reports_module/supplier_reports/supplier_reports";
+import TransporterReports from "../views/reports_module/transporter_reports/transporter_reports";
+import PaymentsReports from "../views/reports_module/payments_reports/payments_reports"; 
+import CustomerReports from "../views/reports_module/customer_reports/customer_reports";
+import HrReports from "../views/reports_module/hr_reports/hr_reports";
+
+
+//Settings Module
+import SettingsDashboard from "../views/settings_module/dashboard/settings_dashboard";
+import RolesAndPermissions from "../views/settings_module/roles_and_permissions/roles_and_permissions";
+import SmsSettings from "../views/settings_module/sms_settings/sms_settings";
+import EmailSettings from "../views/settings_module/email_settings/email_settings";
+import GeneralSettings from "../views/settings_module/general_settings/general_settings";
+import LogsSettings from "../views/settings_module/logs_settings/logs_settings";
+
+
 import Calender from "../component/advancedUi/calender/calender";
 import Carousel from "../component/advancedUi/carousel/carousel";
 import Filedetails from "../component/advancedUi/filemanager/filedetails/filedetails";
@@ -93,7 +183,7 @@ import Tasks from "../component/pagecomponent/tasks/tasks";
 import Team from "../component/pagecomponent/team/team";
 import Timeline from "../component/pagecomponent/timeline/timeline";
 import Todolist from "../component/pagecomponent/todolist/todolist";
-import Widgets from "../component/widgets/widgets";
+
 import Remixicons from "../component/icon/remixicons/remixicons";
 import Tablericons from "../component/icon/tablericons/tablericons";
 
@@ -104,7 +194,10 @@ export const RouteData = [
 
     // {/* Dashboard content */}
 
+    
+
     { path: `${import.meta.env.BASE_URL}dashboards/sales`, element: <Sales /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}dashboards/main`, element: <MainDashboard /> , title: ''},
     { path: `${import.meta.env.BASE_URL}dashboards/ecommerce`, element: <Ecommerce /> , title: ''},
     { path: `${import.meta.env.BASE_URL}dashboards/crypto`, element: <Crypto /> , title: ''},
     { path: `${import.meta.env.BASE_URL}dashboards/jobs`, element: <Jobs /> , title: ''},
@@ -117,9 +210,93 @@ export const RouteData = [
     { path: `${import.meta.env.BASE_URL}dashboards/stocks`, element: <Stocks /> , title: ''},
     { path: `${import.meta.env.BASE_URL}dashboards/course`, element: <Course /> , title: ''},
 
+
+    // {/* Activities content */}
+    { path: `${import.meta.env.BASE_URL}activities`, element: <Activities /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}notifications`, element: <Notifications /> , title: ''},
+
+    // {/* User content */} 
+    { path: `${import.meta.env.BASE_URL}my_profile`, element: <Profile /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}users/dashboard`, element: <UserDashboard /> , title: ''},
+
     // {/* Widgets content */}
 
     { path: `${import.meta.env.BASE_URL}widgets`, element: <Widgets /> , title: ''},
+
+    // {/* Supplier content */}
+    { path: `${import.meta.env.BASE_URL}supplier/dashboard`, element: <SupplierDashboard /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}supplier/supply-chain`, element: <SupplyChain /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}supplier/sms-management`, element: <SmsManagement /> , title: ''},
+    
+
+    // {/* Inventory content */}
+    { path: `${import.meta.env.BASE_URL}inventory/dashboard`, element: <InventoryDashboard /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/product-management`, element: <ProductManagement /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/inventory-management`, element: <InventoryManagement /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/quality-control`, element: <QualityControl /> , title: ''},
+
+    // {/* Transport content */}
+    { path: `${import.meta.env.BASE_URL}transport/dashboard`, element: <TransportDashboard /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}transport/transit`, element: <ProductTransit /> , title: ''}, 
+
+    // {/* CRM content */}
+    { path: `${import.meta.env.BASE_URL}customer/dashboard`, element: <CustomerDashboard /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}customer/ticket-management`, element: <TicketManagement /> , title: ''},
+
+    // {/* Sales content */}
+    { path: `${import.meta.env.BASE_URL}sales/dashboard`, element: <SalesDashboard /> , title: ''},
+
+
+    // {/* Payments content */}
+    { path: `${import.meta.env.BASE_URL}payments/dashboard`, element: <PaymentsDashboard /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}payments/mobilemoney`, element: <MobileMoney /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}payments/bank`, element: <BankPayments /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}payments/cash`, element: <CashPayments /> , title: ''},
+
+
+    // {/* Finance content */}
+    { path: `${import.meta.env.BASE_URL}finance/accouting`, element: <AccountingDashboard /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}finance/expenses`, element: <ExpensesDashboard /> , title: ''},
+
+    // {/* Email content */}
+    { path: `${import.meta.env.BASE_URL}email/dashboard`, element: <EmailDashboard /> , title: ''},
+
+    // {/* SMS content */}
+    { path: `${import.meta.env.BASE_URL}sms/dashboard`, element: <SmsDashboard /> , title: ''},
+
+
+    // {/* Hr content */}
+    { path: `${import.meta.env.BASE_URL}hr/dashboard`, element: <HrDashboard /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}hr/employee-profile`, element: <EmployeeProfile /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}hr/performance-management`, element: <PerformanceManagement /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}hr/payroll-management`, element: <PayrollManagement /> , title: ''},
+
+    // {/* Analytics content */}
+    { path: `${import.meta.env.BASE_URL}analytics/dashboard`, element: <AnalyticsDashboard /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}analytics/sales-analysis`, element: <SalesAnalysis /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}analytics/inventory-analysis`, element: <InventoryAnalysis /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}analytics/supplier-analysis`, element: <SupplierAnalysis /> , title: ''},
+
+
+    // {/* Reports content */}
+    { path: `${import.meta.env.BASE_URL}reports/dashboard`, element: <ReportsDashboard /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}reports/finance-reports`, element: <FinanceReports /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}reports/inventory-reports`, element: <InventoryReports /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}reports/sales-reports`, element: <SalesReports /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}reports/supplier-reports`, element: <SupplierReports /> , title: ''}, 
+    { path: `${import.meta.env.BASE_URL}reports/transporter-reports`, element: <TransporterReports /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}reports/hr-reports`, element: <HrReports /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}reports/payments-reports`, element: <PaymentsReports /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}reports/customer-reports`, element: <CustomerReports /> , title: ''},
+
+    
+    // {/* Settings content */}
+    { path: `${import.meta.env.BASE_URL}settings/dashboard`, element: <SettingsDashboard /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}settings/roles-and-permissions`, element: <RolesAndPermissions /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}settings/sms-settings`, element: <SmsSettings /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}settings/email-settings`, element: <EmailSettings /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}settings/general-settings`, element: <GeneralSettings /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}settings/logs-settings`, element: <LogsSettings /> , title: ''},
 
     // {/* Component content */}
 
@@ -259,7 +436,9 @@ export const RouteData = [
 export const SearchData = [
 
     // {/* Dashboard content */}
+    
 
+    { path: `${import.meta.env.BASE_URL}dashboards/main`, element: <MainDashboard /> , title: 'main'},
     { path: `${import.meta.env.BASE_URL}dashboards/sales`, element: <Sales /> , title: 'sales'},
     { path: `${import.meta.env.BASE_URL}dashboards/ecommerce`, element: <Ecommerce /> , title: 'ecommerce'},
     { path: `${import.meta.env.BASE_URL}dashboards/crypto`, element: <Crypto /> , title: 'crypto'},
@@ -273,9 +452,6 @@ export const SearchData = [
     { path: `${import.meta.env.BASE_URL}dashboards/stocks`, element: <Stocks /> , title: 'stocks'},
     { path: `${import.meta.env.BASE_URL}dashboards/course`, element: <Course /> , title: 'course'},
 
-    // {/* Widgets content */}
-
-    { path: `${import.meta.env.BASE_URL}widgets`, element: <Widgets /> , title: 'widgets'},
 
     // {/* Component content */}
 

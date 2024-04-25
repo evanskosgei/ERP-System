@@ -35,316 +35,119 @@ export const MenuItems = [
 
 			{ id: 2,icon: Dashboardsvg, title: "Dashboards", type: "sub", active: false, selected: false, children: [
 
-					{ id: 3, path: `${import.meta.env.BASE_URL}dashboards/sales`, type: "link", active: false, selected: false, title: "Home" },
-					// { id: 4, path: `${import.meta.env.BASE_URL}dashboards/ecommerce`, type: "link", active: false, selected: false, title: "Ecommerce" },
-					// { id: 5, path: `${import.meta.env.BASE_URL}dashboards/crypto`, type: "link", active: false, selected: false, title: "Crypto" },
-					// { id: 6, path: `${import.meta.env.BASE_URL}dashboards/jobs`, type: "link", active: false, selected: false, title: "Jobs" },
-					{ id: 7, path: `${import.meta.env.BASE_URL}dashboards/nft`, type: "link", active: false, selected: false, title: "Activities" },
-					// { id: 8, path: `${import.meta.env.BASE_URL}dashboards/analytics`, type: "link", active: false, selected: false, title: "Analytics" },
-					// { id: 9, path: `${import.meta.env.BASE_URL}dashboards/projects`, type: "link", active: false, selected: false, title: "Projects" },
-					{ id: 10, path: `${import.meta.env.BASE_URL}dashboards/hrm`, type: "link", active: false, selected: false, title: "Notification" },
-
-
-					// { id: 11, path: `${import.meta.env.BASE_URL}dashboards/crm`, type: "link", active: false, selected: false, title: "CRM" },
-					// { id: 12, path: `${import.meta.env.BASE_URL}dashboards/personal`, type: "link", active: false, selected: false, title: "Personal" },
-					// { id: 13, path: `${import.meta.env.BASE_URL}dashboards/stocks`, type: "link", active: false, selected: false, title: "Stocks" },
-					// { id: 14, path: `${import.meta.env.BASE_URL}dashboards/course`, type: "link", active: false, selected: false, title: "My Profile" },
-					{ id: 88, path: `${import.meta.env.BASE_URL}pagecomponent/profile/home`, type: "link", active: false, selected: false, title: "My Profile" },
+					{ id: 2.1, path: `${import.meta.env.BASE_URL}dashboards/sales`, type: "link", active: false, selected: false, title: "Home" },
+					{ id: 2.2, path: `${import.meta.env.BASE_URL}activities`, type: "link", active: false, selected: false, title: "Activities" },
+					{ id: 2.3, path: `${import.meta.env.BASE_URL}notifications`, type: "link", active: false, selected: false, title: "Notification" },
+					{ id: 2.4, path: `${import.meta.env.BASE_URL}my_profile`, type: "link", active: false, selected: false, title: "My Profile" },
 				],
 			},
 
-			{ id: 15, path: `${import.meta.env.BASE_URL}widgets`, icon: WidgetsSvg, title: "Analytics", type: "link", active: false, selected: false },
+			{ id: 3, path: `${import.meta.env.BASE_URL}widgets`, icon: WidgetsSvg, title: "Widgets", type: "link", active: false, selected: false },
 
-			{ id: 15, path: `${import.meta.env.BASE_URL}components/blockquotes`, icon: NestedSvg, title: "Users", type: "link", active: false, selected: false },
+			{ id: 4, path: `${import.meta.env.BASE_URL}users/dashboard`, icon: NestedSvg, title: "Users", type: "link", active: false, selected: false },
 
-			{ id: 16, icon: ComponentsSvg, title: "Supplier Module", type: "sub", active: false, selected: false, children: [
-				{ id: 17, path: `${import.meta.env.BASE_URL}components/accordion`, type: "link", active: false, selected: false, title: "Supplier Dashboard" },
-				{ id: 18, path: `${import.meta.env.BASE_URL}components/alerts`, type: "link", active: false, selected: false, title: "Supply Chain Management" },
-				{ id: 18, path: `${import.meta.env.BASE_URL}components/alerts`, type: "link", active: false, selected: false, title: "SMS Management" },
+			{ id: 5, icon: ComponentsSvg, title: "Supplier Module", type: "sub", active: false, selected: false, children: [
+				{ id: 5.1, path: `${import.meta.env.BASE_URL}supplier/dashboard`, type: "link", active: false, selected: false, title: "Supplier Dashboard" },
+				{ id: 5.2, path: `${import.meta.env.BASE_URL}supplier/supply-chain`, type: "link", active: false, selected: false, title: "Supply Chain Management" },
+				{ id: 5.3, path: `${import.meta.env.BASE_URL}supplier/sms-management`, type: "link", active: false, selected: false, title: "SMS Management" },
 				
 			]
 		},
 
-			{ id: 16, icon: MapsSvg, title: "Inventory Module", type: "sub", active: false, selected: false, children: [
-				{ id: 17, path: `${import.meta.env.BASE_URL}components/accordion`, type: "link", active: false, selected: false, title: "Inventory Dashboard" },
-				{ id: 18, path: `${import.meta.env.BASE_URL}components/alerts`, type: "link", active: false, selected: false, title: "Device Management" },
-				{ id: 18, path: `${import.meta.env.BASE_URL}components/alerts`, type: "link", active: false, selected: false, title: "Stock Management" },
-				{ id: 18, path: `${import.meta.env.BASE_URL}components/alerts`, type: "link", active: false, selected: false, title: "Quality Control" },
+			{ id: 6, icon: MapsSvg, title: "Inventory Module", type: "sub", active: false, selected: false, children: [
+				{ id: 6.1, path: `${import.meta.env.BASE_URL}inventory/dashboard`, type: "link", active: false, selected: false, title: "Inventory Dashboard" },
+				{ id: 6.2, path: `${import.meta.env.BASE_URL}inventory/product-management`, type: "link", active: false, selected: false, title: "Product Management" },
+				{ id: 6.3, path: `${import.meta.env.BASE_URL}inventory/inventory-management`, type: "link", active: false, selected: false, title: "Inventory Management" },
+				{ id: 6.4, path: `${import.meta.env.BASE_URL}inventory/quality-control`, type: "link", active: false, selected: false, title: "Quality Control" },
 				
 			]
 		},
 
-			{ id: 16, icon: PagesSvg, title: "Transport Module", type: "sub", active: false, selected: false, children: [
-				{ id: 17, path: `${import.meta.env.BASE_URL}components/accordion`, type: "link", active: false, selected: false, title: "Transport Dashboard" },
-				{ id: 18, path: `${import.meta.env.BASE_URL}components/alerts`, type: "link", active: false, selected: false, title: "Track transporters" },
+			{ id: 7, icon: PagesSvg, title: "Transport Module", type: "sub", active: false, selected: false, children: [
+				{ id: 7.1, path: `${import.meta.env.BASE_URL}transport/dashboard`, type: "link", active: false, selected: false, title: "Transport Dashboard" },
+				{ id: 7.2, path: `${import.meta.env.BASE_URL}transport/transit`, type: "link", active: false, selected: false, title: "Products In Transit" },
 				
 			]
 		},
 
-			{ id: 16, icon: IconsSvg, title: "Stock Module", type: "sub", active: false, selected: false, children: [
-				{ id: 17, path: `${import.meta.env.BASE_URL}components/accordion`, type: "link", active: false, selected: false, title: "Stock Dashboard" },
-				{ id: 18, path: `${import.meta.env.BASE_URL}components/alerts`, type: "link", active: false, selected: false, title: "Stock Taking" },
+			{ id: 8, icon: AuthenticationSvg, title: "CRM Dashboard", type: "sub", active: false, selected: false, children: [
+				{ id: 8.1, path: `${import.meta.env.BASE_URL}customer/dashboard`, type: "link", active: false, selected: false, title: "Customer Dashboard" },
+				{ id: 8.2, path: `${import.meta.env.BASE_URL}customer/ticket-management`, type: "link", active: false, selected: false, title: "Ticket Management" },
 				
 			]
 		},
 
-			{ id: 16, icon: AuthenticationSvg, title: "CRM Dashboard", type: "sub", active: false, selected: false, children: [
-				{ id: 17, path: `${import.meta.env.BASE_URL}components/accordion`, type: "link", active: false, selected: false, title: "Customer Dashboard" },
-				{ id: 18, path: `${import.meta.env.BASE_URL}components/alerts`, type: "link", active: false, selected: false, title: "Ticket Management" },
-				
-			]
-		},
-
-			{ id: 16, icon: ChartsSvg, title: "Sales Management", type: "sub", active: false, selected: false, children: [
+			{ id: 9, icon: ChartsSvg, title: "Sales Management", type: "sub", active: false, selected: false, children: [
 
 					
-				{ id: 17, path: `${import.meta.env.BASE_URL}components/accordion`, type: "link", active: false, selected: false, title: "Sales Dashboard" },
-				{ id: 18, path: `${import.meta.env.BASE_URL}components/alerts`, type: "link", active: false, selected: false, title: "Point of Sale" },
+				{ id: 9.1, path: `${import.meta.env.BASE_URL}sales/dashboard`, type: "link", active: false, selected: false, title: "Sales Dashboard" },
 				
 			]
 		},
 		
-		{ id: 32, icon: ElementsSvg, title: "Payments Module", type: "sub", active: false, selected: false, children: [
+		{ id: 10, icon: ElementsSvg, title: "Payments Module", type: "sub", active: false, selected: false, children: [
 
-			{ id: 33, path: `${import.meta.env.BASE_URL}elements/navbar`, type: "link", active: false, selected: false, title: "Mobile Money" },
-			{ id: 34, path: `${import.meta.env.BASE_URL}elements/megaMenu`, type: "link", active: false, selected: false, title: "Bank Deposits" },
-			{ id: 35, path: `${import.meta.env.BASE_URL}elements/nav&tabs`, type: "link", active: false, selected: false, title: "Cash on Delivery" },
+			{ id: 10.1, path: `${import.meta.env.BASE_URL}payments/dashboard`, type: "link", active: false, selected: false, title: "Payments Dashboard" },
+			{ id: 10.1, path: `${import.meta.env.BASE_URL}payments/mobilemoney`, type: "link", active: false, selected: false, title: "Mobile Money" },
+			{ id: 10.2, path: `${import.meta.env.BASE_URL}payments/bank`, type: "link", active: false, selected: false, title: "Bank Payments" },
+			{ id: 10.3, path: `${import.meta.env.BASE_URL}payments/cash`, type: "link", active: false, selected: false, title: "Cash Payments" },
 		]
 	},
-	{ id: 32, icon: PagesSvg, title: "Finance Module", type: "sub", active: false, selected: false, children: [
+	{ id: 11, icon: PagesSvg, title: "Finance Module", type: "sub", active: false, selected: false, children: [
 
-		{ id: 33, path: `${import.meta.env.BASE_URL}elements/navbar`, type: "link", active: false, selected: false, title: "Accounting Center" },
-		{ id: 34, path: `${import.meta.env.BASE_URL}elements/megaMenu`, type: "link", active: false, selected: false, title: "Expenses Management" },
+		{ id: 11.1, path: `${import.meta.env.BASE_URL}finance/accouting`, type: "link", active: false, selected: false, title: "Accounting Center" },
+		{ id: 11.1, path: `${import.meta.env.BASE_URL}finance/expenses`, type: "link", active: false, selected: false, title: "Expenses Management" },
 	]
 },
-	{ id: 41, icon: FormsSvg, title: "Email and SMS", type: "sub", active: false, selected: false, children: [
-			{ id: 42, path: `${import.meta.env.BASE_URL}forms/formelements`, type: "link", active: false, selected: false, title: "Email" },
-			{ id: 43, path: `${import.meta.env.BASE_URL}forms/advancedforms`, type: "link", active: false, selected: false, title: "SMS" },
+	{ id: 12, icon: FormsSvg, title: "Email and SMS", type: "sub", active: false, selected: false, children: [
+			{ id: 12.1, path: `${import.meta.env.BASE_URL}email/dashboard`, type: "link", active: false, selected: false, title: "Email" },
+			{ id: 12.2, path: `${import.meta.env.BASE_URL}sms/dashboard`, type: "link", active: false, selected: false, title: "SMS" },
 		]
 	},
-	{ id: 16, icon: ComponentsSvg, title: "Employees Module", type: "sub", active: false, selected: false, children: [
-		{ id: 17, path: `${import.meta.env.BASE_URL}components/accordion`, type: "link", active: false, selected: false, title: "Employee Information" },
-		{ id: 18, path: `${import.meta.env.BASE_URL}components/alerts`, type: "link", active: false, selected: false, title: "Salary Management" },
-		{ id: 19, path: `${import.meta.env.BASE_URL}components/avatars`, type: "link", active: false, selected: false, title: "Performance Management" },
-		{ id: 20, path: `${import.meta.env.BASE_URL}components/badges`, type: "link", active: false, selected: false, title: "Manage payroll" },
+	{ id: 13, icon: ComponentsSvg, title: "HR Module", type: "sub", active: false, selected: false, children: [
+		{ id: 13.1, path: `${import.meta.env.BASE_URL}hr/dashboard`, type: "link", active: false, selected: false, title: "Hr Dashboard" },
+		{ id: 13.1, path: `${import.meta.env.BASE_URL}hr/employee-profile`, type: "link", active: false, selected: false, title: "Employee Information" },
+		{ id: 13.3, path: `${import.meta.env.BASE_URL}hr/performance-management`, type: "link", active: false, selected: false, title: "Performance Management" },
+		{ id: 13.4, path: `${import.meta.env.BASE_URL}hr/payroll-management`, type: "link", active: false, selected: false, title: "Manage payroll" },
 	
 	]
 },
-	{ id: 52, icon: AdvancedUISvg, title: "Analytics Module", type: "sub", active: false, selected: false, children: [
+	{ id: 14, icon: AdvancedUISvg, title: "Analytics Module", type: "sub", active: false, selected: false, children: [
 
-		{ id: 53, path: `${import.meta.env.BASE_URL}dashboards/analytics`, type: "link", active: false, selected: false, title: "Generate Analytics" },
-		{ id: 56, path: `${import.meta.env.BASE_URL}advancedUi/gallery`, type: "link", active: false, selected: false, title: "Sales Trends" },
-		{ id: 57, path: `${import.meta.env.BASE_URL}advancedUi/sweetalert`, type: "link", active: false, selected: false, title: "Inventory Analysis" },
-		{ id: 58, path: `${import.meta.env.BASE_URL}advancedUi/rating`, type: "link", active: false, selected: false, title: "Supplier Analysis" },
-		{ id: 61, path: `${import.meta.env.BASE_URL}advancedUi/notification`, type: "link", active: false, selected: false, title: "Sales Forecasting" },
+		{ id: 14.1, path: `${import.meta.env.BASE_URL}analytics/dashboard`, type: "link", active: false, selected: false, title: "Analytics" },
+		{ id: 14.2, path: `${import.meta.env.BASE_URL}analytics/sales-analysis`, type: "link", active: false, selected: false, title: "Sales Trends" },
+		{ id: 14.3, path: `${import.meta.env.BASE_URL}analytics/inventory-analysis`, type: "link", active: false, selected: false, title: "Inventory Analysis" },
+		{ id: 14.4, path: `${import.meta.env.BASE_URL}analytics/supplier-analysis`, type: "link", active: false, selected: false, title: "Supplier Analysis" },
 		
 	]
 },
-	{ id: 52, icon: AdvancedUISvg, title: "Reports Module", type: "sub", active: false, selected: false, children: [
+	{ id: 15, icon: AdvancedUISvg, title: "Reports Module", type: "sub", active: false, selected: false, children: [
 
-			{ id: 53, path: `${import.meta.env.BASE_URL}advancedUi/rangeslider`, type: "link", active: false, selected: false, title: "Finance Reports" },
-			{ id: 56, path: `${import.meta.env.BASE_URL}advancedUi/gallery`, type: "link", active: false, selected: false, title: "Inventory Reports" },
-			{ id: 57, path: `${import.meta.env.BASE_URL}advancedUi/sweetalert`, type: "link", active: false, selected: false, title: "Sales Reports" },
-			{ id: 58, path: `${import.meta.env.BASE_URL}advancedUi/rating`, type: "link", active: false, selected: false, title: "Supplier Reports" },
-			{ id: 61, path: `${import.meta.env.BASE_URL}advancedUi/notification`, type: "link", active: false, selected: false, title: "Transporter Reports" },
-			{ id: 62, path: `${import.meta.env.BASE_URL}advancedUi/treeview`, type: "link", active: false, selected: false, title: "Financial Reports" },
-			{ id: 62, path: `${import.meta.env.BASE_URL}advancedUi/treeview`, type: "link", active: false, selected: false, title: "Employee Reports" },
-			{ id: 62, path: `${import.meta.env.BASE_URL}advancedUi/treeview`, type: "link", active: false, selected: false, title: "Payments Reports" },
-			{ id: 62, path: `${import.meta.env.BASE_URL}advancedUi/treeview`, type: "link", active: false, selected: false, title: "Customer Reports" },
+			{ id: 15.1, path: `${import.meta.env.BASE_URL}reports/dashboard`, type: "link", active: false, selected: false, title: "Reports Dashboard" },
+			{ id: 15.1, path: `${import.meta.env.BASE_URL}reports/finance-reports`, type: "link", active: false, selected: false, title: "Finance Reports" },
+			{ id: 15.2, path: `${import.meta.env.BASE_URL}reports/inventory-reports`, type: "link", active: false, selected: false, title: "Inventory Reports" },
+			{ id: 15.3, path: `${import.meta.env.BASE_URL}reports/sales-reports`, type: "link", active: false, selected: false, title: "Sales Reports" },
+			{ id: 15.4, path: `${import.meta.env.BASE_URL}reports/supplier-reports`, type: "link", active: false, selected: false, title: "Supplier Reports" },
+			{ id: 15.5, path: `${import.meta.env.BASE_URL}reports/transporter-reports`, type: "link", active: false, selected: false, title: "Transporter Reports" },
+			{ id: 15.7, path: `${import.meta.env.BASE_URL}reports/hr-reports`, type: "link", active: false, selected: false, title: "HR Reports" },
+			{ id: 15.8, path: `${import.meta.env.BASE_URL}reports/payments-reports`, type: "link", active: false, selected: false, title: "Payments Reports" },
+			{ id: 15.9, path: `${import.meta.env.BASE_URL}reports/customer-reports`, type: "link", active: false, selected: false, title: "Customer Reports" },
 			
 		]
 	},
-	{ id: 68, icon: BasicUISvg, title: "Administration", type: "sub", active: false, selected: false, children: [
+	{ id: 16, icon: BasicUISvg, title: "Administration", type: "sub", active: false, selected: false, children: [
 
-			{ id: 69, path: `${import.meta.env.BASE_URL}basicUi/dropdowns`, type: "link", active: false, selected: false, title: "Settings" },
-			{ id: 69, path: `${import.meta.env.BASE_URL}basicUi/dropdowns`, type: "link", active: false, selected: false, title: "Roles and Permissions" },
-			{ id: 70, path: `${import.meta.env.BASE_URL}basicUi/modal`, type: "link", active: false, selected: false, title: "SMS Setup" },
-			{ id: 71, path: `${import.meta.env.BASE_URL}basicUi/offcanvas`, type: "link", active: false, selected: false, title: "Email Setup" },
-			{ id: 72, path: `${import.meta.env.BASE_URL}basicUi/tooltip&popover`, type: "link", active: false, selected: false, title: "General Setup" },
-			{ id: 72, path: `${import.meta.env.BASE_URL}basicUi/tooltip&popover`, type: "link", active: false, selected: false, title: "Logs" },
-			{ id: 73, type: "sub", active: false, selected: false, title: "Merchant Settings", children: [
-
-					{ id: 75, path: `${import.meta.env.BASE_URL}basicUi/tables/basictable`, type: "link", active: false, selected: false, title: "General" },
-					{ id: 76, path: `${import.meta.env.BASE_URL}basicUi/tables/datatable`, type: "link", active: false, selected: false, title: "Password Reset" },
-
-				]
-			}
+			{ id: 16.1, path: `${import.meta.env.BASE_URL}settings/dashboard`, type: "link", active: false, selected: false, title: "Settings" },
+			{ id: 16.2, path: `${import.meta.env.BASE_URL}settings/roles-and-permissions`, type: "link", active: false, selected: false, title: "Roles and Permissions" },
+			{ id: 16.3, path: `${import.meta.env.BASE_URL}settings/sms-settings`, type: "link", active: false, selected: false, title: "SMS Setup" },
+			{ id: 16.4, path: `${import.meta.env.BASE_URL}settings/email-settings`, type: "link", active: false, selected: false, title: "Email Setup" },
+			{ id: 16.5, path: `${import.meta.env.BASE_URL}settings/general-settings`, type: "link", active: false, selected: false, title: "General Setup" },
+			{ id: 16.6, path: `${import.meta.env.BASE_URL}settings/logs-settings`, type: "link", active: false, selected: false, title: "Logs" },
+			
 		]
 	},
 		]
 	},
-	// { menutitle: "GENERAL", Items: [
-
-			
-			
-	// 	]
-	// },
-	// { menutitle: "LEVELS", Items: [
-	// 		{ icon: NestedSvg, title: "Nested Menu", type: "sub", active: false, selected: false, children: [
-
-	// 				{ title: "Nested-1", path: `${import.meta.env.BASE_URL}`, type: "link", active: false, selected: false },
-
-	// 				{ title: "Nested-2", type: "sub", active: false, selected: false, children: [
-
-	// 						{ type: "link", path: `${import.meta.env.BASE_URL}`, active: false, selected: false, title: "Nested-2-1" },
-						
-	// 					]
-	// 				},
-	// 			]
-	// 		},
-	// 	]
-	// },
-	// { menutitle: "MAPS & CHARTS", Items: [
-	// 		{ id: 78, icon: MapsSvg, title: "Maps", type: "sub", active: false, selected: false, children: [
-
-	// 				{ id: 80, path: `${import.meta.env.BASE_URL}maps/leafletmap`, type: "link", active: false, selected: false, title: "Leaflet Maps" },
-	// 				{ id: 81, path: `${import.meta.env.BASE_URL}maps/simplemap`, type: "link", active: false, selected: false, title: "Simple Maps" },
-
-	// 			]
-	// 		},
-	// 		{ id: 82, icon: ChartsSvg, title: "Charts", type: "sub", active: false, selected: false, children: [
-
-	// 				{ id: 83, path: `${import.meta.env.BASE_URL}charts/apexchart`, type: "link", active: false, selected: false, title: "Apex Chart" },
-	// 				{ id: 84, path: `${import.meta.env.BASE_URL}charts/chartjs`, type: "link", active: false, selected: false, title: "Chart JS" },
-	// 				{ id: 85, path: `${import.meta.env.BASE_URL}charts/echart`, type: "link", active: false, selected: false, title: "E-Chart" },
-
-	// 			]
-	// 		},
-	// 	]
-	// },
-	// { menutitle: "PAGES", Items: [
-	// 		{ id: 86, icon: PagesSvg, title: "Pages", type: "sub", active: false, selected: false, children: [
-	// 				{ id: 87, title: "Profile", type: "sub", active: false, selected: false, children: [
-
-	// 						{ id: 88, path: `${import.meta.env.BASE_URL}pagecomponent/profile/home`, type: "link", active: false, selected: false, title: "Home" },
-	// 						{ id: 89, path: `${import.meta.env.BASE_URL}pagecomponent/profile/profilesetting`, type: "link", active: false, selected: false, title: "Profile Settings" },
-
-	// 					]
-	// 				},
-	// 				{ id: 90, title: "Invoice", type: "sub", active: false, selected: false, children: [
-
-	// 						{ id: 91, path: `${import.meta.env.BASE_URL}pagecomponent/invoice/invoicelist`, type: "link", active: false, selected: false, title: "Invoice List" },
-	// 						{ id: 92, path: `${import.meta.env.BASE_URL}pagecomponent/invoice/invoicedetails`, type: "link", active: false, selected: false, title: "Invoice Details" },
-
-	// 					]
-	// 				},
-	// 				{ id: 93, title: "Blog", type: "sub", active: false, selected: false, children: [
-
-	// 						{ id: 94, path: `${import.meta.env.BASE_URL}pagecomponent/blog/blogmain`, type: "link", active: false, selected: false, title: "Blog" },
-	// 						{ id: 95, path: `${import.meta.env.BASE_URL}pagecomponent/blog/blogdetails`, type: "link", active: false, selected: false, title: "Blog Detail" },
-	// 						{ id: 96, path: `${import.meta.env.BASE_URL}pagecomponent/blog/blogedit`, type: "link", active: false, selected: false, title: "Edit Blog" },
-
-	// 					]
-	// 				},
-	// 				{ id: 97, title: "Mail", type: "sub", active: false, selected: false, children: [
-
-	// 						{ id: 98, path: `${import.meta.env.BASE_URL}pagecomponent/mail/mainMail`, type: "link", active: false, selected: false, title: "Mail" },
-	// 						{ id: 99, path: `${import.meta.env.BASE_URL}pagecomponent/mail/chat`, type: "link", active: false, selected: false, title: "Chat" },
-	// 						{ id: 100, path: `${import.meta.env.BASE_URL}pagecomponent/mail/mailsettings`, type: "link", active: false, selected: false, title: "Mail-settings" },
-
-	// 					]
-	// 				},
-	// 				{ id: 101, title: "E-Commerce", type: "sub", active: false, selected: false, children: [
-
-	// 						{ id: 102, path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/product`, type: "link", active: false, selected: false, title: "Products" },
-	// 						{ id: 103, path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/productlist`, type: "link", active: false, selected: false, title: "Product list" },
-	// 						{ id: 104, path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/addproduct`, type: "link", active: false, selected: false, title: "Add Product" },
-	// 						{ id: 105, path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/editproduct`, type: "link", active: false, selected: false, title: "Edit Product" },
-	// 						{ id: 106, path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/productdetails`, type: "link", active: false, selected: false, title: "Products Details" },
-	// 						{ id: 107, path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/cart`, type: "link", active: false, selected: false, title: "Cart" },
-	// 						{ id: 108, path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/checkout`, type: "link", active: false, selected: false, title: "Checkout" },
-	// 						{ id: 109, path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/orders`, type: "link", active: false, selected: false, title: "Orders" },
-	// 						{ id: 110, path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/orderdetails`, type: "link", active: false, selected: false, title: "Order Details" },
-	// 						{ id: 111, path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/wishlist`, type: "link", active: false, selected: false, title: "Wishlist" },
-
-	// 					]
-	// 				},
-	// 				{ id: 112, path: `${import.meta.env.BASE_URL}pagecomponent/aboutus`, title: "About Us", type: "link", active: false, selected: false },
-	// 				{ id: 113, path: `${import.meta.env.BASE_URL}pagecomponent/contacts`, title: "Contacts", type: "link", active: false, selected: false },
-	// 				{ id: 114, path: `${import.meta.env.BASE_URL}pagecomponent/pricingtables`, title: "Pricing Tables", type: "link", active: false, selected: false },
-	// 				{ id: 115, path: `${import.meta.env.BASE_URL}pagecomponent/timeline`, title: "Timeline", type: "link", active: false, selected: false },
-	// 				{ id: 116, path: `${import.meta.env.BASE_URL}pagecomponent/team`, title: "Team", type: "link", active: false, selected: false },
-	// 				{ id: 117, path: `${import.meta.env.BASE_URL}pagecomponent/landing`, title: "Landing", type: "link", active: false, selected: false },
-	// 				{ id: 118, path: `${import.meta.env.BASE_URL}pagecomponent/todolist`, title: "To-do List", type: "link", active: false, selected: false },
-	// 				{ id: 119, path: `${import.meta.env.BASE_URL}pagecomponent/tasks`, title: "Tasks", type: "link", active: false, selected: false },
-	// 				{ id: 120, path: `${import.meta.env.BASE_URL}pagecomponent/reviews`, title: "Reviews", type: "link", active: false, selected: false },
-	// 				{ id: 121, path: `${import.meta.env.BASE_URL}pagecomponent/faqs`, title: "Faqs", type: "link", active: false, selected: false },
-	// 				{ id: 122, path: `${import.meta.env.BASE_URL}pagecomponent/Contactus`, title: "Contact Us", type: "link", active: false, selected: false },
-	// 				{ id: 123, path: `${import.meta.env.BASE_URL}pagecomponent/terms&conditions`, title: "Terms & Conditions", type: "link", active: false, selected: false },
-	// 				{ id: 124, path: `${import.meta.env.BASE_URL}pagecomponent/emptypages`, title: "EmptyPage", type: "link", active: false, selected: false },
-	// 			]
-	// 		},
-	// 		{ id: 125, icon: IconsSvg, title: "Icons", type: "sub", active: false, selected: false, children: [
-
-	// 				{ id: 126, path: `${import.meta.env.BASE_URL}icon/tablericons`, type: "link", active: false, selected: false, title: "Tabler Icons" },
-	// 				{ id: 127, path: `${import.meta.env.BASE_URL}icon/remixicons`, type: "link", active: false, selected: false, title: "Remix Icons" },
-	// 			]
-	// 		},
-	// 		{ id: 128, icon: AuthenticationSvg, title: "Authentication", type: "sub", active: false, selected: false, children: [
-
-	// 				{ id: 129, type: "sub", active: false, selected: false, title: "Sign In", children: [
-
-	// 						{ id: 130, path: `${import.meta.env.BASE_URL}Authentication/signin/basic`, type: "link", active: false, selected: false, title: "Basic" },
-	// 						{ id: 131, path: `${import.meta.env.BASE_URL}Authentication/signin/cover1`, type: "link", active: false, selected: false, title: "Cover-1" },
-	// 						{ id: 132, path: `${import.meta.env.BASE_URL}Authentication/signin/cover2`, type: "link", active: false, selected: false, title: "Cover-2" },
-	// 					]
-	// 				},
-	// 				{ id: 133, type: "sub", active: false, selected: false, title: "Sign Up", children: [
-
-	// 						{ id: 134, path: `${import.meta.env.BASE_URL}Authentication/signup/basic`, type: "link", active: false, selected: false, title: "Basic" },
-	// 						{ id: 135, path: `${import.meta.env.BASE_URL}Authentication/signup/cover1`, type: "link", active: false, selected: false, title: "Cover-1" },
-	// 						{ id: 136, path: `${import.meta.env.BASE_URL}Authentication/signup/cover2`, type: "link", active: false, selected: false, title: "Cover-2" },
-	// 					]
-	// 				},
-	// 				{ id: 137, type: "sub", active: false, selected: false, title: "Create Password", children: [
-
-	// 						{ id: 138, path: `${import.meta.env.BASE_URL}Authentication/createpassword/basic`, type: "link", active: false, selected: false, title: "Basic" },
-	// 						{ id: 139, path: `${import.meta.env.BASE_URL}Authentication/createpassword/cover1`, type: "link", active: false, selected: false, title: "Cover-1" },
-	// 						{ id: 140, path: `${import.meta.env.BASE_URL}Authentication/createpassword/cover2`, type: "link", active: false, selected: false, title: "Cover-2" },
-	// 					]
-	// 				},
-	// 				{ id: 141, type: "sub", active: false, selected: false, title: "Forget Password", children: [
-
-	// 						{ id: 142, path: `${import.meta.env.BASE_URL}Authentication/forgetpassword/basic`, type: "link", active: false, selected: false, title: "Basic" },
-	// 						{ id: 143, path: `${import.meta.env.BASE_URL}Authentication/forgetpassword/cover1`, type: "link", active: false, selected: false, title: "Cover-1" },
-	// 						{ id: 144, path: `${import.meta.env.BASE_URL}Authentication/forgetpassword/cover2`, type: "link", active: false, selected: false, title: "Cover-2" },
-	// 					]
-	// 				},
-	// 				{ id: 145, type: "sub", active: false, selected: false, title: "Reset Password", children: [
-
-	// 						{ id: 146, path: `${import.meta.env.BASE_URL}Authentication/resetpassword/basic`, type: "link", active: false, selected: false, title: "Basic" },
-	// 						{ id: 147, path: `${import.meta.env.BASE_URL}Authentication/resetpassword/cover1`, type: "link", active: false, selected: false, title: "Cover-1" },
-	// 						{ id: 148, path: `${import.meta.env.BASE_URL}Authentication/resetpassword/cover2`, type: "link", active: false, selected: false, title: "Cover-2" },
-	// 					]
-	// 				},
-	// 				{ id: 149, type: "sub", active: false, selected: false, title: "Lock Screen", children: [
-
-	// 						{ id: 150, path: `${import.meta.env.BASE_URL}Authentication/lockscreen/basic`, type: "link", active: false, selected: false, title: "Basic" },
-	// 						{ id: 151, path: `${import.meta.env.BASE_URL}Authentication/lockscreen/cover1`, type: "link", active: false, selected: false, title: "Cover-1" },
-	// 						{ id: 152, path: `${import.meta.env.BASE_URL}Authentication/lockscreen/cover2`, type: "link", active: false, selected: false, title: "Cover-2" },
-	// 					]
-	// 				},
-	// 				{ id: 153, type: "sub", active: false, selected: false, title: "Two-step-verification", children: [
-
-	// 						{ id: 154, path: `${import.meta.env.BASE_URL}Authentication/twostepverification/basic`, type: "link", active: false, selected: false, title: "Basic" },
-	// 						{ id: 155, path: `${import.meta.env.BASE_URL}Authentication/twostepverification/cover1`, type: "link", active: false, selected: false, title: "Cover-1" },
-	// 						{ id: 156, path: `${import.meta.env.BASE_URL}Authentication/twostepverification/cover2`, type: "link", active: false, selected: false, title: "Cover-2" },
-	// 					]
-	// 				},
-	// 				{ id: 157, path: `${import.meta.env.BASE_URL}Authentication/undermaintenance`, type: "link", active: false, selected: false, title: "Under Maintainance" },
-	// 				{ id: 158, path: `${import.meta.env.BASE_URL}Authentication/underconstruction`, type: "link", active: false, selected: false, title: "Under Construction" },
-	// 				{ id: 159, path: `${import.meta.env.BASE_URL}Authentication/commingsoon`, type: "link", active: false, selected: false, title: "Coming Soon" },
-
-	// 				{ id: 160, type: "sub", active: false, selected: false, title: "Error Pages", children: [
-
-	// 						{ id: 161, path: `${import.meta.env.BASE_URL}Authentication/errorpage/error404`, type: "link", active: false, selected: false, title: "404 Error" },
-	// 						{ id: 162, path: `${import.meta.env.BASE_URL}Authentication/errorpage/error500`, type: "link", active: false, selected: false, title: "500 Error" },
-	// 					]
-	// 				},
-	// 			]
-	// 		},
-	// 	]
-	// },
 
 ];
 export default MenuItems

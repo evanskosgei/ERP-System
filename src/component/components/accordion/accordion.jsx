@@ -7,6 +7,7 @@ const Accordion = () => {
 	return (
 		<div>
           <PageHeader currentpage="Accordion" activepage="Components" mainpage="Accordion" />
+			
 			<div className="grid grid-cols-12 gap-x-6">
 				<div className="col-span-12 lg:col-span-6">
 					<div className="box">

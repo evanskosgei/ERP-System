@@ -3,7 +3,11 @@ import { RouteData } from "./common/routingdata";
 
 import App from "./layout/App";
 
-import Sales from "./component/dashboards/sales/sales";
+//Dashboards
+import MainDashboard from "./component/dashboards/main/main_dashboard";
+
+
+
 import Pagelayout from "./layout/pagelayout";
 import Aboutus from "./component/pagecomponent/aboutus/aboutus";
 import Faqs from "./component/pagecomponent/faqs/faqs";
@@ -67,7 +71,7 @@ export default function Router() {
           {/* //Main page */}
           {user != null && (
             <Route path={`${import.meta.env.BASE_URL}`} element={<App />}>
-              <Route index element={<Sales />} />
+              <Route index element={<MainDashboard />} />
               <Route exact path={idx.path} element={idx.element} />
             </Route>
           )}
