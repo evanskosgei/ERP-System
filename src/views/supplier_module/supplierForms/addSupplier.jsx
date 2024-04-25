@@ -1,14 +1,21 @@
 import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader';
-import DatePicker from 'react-datepicker';
 import { useForm } from "react-hook-form";
 import { useState } from 'react';
+import mtaApi from '../../../api/mtaApi';
+import { useNavigate } from 'react-router-dom';
 
 const AddSupplier = () => {
-    const [startDate, setStartDate] = useState(new Date());
     const { register, handleSubmit, formState: { errors, isValid }, formState } = useForm();
-
+    const navigate = useNavigate();
     const onSubmit = async data => {
-        console.log(data)
+        try {
+            const { response } = await mtaApi.supplier.addSupplier(data);
+            console.log(response)
+          } catch (error) {
+            const message = error.response?.data?.error ?? error.message;
+            console.log(message)
+            // setAlert({ type: "error", message });
+          }
     };
 
     return (
@@ -21,7 +28,6 @@ const AddSupplier = () => {
                             <h5 className="box-title">Business Details</h5>
                         </div>
                         <div className="box-body">
-
                             <div className="grid lg:grid-cols-2 gap-6">
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Business Name</label>

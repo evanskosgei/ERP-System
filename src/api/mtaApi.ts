@@ -3,9 +3,11 @@ import { del, get, post } from "./base";
 
 const mtaApi = {
   auth: {
-    login: (data: any) => post("/users/login", data),
+    login: (data: any) => post("/authentication/login", data),
   },
-  supplierModule : (data: any) => post("/addsupplier")
+ supplier: {
+  addSupplier: (data: any) => post("/supplier/register", data),
+ },
 };
 
 export default mtaApi;
