@@ -15,8 +15,8 @@ const SupplierDashboard = () => {
 
 							<div className="grid grid-cols-2 md:grid-cols-3 gap-4">
 								<div>
-									<h2 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Password requirements:</h2>
-									<ul className="max-w-sm space-y-2 text-gray-500 list-disc list-inside dark:text-gray-400">
+									<h2 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Suppliers:</h2>
+									<ul className="space-y-2 text-gray-500 list-disc list-inside dark:text-gray-400">
 										<li>
 											<Link to="/addsupplier" className="text-sky-400 font-bold">Add Supplier</Link>
 										</li>
