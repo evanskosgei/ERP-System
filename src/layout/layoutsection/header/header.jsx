@@ -769,17 +769,6 @@ const Header = ({ local_varaiable, ThemeChanger }) => {
                           <i className="ti ti-user-circle text-lg"></i>
                           Profile
                         </Link>
-                        {/* <Link
-                          to={`${import.meta.env.BASE_URL}pagecomponent/mail/mainMail/`}
-                          className="ti-dropdown-item"
-                        >
-                          <i className="ti ti-inbox text-lg"></i>
-                          Inbox
-                        </Link> */}
-                        {/* <Link to={`${import.meta.env.BASE_URL}pagecomponent/tasks/`} className="ti-dropdown-item">
-                          <i className="ti ti-clipboard-check text-lg"></i>
-                          Task Manager
-                        </Link> */}
                         <Link
                           to={`${import.meta.env.BASE_URL}pagecomponent/profile/profilesetting/`}
                           className="ti-dropdown-item"
@@ -787,10 +776,7 @@ const Header = ({ local_varaiable, ThemeChanger }) => {
                           <i className="ti ti-adjustments-horizontal text-lg"></i>
                           Settings
                         </Link>
-                        {/* <Link to={`${import.meta.env.BASE_URL}dashboards/crypto/`} className="ti-dropdown-item">
-                          <i className="ti ti-wallet text-lg"></i>
-                          Bal: $7,12,950
-                        </Link> */}
+                      
                         <div
                           className="ti-dropdown-item cursor-pointer"
                           onClick={() => {

@@ -44,6 +44,8 @@ import VerificationCover2 from "./component/Authentication/twostepverification/c
 import Underconstruction from "./component/Authentication/underconstruction/underconstruction";
 import Undermaintenance from "./component/Authentication/undermaintenance/undermaintenance";
 
+// import AddSupplier from "./views/supplier_module/supplierForms/addSupplier";
+
 // Pages
 import SignInPage from "./pages/Auth/SignIn";
 
@@ -55,7 +57,7 @@ import { Fragment } from "react";
 import { useAuth } from "./providers/AuthProvider";
 export default function Router() {
   const { user } = useAuth();
-  console.log(user);
+  // console.log(user);
   return (
     <Routes>
       {/* <Route path={`${import.meta.env.BASE_URL}`} element={<Firebaselayout />}>

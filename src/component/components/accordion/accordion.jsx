@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
+import { Link } from "react-router-dom";
 import PageHeader from "../../../layout/layoutsection/pageHeader/pageHeader";
 
 const Accordion = () => {
@@ -11,7 +12,7 @@ const Accordion = () => {
 				<div className="col-span-12 lg:col-span-6">
 					<div className="box">
 						<div className="box-header">
-							<h5 className="box-title"> Basic Accordion</h5>
+							<Link to="/forms/formvalidation/" className="box-title"> Basic Accordion</Link>
 						</div>
 						<div className="box-body">
 							<div className="hs-accordion-group">
