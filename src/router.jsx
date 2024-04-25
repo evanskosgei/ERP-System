@@ -44,6 +44,8 @@ import VerificationCover2 from "./component/Authentication/twostepverification/c
 import Underconstruction from "./component/Authentication/underconstruction/underconstruction";
 import Undermaintenance from "./component/Authentication/undermaintenance/undermaintenance";
 
+// import AddSupplier from "./views/supplier_module/supplierForms/addSupplier";
+
 // Pages
 import SignInPage from "./pages/Auth/SignIn";
 

@@ -5,27 +5,7 @@ import { useForm } from "react-hook-form";
 
 const Formvalidation = () => {
   const [startDate, setStartDate] = useState(new Date());
-  // const [formData, setFormData] = useState({
-  //   businessname: '',
-  //   tradename: '',
-  //   addressnumber: '',
-  //   postalcode: '',
-  //   country: '',
-  //   businessnumber: '',
-  //   companyemail: '',
-  //   firstName: '',
-  //   middleName: '',
-  //   lastName: '',
-  //   mobileNumber: '',
-  //   alternativeMobileNumber: '',
-  //   emailAddress: '',
-  //   gender: '',
-  //   termsAgreed: false
-  // });
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   console.log(formData)
-  // }
+ 
   const { register, handleSubmit, formState: { errors }, formState } = useForm();
 
   const onSubmit = async data => {
