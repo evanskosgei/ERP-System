@@ -7,14 +7,17 @@ import { useNavigate } from 'react-router-dom';
 const AddSupplier = () => {
     const { register, handleSubmit, formState: { errors, isValid }, formState } = useForm();
     const navigate = useNavigate();
-    const onSubmit = async data => {
+    const onSubmit = async values => {
+        console.log("vv",)
         try {
-            const { response } = await mtaApi.supplier.addSupplier(data);
-            console.log(response)
+            const { data } = await mtaApi.supplier.addSupplier(values);
+            console.log(data)
+        
+            
           } catch (error) {
             const message = error.response?.data?.error ?? error.message;
-            console.log(message)
-            // setAlert({ type: "error", message });
+            console.log(error)
+            setAlert({ type: "error", message });
           }
     };
 
@@ -31,23 +34,23 @@ const AddSupplier = () => {
                             <div className="grid lg:grid-cols-2 gap-6">
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Business Name</label>
-                                    <input type="text" {...register("businessname", { required: true })} id='businessname' className="my-auto ti-form-input" placeholder="Businessname" />
-                                    {errors.businessname && <span className="text-red-500 text-xs">Business Name is required</span>}
+                                    <input type="text" {...register("business_name", { required: true })} id='business_name' className="my-auto ti-form-input" placeholder="Businessname" />
+                                    {errors.business_name && <span className="text-red-500 text-xs">Business Name is required</span>}
                                 </div>
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Trade Name</label>
-                                    <input type="text" {...register("tradename", { required: true })} id='tradename' className="my-auto ti-form-input" placeholder="trade name" required />
-                                    {errors.tradename && <span className="text-red-500 text-xs">Trade Name is required</span>}
+                                    <input type="text" {...register("trading_name", { required: true })} id='trading_name' className="my-auto ti-form-input" placeholder="trade name" required />
+                                    {errors.trading_name && <span className="text-red-500 text-xs">Trade Name is required</span>}
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="ti-form-label mb-0">Address Number</label>
-                                    <input type="text" {...register("addressnumber", { required: true })} id='addressnumber' className="my-auto ti-form-input" placeholder=" 7 Floor, Chiromo Lane, Westlands, Nairobi" required />
-                                    {errors.addressnumber && <span className="text-red-500 text-xs">Address Number is required</span>}
+                                    <label className="ti-form-label mb-0">Address</label>
+                                    <input type="text" {...register("address", { required: true })} id='address' className="my-auto ti-form-input" placeholder=" 7 Floor, Chiromo Lane, Westlands, Nairobi" required />
+                                    {errors.address && <span className="text-red-500 text-xs">Address Number is required</span>}
                                 </div>
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Postal code</label>
-                                    <input type="number" {...register("postalcode", { required: true })} id='postalcode' className="my-auto ti-form-input" placeholder="00100" required />
-                                    {errors.postalcode && <span className="text-red-500 text-xs">Postal Code is required</span>}
+                                    <input type="number" {...register("postal_code", { required: true })} id='postal_code' className="my-auto ti-form-input" placeholder="00100" required />
+                                    {errors.postal_code && <span className="text-red-500 text-xs">Postal Code is required</span>}
                                 </div>
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Country</label>
@@ -55,13 +58,13 @@ const AddSupplier = () => {
                                 </div>
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Business Number</label>
-                                    <input type="number" {...register("businessnumber", { required: true })} id='businessnumber' className="ti-form-input" placeholder="Business No." required />
-                                    {errors.businessnumber && <span className="text-red-500 text-xs">Business Number is required</span>}
+                                    <input type="number" {...register("contact", { required: true })} id='contact' className="ti-form-input" placeholder="Business No." required />
+                                    {errors.contact && <span className="text-red-500 text-xs">Business Number is required</span>}
                                 </div>
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Company Email</label>
-                                    <input type="email" {...register("companyemail", { required: true })} id='companyemail' className="ti-form-input" placeholder="biz@example.com" required />
-                                    {errors.companyemail && <span className="text-red-500 text-xs">Company Email is required</span>}
+                                    <input type="email" {...register("company_email", { required: true })} id='company_email' className="ti-form-input" placeholder="biz@example.com" required />
+                                    {errors.company_email && <span className="text-red-500 text-xs">Company Email is required</span>}
                                 </div>
                             </div>
                         </div>
@@ -73,34 +76,34 @@ const AddSupplier = () => {
                             <h5 className="box-title">Personal Details</h5>
                         </div>
                         <div className="box-body">
-                            <div className="grid lg:grid-cols-2 gap-6">
+                            {/* <div className="grid lg:grid-cols-2 gap-6">
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">First Name</label>
-                                    <input type="text" {...register("fname", { required: true })} className="firstName my-auto ti-form-input" placeholder="John" required />
-                                    {errors.fname && <span className="text-red-500 text-xs">First Name is required</span>}
+                                    <input type="text" {...register("first_name", { required: true })} className="firstName my-auto ti-form-input" placeholder="John" required />
+                                    {errors.first_name && <span className="text-red-500 text-xs">First Name is required</span>}
                                 </div>
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Middle Name(Optional)</label>
-                                    <input type="text" {...register("middlename")} className="lastName my-auto ti-form-input" placeholder="Pombe" required />
+                                    <input type="text" {...register("middle_name")} className="lastName my-auto ti-form-input" placeholder="Pombe" required />
                                 </div>
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Last Name</label>
-                                    <input type="text" {...register("lname", { required: true })} className="lastName my-auto ti-form-input" placeholder="Magufuli" required />
-                                    {errors.lname && <span className="text-red-500 text-xs">Last Name is required</span>}
+                                    <input type="text" {...register("last_name", { required: true })} className="lastName my-auto ti-form-input" placeholder="Magufuli" required />
+                                    {errors.last_name && <span className="text-red-500 text-xs">Last Name is required</span>}
                                 </div>
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Mobile Number</label>
-                                    <input type="number" {...register("mobilenumber", { required: true })} className="phonenumber my-auto ti-form-input" placeholder="+91 123-456-789" required />
-                                    {errors.mobilenumber && <span className="text-red-500 text-xs">Mobile Number is required</span>}
+                                    <input type="number" {...register("contact", { required: true })} className="phonenumber my-auto ti-form-input" placeholder="+91 123-456-789" required />
+                                    {errors.contact && <span className="text-red-500 text-xs">Mobile Number is required</span>}
                                 </div>
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Alternative Mobile Number(Optional)</label>
-                                    <input type="number" {...register("alternativemobilenumber")} className="phonenumber my-auto ti-form-input" placeholder="+91 123-456-789" required />
+                                    <input type="number" {...register("alternate_contact")} className="phonenumber my-auto ti-form-input" placeholder="+91 123-456-789" required />
                                     <span className="phoneError text-red-500 text-xs hidden">error</span>
                                 </div>
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Email Address</label>
-                                    <input type="email" {...register("emailaddress")} className="email-address my-auto ti-form-input" placeholder="jpombe@example.com" required />
+                                    <input type="email" {...register("email")} className="email-address my-auto ti-form-input" placeholder="jpombe@example.com" required />
                                     <span className="emailError text-red-500 text-xs hidden">error</span>
                                 </div>
 
@@ -140,12 +143,12 @@ const AddSupplier = () => {
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
-                            <div className="my-5">
+                            </div> */}
+                            {/* <div className="my-5">
                                 <input type="checkbox" className="validationCheckbox ti-form-checkbox mt-0.5" id="hs-checkbox-group-12" {...register("termsAndConditions", { required: true })} />
                                 <label htmlFor="hs-checkbox-group-12" className="text-sm text-gray-500 ltr:ml-3 rtl:mr-3 dark:text-white/70">I agree with the <a href="#" className="text-primary hover:underline">terms and conditions</a></label>
                                 {errors.termsAndConditions && <span className="text-red-500 text-xs">You must agree to the terms and conditions</span>}
-                            </div>
+                            </div> */}
                             <button type="submit" onClick={handleSubmit(onSubmit)} className={`ti-btn ti-btn-primary ti-custom-validate-btn ${!isValid && 'opacity-50 cursor-not-allowed'}`} disabled={!isValid}>Submit</button>
                         </div>
                     </div>

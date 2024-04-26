@@ -17,7 +17,8 @@ import SupplierDashboard from "../views/supplier_module/dashboard/supplier_dashb
 import SupplyChain from "../views/supplier_module/supply_chain/supply_chain";
 import SmsManagement from "../views/supplier_module/sms_management/sms_management";
 import AddSupplier from "../views/supplier_module/supplierForms/addSupplier";
-import ListSuppliers from "../views/supplier_module/supplierForms/listSuppliers";
+import ActiveSuppliers from "../views/supplier_module/supplierForms/activeSuppliers";
+import InactiveSuppliers from "../views/supplier_module/supplierForms/inactiveSuppliers";
 
 //Inventory Pages
 import InventoryDashboard from "../views/inventory_module/dashboard/inventory_dashboard";
@@ -228,7 +229,8 @@ export const RouteData = [
     // {/* Supplier content */}
     { path: `${import.meta.env.BASE_URL}supplier/dashboard`, element: <SupplierDashboard /> , title: ''},
     { path: `${import.meta.env.BASE_URL}/addsupplier`, element: <AddSupplier /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}/listsuppliers`, element: <ListSuppliers /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}/activesuppliers`, element: <ActiveSuppliers /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}/inactivesuppliers`, element: <InactiveSuppliers /> , title: ''},
     { path: `${import.meta.env.BASE_URL}supplier/supply-chain`, element: <SupplyChain /> , title: ''},
     { path: `${import.meta.env.BASE_URL}supplier/sms-management`, element: <SmsManagement /> , title: ''},
     

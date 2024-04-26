@@ -6,7 +6,8 @@ const mtaApi = {
     login: (data: any) => post("/authentication/login", data),
   },
  supplier: {
-  addSupplier: (data: any) => post("/supplier/register", data),
+  addSupplier: (data: any) => post("/supplier", data),
+  getSuppliers: get("/supplier")
  },
 };
 

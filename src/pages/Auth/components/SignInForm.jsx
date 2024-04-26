@@ -7,7 +7,7 @@ import { setToken } from "../../../utils/helpers";
 import Alert from "../../../components/Alert";
 
 export default function SignInForm() {
-  const {handleSubmit,register, formState: { isSubmitting },} = useForm();
+  const { handleSubmit, register, formState: { isSubmitting }, } = useForm();
   const { setUser } = useAuth();
 
   const [alert, setAlert] = useState(null);
@@ -15,8 +15,8 @@ export default function SignInForm() {
   const onSubmit = async (values) => {
     try {
       const { data } = await mtaApi.auth.login(values);
-      // if (data.status !== 200) throw new Error(data.description);
-      console.log(data)
+      if (data.message !== "successful login") throw new Error(data.description);
+      // console.log(data)
       setToken(data.access_token);
       // console.log(data.access_token);
       setUser(data);

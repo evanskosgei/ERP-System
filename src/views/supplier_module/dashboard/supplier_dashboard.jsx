@@ -21,10 +21,10 @@ const SupplierDashboard = () => {
 											<Link to="/addsupplier" className="text-sky-400 font-bold">Add Supplier</Link>
 										</li>
 										<li>
-											<Link to="/listsuppliers" className="text-sky-400 font-bold">List of active Suppliers</Link>
+											<Link to="/activesuppliers" className="text-sky-400 font-bold">List of active Suppliers</Link>
 										</li>
 										<li>
-											<Link to="" className="text-sky-400 font-bold">List of active Suppliers</Link>
+											<Link to="/inactivesuppliers" className="text-sky-400 font-bold">List of Inactive Suppliers</Link>
 										</li>
 									</ul>
 								</div>
