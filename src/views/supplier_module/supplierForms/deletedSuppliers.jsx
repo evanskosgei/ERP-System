@@ -4,10 +4,10 @@ import { AgGridReact } from 'ag-grid-react';
 import '@ag-grid-community/styles/ag-grid.css';
 import '@ag-grid-community/styles/ag-theme-alpine.css';
 import { CSVLink } from "react-csv";
-import Status from './status';
+import EditSupplier from './editSupplier';
 import mtaApi from '../../../api/mtaApi';
 
-const InactiveSuppliers = () => {
+const DeletedSuppliers = () => {
     const [rowData, setRowData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedRowData, setSelectedRowData] = useState(null);
@@ -32,19 +32,18 @@ const InactiveSuppliers = () => {
         floatingFilter: false
     };
 
-
     const onGridReady = useCallback((params) => {
-        const inactiveSupp = async () => {
-            await mtaApi.supplier.getInactiveSuppliers
+        const deletedSupp = async () => {
+            await mtaApi.supplier.deletedSuppliers
                 .then(resp => {
                     setRowData(resp.data.message);
                     console.log(resp.data.message)
                 })
                 .catch(error => {
                     console.log(error)
-                })
-        }
-        inactiveSupp();
+                });
+        };
+        deletedSupp();
     }, []);
 
     const onRowClicked = (event) => {
@@ -74,7 +73,7 @@ const InactiveSuppliers = () => {
     };
     return (
         <div>
-            <PageHeader currentpage="Inactive Supplier" activepage="Supplier" mainpage="Inactive Supplier" />
+            <PageHeader currentpage="Deleted Supplier" activepage="Supplier" mainpage="Deleted Supplier" />
 
             <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                 <input
@@ -84,7 +83,7 @@ const InactiveSuppliers = () => {
                     placeholder="Search..."
                     style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '100%', boxSizing: 'border-box' }}
                 />
-                <CSVLink data={rowData} filename="Deactivated suppliers" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
+                <CSVLink data={rowData} filename="suppliers" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                     </svg>
@@ -103,9 +102,9 @@ const InactiveSuppliers = () => {
                     onRowClicked={onRowClicked}
                 />
             </div>
-            {isModalOpen && <Status data={selectedRowData} onClose={closeModal} />}
+            {/* {isModalOpen && <EditSupplier data={selectedRowData} onClose={closeModal} />} */}
         </div>
-    );
+    )
 }
 
-export default InactiveSuppliers;
+export default DeletedSuppliers;

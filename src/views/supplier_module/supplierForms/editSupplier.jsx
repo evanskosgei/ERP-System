@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import mtaApi from "../../../api/mtaApi";
 
 const EditSupplier = ({ onClose, data }) => {
     const {
@@ -22,7 +23,20 @@ const EditSupplier = ({ onClose, data }) => {
         }
     }, [data, setValue]);
 
-    const onSubmit = async (values) => { };
+    const onSubmit = async (values) => { 
+        console.log(data.id)
+        await mtaApi.supplier.updateSupplier(data.id, values)
+        .then(response => {
+            console.log(response)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    };
+
+    const handleApprove = () => {
+        console.log("Approve")
+    }
 
     const toggleEditMode = () => {
         setEditMode(!editMode);
@@ -205,13 +219,13 @@ const EditSupplier = ({ onClose, data }) => {
                             onClick={editMode ? handleSubmit(onSubmit) : toggleEditMode}
                             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 dark:text-white dark:hover:text-white"
                         >
-                            {editMode ? "Save" : "Update"}
+                            {editMode ? "Save" : "Edit"}
                         </button>
                         <button
-                            onClick={onClose}
+                            onClick={handleApprove}
                             className="py-2.5 px-5 ms-3 text-sm font-medium focus:outline-none rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"
                         >
-                            Delete
+                            Approve
                         </button>
                     </div>
                 </div>

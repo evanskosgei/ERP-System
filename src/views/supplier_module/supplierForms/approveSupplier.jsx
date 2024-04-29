@@ -4,10 +4,10 @@ import { AgGridReact } from 'ag-grid-react';
 import '@ag-grid-community/styles/ag-grid.css';
 import '@ag-grid-community/styles/ag-theme-alpine.css';
 import { CSVLink } from "react-csv";
-import Status from './status';
+import EditSupplier from './editSupplier';
 import mtaApi from '../../../api/mtaApi';
 
-const InactiveSuppliers = () => {
+const ApproveSupplier = () => {
     const [rowData, setRowData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedRowData, setSelectedRowData] = useState(null);
@@ -23,6 +23,7 @@ const InactiveSuppliers = () => {
         { headerName: "Address", field: "address", sortable: true, editable: false, filter: true },
         { headerName: "Postal Code", field: "postal_code", sortable: true, editable: false, filter: true },
         { headerName: "Country", field: "country", sortable: true, editable: false, filter: true },
+        // { headerName: "Status", field: "active", sortable: false, filter: true, editable: false },
     ];
 
     const defaultColDef = {
@@ -31,21 +32,24 @@ const InactiveSuppliers = () => {
         filter: true,
         floatingFilter: false
     };
-
-
     const onGridReady = useCallback((params) => {
-        const inactiveSupp = async () => {
+        const newUnApproved = async () => {
             await mtaApi.supplier.getInactiveSuppliers
                 .then(resp => {
                     setRowData(resp.data.message);
-                    console.log(resp.data.message)
-                })
-                .catch(error => {
-                    console.log(error)
-                })
+                    console.log(resp.data.message);
+                });
         }
-        inactiveSupp();
+        newUnApproved();
     }, []);
+
+    // useEffect(() => {
+    //     mtaApi.supplier.getSuppliers
+    //         .then(resp => {
+    //             setRowData(resp.data.message);
+    //             console.log(resp.data.message)
+    //         })
+    // }, []);
 
     const onRowClicked = (event) => {
         const selectedData = event.data;
@@ -74,8 +78,7 @@ const InactiveSuppliers = () => {
     };
     return (
         <div>
-            <PageHeader currentpage="Inactive Supplier" activepage="Supplier" mainpage="Inactive Supplier" />
-
+            <PageHeader currentpage="New UnApproved Supplier" activepage="Supplier" mainpage="New UnApproved Supplier" />
             <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                 <input
                     type="text"
@@ -84,7 +87,7 @@ const InactiveSuppliers = () => {
                     placeholder="Search..."
                     style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '100%', boxSizing: 'border-box' }}
                 />
-                <CSVLink data={rowData} filename="Deactivated suppliers" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
+                <CSVLink data={rowData} filename="suppliers" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                     </svg>
@@ -103,9 +106,9 @@ const InactiveSuppliers = () => {
                     onRowClicked={onRowClicked}
                 />
             </div>
-            {isModalOpen && <Status data={selectedRowData} onClose={closeModal} />}
+            {isModalOpen && <EditSupplier data={selectedRowData} onClose={closeModal} />}
         </div>
-    );
+    )
 }
 
-export default InactiveSuppliers;
+export default ApproveSupplier
