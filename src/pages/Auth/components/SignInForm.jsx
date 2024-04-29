@@ -49,16 +49,11 @@ export default function SignInForm() {
           </div>
         </div>
         <div>
-          <div className="flex justify-between items-center">
+          <div className="flex">
             <label htmlFor="password" className="block text-sm mb-2 dark:text-white">
               Password
             </label>
-            <Link
-              className="text-sm text-primary decoration-2 hover:underline font-medium"
-              to={`${import.meta.env.BASE_URL}Authentication/forgetpassword/cover2`}
-            >
-              Forgot password?
-            </Link>
+            
           </div>
           <div className="relative">
             <input
@@ -72,7 +67,15 @@ export default function SignInForm() {
             />
           </div>
         </div>
-        <div className="flex items-center">
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-sm border border-transparent font-semibold bg-primary text-white hover:bg-primary focus:outline-none focus:ring-0 focus:ring-primary focus:ring-offset-0 transition-all text-sm dark:focus:ring-offset-white/10 disabled:bg-gray-300"
+        >
+          {!isSubmitting ? "Sign in" : "Loading..."}
+        </button>
+
+        <div className="flex mt-4">
           <div className="flex">
             <input
               id="remember-me"
@@ -87,14 +90,17 @@ export default function SignInForm() {
               Remember me
             </label>
           </div>
+
+          <div className="ltr:ml-6 rtl:mr-6">
+          <Link
+              className="text-sm text-primary decoration-2 hover:underline font-medium"
+              to={`${import.meta.env.BASE_URL}Authentication/forgetpassword/cover2`}
+            >
+              Forgot password?
+            </Link>
+          </div>
         </div>
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-sm border border-transparent font-semibold bg-primary text-white hover:bg-primary focus:outline-none focus:ring-0 focus:ring-primary focus:ring-offset-0 transition-all text-sm dark:focus:ring-offset-white/10 disabled:bg-gray-300"
-        >
-          {!isSubmitting ? "Sign in" : "Loading..."}
-        </button>
+        
       </div>
     </form>
   );

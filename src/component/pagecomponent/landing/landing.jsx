@@ -97,9 +97,9 @@ const Landing = ({local_varaiable,ThemeChanger}) => {
 							</div>
 							<div className="header-center">
 								<div className="responsive-logo my-auto">
-									<Link className="responsive-logo-light" to={`${import.meta.env.BASE_URL}dashboards/sales/`} aria-label="Brand"><img
+									<Link className="responsive-logo-light" to={`${import.meta.env.BASE_URL}dashboards/main`} aria-label="Brand"><img
 										src={ALLImages('logo')} alt="logo" className="mx-auto" /></Link>
-									<Link className="responsive-logo-dark" to={`${import.meta.env.BASE_URL}dashboards/sales/`} aria-label="Brand"><img
+									<Link className="responsive-logo-dark" to={`${import.meta.env.BASE_URL}dashboards/main`} aria-label="Brand"><img
 										src={ALLImages('logo')} alt="logo" className="mx-auto" /></Link>
 								</div>
 							</div>
@@ -114,7 +114,7 @@ const Landing = ({local_varaiable,ThemeChanger}) => {
 									<div className="flex space-x-3 rtl:space-x-reverse">
 										<Link to={`${import.meta.env.BASE_URL}Authentication/signup/basic/`} className="ti-btn w-[6.375rem] ti-btn-dark m-0 p-2">Sign
 											Up</Link>
-										<Link to={`${import.meta.env.BASE_URL}dashboards/sales/`} className="ti-btn w-[6.375rem] m-0 p-2 ti-btn-primary">Get Started</Link>
+										<Link to={`${import.meta.env.BASE_URL}dashboards/main`} className="ti-btn w-[6.375rem] m-0 p-2 ti-btn-primary">Get Started</Link>
 										<Link aria-label="anchor" to="#" className="ti-btn m-0 p-2 px-3 ti-btn-secondary"
 											data-hs-overlay="#hs-overlay-switcher"><i className="ri-settings-2-line animate-spin">
 											</i></Link>
@@ -133,9 +133,9 @@ const Landing = ({local_varaiable,ThemeChanger}) => {
 							<nav className="main-menu-container nav nav-pills flex-column sub-open">
 								<div className="landing-logo-container my-auto hidden lg:block">
 									<div className="responsive-logo">
-										<Link className="responsive-logo-light" to={`${import.meta.env.BASE_URL}dashboards/sales/`} aria-label="Brand"><img
+										<Link className="responsive-logo-light" to={`${import.meta.env.BASE_URL}dashboards/main`} aria-label="Brand"><img
 											src={ALLImages('logo')} alt="logo" className="mx-auto" /></Link>
-										<Link className="responsive-logo-dark" to={`${import.meta.env.BASE_URL}dashboards/sales/`} aria-label="Brand"><img
+										<Link className="responsive-logo-dark" to={`${import.meta.env.BASE_URL}dashboards/main`} aria-label="Brand"><img
 											src={ALLImages('dark')} alt="logo" className="mx-auto" /></Link>
 									</div>
 								</div>
@@ -153,7 +153,7 @@ const Landing = ({local_varaiable,ThemeChanger}) => {
 								<div className="lg:flex hidden space-x-2 rtl:space-x-reverse">
 									<Link to={`${import.meta.env.BASE_URL}Authentication/signup/basic/`} className="ti-btn w-[6.375rem] ti-btn-dark m-0 p-2">Sign
 										Up</Link>
-									<Link to={`${import.meta.env.BASE_URL}dashboards/sales/`} className="ti-btn w-[6.375rem] m-0 p-2 ti-btn-primary">Get Started</Link>
+									<Link to={`${import.meta.env.BASE_URL}dashboards/main`} className="ti-btn w-[6.375rem] m-0 p-2 ti-btn-primary">Get Started</Link>
 									<Link aria-label="anchor" to="#" className="ti-btn m-0 p-2 px-3 ti-btn-secondary"
 										data-hs-overlay="#hs-overlay-switcher"><i className="ri-settings-2-line animate-spin"></i></Link>
 								</div>

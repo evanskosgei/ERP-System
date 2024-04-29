@@ -60,7 +60,7 @@ const Sidebar = ({ local_varaiable, ThemeChanger }) => {
 						items.selected = false;
 
 						if (dd === '/') {
-							dd = '/dashboards/sales/';
+							dd = '/dashboards/main';
 						}
 						if (dd === items.path + '/') {
 							items.active = true;
@@ -410,7 +410,7 @@ const Sidebar = ({ local_varaiable, ThemeChanger }) => {
 
 
 				<div className="main-sidebar-header">
-					<Link to={`${import.meta.env.BASE_URL}dashboards/sales/`} className="header-logo">
+					<Link to={`${import.meta.env.BASE_URL}dashboards/main`} className="header-logo">
 						<img src={ALLImages('logo')} alt="logo" className="main-logo desktop-logo" />
 						<img src={ALLImages('togglelogo')} alt="logo" className="main-logo toggle-logo" />
 						<img src={ALLImages('dark')} alt="logo" className="main-logo desktop-dark" />

@@ -17,7 +17,7 @@ const Error500 = () => {
                 <p className="text-gray-600 dark:text-white/70">Internal Server 500 Error. we are fixing the problem .Please try after some time.</p>
                 <div className="mt-5 flex flex-col justify-center items-center gap-2 sm:flex-row sm:gap-3">
                     <Link className="w-full sm:w-auto inline-flex justify-center items-center gap-x-3 text-center bg-primary hover:bg-primary border border-transparent text-white text-sm font-medium rounded-sm focus:outline-none focus:ring-0 focus:ring-primary focus:ring-offset-0 focus:ring-offset-white transition py-2 px-3 dark:focus:ring-offset-white/10"
-                        to={`${import.meta.env.BASE_URL}dashboards/sales`}>
+                        to={`${import.meta.env.BASE_URL}dashboards/main`}>
                         <i className="ri-arrow-left-line"></i>
                         Get Back to Home
                     </Link>

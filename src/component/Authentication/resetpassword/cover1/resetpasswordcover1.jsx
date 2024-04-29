@@ -12,7 +12,7 @@ const ResetPasswordCover1 = () => {
         </Helmet>
         <div className="flex justify-center min-h-screen align-middle">
             <main id="content" className="w-full max-w-md mx-auto my-auto p-6">
-                <Link to={`${import.meta.env.BASE_URL}dashboards/sales/`} className="header-logo">
+                <Link to={`${import.meta.env.BASE_URL}dashboards/main`} className="header-logo">
                     <img src={ALLImages('dark')} alt="logo" className="mx-auto block" />
                 </Link>
                 <div className="mt-7 bg-white rounded-sm shadow-sm dark:bg-bgdark">
