@@ -20,7 +20,7 @@ const ForgetPasswordBasic = () => {
 				<body class="authentication-page"></body>
 			</Helmet>
 			<main id="content">
-				<Link to={`${import.meta.env.BASE_URL}dashboards/sales/`} className="header-logo">
+				<Link to={`${import.meta.env.BASE_URL}dashboards/main`} className="header-logo">
 					<img src={ALLImages('logo')} alt="logo" className="mx-auto block dark:hidden" />
 					<img src={ALLImages('toggledark')} alt="logo" className="mx-auto hidden dark:block" />
 				</Link>

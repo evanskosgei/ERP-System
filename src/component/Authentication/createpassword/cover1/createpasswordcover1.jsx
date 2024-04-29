@@ -12,7 +12,7 @@ const CreatePasswordCover1 = () => {
 			</Helmet>
             <div className="flex justify-center min-h-screen align-middle">
                 <main id="content" className="w-full max-w-md mx-auto my-auto p-6">
-                    <Link to={`${import.meta.env.BASE_URL}dashboards/sales/`} className="header-logo">
+                    <Link to={`${import.meta.env.BASE_URL}dashboards/main`} className="header-logo">
                         <img src={ALLImages('desktoplight')} alt="logo" className="mx-auto block" />
 
                     </Link>
@@ -22,7 +22,7 @@ const CreatePasswordCover1 = () => {
                                 <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">Create Password</h1>
                                 <p className="mt-3 text-sm text-gray-600 dark:text-white/70">
                                     Back To Home
-                                    <Link className="text-primary decoration-2 hover:underline font-medium" to={`${import.meta.env.BASE_URL}dashboards/sales`}> Click Here..!</Link>
+                                    <Link className="text-primary decoration-2 hover:underline font-medium" to={`${import.meta.env.BASE_URL}dashboards/main`}> Click Here..!</Link>
                                 </p>
                             </div>
 

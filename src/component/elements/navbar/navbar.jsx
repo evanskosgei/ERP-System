@@ -19,7 +19,7 @@ const Navbar = () => {
                 <header
                   className= "flex flex-wrap sm:justify-start sm:flex-nowrap z-40 w-full bg-white text-sm dark:bg-bgdark">
                   <nav className= " w-full mx-auto sm:px-4 sm:flex sm:items-center sm:justify-between" aria-label="Global">
-                    <Link to={`${import.meta.env.BASE_URL}dashboards/sales/`} className= "header-logo">
+                    <Link to={`${import.meta.env.BASE_URL}dashboards/main`} className= "header-logo">
                       <img src= {ALLImages('logo')} alt="logo" className= "dark:hidden block"/>
                       <img src= {ALLImages('dark')} alt="logo" className= "hidden dark:block"/>
                     </Link>
@@ -46,7 +46,7 @@ const Navbar = () => {
                 <header
                   className= "flex flex-wrap sm:justify-start sm:flex-nowrap z-40 w-full bg-white text-sm dark:bg-bgdark">
                   <nav className= "w-full mx-auto px-4 xxl:flex xxl:items-center xxl:justify-between" aria-label="Global">
-                    <Link to={`${import.meta.env.BASE_URL}dashboards/sales/`} className= "header-logo">
+                    <Link to={`${import.meta.env.BASE_URL}dashboards/main`} className= "header-logo">
                       <img src= {ALLImages('logo')} alt="logo" className= "dark:hidden block"/>
                       <img src= {ALLImages('dark')} alt="logo" className= "hidden dark:block"/>
                     </Link>
@@ -87,7 +87,7 @@ const Navbar = () => {
                   className= "flex flex-wrap sm:justify-start sm:flex-nowrap z-40 w-full bg-white text-sm dark:bg-bgdark">
                   <nav className= "w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between" aria-label="Global">
                     <div className= "flex items-center justify-between">
-                      <Link to={`${import.meta.env.BASE_URL}dashboards/sales/`} className= "header-logo">
+                      <Link to={`${import.meta.env.BASE_URL}dashboards/main`} className= "header-logo">
                         <img src= {ALLImages('logo')} alt="logo" className= "dark:hidden block"/>
                         <img src= {ALLImages('dark')} alt="logo" className= "hidden dark:block"/>
                       </Link>
@@ -135,7 +135,7 @@ const Navbar = () => {
                   className= "flex flex-wrap sm:justify-start sm:flex-nowrap z-40 w-full bg-white text-sm dark:bg-bgdark">
                   <nav className= "w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between" aria-label="Global">
                     <div className= "flex items-center justify-between">
-                      <Link to={`${import.meta.env.BASE_URL}dashboards/sales/`} className= "header-logo">
+                      <Link to={`${import.meta.env.BASE_URL}dashboards/main`} className= "header-logo">
                         <img src= {ALLImages('logo')} alt="logo" className= "dark:hidden block"/>
                         <img src= {ALLImages('dark')} alt="logo" className= "hidden dark:block"/>
                       </Link>
@@ -184,7 +184,7 @@ const Navbar = () => {
                   className= "flex flex-wrap sm:justify-start sm:flex-nowrap z-40 w-full bg-white text-sm dark:bg-bgdark">
                   <nav className= "w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between" aria-label="Global">
                     <div className= "flex items-center justify-between">
-                      <Link to={`${import.meta.env.BASE_URL}dashboards/sales/`} className= "header-logo">
+                      <Link to={`${import.meta.env.BASE_URL}dashboards/main`} className= "header-logo">
                         <img src= {ALLImages('logo')} alt="logo" className= "dark:hidden block"/>
                         <img src= {ALLImages('dark')} alt="logo" className= "hidden dark:block"/>
                       </Link>
@@ -233,7 +233,7 @@ const Navbar = () => {
                   className= "flex flex-wrap sm:justify-start sm:flex-nowrap z-40 w-full bg-white text-sm dark:bg-bgdark">
                   <nav className= "w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between" aria-label="Global">
                     <div className= "flex items-center justify-between">
-                      <Link to={`${import.meta.env.BASE_URL}dashboards/sales/`} className= "header-logo">
+                      <Link to={`${import.meta.env.BASE_URL}dashboards/main`} className= "header-logo">
                         <img src= {ALLImages('logo')} alt="logo" className= "dark:hidden block"/>
                         <img src= {ALLImages('dark')} alt="logo" className= "hidden dark:block"/>
                       </Link>
@@ -282,7 +282,7 @@ const Navbar = () => {
                   className= "relative flex flex-wrap sm:justify-start sm:flex-nowrap z-40 w-full bg-white text-sm dark:bg-bgdark">
                   <nav className= "w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between" aria-label="Global">
                     <div className= "flex items-center justify-between">
-                      <Link to={`${import.meta.env.BASE_URL}dashboards/sales/`} className= "header-logo">
+                      <Link to={`${import.meta.env.BASE_URL}dashboards/main`} className= "header-logo">
                         <img src= {ALLImages('logo')} alt="logo" className= "dark:hidden block"/>
                         <img src= {ALLImages('dark')} alt="logo" className= "hidden dark:block"/>
                       </Link>
@@ -373,7 +373,7 @@ const Navbar = () => {
                   className= "flex flex-wrap sm:justify-start sm:flex-nowrap w-full bg-primary text-sm py-4 rounded-sm">
                   <nav className= "w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between" aria-label="Global">
                     <div className= "flex items-center justify-between">
-                      <Link to={`${import.meta.env.BASE_URL}dashboards/sales/`} className= "header-logo">
+                      <Link to={`${import.meta.env.BASE_URL}dashboards/main`} className= "header-logo">
                         <img src= {ALLImages('desktoplight')} alt="logo" className= "block"/>
                       </Link>
                       <div className= "sm:hidden">
@@ -412,7 +412,7 @@ const Navbar = () => {
                   className= "flex flex-wrap sm:justify-start sm:flex-nowrap z-40 w-full bg-secondary text-sm py-4 rounded-sm">
                   <nav className= "w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between" aria-label="Global">
                     <div className= "flex items-center justify-between">
-                      <Link to={`${import.meta.env.BASE_URL}dashboards/sales/`} className= "header-logo">
+                      <Link to={`${import.meta.env.BASE_URL}dashboards/main`} className= "header-logo">
                         <img src= {ALLImages('desktoplight')} alt="logo" className= "block"/>
                       </Link>
                       <div className= "sm:hidden">

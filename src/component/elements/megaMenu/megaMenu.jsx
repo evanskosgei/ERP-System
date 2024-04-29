@@ -19,7 +19,7 @@ const MegaMenu = () => {
               <header className="relative flex flex-wrap md:justify-start md:flex-nowrap w-full bg-white text-sm dark:bg-bgdark">
                 <nav className="w-full mx-auto px-4 md:flex md:items-center md:justify-between" aria-label="Global">
                   <div className="flex items-center justify-between">
-                    <Link to={`${import.meta.env.BASE_URL}dashboards/sales/`} className="header-logo">
+                    <Link to={`${import.meta.env.BASE_URL}dashboards/main`} className="header-logo">
                       <img src={ALLImages('logo')} alt="logo" className="dark:hidden block" />
                       <img src={ALLImages('dark')} alt="logo" className="hidden dark:block" />
                     </Link>
@@ -146,7 +146,7 @@ const MegaMenu = () => {
               <header className="relative flex flex-wrap md:justify-start md:flex-nowrap w-full bg-white text-sm dark:bg-bgdark">
                 <nav className="w-full mx-auto px-4 md:flex md:items-center md:justify-between" aria-label="Global">
                   <div className="flex items-center justify-between">
-                    <Link to={`${import.meta.env.BASE_URL}dashboards/sales/`} className="header-logo">
+                    <Link to={`${import.meta.env.BASE_URL}dashboards/main`} className="header-logo">
                       <img src={ALLImages('logo')} alt="logo" className="dark:hidden block" />
                       <img src={ALLImages('dark')} alt="logo" className="hidden dark:block" />
                     </Link>
@@ -274,7 +274,7 @@ const MegaMenu = () => {
               <header className="relative flex flex-wrap md:justify-start md:flex-nowrap w-full bg-white text-sm dark:bg-bgdark">
                 <nav className="w-full mx-auto px-4 md:flex md:items-center md:justify-between" aria-label="Global">
                   <div className="flex items-center justify-between">
-                    <Link to={`${import.meta.env.BASE_URL}dashboards/sales/`} className="header-logo">
+                    <Link to={`${import.meta.env.BASE_URL}dashboards/main`} className="header-logo">
                       <img src={ALLImages('logo')} alt="logo" className="dark:hidden block" />
                       <img src={ALLImages('dark')} alt="logo" className="hidden dark:block" />
                     </Link>
@@ -407,7 +407,7 @@ const MegaMenu = () => {
                   aria-label="Global"
                 >
                   <div className="flex items-center justify-between">
-                    <Link to={`${import.meta.env.BASE_URL}dashboards/sales/`} className="header-logo">
+                    <Link to={`${import.meta.env.BASE_URL}dashboards/main`} className="header-logo">
                       <img src={ALLImages('logo')} alt="logo" className="dark:hidden block" />
                       <img src={ALLImages('dark')} alt="logo" className="hidden dark:block" />
                     </Link>

@@ -21,7 +21,7 @@ const ForgetPasswordCover2 = () => {
             </Helmet>
             <div className="lg:col-span-6 col-span-12 hidden lg:block relative">
                 <div className="cover relative w-full h-full z-[1] p-10">
-                    <Link to={`${import.meta.env.BASE_URL}dashboards/sales/`} className="header- logo">
+                    <Link to={`${import.meta.env.BASE_URL}dashboards/main`} className="header- logo">
 
                         <img src={ALLImages('dark')} alt="logo" className="ltr:ml-auto rtl:mr-auto block" />
 
@@ -37,7 +37,7 @@ const ForgetPasswordCover2 = () => {
                 <div className="authentication-page w-full">
 
                     <main id="content" className="w-full max-w-md mx-auto p-6">
-                        <Link to={`${import.meta.env.BASE_URL}dashboards/sales/`} className="header-logo lg:hidden">
+                        <Link to={`${import.meta.env.BASE_URL}dashboards/main`} className="header-logo lg:hidden">
                             <img src={ALLImages('logo')} alt="logo" className="mx-auto block dark:hidden" />
                             <img src={ALLImages('dark')} alt="logo" className="mx-auto hidden dark:block" />
                         </Link>
