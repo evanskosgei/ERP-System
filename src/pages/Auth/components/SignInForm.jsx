@@ -7,11 +7,7 @@ import { setToken } from "../../../utils/helpers";
 import Alert from "../../../components/Alert";
 
 export default function SignInForm() {
-  const {
-    handleSubmit,
-    register,
-    formState: { isSubmitting },
-  } = useForm();
+  const { handleSubmit, register, formState: { isSubmitting }, } = useForm();
   const { setUser } = useAuth();
 
   const [alert, setAlert] = useState(null);
@@ -19,11 +15,13 @@ export default function SignInForm() {
   const onSubmit = async (values) => {
     try {
       const { data } = await mtaApi.auth.login(values);
-      if (data.status !== 200) throw new Error(data.description);
+      if (data.message !== "successful login") throw new Error(data.description);
+      // console.log(data)
       setToken(data.access_token);
+      // console.log(data.access_token);
       setUser(data);
     } catch (error) {
-      const message = error.response?.data?.response ?? error.message;
+      const message = error.response?.data?.error ?? error.message;
       setAlert({ type: "error", message });
     }
   };
@@ -33,16 +31,16 @@ export default function SignInForm() {
       <div className="grid gap-y-4">
         {alert && <Alert alert={alert} />}
         <div>
-          <label htmlFor="username" className="block text-sm mb-2 dark:text-white">
+          <label htmlFor="email" className="block text-sm mb-2 dark:text-white">
             Email address
           </label>
           <div className="relative">
             <input
               type="email"
-              id="username"
-              name="username"
-              {...register("username")}
-              autoComplete="current-username"
+              id="email"
+              name="email"
+              {...register("email")}
+              autoComplete="current-email"
               className="py-2 px-3 block w-full border-gray-200 rounded-sm text-sm focus:border-primary focus:ring-primary dark:bg-bgdark dark:border-white/10 dark:text-white/70"
               required
             />
@@ -74,33 +72,6 @@ export default function SignInForm() {
         >
           {!isSubmitting ? "Sign in" : "Loading..."}
         </button>
-
-        <div className="flex mt-4">
-          <div className="flex">
-            <input
-              id="remember-me"
-              name="remember-me"
-              type="checkbox"
-              {...register("remember-me")}
-              className="shrink-0 mt-0.5 border-gray-200 rounded text-primary pointer-events-none focus:ring-primary dark:bg-bgdark dark:border-white/10 dark:checked:bg-primary dark:checked:border-primary dark:focus:ring-offset-white/10"
-            />
-          </div>
-          <div className="ltr:ml-3 rtl:mr-3">
-            <label htmlFor="remember-me" className="text-sm dark:text-white">
-              Remember me
-            </label>
-          </div>
-
-          <div className="ltr:ml-6 rtl:mr-6">
-          <Link
-              className="text-sm text-primary decoration-2 hover:underline font-medium"
-              to={`${import.meta.env.BASE_URL}Authentication/forgetpassword/cover2`}
-            >
-              Forgot password?
-            </Link>
-          </div>
-        </div>
-        
       </div>
     </form>
   );
