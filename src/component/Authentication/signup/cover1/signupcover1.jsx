@@ -11,7 +11,7 @@ const SignUpCover1 = () => {
           <body class="cover1 justify-center"></body>
         </Helmet>
     <main id="content"  className="w-full max-w-md mx-auto my-auto p-6">
-        <Link to={`${import.meta.env.BASE_URL}dashboards/sales/`} className="header-logo">
+        <Link to={`${import.meta.env.BASE_URL}dashboards/main`} className="header-logo">
             <img src= {ALLImages('dark')} alt="logo" className="mx-auto block"/>
         </Link>
         <div className="mt-7 box mb-0">

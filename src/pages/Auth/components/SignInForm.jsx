@@ -47,16 +47,11 @@ export default function SignInForm() {
           </div>
         </div>
         <div>
-          <div className="flex justify-between items-center">
+          <div className="flex">
             <label htmlFor="password" className="block text-sm mb-2 dark:text-white">
               Password
             </label>
-            <Link
-              className="text-sm text-primary decoration-2 hover:underline font-medium"
-              to={`${import.meta.env.BASE_URL}Authentication/forgetpassword/cover2`}
-            >
-              Forgot password?
-            </Link>
+            
           </div>
           <div className="relative">
             <input

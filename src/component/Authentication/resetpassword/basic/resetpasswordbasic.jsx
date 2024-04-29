@@ -21,7 +21,7 @@ const ResetPasswordBasic = () => {
                 <body class="authentication-page"></body>
         </Helmet>
 		<main id="content">
-			<a to={`${import.meta.env.BASE_URL}dashboards/sales`} className="header-logo">
+			<a to={`${import.meta.env.BASE_URL}dashboards/main`} className="header-logo">
 				<img src= {ALLImages('logo')} alt="logo" className="mx-auto block dark:hidden" />
 				<img src= {ALLImages('dark')} alt="logo" className="mx-auto hidden dark:block" />
 			</a>

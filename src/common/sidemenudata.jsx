@@ -35,7 +35,7 @@ export const MenuItems = [
 
 			{ id: 2,icon: Dashboardsvg, title: "Dashboards", type: "sub", active: false, selected: false, children: [
 
-					{ id: 2.1, path: `${import.meta.env.BASE_URL}dashboards/sales`, type: "link", active: false, selected: false, title: "Home" },
+					{ id: 2.1, path: `${import.meta.env.BASE_URL}dashboards/main`, type: "link", active: false, selected: false, title: "Home" },
 					{ id: 2.2, path: `${import.meta.env.BASE_URL}activities`, type: "link", active: false, selected: false, title: "Activities" },
 					{ id: 2.3, path: `${import.meta.env.BASE_URL}notifications`, type: "link", active: false, selected: false, title: "Notification" },
 					{ id: 2.4, path: `${import.meta.env.BASE_URL}my_profile`, type: "link", active: false, selected: false, title: "My Profile" },

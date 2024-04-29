@@ -295,14 +295,14 @@ const Header = ({ local_varaiable, ThemeChanger }) => {
             <div className="responsive-logo">
               <Link
                 className="responsive-logo-dark"
-                to={`${import.meta.env.BASE_URL}dashboards/sales`}
+                to={`${import.meta.env.BASE_URL}dashboards/main`}
                 aria-label="Brand"
               >
                 <img src={ALLImages("logo")} alt="logo" className="mx-auto" />
               </Link>
               <Link
                 className="responsive-logo-light"
-                to={`${import.meta.env.BASE_URL}dashboards/sales`}
+                to={`${import.meta.env.BASE_URL}dashboards/main`}
                 aria-label="Brand"
               >
                 <img src={ALLImages("dark")} alt="logo" className="mx-auto" />

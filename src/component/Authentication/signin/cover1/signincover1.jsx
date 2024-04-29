@@ -13,7 +13,7 @@ const SignInCover1 = () => {
           <body class="cover1 justify-center"></body>
         </Helmet>
         <main id="content"  className="w-full max-w-md mx-auto my-auto p-6">
-            <Link to={`${import.meta.env.BASE_URL}dashboards/sales/`} className="header-logo">
+            <Link to={`${import.meta.env.BASE_URL}dashboards/main`} className="header-logo">
                 <img src={ALLImages('dark')} alt="logo" className="mx-auto block"/>
             </Link>
             <div className="mt-7 bg-white rounded-sm shadow-sm dark:bg-bgdark">
@@ -81,7 +81,7 @@ const SignInCover1 = () => {
                                         <label htmlFor="remember-me" className="text-sm dark:text-white">Remember me</label>
                                     </div>
                                 </div>
-                                <Link to={`${import.meta.env.BASE_URL}dashboards/sales/`}
+                                <Link to={`${import.meta.env.BASE_URL}dashboards/main`}
                                 className="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-sm border border-transparent font-semibold bg-primary text-white hover:bg-primary focus:outline-none focus:ring-0 focus:ring-primary focus:ring-offset-0 transition-all text-sm dark:focus:ring-offset-white/10">Sign
                                 in</Link>
                             </div>
