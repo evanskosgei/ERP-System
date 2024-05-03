@@ -326,6 +326,7 @@ const Modal = () => {
 						</div>
 					</div>
 				</div>
+
 				<div className="col-span-12 sm:col-span-6 xl:!col-span-4">
 					<div className="box">
 						<div className="box-header">
