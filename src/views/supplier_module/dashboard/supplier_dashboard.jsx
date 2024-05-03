@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const SupplierDashboard = () => {
 	return (
 		<div>
-			<PageHeader currentpage="Supplier Dashboard" activepage="Supplier" mainpage="Supplier Dashboard" />
+			<PageHeader currentpage="Supplier Dashboard" href="/dashboards/main" activepage="Dashboard" mainpage="Supplier Dashboard" />
 
 
 			<div className="grid grid-cols-12 gap-6">
@@ -34,7 +34,7 @@ const SupplierDashboard = () => {
 									<ul className="flex flex-col">
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/addsupplier" className="">
+												<Link to="/supplier/create-supplier" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-smartphone-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -51,7 +51,7 @@ const SupplierDashboard = () => {
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/approvesuppliers" className="">
+												<Link to="/supplier/approve-suppliers" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-tablet-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -66,7 +66,7 @@ const SupplierDashboard = () => {
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/activesuppliers" className="">
+												<Link to="/supplier/active-suppliers" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-airplay-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -86,13 +86,13 @@ const SupplierDashboard = () => {
 									<ul className="flex flex-col">
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/deactivesuppliers" className="">
+												<Link to="/supplier/deactivated-suppliers" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-smartphone-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
 														</div>
 														<div className="">
-															<p className="mb-0 text-sm">List Deactivated Product Suppliers</p>
+															<p className="mb-0 text-sm">List Deactivated Suppliers</p>
 															<p className="mb-0 text-gray-500 dark:text-white/70 text-xs">List of a Deactivated Product Suppliers</p>
 														</div>
 													</div>
@@ -106,7 +106,7 @@ const SupplierDashboard = () => {
 														<i className="ri ri-tablet-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
 													</div>
 													<div className="">
-														<p className="mb-0 text-sm">Approve Reactivated Product Supplier</p>
+														<p className="mb-0 text-sm">Approve Reactivated Supplier</p>
 														<p className="mb-0 text-gray-500 dark:text-white/70 text-xs">Approve a Reactivated Product supplier</p>
 													</div>
 												</div>
@@ -114,7 +114,7 @@ const SupplierDashboard = () => {
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/deletedsuppliers" className="">
+												<Link to="/supplier/deleted-suppliers" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-airplay-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -222,7 +222,6 @@ const SupplierDashboard = () => {
 				{/* <div className="col-span-12">
 					<div className="box">
 						<div className="box-body">
-
 
 
 

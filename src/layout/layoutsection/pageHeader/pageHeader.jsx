@@ -11,7 +11,7 @@ const PageHeader = (props) => {
 			</div>
 			<ol className= "flex items-center whitespace-nowrap min-w-0">
 				<li className= "text-sm">
-					<Link className= "flex items-center font-semibold text-primary hover:text-primary dark:text-primary truncate" href="#">{props.activepage}
+					<Link className= "flex items-center font-semibold text-primary hover:text-primary dark:text-primary truncate" to={props.href}>{props.activepage}
 						<i className= "ti ti-chevrons-right flex-shrink-0 mx-3 overflow-visible text-gray-300 dark:text-gray-300 rtl:rotate-180"></i>
 					</Link>
 				</li>

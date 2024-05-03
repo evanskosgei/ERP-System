@@ -16,11 +16,11 @@ import UserDashboard from "../views/user_module/dashboard/user_dashboard";
 import SupplierDashboard from "../views/supplier_module/dashboard/supplier_dashboard";
 import SupplyChain from "../views/supplier_module/supply_chain/supply_chain";
 import SmsManagement from "../views/supplier_module/sms_management/sms_management";
-import AddSupplier from "../views/supplier_module/supplierForms/addSupplier";
-import ActiveSuppliers from "../views/supplier_module/supplierForms/ListOfactiveSuppliers";
-import InactiveSuppliers from "../views/supplier_module/supplierForms/ListOfDeactiveSuppliers";
-import ApproveSupplier from "../views/supplier_module/supplierForms/ListOfNewUnapproveSuppliers";
-import DeletedSuppliers from "../views/supplier_module/supplierForms/deletedSuppliers";
+import CreateSupplier from "../views/supplier_module/inventory_suppliers/create_supplier";
+import ActiveSuppliers from "../views/supplier_module/inventory_suppliers/list_active_suppliers";
+import InactiveSuppliers from "../views/supplier_module/inventory_suppliers/list_deactived_suppliers";
+import ApproveSupplier from "../views/supplier_module/inventory_suppliers/list_unapproved_suppliers";
+import DeletedSuppliers from "../views/supplier_module/inventory_suppliers/list_deleted_suppliers";
 
 //Inventory Pages
 import InventoryDashboard from "../views/inventory_module/dashboard/inventory_dashboard";
@@ -230,11 +230,11 @@ export const RouteData = [
 
     // {/* Supplier content */}
     { path: `${import.meta.env.BASE_URL}supplier/dashboard`, element: <SupplierDashboard /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}/addsupplier`, element: <AddSupplier /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}/activesuppliers`, element: <ActiveSuppliers /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}/approvesuppliers`, element: <ApproveSupplier /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}/deactivesuppliers`, element: <InactiveSuppliers /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}/deletedsuppliers`, element: <DeletedSuppliers /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}supplier/create-supplier`, element: <CreateSupplier /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}supplier/active-suppliers`, element: <ActiveSuppliers /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}supplier/approve-suppliers`, element: <ApproveSupplier /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}supplier/deactivated-suppliers`, element: <InactiveSuppliers /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}supplier/deleted-suppliers`, element: <DeletedSuppliers /> , title: ''},
     { path: `${import.meta.env.BASE_URL}supplier/supply-chain`, element: <SupplyChain /> , title: ''},
     { path: `${import.meta.env.BASE_URL}supplier/sms-management`, element: <SmsManagement /> , title: ''},
     

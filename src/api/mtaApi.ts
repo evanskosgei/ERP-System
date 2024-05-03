@@ -5,13 +5,15 @@ const mtaApi = {
   auth: {
     login: (data: any) => post("/authentication/login", data),
   },
- supplier: {
-  addSupplier: (data: any) => post("/supplier", data),
+  suppliers: {
+  createSupplier: (data: any) => post("/suppliers/create-inventory-supplier", data),
   createSupplierContact: (id: any, data: any) => post(`/supplier/contact/${id}`, data),
 
+  getNewUnApprovedSuppliers: (status: any) => post("/suppliers/list-inventory-suppliers", {id: status}),
+
   getActiveSuppliers: get("/supplier?status=active&approval=true"),
-  getNewUnApprovedSuppliers: get("/supplier?status=created&approval=false"),
-  getdeactivedSuppliers: get("/supplier?status=deactivated&approval=true"),
+  // getNewUnApprovedSuppliers: get("/supplier?status=2"),
+  getInactiveSuppliers: get("/supplier?status=deactivated&approval=true"),
   // getASupplier: (id: any) => get(`/supplier/${id}`),
   // getSupplierContact: (id: any,) => get(`/supplier/contact/${id}`),
   // getSpecificSupplierContacts: (id: any, contact_id:any) => get(`/supplier/contact/${id}/${contact_id}`),

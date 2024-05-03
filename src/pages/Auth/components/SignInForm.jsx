@@ -16,11 +16,12 @@ export default function SignInForm() {
     try {
       const { data } = await mtaApi.auth.login(values);
       // if (data.message !== "Successful Login") throw new Error(data.description);
-      // console.log(data)
+      console.log(data)
       setToken(data.access_token);
       // console.log(data.access_token);
       setUser(data);
     } catch (error) {
+      // console.log(error)
       const message = error.response?.data?.error ?? error.message;
       setAlert({ type: "error", message });
     }
