@@ -3,21 +3,23 @@ import { useForm } from "react-hook-form";
 import { useState } from 'react';
 import mtaApi from '../../../api/mtaApi';
 import { useNavigate } from 'react-router-dom';
+import Alert from '../../../component/components/alerts/alerts';
 
 const AddSupplier = () => {
     const { register, handleSubmit, formState: { errors, isValid }, formState } = useForm();
+    const [alert, setAlert] = useState(null);
     const navigate = useNavigate();
+
     const onSubmit = async values => {
-        console.log("vv",)
         try {
             const { data } = await mtaApi.supplier.addSupplier(values);
-            console.log(data)
-        
-            
+            document.getElementById('loader').style.display = 'block';
+            navigate("/supplier/dashboard/")
           } catch (error) {
             const message = error.response?.data?.error ?? error.message;
-            console.log(error)
             setAlert({ type: "error", message });
+          }finally{
+            document.getElementById('loader').style.display = 'none';
           }
     };
 
@@ -154,6 +156,13 @@ const AddSupplier = () => {
                     </div>
                 </div>
             </div>
+            <div id="loader" style={{ display: 'none' }}>
+				<span className="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent text-blue rounded-full" role="status" aria-label="loading">
+					<span className="sr-only">Loading...</span>
+				</span>
+			</div>
+
+            {alert && <Alert alert={alert} />}
         </div >
     );
 }

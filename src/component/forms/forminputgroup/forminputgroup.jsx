@@ -465,7 +465,7 @@ const Forminputgroup = () => {
                                     <div>
                                         <label htmlFor="hs-search-box-with-loading-2" className = "ti-form-label">Search</label>
                                         <div className = "flex rounded-sm">
-                                          <input type="text" id="hs-search-box-with-loading-2" name="hs-search-box-with-loading-2" className = "ti-form-input rounded-none ltr:rounded-l-sm rtl:rounded-r-sm focus:z-10" placeholder="Input search"/>
+                                          <input type="text" id="hs-search-box-with-loading-2" name="hs-search-box-with-loading-2" className = "ti-form-input rounded-none ltr:rounded-l-sm rtl:rounded-r-sm focus:z-10" placeholder="input search"/>
                                           <button type="button" className = "inline-flex flex-shrink-0 justify-center items-center h-[2.875rem] w-[2.875rem] ltr:rounded-r-sm rtl:rounded-l-sm border border-transparent font-semibold bg-primary text-white hover:bg-primary focus:z-10 focus:outline-none focus:ring-0 focus:ring-primary transition-all text-sm">
                                             <span className = "animate-spin inline-block w-4 h-4 border-[3px] border-current border-t-transparent text-white rounded-full" role="status" aria-label="loading">
                                               <span className = "sr-only">Loading...</span>

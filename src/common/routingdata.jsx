@@ -17,9 +17,9 @@ import SupplierDashboard from "../views/supplier_module/dashboard/supplier_dashb
 import SupplyChain from "../views/supplier_module/supply_chain/supply_chain";
 import SmsManagement from "../views/supplier_module/sms_management/sms_management";
 import AddSupplier from "../views/supplier_module/supplierForms/addSupplier";
-import ActiveSuppliers from "../views/supplier_module/supplierForms/activeSuppliers";
+import ActiveSuppliers from "../views/supplier_module/supplierForms/ListOfactiveSuppliers";
 import InactiveSuppliers from "../views/supplier_module/supplierForms/inactiveSuppliers";
-import ApproveSupplier from "../views/supplier_module/supplierForms/approveSupplier";
+import ApproveSupplier from "../views/supplier_module/supplierForms/ListOfNewUnapproveSuppliers";
 import DeletedSuppliers from "../views/supplier_module/supplierForms/deletedSuppliers";
 
 //Inventory Pages
