@@ -776,7 +776,6 @@ const Header = ({ local_varaiable, ThemeChanger }) => {
                           <i className="ti ti-adjustments-horizontal text-lg"></i>
                           Settings
                         </Link>
-
                         <div
                           className="ti-dropdown-item cursor-pointer"
                           onClick={() => {

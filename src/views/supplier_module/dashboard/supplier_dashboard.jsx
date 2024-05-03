@@ -226,7 +226,6 @@ const SupplierDashboard = () => {
 
 
 
-
 							<div className="grid grid-cols-2 md:grid-cols-3 gap-4">
 								<div>
 									<h2 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Suppliers:</h2>
