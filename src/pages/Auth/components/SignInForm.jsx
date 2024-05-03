@@ -15,7 +15,7 @@ export default function SignInForm() {
   const onSubmit = async (values) => {
     try {
       const { data } = await mtaApi.auth.login(values);
-      if (data.message !== "Successful Login") throw new Error(data.description);
+      // if (data.message !== "Successful Login") throw new Error(data.description);
       // console.log(data)
       setToken(data.access_token);
       // console.log(data.access_token);

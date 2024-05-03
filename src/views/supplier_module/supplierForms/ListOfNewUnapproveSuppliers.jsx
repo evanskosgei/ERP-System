@@ -43,16 +43,11 @@ const ApproveSupplier = () => {
         floatingFilter: false
     };
     const onGridReady = useCallback((params) => {
-
         const newUnApproved = async () => {
-            try {
-                await mtaApi.supplier.getNewUnApprovedSuppliers
-                    .then(resp => {
-                        setRowData(resp.data.message);
-                    });
-            } catch (error) {
-                console.log(error)
-            }
+            await mtaApi.supplier.getNewUnApprovedSuppliers
+                .then(resp => {
+                    setRowData(resp.data.message);
+                });
         }
         newUnApproved();
     }, []);

@@ -4,19 +4,21 @@ import { AgGridReact } from 'ag-grid-react';
 import '@ag-grid-community/styles/ag-grid.css';
 import '@ag-grid-community/styles/ag-theme-alpine.css';
 import { CSVLink } from "react-csv";
-import Alert from "../../../components/Alert";
-import Success from '../../../components/Success';
-import mtaApi from '../../../api/mtaApi';
 import Status from './status';
+import mtaApi from '../../../api/mtaApi';
+import Alert from '../../../components/Alert';
+import Success from '../../../components/Success';
 
-const ActiveSuppliers = () => {
+const InactiveSuppliers = () => {
     const [rowData, setRowData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedRowData, setSelectedRowData] = useState(null);
-    const [divStack, setDivStack] = useState(["table"]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [divStack, setDivStack] = useState(["listpage"]);
     const [alert, setAlert] = useState(null);
-    const [sucess, setSucess] = useState(null);
+    const [success, setSuccess] = useState(null);
     const [showStatusModal, setShowStatusModal] = useState(false);
+
 
     const columnDefs = [
         { headerName: "#", field: "id", sortable: true, editable: false, filter: true },
@@ -37,25 +39,23 @@ const ActiveSuppliers = () => {
     };
 
     const onGridReady = useCallback((params) => {
-
-        const activeSupp = async () => {
-            const resp = await mtaApi.supplier.getActiveSuppliers
-            setRowData(resp.data.message);
-        };
-        activeSupp()
+        const inactiveSupp = async () => {
+            await mtaApi.supplier.getdeactivedSuppliers
+                .then(resp => {
+                    setRowData(resp.data.message);
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        }
+        inactiveSupp();
     }, []);
-
-
-    const deleteSupplier = (data) => {
-        setShowStatusModal(true);
-    };
 
     const onRowClicked = (event) => {
         const selectedData = event.data;
         setSelectedRowData(selectedData);
-        handleClick('Activesupplier');
+        handleClick("Deactivedsupplier")
     };
-
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value);
     };
@@ -81,7 +81,6 @@ const ActiveSuppliers = () => {
             }
         });
     };
-
     const handleBack = () => {
         if (divStack.length > 1) {
             setDivStack(prevStack => prevStack.slice(0, -1));
@@ -92,25 +91,29 @@ const ActiveSuppliers = () => {
     const closeModal = () => {
         setShowStatusModal(false);
     };
-    const deactivate = async() =>{
-        try{
-        const { data } = await mtaApi.supplier.updateSupplier(selectedRowData.id, ({
-            status:'DEACTIVATED'
-        }))
-        const msg = (data.message)
-        setSucess({type: "success", msg })
-        }catch(error){
+
+     const deleteSupplier = (data) => {
+        setShowStatusModal(true);
+    };
+
+    const activate = async () => {
+        try {
+            const { data } = await mtaApi.supplier.updateSupplier(selectedRowData.id, ({
+                status: "ACTIVE"
+            }))
+            const msg = (data.message)
+            setSuccess({ type: "success", msg })
+        } catch (error) {
             const message = error.response?.data?.msg ?? error.message;
             setAlert({ type: "error", message });
         }
     }
-
     return (
         <div>
-
-            {currentDiv === "table" && (
+            {currentDiv === "listpage" && (
                 <div>
-                    <PageHeader currentpage="Active Supplier" activepage="Supplier" mainpage="Active Supplier" />
+                    <PageHeader currentpage="Deactived Suppliers" activepage="Supplier" mainpage="Deactived Suppliers" />
+
                     <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                         <input
                             type="text"
@@ -119,14 +122,14 @@ const ActiveSuppliers = () => {
                             placeholder="Search..."
                             style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '100%', boxSizing: 'border-box' }}
                         />
-                        <CSVLink data={rowData} filename="Active suppliers.csv" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
+                        <CSVLink data={rowData} filename="Deactivated suppliers" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                             </svg>
                             Export
                         </CSVLink>
                     </div>
-                    <div className="ag-theme-alpine" style={{ height: 'calc(100vh - 130px)', width: '100%', position: 'relative', zIndex: 1, overflowY: 'auto' }}>
+                    <div className="ag-theme-alpine" style={{ height: 'calc(100dvh - 130px)', width: '100%', position: 'relative', zIndex: 1, overflowY: 'auto' }}>
                         <AgGridReact
                             rowData={filteredData.length > 0 ? filteredData : rowData}
                             columnDefs={columnDefs}
@@ -134,16 +137,16 @@ const ActiveSuppliers = () => {
                             pagination={true}
                             paginationPageSize={20}
                             onGridReady={onGridReady}
-                            getRowNodeId={(data) => data.id}
+                            getRowNodeId={(data) => data}
                             onRowClicked={onRowClicked}
                         />
                     </div>
                 </div>
             )}
 
-            {currentDiv === "Activesupplier" && (
+            {currentDiv === "Deactivedsupplier" && (
                 <div>
-                    <PageHeader currentpage="Active Supplier Details" activepage="Supplier" mainpage="Active Supplier Details" />
+                    <PageHeader currentpage="Deactived Supplier Details" activepage="Supplier" mainpage="Deactived Supplier Details" />
                     <button className='className="flex left-0 text-blue-700 hover:bg-gray-100 p-3 font-bold'
                         onClick={handleBack}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -250,10 +253,10 @@ const ActiveSuppliers = () => {
                     </div>
                     <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
                         <button
-                            onClick={deactivate}
+                            onClick={activate}
                             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 dark:text-white dark:hover:text-white"
                         >
-                           Deactivate
+                            Activate
                         </button>
                         <button
                             onClick={deleteSupplier}
@@ -263,13 +266,13 @@ const ActiveSuppliers = () => {
                         </button>
                     </div>
                     {alert && <Alert alert={alert} />}
-                    {sucess && <Success success={sucess} />}
+                    {success && <Success success={success} />}
                     {showStatusModal && <Status supplierdata={selectedRowData} closeModal={closeModal} />}
                 </div>
 
             )}
         </div>
     );
-};
+}
 
-export default ActiveSuppliers;
+export default InactiveSuppliers;

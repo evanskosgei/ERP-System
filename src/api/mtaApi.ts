@@ -11,7 +11,7 @@ const mtaApi = {
 
   getActiveSuppliers: get("/supplier?status=active&approval=true"),
   getNewUnApprovedSuppliers: get("/supplier?status=created&approval=false"),
-  getInactiveSuppliers: get("/supplier?status=deactivated&approval=true"),
+  getdeactivedSuppliers: get("/supplier?status=deactivated&approval=true"),
   // getASupplier: (id: any) => get(`/supplier/${id}`),
   // getSupplierContact: (id: any,) => get(`/supplier/contact/${id}`),
   // getSpecificSupplierContacts: (id: any, contact_id:any) => get(`/supplier/contact/${id}/${contact_id}`),
