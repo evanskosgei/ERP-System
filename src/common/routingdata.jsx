@@ -12,6 +12,10 @@ import Widgets from "../views/widgets/dashboard/widgets";
 import Profile from "../views/user_module/profile/home/home";
 import UserDashboard from "../views/user_module/dashboard/user_dashboard";
 import CreateUser from "../views/user_module/inventory-users/create-new-user";
+import Activeusers from "../views/user_module/inventory-users/active-users";
+import Deletedusers from "../views/user_module/inventory-users/deleted-users";
+import Deactivatedusers from "../views/user_module/inventory-users/deactivated-users";
+import Newusers from "../views/user_module/inventory-users/new-users";
 
 //Supplier Pages
 import SupplierDashboard from "../views/supplier_module/dashboard/supplier_dashboard";
@@ -226,6 +230,10 @@ export const RouteData = [
     { path: `${import.meta.env.BASE_URL}my_profile`, element: <Profile /> , title: ''},
     { path: `${import.meta.env.BASE_URL}users/dashboard`, element: <UserDashboard /> , title: ''},
     { path: `${import.meta.env.BASE_URL}users/create-user`, element: <CreateUser /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}users/new-user`, element: <Newusers /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}users/active-users`, element: <Activeusers /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}users/deleted-users`, element: <Deletedusers /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}users/deactivated-users`, element: <Deactivatedusers /> , title: ''},
 
     // {/* Widgets content */}
 

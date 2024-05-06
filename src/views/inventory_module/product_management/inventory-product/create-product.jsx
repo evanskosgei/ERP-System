@@ -7,6 +7,7 @@ const Createproduct = () => {
     const { register, handleSubmit, formState: { errors, isValid } } = useForm();
     const [dataUri, setDataUri] = useState(null);
     const [startCamera, setStartCamera] = useState(false);
+
     const handleTakePhotoAnimationDone = (dataUri) => {
         setDataUri(dataUri);
     }
@@ -22,8 +23,7 @@ const Createproduct = () => {
     }
 
     function handleTakePhoto(dataUri) {
-      
-        // console.log('takePhoto');
+        console.log('Photo Data URI:', dataUri);
     }
 
     function handleCameraError(error) {

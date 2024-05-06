@@ -19,9 +19,9 @@ const UsersDashboard = () => {
 									<Link className="hs-tab-active:font-semibold hs-tab-active:border-primary hs-tab-active:text-primary py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-gray-500  dark:text-white/70 hover:text-primary active" to="#" id="underline-item-1" data-hs-tab="#underline-1" aria-controls="underline-1">
 										Manage Users
 									</Link>
-									{/* <Link className="hs-tab-active:font-semibold hs-tab-active:border-primary hs-tab-active:text-primary py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-gray-500  dark:text-white/70 hover:text-primary" to="#" id="underline-item-2" data-hs-tab="#underline-2" aria-controls="underline-2">
-										Deactivated Suppliers
-									</Link> */}
+									<Link className="hs-tab-active:font-semibold hs-tab-active:border-primary hs-tab-active:text-primary py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-gray-500  dark:text-white/70 hover:text-primary" to="#" id="underline-item-2" data-hs-tab="#underline-2" aria-controls="underline-2">
+										Deactivated users
+									</Link>
 
 								</nav>
 							</div>
@@ -46,36 +46,36 @@ const UsersDashboard = () => {
 												</Link>
 											</div>
 										</li>
-										{/* <li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
+										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/approve-suppliers" className="">
+												<Link to="/users/new-user" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-tablet-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
 														</div>
 														<div className="">
-															<p className="mb-0 text-sm">Approve a New Supplier</p>
+															<p className="mb-0 text-sm">Approve New Users</p>
 															<p className="mb-0 text-gray-500 dark:text-white/70 text-xs">Approve a new product supplier</p>
 														</div>
 													</div>
 												</Link>
 											</div>
-										</li> */}
-										{/* <li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
+										</li>
+										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/active-suppliers" className="">
+												<Link to="/users/active-users" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-airplay-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
 														</div>
 														<div className="">
-															<p className="mb-0 text-sm">List Active Suppliers</p>
+															<p className="mb-0 text-sm">List Active Users</p>
 															<p className="mb-0 text-gray-500 dark:text-white/70 text-xs">List of active product suppliers</p>
 														</div>
 													</div>
 												</Link>
 											</div>
-										</li> */}
+										</li>
 									</ul>
 
 								</div>
@@ -83,13 +83,13 @@ const UsersDashboard = () => {
 									<ul className="flex flex-col">
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/deactivated-suppliers" className="">
+												<Link to="/users/deactivated-users" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-smartphone-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
 														</div>
 														<div className="">
-															<p className="mb-0 text-sm">List Deactivated Suppliers</p>
+															<p className="mb-0 text-sm">List Deactivated Users</p>
 															<p className="mb-0 text-gray-500 dark:text-white/70 text-xs">List of a Deactivated Product Suppliers</p>
 														</div>
 													</div>
@@ -111,13 +111,13 @@ const UsersDashboard = () => {
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/deleted-suppliers" className="">
+												<Link to="/users/deleted-users" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-airplay-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
 														</div>
 														<div className="">
-															<p className="mb-0 text-sm">List Deleted Suppliers</p>
+															<p className="mb-0 text-sm">List Deleted users</p>
 															<p className="mb-0 text-gray-500 dark:text-white/70 text-xs">List of active product suppliers</p>
 														</div>
 													</div>

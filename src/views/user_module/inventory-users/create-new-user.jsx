@@ -2,10 +2,15 @@ import React from 'react'
 import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader';
 import { useForm } from "react-hook-form";
 import { useState } from 'react';
+import Dropzone from 'react-dropzone-uploader';
 
 
 const CreateUser = () => {
     const { register, handleSubmit, formState: { errors, isValid }, formState } = useForm();
+    const [files, setFiles] = useState([]);
+
+    const getUploadParams = ({ file, meta }) => {return { url: 'https://httpbin.org/post' }; };
+    const handleChangeStatus = ({ meta, file }, status) => { console.log(status, meta, file) }
 
     const onSubmit = async values => {
         console.log(values)
@@ -87,7 +92,7 @@ const CreateUser = () => {
                             </div>
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">KRA PIN Number</label>
-                                <input type="text" {...register("kra_pin", { required: false })} id='kra_pin' className="ti-form-input" placeholder=" ... Enter user kra pin"/>
+                                <input type="text" {...register("kra_pin", { required: false })} id='kra_pin' className="ti-form-input" placeholder=" ... Enter user kra pin" />
                             </div>
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">NHIF PIN</label>
@@ -107,42 +112,16 @@ const CreateUser = () => {
                         <h5 className="box-title text-center">ID and Profile Image</h5>
                     </div>
                     <div className="box-body">
-                        {/* <div className="grid lg:grid-cols-2 gap-6">
-                            <div className="space-y-2">
-                                <label className="ti-form-label mb-0">ID/Passport Number</label>
-                                <input type="number" {...register("id_number", { required: true })} id='id_number' className="my-auto ti-form-input" placeholder=" ... Enter id number" />
+                        <div className="col-span-12 lg:col-span-6">
+                            <div className="box">
+                                <div className="box-header">
+                                    <h5 className="box-title">Upload Both sides of ID/Passport</h5>
+                                </div>
+                                <div className="box-body dropzone-file-upload">
+                                    <Dropzone getUploadParams={getUploadParams} onChangeStatus={handleChangeStatus} onSubmit="" accept="image/*,audio/*,video/*,pdf/*,xlsx/*,txt/*" required />
+                                </div>
                             </div>
-                            <div className="space-y-2">
-                                <label className="ti-form-label mb-0">Address Number</label>
-                                <input type="text" {...register("address", { required: true })} id='address' className="my-auto ti-form-input" placeholder=" ... sample, P O Box 00000" required />
-                                {errors.address && <span className="text-red-500 text-xs">Address Number is required</span>}
-                            </div>
-                            <div className="space-y-2">
-                                <label className="ti-form-label mb-0">Postal code</label>
-                                <input type="number" {...register("postal_code", { required: true })} id='postal_code' className="my-auto ti-form-input" placeholder="00100" required />
-                                {errors.postal_code && <span className="text-red-500 text-xs">Postal Code is required</span>}
-                            </div>
-                            <div className="space-y-2">
-                                <label className="ti-form-label mb-0">Country</label>
-                                <input type="text" {...register("country")} id='country' className="my-auto ti-form-input" placeholder="Kenya" required />
-                            </div>
-                            <div className="space-y-2">
-                                <label className="ti-form-label mb-0">City</label>
-                                <input type="text" {...register("city")} id='city' className="my-auto ti-form-input" placeholder="Enter city or town name" required />
-                            </div>
-                            <div className="space-y-2">
-                                <label className="ti-form-label mb-0">KRA PIN Number</label>
-                                <input type="text" {...register("kra_pin", { required: false })} id='kra_pin' className="ti-form-input" placeholder=" ... Enter user kra pin"/>
-                            </div>
-                            <div className="space-y-2">
-                                <label className="ti-form-label mb-0">NHIF PIN</label>
-                                <input type="text" {...register("nhif_pin", { required: false })} id='tax_id' className="ti-form-input" placeholder=" ... Enter user nhif pin number" />
-                            </div>
-                            <div className="space-y-2">
-                                <label className="ti-form-label mb-0">NSSF PIN</label>
-                                <input type="email" {...register("nssf_pin", { required: false })} id='nssf_pin' className="ti-form-input" placeholder=" ... Enter nssf pin" />
-                            </div>
-                        </div> */}
+                        </div>
                     </div>
                 </div>
             </div>
