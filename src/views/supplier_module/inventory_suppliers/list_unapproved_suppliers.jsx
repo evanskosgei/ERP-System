@@ -141,7 +141,7 @@ const ApproveSupplier = () => {
         <div>
             {currentDiv === "listpage" && (
                 <div>
-                    <PageHeader currentpage="Approve New Supplier" href="/supplier/dashboard" activepage="Dashboard" mainpage="New suppliers pending approval" />
+                    <PageHeader currentpage="Approve New Supplier" href="/supplier/dashboard/" activepage="Dashboard" mainpage="New suppliers pending approval" />
                     <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                         <input
                             type="text"

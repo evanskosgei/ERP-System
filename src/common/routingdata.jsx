@@ -11,6 +11,7 @@ import Widgets from "../views/widgets/dashboard/widgets";
 //User Pages
 import Profile from "../views/user_module/profile/home/home";
 import UserDashboard from "../views/user_module/dashboard/user_dashboard";
+import CreateUser from "../views/user_module/inventory-users/create-new-user";
 
 //Supplier Pages
 import SupplierDashboard from "../views/supplier_module/dashboard/supplier_dashboard";
@@ -27,6 +28,7 @@ import InventoryDashboard from "../views/inventory_module/dashboard/inventory_da
 import ProductManagement from "../views/inventory_module/product_management/product_management";
 import QualityControl from "../views/inventory_module/quality_control/quality_control";
 import InventoryManagement from "../views/inventory_module/inventory_management/inventory_management";
+import Createproduct from "../views/inventory_module/product_management/inventory-product/create-product";
 
 
 //Transport Pages
@@ -223,6 +225,7 @@ export const RouteData = [
     // {/* User content */} 
     { path: `${import.meta.env.BASE_URL}my_profile`, element: <Profile /> , title: ''},
     { path: `${import.meta.env.BASE_URL}users/dashboard`, element: <UserDashboard /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}users/create-user`, element: <CreateUser /> , title: ''},
 
     // {/* Widgets content */}
 
@@ -244,6 +247,7 @@ export const RouteData = [
     { path: `${import.meta.env.BASE_URL}inventory/product-management`, element: <ProductManagement /> , title: ''},
     { path: `${import.meta.env.BASE_URL}inventory/inventory-management`, element: <InventoryManagement /> , title: ''},
     { path: `${import.meta.env.BASE_URL}inventory/quality-control`, element: <QualityControl /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/create-product`, element: <Createproduct /> , title: ''},
 
     // {/* Transport content */}
     { path: `${import.meta.env.BASE_URL}transport/dashboard`, element: <TransportDashboard /> , title: ''},

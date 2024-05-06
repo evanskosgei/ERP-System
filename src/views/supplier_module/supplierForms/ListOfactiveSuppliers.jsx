@@ -110,7 +110,7 @@ const ActiveSuppliers = () => {
 
             {currentDiv === "table" && (
                 <div>
-                    <PageHeader currentpage="Active Supplier" activepage="Supplier" mainpage="Active Supplier" />
+                    <PageHeader currentpage="Active Suppliers" activepage="Supplier" mainpage="Active Suppliers" />
                     <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                         <input
                             type="text"
