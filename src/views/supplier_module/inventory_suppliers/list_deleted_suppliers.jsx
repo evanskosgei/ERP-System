@@ -73,7 +73,7 @@ const DeletedSuppliers = () => {
     };
     return (
         <div>
-            <PageHeader currentpage="Deleted Supplier" activepage="Supplier" mainpage="Deleted Supplier" />
+            <PageHeader currentpage="Deleted Supplier" href="/supplier/dashboard/" activepage="Supplier" mainpage="Deleted Supplier" />
 
             <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                 <input
@@ -102,7 +102,6 @@ const DeletedSuppliers = () => {
                     onRowClicked={onRowClicked}
                 />
             </div>
-            {/* {isModalOpen && <EditSupplier data={selectedRowData} onClose={closeModal} />} */}
         </div>
     )
 }

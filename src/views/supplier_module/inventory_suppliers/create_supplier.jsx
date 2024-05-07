@@ -27,7 +27,7 @@ const CreateSupplier = () => {
 
     return (
         <div>
-            <PageHeader currentpage="Create New Supplier" href="/supplier/dashboard" activepage="Dashboard" mainpage="Add new supplier" />
+            <PageHeader currentpage="Create New Supplier" href="/supplier/dashboard/" activepage="Dashboard" mainpage="Add new supplier" />
             <div className="grid grid-cols-12 gap-6">
 
                 <div className="col-span-12">
@@ -126,7 +126,7 @@ const CreateSupplier = () => {
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Email Address</label>
                                     <input type="email" {...register("contact_email_address", { required: true })} id='contact_email_address' className="ti-form-input" placeholder=" ... Enter supplier tax ID or Vat number" required />
-                                  
+
                                 </div>
                             </div>
                         </div>
@@ -135,18 +135,18 @@ const CreateSupplier = () => {
             </div>
 
             <div className="grid grid-cols-12 gap-x-6">
-				<div className="col-span-12">
-					<div className="box !bg-transparent border-0 shadow-none">
-            <div className="box-footer text-center border-t-0 px-0">
-							{/* <Link to={`${import.meta.env.BASE_URL}pagecomponent/Ecommerce/product/`} className="ti-btn ti-btn-primary"><i className="ri-add-line"></i>Add Product</Link>
+                <div className="col-span-12">
+                    <div className="box !bg-transparent border-0 shadow-none">
+                        <div className="box-footer text-center border-t-0 px-0">
+                            {/* <Link to={`${import.meta.env.BASE_URL}pagecomponent/Ecommerce/product/`} className="ti-btn ti-btn-primary"><i className="ri-add-line"></i>Add Product</Link>
 							<Link to='#' className="ti-btn ti-btn-secondary"><i className="ri-file-download-line"></i>Save Product</Link>
 							<Link to='#' className="ti-btn ti-btn-danger"><i className="ri-delete-bin-line"></i>Discard Product</Link> */}
                             <button type="submit" onClick={handleSubmit(onSubmit)} className={`ti-btn ti-btn-primary ti-custom-validate-btn ${!isValid && 'opacity-50 cursor-not-allowed'}`} disabled={!isValid}>Submit Details</button>
-						</div>
                         </div>
-                        </div>
-                        </div>
-            
+                    </div>
+                </div>
+            </div>
+
             <div id="loader" style={{ display: 'none' }}>
                 <span className="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent text-blue rounded-full" role="status" aria-label="loading">
                     <span className="sr-only">Loading...</span>
