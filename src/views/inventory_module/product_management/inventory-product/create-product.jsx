@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PageHeader from '../../../../layout/layoutsection/pageHeader/pageHeader';
 import { useForm } from "react-hook-form";
-import Camera, { FACING_MODES, IMAGE_TYPES } from 'react-html5-camera-photo';
+// import Camera, { FACING_MODES, IMAGE_TYPES } from 'react-html5-camera-photo';
 
 const Createproduct = () => {
     const { register, handleSubmit, formState: { errors, isValid } } = useForm();
