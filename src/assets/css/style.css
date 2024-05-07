@@ -5287,7 +5287,7 @@ textarea, select {
   @apply bg-[url("../img/menu-bg-images/bg-img1.jpg")] !important;
 }
 #hs-overlay-switcher .menu-image .bgimage-input.bg-img2 {
-  @apply bg-[url("../img/menu-bg-images/bg-img2.jpg")] !important;
+  @apply bg-[url("../img/menu-bg-images/bg-img2.png")] !important;
 }
 #hs-overlay-switcher .menu-image .bgimage-input.bg-img3 {
   @apply bg-[url("../img/menu-bg-images/bg-img3.jpg")] !important;
@@ -7821,7 +7821,7 @@ textarea, select {
 }
 
 [bg-img=bgimg2] .app-sidebar {
-  @apply bg-[url("../img/menu-bg-images/bg-img2.jpg")] !important;
+  @apply bg-[url("../img/menu-bg-images/bg-img2.png")] !important;
 }
 
 [bg-img=bgimg3] .app-sidebar {
