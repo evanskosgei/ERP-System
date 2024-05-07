@@ -9,7 +9,7 @@ const CreateUser = () => {
     const { register, handleSubmit, formState: { errors, isValid }, formState } = useForm();
     const [files, setFiles] = useState([]);
 
-    const getUploadParams = ({ file, meta }) => {return { url: 'https://httpbin.org/post' }; };
+    const getUploadParams = ({ file, meta }) => { return { url: 'https://httpbin.org/post' }; };
     const handleChangeStatus = ({ meta, file }, status) => { console.log(status, meta, file) }
 
     const onSubmit = async values => {
@@ -37,8 +37,15 @@ const CreateUser = () => {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="ti-form-label mb-0">Other Names</label>
-                                    <input type="text" {...register("other_names", { required: true })} id='other_names' className="ti-form-input" placeholder=" ... other names" required />
+                                    <label className="ti-form-label mb-0">User type</label>
+                                    <select type="text" {...register("user_type", { required: true })} id='user_type' className="ti-form-input" required>
+                                        <option>Select a user type</option>
+                                        <option>Administrator</option>
+                                        <option>Stockist</option>
+                                        <option>Manager</option>
+                                        <option>Team Leader</option>
+                                        <option>Agents</option>
+                                    </select>
                                 </div>
 
                                 <div className="space-y-2">

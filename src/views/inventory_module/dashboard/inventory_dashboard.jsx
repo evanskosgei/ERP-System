@@ -33,7 +33,7 @@ const InventoryDashboard = () => {
 									<ul className="flex flex-col">
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/create-supplier" className="">
+												<Link to="/inventory/create-distribution-center" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-smartphone-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -50,7 +50,7 @@ const InventoryDashboard = () => {
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/approve-suppliers" className="">
+												<Link to="/inventory/approve-new-distribution-center" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-tablet-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -65,7 +65,7 @@ const InventoryDashboard = () => {
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/active-suppliers" className="">
+												<Link to="/inventory/active-distribution-centers" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-airplay-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -85,7 +85,7 @@ const InventoryDashboard = () => {
 									<ul className="flex flex-col">
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/deactivated-suppliers" className="">
+												<Link to="/inventory/deactivated-distribution-centers" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-smartphone-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -100,7 +100,7 @@ const InventoryDashboard = () => {
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<div className="flex space-x-3 rtl:space-x-reverse">
+												<Link to="/inventory/reactivated-distribution-centers" className="flex space-x-3 rtl:space-x-reverse">
 													<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 														<i className="ri ri-tablet-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
 													</div>
@@ -108,12 +108,12 @@ const InventoryDashboard = () => {
 														<p className="mb-0 text-sm">Approve Reactivated Distribution Centers</p>
 														<p className="mb-0 text-gray-500 dark:text-white/70 text-xs">Approve a distribution center</p>
 													</div>
-												</div>
+												</Link>
 											</div>
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/deleted-suppliers" className="">
+												<Link to="/inventory/deleted-distribution-centers" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-airplay-line text-xl leading-none text-gray-500 dark:text-white/70"></i>

@@ -5,7 +5,6 @@ import MainDashboard from "../views/general/main_dashboard/main_dashboard";
 //Other Pages
 import Activities from "../views/general/activities/activities";
 import Notifications from "../views/general/notifications/notifications";
-
 import Widgets from "../views/widgets/dashboard/widgets";
 
 //User Pages
@@ -33,6 +32,12 @@ import ProductManagement from "../views/inventory_module/product_management/prod
 import QualityControl from "../views/inventory_module/quality_control/quality_control";
 import InventoryManagement from "../views/inventory_module/inventory_management/inventory_management";
 import Createproduct from "../views/inventory_module/product_management/inventory-product/create-product";
+import CreatedistributionCenter from "../views/inventory_module/dashboard/distribution-centers/create-distribution";
+import Approvenewdistribution from "../views/inventory_module/dashboard/distribution-centers/approve-new-distribution";
+import Activedistributioncenters from "../views/inventory_module/dashboard/distribution-centers/active-distribution-centers";
+import Deleteddistributions from "../views/inventory_module/dashboard/distribution-centers/deleted-distributions";
+import Deactivateddistributions from "../views/inventory_module/dashboard/distribution-centers/deactivated-distributions";
+import Reactivateddistributions from "../views/inventory_module/dashboard/distribution-centers/reactivated-distributions";
 
 
 //Transport Pages
@@ -256,6 +261,12 @@ export const RouteData = [
     { path: `${import.meta.env.BASE_URL}inventory/inventory-management`, element: <InventoryManagement /> , title: ''},
     { path: `${import.meta.env.BASE_URL}inventory/quality-control`, element: <QualityControl /> , title: ''},
     { path: `${import.meta.env.BASE_URL}inventory/create-product`, element: <Createproduct /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/create-distribution-center`, element: <CreatedistributionCenter /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/approve-new-distribution-center`, element: <Approvenewdistribution /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/active-distribution-centers`, element: <Activedistributioncenters /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/deleted-distribution-centers`, element: <Deleteddistributions /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/deactivated-distribution-centers`, element: <Deactivateddistributions /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/reactivated-distribution-centers`, element: <Reactivateddistributions /> , title: ''},
 
     // {/* Transport content */}
     { path: `${import.meta.env.BASE_URL}transport/dashboard`, element: <TransportDashboard /> , title: ''},
