@@ -93,7 +93,7 @@ const SupplierDashboard = () => {
 														</div>
 														<div className="">
 															<p className="mb-0 text-sm">List Deactivated Suppliers</p>
-															<p className="mb-0 text-gray-500 dark:text-white/70 text-xs">List of a Deactivated Product Suppliers</p>
+															<p className="mb-0 text-gray-500 dark:text-white/70 text-xs">List of deactivated product suppliers</p>
 														</div>
 													</div>
 												</Link>
@@ -107,7 +107,7 @@ const SupplierDashboard = () => {
 													</div>
 													<div className="">
 														<p className="mb-0 text-sm">Approve Reactivated Supplier</p>
-														<p className="mb-0 text-gray-500 dark:text-white/70 text-xs">Approve a Reactivated Product supplier</p>
+														<p className="mb-0 text-gray-500 dark:text-white/70 text-xs">Approve a reactivated product supplier</p>
 													</div>
 												</div>
 											</div>
@@ -121,7 +121,7 @@ const SupplierDashboard = () => {
 														</div>
 														<div className="">
 															<p className="mb-0 text-sm">List Deleted Suppliers</p>
-															<p className="mb-0 text-gray-500 dark:text-white/70 text-xs">List of active product suppliers</p>
+															<p className="mb-0 text-gray-500 dark:text-white/70 text-xs">List of deleted product suppliers</p>
 														</div>
 													</div>
 												</Link>

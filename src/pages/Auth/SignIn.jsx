@@ -22,14 +22,15 @@ const SignInCover2 = () => {
         <html dir="ltr" class="h-full"></html>
         <body class="error-page flex h-full !py-0 bg-white dark:bg-bgdark"></body>
       </Helmet>
+      
       <div className="lg:col-span-6 col-span-12 hidden lg:block relative">
         <div className="cover relative w-full h-full z-[1] p-10">
-          <Link to={`${import.meta.env.BASE_URL}/`} className="header- logo">
+          <Link to={`${import.meta.env.BASE_URL}/`} className="header-logo">
             <img src={ALLImages("dark")} alt="logo" className="ltr:ml-auto rtl:mr-auto block" />
           </Link>
-          {/* <div className="authentication-page justify-center w-full max-w-7xl mx-auto p-0">
-            <img src={ALLImages("png2")} alt="logo" className="mx-auto h-[500px]" />
-          </div> */}
+          <div className="authentication-page justify-center w-full max-w-7xl mx-auto p-0">
+            <img src={ALLImages("png2")} alt="logo" className="mx-auto h-[400px]" />
+          </div>
         </div>
       </div>
       <div className="lg:col-span-6 col-span-12">

@@ -3,7 +3,7 @@ import { del, get, post, put } from "./base";
 
 const mtaApi = {
   auth: {
-    login: (data: any) => post("/authentication/login", data),
+    login: (data: any) => post("/users/login", data),
   },
   suppliers: {
   createSupplier: (data: any) => post("/suppliers/create-inventory-supplier", data),

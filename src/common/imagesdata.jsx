@@ -1,6 +1,6 @@
 // authentications
 import png1 from "../assets/img/authentication/1.png";
-import png2 from "../assets/img/authentication/2.png";
+import png2 from "../assets/img/authentication/2.jpg";
 import png3 from "../assets/img/authentication/3.png";
 import png4 from "../assets/img/authentication/4.png";
 

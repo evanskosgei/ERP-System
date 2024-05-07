@@ -25,14 +25,14 @@ const ApproveSupplier = () => {
     } = useForm();
 
     const columnDefs = [
-        { headerName: "#", field: "id", sortable: true, editable: false, filter: true },
-        { headerName: "Business Name", field: "business_name", sortable: true, editable: false, filter: true },
-        { headerName: "Trade Name", field: "trading_name", sortable: true, editable: false, filter: true },
-        { headerName: "Email", field: "company_email", sortable: true, editable: false, filter: true },
-        { headerName: "Mobile Number", field: "company_mobile_number", sortable: true, editable: false, filter: true },
-        { headerName: "Address", field: "address", sortable: true, editable: false, filter: true },
-        { headerName: "Postal Code", field: "postal_code", sortable: true, editable: false, filter: true },
-        { headerName: "Country", field: "country", sortable: true, editable: false, filter: true },
+        { headerName: "#", field: "id", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 5 },
+        { headerName: "Business Name", field: "business_name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Trade Name", field: "trading_name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Email", field: "company_email", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Mobile Number", field: "company_mobile_number", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Address", field: "address", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Postal Code", field: "postal_code", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Country", field: "country", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
         // { headerName: "Status", field: "active", sortable: false, filter: true, editable: false },
     ];
 
@@ -54,10 +54,6 @@ const ApproveSupplier = () => {
                     // setLoading(false);
                   }
 
-                // await mtaApi.suppliers.getNewUnApprovedSuppliers
-                //     .then(resp => {
-                //         setRowData(resp.data.message);
-                //     });
             } catch (error) {
                 console.log(error)
             }
@@ -148,7 +144,7 @@ const ApproveSupplier = () => {
                             value={searchQuery}
                             onChange={handleSearchChange}
                             placeholder="Search..."
-                            style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '100%', boxSizing: 'border-box' }}
+                            style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '20%', boxSizing: 'border-box' }}
                         />
                         <CSVLink data={rowData} filename="suppliers" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
