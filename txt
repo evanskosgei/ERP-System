@@ -1,0 +1,236 @@
+Device ERP 
+
+1. Kisumu Dealers 
+
+Anne. 
+She does not mind buying a scanner even for - 22k
+She has a laptop and all her shops has WiFi 
+
+
+2. Kakamega Dealers 
+
+
+3. Eldoret Dealers
+
+They are both Retail and Wholesale 
+Some cannot capture supplier details 
+Some cannot capture sales details for KRA purposes
+
+
+===> MVP.
+- Create suppliers ********************************************In Progress  (Select supplier type .. product supplier, transporter, )
+- Create Product Models 
+- Create Distribution centers i.e shops, markets, warehouse. Set specific prices for specific Distribution centers. 
+- Create modes of transport   (Select mode of transport.. select specific transporter, display payable account, enter transporter cost)
+- create modes of payments    (Buy Goods, Lipa na Mpesa, Send Money, Cash, Bank Deposit)
+
+Create type of users then create new users in the system.
+- Add System Users - Administrators
+- Add System Users - Stockist
+- Add System Users - Managers
+- Add System Users - Team Leaders
+- Add System Users - Agents Leaders 
+
+- Purchase Stock  (Select supplier, Select Product Model, Enter purpose date, enter buying price, Enter quantity, Select mode of transport, enter transport cost, Enter Product Origin, 
+       Enter Destination, Enter Mode of Payment)
+
+
+- Put stock in transit 
+- Update details of stock in transit - Change transit Destination
+                                     - Add costs
+                                     - Add comments
+
+- Receive Stock. Stock can only be received at the Destination (Warehouse)
+- Manager can send product requests to stockist  ***
+- Stockist can dispatch products to specific managers at specific Distribution center 
+- Manager should receive their stock (Confirm received)
+- Manager should dispatch stock to specific team leaders at specific Distribution center
+- Team leaders should receive their stock (Confirm received)
+- Team leaders should dispatch stock to specific agents at specific Distribution center (Shop/markets)
+
+- Agents should make a sale Create a sales order => (Select a product, enter quantity, enter customer details, mobile number, names, email address, select mode of payment)
+- Pay the sales order (send stk push if integrate, finish transaction if it's cash sale, enter transaction reference number if its bank deposit, send money, lipa na mpesa, Buy Goods)
+- Send receipt to the customer. 
+
+- After sales?????
+- Products sold but swapped?????
+
+
+
+
+PHASE 1 PROGRESS 
+
+     Activity                                        Links on Dashboard    Actual Pages     Frontend APIs    Database    Backend APIs   List Record   View Record
+1.   Create Suppliers  ****************************  DONE                  DONE             DONE             DONE        DONE           DONE          DONE
+1.   Create Transporters (SupplierType-Transporter)  PENDING               PENDING          PENDING          PENDING     PENDING        PENDING       PENDING  ===> Priority 8
+1.   Create Supplier Types                           DONE                  DONE             DONE             DONE        PENDING        PENDING       PENDING
+2.   Create Product Categories  *******************  DONE                  DONE             PENDING          DONE        In-PROGRESS    PENDING       PENDING  ===> Import because of stock account
+2.   Create Product Sub-Categories  ***************  DONE                  DONE             PENDING          DONE        In-PROGRESS    PENDING       PENDING
+2.   Create Product Models mobile_phones_models ***  DONE                  DONE             PENDING          DONE        DONE           In-PROGRESS   In-PROGRESS 
+2.   Create Product Models television_models ******  DONE                  DONE             PENDING          In-PROGRESS PENDING        PENDING       PENDING
+2.   Create Product Models accessories_modles *****  DONE                  DONE             PENDING          In-PROGRESS PENDING        PENDING       PENDING
+3.   Create Distribution Centers  *****************  DONE                  DONE             PENDING          PENDING     PENDING        PENDING       PENDING  ===> Priority 2
+4.   Create Modes of Transport  *******************  PENDING               PENDING          PENDING          #######     PENDING        PENDING       PENDING  ===> Priority 3
+5.   Create Modes of Payments  ********************  PENDING               PENDING          PENDING          #######     PENDING        PENDING       PENDING  ===> Priority 4
+6.   Create Types of Users  ***********************  DONE                  DONE             PENDING          #######     PENDING        PENDING       PENDING  ===> Priority 5
+7.   Create Users  ********************************  DONE                  DONE             PENDING          PENDING     PENDING        PENDING       PENDING  ===> Priority 6
+8.   Purchase Stock using Cash ********************  PENDING               PENDING          PENDING          PENDING     PENDING        PENDING       PENDING  ===> Priority 7
+9.   Make Supplier Prepayment *********************  PENDING               PENDING          PENDING          PENDING     PENDING        PENDING       PENDING
+10.  Purchase Stock using Supplier Prepayment *****  PENDING               PENDING          PENDING          PENDING     PENDING        PENDING       PENDING
+11.  View Stock in Transit  ***********************  PENDING               PENDING          PENDING          PENDING     PENDING        PENDING       PENDING
+12.  Update Stock in Transit Details  *************  PENDING               PENDING          PENDING          PENDING     PENDING        PENDING       PENDING
+13.  Receive Stock in Transit  ********************  PENDING               PENDING          PENDING          PENDING     PENDING        PENDING       PENDING
+14.  Stockist Dispatch Products to Managers *******  PENDING               PENDING          PENDING          PENDING     PENDING        PENDING       PENDING
+15.  Managers Receive Products  *******************  PENDING               PENDING          PENDING          PENDING     PENDING        PENDING       PENDING
+16.  Managers Dispatch to Managers/TeamLeaders ****  PENDING               PENDING          PENDING          PENDING     PENDING        PENDING       PENDING
+17.  TeamLeaders Receive Products  ****************  PENDING               PENDING          PENDING          PENDING     PENDING        PENDING       PENDING
+18.  TeamLeaders Dispatch to TeamLeaders/Agents ***  PENDING               PENDING          PENDING          PENDING     PENDING        PENDING       PENDING
+19.  Agents Receive Products  *********************  PENDING               PENDING          PENDING          PENDING     PENDING        PENDING       PENDING
+20.  Agents Make a Sale Order *********************  PENDING               PENDING          PENDING          PENDING     PENDING        PENDING       PENDING
+21.  Agents generate invoice from sales order *****  PENDING               PENDING          PENDING          PENDING     PENDING        PENDING       PENDING
+22.  Agents make a payment against sales invoice **  PENDING               PENDING          PENDING          PENDING     PENDING        PENDING       PENDING
+23.  Agents generates Sales Receipt ***************  PENDING               PENDING          PENDING          PENDING     PENDING        PENDING       PENDING
+
+
+PHASE 2 PROGRESS
+     Activity                                        Links on Dashboard    Actual Pages     Frontend APIs    Database    Backend APIs   List Record   View Record
+1.   Reports Function  ***************************   PENDING               PENDING          PENDING          PENDING     PENDING        PENDING       PENDING
+2.   Product Scanning  ***************************   PENDING               PENDING          PENDING          PENDING     PENDING        PENDING       PENDING
+3.   Bots Integration  ***************************   PENDING               PENDING          PENDING          PENDING     PENDING        PENDING       PENDING
+4.   Payments Integration  ***********************   PENDING               PENDING          PENDING          PENDING     PENDING        PENDING       PENDING
+5.   Platform Pricing Structure ******************   PENDING               PENDING          PENDING          PENDING     PENDING        PENDING       PENDING
+
+
+
+Users who will access Administrator Portal (HQ Employees)
+1. Super Administrators
+2. Administrators
+3. Stockist
+
+
+Users who will access Agents Portal  (Field Staff)
+1. Managers
+2. Team Leaders
+3. Agents 
+
+
+Stockist
+1. Has several Managers
+
+Managers 
+1. Has several Team Leaders. 
+2. Is managing several Shops.
+
+Team Leader 
+1. Has several Agents.
+2. Is managing several Shops.
+
+
+Agents 
+Each agent is attached to a shop.
+Each agent is reponsible for selling Products to Customers.
+
+A shop can have multiple Managers 
+A shop can have multiple Team Leaders
+A shop can have multiple Agents (sales agents)
+
+Create Shop
+Mode of Transport 
+
+- Purchase Stock 
+   - Purchase Order
+     - Create a Purchase Order
+     - Pay for the Products on Purchase Order - Enter Supplier Details, Enter Quantity, Prices, Transport details, Destination 
+     - 
+
+   - Purchase Stock from a Supplier directly. 
+
+     - Select supplier, Select Product Model, Enter purpose date, enter buying price, Enter quantity, Select mode of transport, enter transport cost, Enter Product Origin, 
+       Enter Destination, Enter Mode of Payment, 
+     - Submit to send Stock into Transit. 
+
+- List Stock in Transit.
+
+- Receive Stock
+  - Stockist should receive stock by moving the stock from Transit to Expected Destination. (i.e Warehouse) 
+  - Stockist should scan each product IMEI and enter it into the system. Date Received. Add comments
+  - System should display Products still in Transit and their quantity
+  - Products received at the warehouse by who and their quantity
+
+
+Stockist Dispatch/Allocate Stock to Manager
+Manager Dispatch/Allocate Stock to Team Leader
+Team Leader Dispatch/Allocate Stock to Agents
+
+Manager allocate product to Team Leader
+Team Leader allocate product to Agents
+Make a sale
+
+
+Product Categories
+- mobile_phones, 
+- television, 
+- accessories
+
+Product Sub-Categories under mobile_phones
+- Android Phones, 
+- iOS Phones, 
+- Feature Phones
+
+
+Product Sub-Categories under television
+- Smart TVs, 
+- LED TVs, 
+- OLED TVs
+
+
+Product Sub-Categories under accessories
+- Chargers, 
+- Headphones, 
+- Cases
+- Memory Cards 
+- Modems 
+- USB Hubs 
+- Speakers 
+- Jikokoo
+
+
+KEY NOTES 
+
+Supplier Module 
+*** When creating a supplier. select supplier type. i.e Product Supplier, Transporter. Use same interface just add there supplier types. 
+
+When you create Product Categories - Create Stock Account per Product Category
+
+*** When buying stock using supplier prepayment, add a section for cash paid, to fullfil purchase order payment ===> Purchase Stock using Supplier Prepayment 
+*** Can an agent belong to Two Different Team Leaders? Expected answer is NO
+
+Users Module
+*** When adding a new user, select attach to (Options should be dispatch center)
+*** When adding a new user, select supervisor (Options should be the user above them. for agent, Supervisor should be a specific team leader)
+
+Sales Module
+*** A sales order -> This involves entering customer information, product details, quantities, pricing, and any additional terms or notes, shipping information, and estimated delivery dates,  coordinating with shipping carriers or logistics partners, tracking information may be provided to the customer to monitor the shipment's progress.
+*** Administrator should set specific prices per a Distribution center. They can create discounts for each price item. verifying pricing and discounts.
+*** Should we generate an invoice or a receipt => Invoicing: Once the order is shipped or delivered, an invoice is typically generated. The invoice includes details such as the total amount due, payment terms, and instructions on how to make payment.
+--  Where a sale order was generated, it has to be converted into an invoice.. an invoice will have product imei to show it is sold... an invoice has to be paid.
+*** Payment Processing: The customer makes payment for the order, either through online payment methods, bank transfers, checks, or other accepted payment options.
+
+Producs Module
+*** Product Categories - mobile_phones, television, accessories 
+*** Product Sub Categories - Android Phones, iOS Phones, Feature Phones, Smart TVs, LED TVs, OLED TVs, Chargers, Headphones, Cases
+*** Actual product models - mobile_phones_models, television_models, accessories_models, 
+--  a product model must have it's own database table and a foreign key linking to a sub_category
+-- list product models, if category is mobile_phones, then load mobile phones page 
+-- list product models, if category is television, then load television page 
+-- list product models, if category is accessories, then load accessories page 
+>>> if you have products like food or liquid-> these belongs to a different ERP. This ERP works for Mobile Phones, TVs and Accessories
+>>> Working on accessories => define accessories - Categories and how each accessory is displayed on the screen. Refer to (https://www.phoneplacekenya.com/product/samsung-wireless-charger/)
+
+
+
+
+
+####Create Product Models
+- Example is Tecno Camon 30 ai details 
+- Save three images.

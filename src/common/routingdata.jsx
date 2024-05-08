@@ -31,13 +31,35 @@ import InventoryDashboard from "../views/inventory_module/dashboard/inventory_da
 import ProductManagement from "../views/inventory_module/product_management/product_management";
 import QualityControl from "../views/inventory_module/quality_control/quality_control";
 import InventoryManagement from "../views/inventory_module/inventory_management/inventory_management";
-import Createproduct from "../views/inventory_module/product_management/inventory-product/create-product";
 import CreatedistributionCenter from "../views/inventory_module/dashboard/distribution-centers/create-distribution";
 import Approvenewdistribution from "../views/inventory_module/dashboard/distribution-centers/approve-new-distribution";
 import Activedistributioncenters from "../views/inventory_module/dashboard/distribution-centers/active-distribution-centers";
 import Deleteddistributions from "../views/inventory_module/dashboard/distribution-centers/deleted-distributions";
 import Deactivateddistributions from "../views/inventory_module/dashboard/distribution-centers/deactivated-distributions";
 import Reactivateddistributions from "../views/inventory_module/dashboard/distribution-centers/reactivated-distributions";
+import Receivestock from "../views/inventory_module/dashboard/stock-in-transit/receive-stock";
+
+// product Managment
+import Activephones from "../views/inventory_module/product_management/mobile-models/list_active_phone_models";
+import Createphonemodel from "../views/inventory_module/product_management/mobile-models/create_phone_model";
+import ApprovenewPhone from "../views/inventory_module/product_management/mobile-models/list_unapproved_new_phone_model";
+import Deactivatedphones from "../views/inventory_module/product_management/mobile-models/list_deactivated_phone_models";
+import Deletedphonedmodels from "../views/inventory_module/product_management/mobile-models/list_deleted_phone_models";
+import ReactivatedPhonemodels from "../views/inventory_module/product_management/mobile-models/list_reactivated_phone_models";
+import Createtvmodels from "../views/inventory_module/product_management/television_models/create_tv_models";
+import Activetvmodels from "../views/inventory_module/product_management/television_models/list_active_tv_models";
+import NewUnapprovedtv from "../views/inventory_module/product_management/television_models/list_new_unapproved_tv_models";
+import Deactivatedtv from "../views/inventory_module/product_management/television_models/list_deactivated_tv_models";
+import DeletedtvModels from "../views/inventory_module/product_management/television_models/list_deleted_tv_models";
+import Reactivatedtvmodels from "../views/inventory_module/product_management/television_models/list_reactivated_tv_models";
+import Activeaccessories from "../views/inventory_module/product_management/accessories_models/list_active_accessories";
+import Createaccessory from "../views/inventory_module/product_management/accessories_models/create_accessory_model";
+import Newunapprovedaccessories from "../views/inventory_module/product_management/accessories_models/list_new_unapproved_accessories_model";
+import Deactivatedaccessory from "../views/inventory_module/product_management/accessories_models/list_deactivated_accessory_models";
+import Deletedaccessory from "../views/inventory_module/product_management/accessories_models/list_deleted_accessory_models";
+import Reactivatedaccessory from "../views/inventory_module/product_management/accessories_models/list_reactivated_accessory_models";
+import ProductCategories from "../views/inventory_module/product_management/product_categories/list_product_categories";
+import ProductsubCategories from "../views/inventory_module/product_management/product_categories/list_product_subCategories";
 
 
 //Transport Pages
@@ -260,13 +282,36 @@ export const RouteData = [
     { path: `${import.meta.env.BASE_URL}inventory/product-management`, element: <ProductManagement /> , title: ''},
     { path: `${import.meta.env.BASE_URL}inventory/inventory-management`, element: <InventoryManagement /> , title: ''},
     { path: `${import.meta.env.BASE_URL}inventory/quality-control`, element: <QualityControl /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/create-product`, element: <Createproduct /> , title: ''},
     { path: `${import.meta.env.BASE_URL}inventory/create-distribution-center`, element: <CreatedistributionCenter /> , title: ''},
     { path: `${import.meta.env.BASE_URL}inventory/approve-new-distribution-center`, element: <Approvenewdistribution /> , title: ''},
     { path: `${import.meta.env.BASE_URL}inventory/active-distribution-centers`, element: <Activedistributioncenters /> , title: ''},
     { path: `${import.meta.env.BASE_URL}inventory/deleted-distribution-centers`, element: <Deleteddistributions /> , title: ''},
     { path: `${import.meta.env.BASE_URL}inventory/deactivated-distribution-centers`, element: <Deactivateddistributions /> , title: ''},
     { path: `${import.meta.env.BASE_URL}inventory/reactivated-distribution-centers`, element: <Reactivateddistributions /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/receive-stock`, element: <Receivestock /> , title: ''},
+
+    // product managment
+    { path: `${import.meta.env.BASE_URL}inventory/active-phones-models`, element: <Activephones /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/create-phone-model`, element: <Createphonemodel /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/approve-new-phone-model`, element: <ApprovenewPhone /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/deactivated-phone-model`, element: <Deactivatedphones /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/deleted-phone-model`, element: <Deletedphonedmodels /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/reactivated-phone-model`, element: <ReactivatedPhonemodels /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/create-tv-model`, element: <Createtvmodels /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/active-tv-model`, element: <Activetvmodels /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/approve-new-tv-model`, element: <NewUnapprovedtv /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/deactivated-tv-model`, element: <Deactivatedtv /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/deleted-tv-model`, element: <DeletedtvModels /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/reactivated-tv-model`, element: <Reactivatedtvmodels /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/active-accessories-model`, element: <Activeaccessories /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/create-accessories-model`, element: <Createaccessory /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/new-unapproved-accessories-model`, element: <Newunapprovedaccessories /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/deactivated-accessories-model`, element: <Deactivatedaccessory /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/deleted-accessories-model`, element: <Deletedaccessory /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/reactivated-accessories-model`, element: <Reactivatedaccessory /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/product-categories`, element: <ProductCategories /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/product-subcategories`, element: <ProductsubCategories /> , title: ''},
+
 
     // {/* Transport content */}
     { path: `${import.meta.env.BASE_URL}transport/dashboard`, element: <TransportDashboard /> , title: ''},

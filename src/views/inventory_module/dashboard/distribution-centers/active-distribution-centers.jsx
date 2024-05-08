@@ -89,6 +89,7 @@ const Activedistributioncenters = () => {
         }
     };
     const currentDiv = divStack[divStack.length - 1];
+    
     return (
         <div>
             {currentDiv === "table" && (

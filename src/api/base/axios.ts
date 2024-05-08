@@ -2,7 +2,6 @@
 import axios from "axios";
 import { getToken } from "../../utils/helpers";
 
-// const baseURL = "https://stemprotocol.codefremics.com/api/v2";
 declare const importMeta: {
   readonly env: ImportMetaEnv;
 };

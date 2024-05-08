@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 const ProductManagement = () => {
 	return (
 		<div>
-			<PageHeader currentpage="Product Management" href="/inventory/dashboard" activepage="Inventory" mainpage="Products Management" />
+			<PageHeader currentpage="Product Management" activepage="Inventory" mainpage="Products Management" />
 
 			<div className="grid grid-cols-12 gap-6">
-			<div className="col-span-12 md:col-span-6 xxl:!col-span-4">
+				<div className="col-span-12 md:col-span-6 xxl:!col-span-4">
 					<div className="box">
 						<div className="box-header">
 							<h5 className="box-title">Mobile Phones Models</h5>
@@ -29,9 +29,9 @@ const ProductManagement = () => {
 							<div className="mt-3">
 								<div id="underline-3" role="tabpanel" aria-labelledby="underline-item-3">
 									<ul className="flex flex-col">
-									<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
+										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/active-suppliers" className="">
+												<Link to="/inventory/active-phones-models" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-airplay-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -46,7 +46,7 @@ const ProductManagement = () => {
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/create-supplier" className="">
+												<Link to="/inventory/create-phone-model" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-smartphone-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -63,7 +63,7 @@ const ProductManagement = () => {
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/approve-suppliers" className="">
+												<Link to="/inventory/approve-new-phone-model" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-tablet-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -76,15 +76,15 @@ const ProductManagement = () => {
 												</Link>
 											</div>
 										</li>
-										
+
 									</ul>
 
 								</div>
 								<div id="underline-4" className="hidden" role="tabpanel" aria-labelledby="underline-item-4">
 									<ul className="flex flex-col">
-									<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
+										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/deleted-suppliers" className="">
+												<Link to="/inventory/deleted-phone-model" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-airplay-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -99,7 +99,7 @@ const ProductManagement = () => {
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/deactivated-suppliers" className="">
+												<Link to="/inventory/deactivated-phone-model" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-smartphone-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -114,7 +114,7 @@ const ProductManagement = () => {
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<div className="flex space-x-3 rtl:space-x-reverse">
+												<Link to="/inventory/reactivated-phone-model" className="flex space-x-3 rtl:space-x-reverse">
 													<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 														<i className="ri ri-tablet-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
 													</div>
@@ -122,19 +122,19 @@ const ProductManagement = () => {
 														<p className="mb-0 text-sm">Approve Reactivated Phone Models</p>
 														<p className="mb-0 text-gray-500 dark:text-white/70 text-xs">Approve a Phone models</p>
 													</div>
-												</div>
+												</Link>
 											</div>
 										</li>
-										
+
 									</ul>
 
 								</div>
 							</div>
 						</div>
 					</div>
-			</div>
+				</div>
 
-			<div className="col-span-12 md:col-span-6 xxl:!col-span-4">
+				<div className="col-span-12 md:col-span-6 xxl:!col-span-4">
 					<div className="box">
 						<div className="box-header">
 							<h5 className="box-title">Television Models</h5>
@@ -142,10 +142,10 @@ const ProductManagement = () => {
 						<div className="box-body">
 							<div className="border-b-2 border-gray-200 dark:border-white/10">
 								<nav className="-mb-0.5 flex space-x-6 rtl:space-x-reverse">
-									<Link className="hs-tab-active:font-semibold hs-tab-active:border-primary hs-tab-active:text-primary py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-gray-500  dark:text-white/70 hover:text-primary active" to="#" id="underline-item-3" data-hs-tab="#underline-3" aria-controls="underline-1">
+									<Link className="hs-tab-active:font-semibold hs-tab-active:border-primary hs-tab-active:text-primary py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-gray-500  dark:text-white/70 hover:text-primary active" to="#" id="underline-item-3" data-hs-tab="#underline-tv" aria-controls="underline-1">
 										Manage Models
 									</Link>
-									<Link className="hs-tab-active:font-semibold hs-tab-active:border-primary hs-tab-active:text-primary py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-gray-500  dark:text-white/70 hover:text-primary" to="#" id="underline-item-4" data-hs-tab="#underline-4" aria-controls="underline-2">
+									<Link className="hs-tab-active:font-semibold hs-tab-active:border-primary hs-tab-active:text-primary py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-gray-500  dark:text-white/70 hover:text-primary" to="#" id="underline-item-4" data-hs-tab="#underline-tv2" aria-controls="underline-2">
 										Deactivated Models
 									</Link>
 
@@ -153,11 +153,11 @@ const ProductManagement = () => {
 							</div>
 
 							<div className="mt-3">
-								<div id="underline-3" role="tabpanel" aria-labelledby="underline-item-3">
+								<div id="underline-tv" role="tabpanel" aria-labelledby="underline-item-3">
 									<ul className="flex flex-col">
-									<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
+										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/active-suppliers" className="">
+												<Link to="/inventory/active-tv-model" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-airplay-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -172,7 +172,7 @@ const ProductManagement = () => {
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/create-supplier" className="">
+												<Link to="/inventory/create-tv-model" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-smartphone-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -189,7 +189,7 @@ const ProductManagement = () => {
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/approve-suppliers" className="">
+												<Link to="/inventory/approve-new-tv-model" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-tablet-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -202,15 +202,15 @@ const ProductManagement = () => {
 												</Link>
 											</div>
 										</li>
-										
+
 									</ul>
 
 								</div>
-								<div id="underline-4" className="hidden" role="tabpanel" aria-labelledby="underline-item-4">
+								<div id="underline-tv2" className="hidden" role="tabpanel" aria-labelledby="underline-item-4">
 									<ul className="flex flex-col">
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/deactivated-suppliers" className="">
+												<Link to="/inventory/deactivated-tv-model" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-smartphone-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -225,7 +225,7 @@ const ProductManagement = () => {
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<div className="flex space-x-3 rtl:space-x-reverse">
+												<Link to="/inventory/reactivated-tv-model" className="flex space-x-3 rtl:space-x-reverse">
 													<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 														<i className="ri ri-tablet-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
 													</div>
@@ -233,12 +233,12 @@ const ProductManagement = () => {
 														<p className="mb-0 text-sm">Approve Reactivated TV Models</p>
 														<p className="mb-0 text-gray-500 dark:text-white/70 text-xs">Approve a TV models</p>
 													</div>
-												</div>
+												</Link>
 											</div>
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/deleted-suppliers" className="">
+												<Link to="/inventory/deleted-tv-model" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-airplay-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -257,9 +257,9 @@ const ProductManagement = () => {
 							</div>
 						</div>
 					</div>
-			</div>
+				</div>
 
-			<div className="col-span-12 md:col-span-6 xxl:!col-span-4">
+				<div className="col-span-12 md:col-span-6 xxl:!col-span-4">
 					<div className="box">
 						<div className="box-header">
 							<h5 className="box-title">Accessories Models</h5>
@@ -267,10 +267,10 @@ const ProductManagement = () => {
 						<div className="box-body">
 							<div className="border-b-2 border-gray-200 dark:border-white/10">
 								<nav className="-mb-0.5 flex space-x-6 rtl:space-x-reverse">
-									<Link className="hs-tab-active:font-semibold hs-tab-active:border-primary hs-tab-active:text-primary py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-gray-500  dark:text-white/70 hover:text-primary active" to="#" id="underline-item-3" data-hs-tab="#underline-3" aria-controls="underline-1">
+									<Link className="hs-tab-active:font-semibold hs-tab-active:border-primary hs-tab-active:text-primary py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-gray-500  dark:text-white/70 hover:text-primary active" to="#" id="underline-item-3" data-hs-tab="#underline-ac" aria-controls="underline-1">
 										Manage Models
 									</Link>
-									<Link className="hs-tab-active:font-semibold hs-tab-active:border-primary hs-tab-active:text-primary py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-gray-500  dark:text-white/70 hover:text-primary" to="#" id="underline-item-4" data-hs-tab="#underline-4" aria-controls="underline-2">
+									<Link className="hs-tab-active:font-semibold hs-tab-active:border-primary hs-tab-active:text-primary py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-gray-500  dark:text-white/70 hover:text-primary" to="#" id="underline-item-4" data-hs-tab="#underline-ac2" aria-controls="underline-2">
 										Deactivated Models
 									</Link>
 
@@ -278,11 +278,11 @@ const ProductManagement = () => {
 							</div>
 
 							<div className="mt-3">
-								<div id="underline-3" role="tabpanel" aria-labelledby="underline-item-3">
+								<div id="underline-ac" role="tabpanel" aria-labelledby="underline-item-3">
 									<ul className="flex flex-col">
-									<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
+										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/active-suppliers" className="">
+												<Link to="/inventory/active-accessories-model" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-airplay-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -297,7 +297,7 @@ const ProductManagement = () => {
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/create-supplier" className="">
+												<Link to="/inventory/create-accessories-model" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-smartphone-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -314,7 +314,7 @@ const ProductManagement = () => {
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/approve-suppliers" className="">
+												<Link to="/inventory/new-unapproved-accessories-model" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-tablet-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -327,15 +327,15 @@ const ProductManagement = () => {
 												</Link>
 											</div>
 										</li>
-										
+
 									</ul>
 
 								</div>
-								<div id="underline-4" className="hidden" role="tabpanel" aria-labelledby="underline-item-4">
+								<div id="underline-ac2" className="hidden" role="tabpanel" aria-labelledby="underline-item-4">
 									<ul className="flex flex-col">
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/deactivated-suppliers" className="">
+												<Link to="/inventory/deactivated-accessories-model" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-smartphone-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -350,7 +350,7 @@ const ProductManagement = () => {
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<div className="flex space-x-3 rtl:space-x-reverse">
+												<Link to="/inventory/reactivated-accessories-model" className="flex space-x-3 rtl:space-x-reverse">
 													<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 														<i className="ri ri-tablet-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
 													</div>
@@ -358,12 +358,12 @@ const ProductManagement = () => {
 														<p className="mb-0 text-sm">Approve Reactivated Accessory Models</p>
 														<p className="mb-0 text-gray-500 dark:text-white/70 text-xs">Approve a Accessory models</p>
 													</div>
-												</div>
+												</Link>
 											</div>
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/deleted-suppliers" className="">
+												<Link to="/inventory/deleted-accessories-model" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-airplay-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -382,22 +382,22 @@ const ProductManagement = () => {
 							</div>
 						</div>
 					</div>
-			</div>
+				</div>
 
-			<div className="col-span-12 md:col-span-6 xxl:!col-span-4">
+				<div className="col-span-12 md:col-span-6 xxl:!col-span-4">
 					<div className="box">
 						<div className="box-header">
 							<h5 className="box-title">Products Categories</h5>
 						</div>
 						<div className="box-body">
-							
+
 
 							<div className="mt-3">
 								<div id="underline-3" role="tabpanel" aria-labelledby="underline-item-3">
 									<ul className="flex flex-col">
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/create-supplier" className="">
+												<Link to="/inventory/product-categories" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-smartphone-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -414,7 +414,7 @@ const ProductManagement = () => {
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/approve-suppliers" className="">
+												<Link to="/inventory/product-subcategories" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-tablet-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -427,18 +427,18 @@ const ProductManagement = () => {
 												</Link>
 											</div>
 										</li>
-										
+
 									</ul>
 
 								</div>
-								
+
 							</div>
 						</div>
 					</div>
+				</div>
+
 			</div>
-					
-				</div>
-				</div>
+		</div>
 	);
 };
 export default ProductManagement;

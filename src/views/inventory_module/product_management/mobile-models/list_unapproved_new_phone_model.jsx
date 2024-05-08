@@ -1,0 +1,421 @@
+import React, { useState } from "react";
+import PageHeader from "../../../../layout/layoutsection/pageHeader/pageHeader";
+import { AgGridReact } from "ag-grid-react";
+import "@ag-grid-community/styles/ag-grid.css";
+import "@ag-grid-community/styles/ag-theme-alpine.css";
+import { CSVLink } from "react-csv";
+import { useForm } from "react-hook-form";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode, Navigation, Thumbs } from "swiper/modules";
+import ALLImages from "../../../../common/imagesdata";
+
+const sampleRowData = [
+  {
+    id: 1,
+    name: "Tecno cammon 30",
+    ram: "8",
+    internal_storage: "256",
+    main_camera: "50mp",
+    front_camera: "16mp",
+    display: "6.78 OLED",
+    processor: "Octa-core",
+    operating_system: "android 14",
+    connectivity: "5G",
+    colors: "blue",
+    battery: "5000",
+    image_path: "android 14",
+  },
+  {
+    id: 2,
+    name: "Vivo 30",
+    ram: "8",
+    internal_storage: "256",
+    main_camera: "50mp",
+    front_camera: "16mp",
+    display: "6.78 OLED",
+    processor: "Octa-core",
+    operating_system: "android 14",
+    connectivity: "5G",
+    colors: "blue",
+    battery: "5000",
+    image_path: "android 14",
+  },
+];
+
+const ApprovenewPhone = () => {
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+
+  const [rowData, setRowData] = useState(sampleRowData);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedRowData, setSelectedRowData] = useState(null);
+  const [divStack, setDivStack] = useState(["table"]);
+  const [editMode, setEditMode] = useState(false);
+  const [showStatusModal, setShowStatusModal] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+    formState,
+    setValue,
+    reset,
+  } = useForm();
+
+  function dec(el) {
+    let unit = el.currentTarget.parentElement.querySelector("input").value;
+
+    if (Number(unit) === 0) {
+      return false;
+    } else {
+      el.currentTarget.parentElement.querySelector("input").value--;
+    }
+  }
+  function inc(el) {
+    el.currentTarget.parentElement.querySelector("input").value++;
+  }
+
+  const toggleEditMode = () => {
+    setEditMode(!editMode);
+  };
+
+  const columnDefs = Object.keys(sampleRowData[0]).map((key) => ({
+    headerName: key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, " "),
+    field: key,
+    sortable: true,
+    editable: false,
+    filter: true,
+  }));
+
+  const onRowClicked = (event) => {
+    const selectedData = event.data;
+    setSelectedRowData(selectedData);
+    handleClick("phoneDetails");
+  };
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const filteredData = rowData.filter((row) => {
+    return columnDefs.some((column) => {
+      const fieldValue = row[column.field];
+      if (fieldValue && typeof fieldValue === "string") {
+        return fieldValue.toLowerCase().includes(searchQuery.toLowerCase());
+      } else if (fieldValue && typeof fieldValue !== "string") {
+        return fieldValue.toString().toLowerCase().includes(searchQuery.toLowerCase());
+      }
+      return false;
+    });
+  });
+
+  const handleClick = (divId) => {
+    setDivStack((prevStack) => {
+      if (prevStack.includes(divId)) {
+        return prevStack.slice(0, prevStack.indexOf(divId) + 1);
+      } else {
+        return [...prevStack, divId];
+      }
+    });
+  };
+
+  const handleBack = () => {
+    if (divStack.length > 1) {
+      setDivStack((prevStack) => prevStack.slice(0, -1));
+    }
+  };
+  const currentDiv = divStack[divStack.length - 1];
+
+  const onSubmit = async (values) => {
+    console.log(values);
+    setEditMode(false);
+    reset();
+  };
+  return (
+    <div>
+      {currentDiv === "table" && (
+        <div>
+          <PageHeader
+            currentpage="New Phone Models"
+            href="/inventory/product-management"
+            activepage="Inventory"
+            mainpage="New Phone Models"
+          />
+
+          <div style={{ display: "flex", alignItems: "center", margin: "2" }}>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={handleSearchChange}
+              placeholder="Search..."
+              style={{
+                marginTop: "10px",
+                marginBottom: "10px",
+                padding: "5px",
+                width: "100%",
+                boxSizing: "border-box",
+              }}
+            />
+            <CSVLink
+              data={filteredData.length > 0 ? filteredData : rowData}
+              filename="Active Phone Models.csv"
+              separator={","}
+              className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
+                />
+              </svg>
+              Export
+            </CSVLink>
+          </div>
+          <div
+            className="ag-theme-alpine"
+            style={{
+              height: "calc(100dvh - 130px)",
+              width: "100%",
+              position: "relative",
+              zIndex: 1,
+              overflowY: "auto",
+            }}
+          >
+            <AgGridReact
+              rowData={filteredData.length > 0 ? filteredData : rowData}
+              columnDefs={columnDefs}
+              // defaultColDef={defaultColDef}
+              pagination={true}
+              paginationPageSize={20}
+              // onGridReady={onGridReady}
+              getRowNodeId={(data) => data.id}
+              onRowClicked={onRowClicked}
+            />
+          </div>
+        </div>
+      )}
+      {currentDiv === "phoneDetails" && (
+        <div>
+          <PageHeader currentpage="New Phone Model" href="/inventory/product-management" activepage="Inventory" mainpage="New Phone Model" />
+          <div className="box">
+            <div className="grid grid-cols-12">
+              <div className="col-span-12 xxl:col-span-5">
+                <div className="box mb-0 border-0 shadow-none bg-transparent">
+                  <div className="box-body">
+                    <Swiper
+                      style={{ "--swiper-navigation-color": "#fff", "--swiper-pagination-color": "#fff" }}
+                      className="mySwiper2"
+                      loop={true}
+                      spaceBetween={10}
+                      navigation={true}
+                      thumbs={{ swiper: thumbsSwiper }}
+                      modules={[FreeMode, Navigation, Thumbs]}
+                    >
+                      {Array.from(Array(8)).map((_, index) => (
+                        <SwiperSlide key={index}>
+                          <img alt={`product-image-${index}`} src={ALLImages(`png${index + 17}`)} />
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
+                    <Swiper
+                      onSwiper={setThumbsSwiper}
+                      loop={true}
+                      spaceBetween={10}
+                      slidesPerView={4}
+                      freeMode={true}
+                      watchSlidesProgress={true}
+                      modules={[FreeMode, Navigation, Thumbs]}
+                      className="mySwiper"
+                    >
+                      {Array.from(Array(8)).map((_, index) => (
+                        <SwiperSlide key={index}>
+                          <img alt={`product-image-${index}`} src={ALLImages(`png${index + 17}`)} />
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
+                  </div>
+                </div>
+              </div>
+              <div className="col-span-12 xxl:col-span-4">
+                <div className="box mb-0 border-0 shadow-none bg-transparent">
+                  <div className="box-body xxl:px-0">
+                    <div className="space-y-5">
+                      <h5 className="font-bold text-xl text-gray-800 dark:text-white">
+                        {editMode ? (
+                          <input type="text" defaultValue={selectedRowData.name} {...register("name")} />
+                        ) : (
+                          selectedRowData.name
+                        )}
+                      </h5>
+                      <div className="space-y-4">
+                        <h5 className="font-bold text-sm my-auto w-28 text-gray-800 dark:text-white">Description :</h5>
+
+                        <p className="my-auto font-medium text-sm text-gray-500 dark:text-white/70">
+                          {editMode ? (
+                            <textarea
+                              defaultValue="Lorem ipsum dolor sit
+                                                    amet, consectetur adipisicing elit. Voluptas sint exercitationem veritatis harum maiores
+                                                    corporis perspiciatis quos accusantium velit. Deserunt tenetur rerum nemo illum. Dolor
+                                                    laboriosam atque accusantium perspiciatis rerum?"
+                            />
+                          ) : (
+                            <p className="my-auto font-medium text-sm text-gray-500 dark:text-white/70">
+                              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas sint exercitationem
+                              veritatis harum maiores corporis perspiciatis quos accusantium velit. Deserunt tenetur
+                              rerum nemo illum. Dolor laboriosam atque accusantium perspiciatis rerum?
+                            </p>
+                          )}
+                        </p>
+                      </div>
+                      <div className="sm:flex sm:space-x-5">
+                        <h5 className="font-bold text-sm my-auto w-28 text-gray-800 dark:text-white">Ram :</h5>
+                        <span className="my-auto font-medium text-md">
+                          {editMode ? (
+                            <input type="text" defaultValue={selectedRowData.ram} {...register("ram")} />
+                          ) : (
+                            selectedRowData.ram
+                          )}{" "}
+                        </span>
+                      </div>
+                      <div className="sm:flex sm:space-x-2">
+                        <h5 className="font-bold text-sm my-auto w-30 text-gray-800 dark:text-white">
+                          Internal Storage :
+                        </h5>
+                        <h5 className="font-medium text-sm my-auto w-28 text-gray-800 dark:text-white">
+                          {editMode ? (
+                            <input
+                              type="text"
+                              defaultValue={selectedRowData.internal_storage}
+                              {...register("internal_storage")}
+                            />
+                          ) : (
+                            selectedRowData.internal_storage
+                          )}
+                        </h5>
+                      </div>
+                      <div className="sm:flex sm:space-x-2">
+                        <h5 className="font-bold text-sm my-auto w-30 text-gray-800 dark:text-white">Main Camera :</h5>
+                        <h5 className="font-medium text-sm my-auto w-28 text-gray-800 dark:text-white">
+                          {editMode ? (
+                            <input
+                              type="text"
+                              defaultValue={selectedRowData.main_camera}
+                              {...register("main_camera")}
+                            />
+                          ) : (
+                            selectedRowData.main_camera
+                          )}
+                        </h5>
+                      </div>
+                      <div className="sm:flex sm:space-x-2">
+                        <h5 className="font-bold text-sm my-auto w-30 text-gray-800 dark:text-white">Front Camera :</h5>
+                        <h5 className="font-medium text-sm my-auto w-28 text-gray-800 dark:text-white">
+                          {editMode ? (
+                            <input
+                              type="text"
+                              defaultValue={selectedRowData.front_camera}
+                              {...register("front_camera")}
+                            />
+                          ) : (
+                            selectedRowData.front_camera
+                          )}
+                        </h5>
+                      </div>
+                      <div className="sm:flex sm:space-x-2">
+                        <h5 className="font-bold text-sm my-auto w-30 text-gray-800 dark:text-white">Display :</h5>
+                        <h5 className="font-medium text-sm my-auto w-28 text-gray-800 dark:text-white">
+                          {editMode ? (
+                            <input type="text" defaultValue={selectedRowData.display} {...register("display")} />
+                          ) : (
+                            selectedRowData.display
+                          )}
+                        </h5>
+                      </div>
+                      <div className="sm:flex sm:space-x-2">
+                        <h5 className="font-bold text-sm my-auto w-30 text-gray-800 dark:text-white">Processor :</h5>
+                        <h5 className="font-medium text-sm my-auto w-28 text-gray-800 dark:text-white">
+                          {editMode ? (
+                            <input type="text" defaultValue={selectedRowData.processor} {...register("processor")} />
+                          ) : (
+                            selectedRowData.processor
+                          )}
+                        </h5>
+                      </div>
+                      <div className="sm:flex sm:space-x-2">
+                        <h5 className="font-bold text-sm my-auto w-30 text-gray-800 dark:text-white">
+                          Operating System :
+                        </h5>
+                        <h5 className="font-medium text-sm my-auto w-28 text-gray-800 dark:text-white">
+                          {editMode ? (
+                            <input
+                              type="text"
+                              defaultValue={selectedRowData.operating_system}
+                              {...register("operating_system")}
+                            />
+                          ) : (
+                            selectedRowData.operating_system
+                          )}
+                        </h5>
+                      </div>
+                      <div className="sm:flex sm:space-x-2">
+                        <h5 className="font-bold text-sm my-auto w-30 text-gray-800 dark:text-white">Connectivity :</h5>
+                        <h5 className="font-medium text-sm my-auto w-28 text-gray-800 dark:text-white">
+                          {editMode ? (
+                            <input
+                              type="text"
+                              defaultValue={selectedRowData.connectivity}
+                              {...register("connectivity")}
+                            />
+                          ) : (
+                            selectedRowData.connectivity
+                          )}
+                        </h5>
+                      </div>
+                      <div className="sm:flex sm:space-x-2">
+                        <h5 className="font-bold text-sm my-auto w-30 text-gray-800 dark:text-white">Colors :</h5>
+                        <h5 className="font-medium text-sm my-auto w-28 text-gray-800 dark:text-white">
+                          {editMode ? (
+                            <input type="text" defaultValue={selectedRowData.colors} {...register("colors")} />
+                          ) : (
+                            selectedRowData.colors
+                          )}
+                        </h5>
+                      </div>
+                      <div id="loader" style={{ display: "none" }}>
+                        <span
+                          className="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent text-blue rounded-full"
+                          role="status"
+                          aria-label="loading"
+                        >
+                          <span className="sr-only">Loading...</span>
+                        </span>
+                      </div>
+                      <button className="ti-btn ti-btn-ghost-primary text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:text-white dark:hover:text-white">
+                        Approve
+                      </button>
+                      <button
+                        onClick={editMode ? handleSubmit(onSubmit) : toggleEditMode}
+                        className="ti-btn ti-btn-ghost-danger"
+                      >
+                        {editMode ? "Save" : "Edit"}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ApprovenewPhone;

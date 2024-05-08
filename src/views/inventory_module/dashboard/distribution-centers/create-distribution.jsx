@@ -55,7 +55,6 @@ const CreatedistributionCenter = () => {
                     </div>
                 </div>
             </div>
-
             <div className="grid grid-cols-12 gap-x-6">
                 <div className="col-span-12">
                     <div className="box !bg-transparent border-0 shadow-none">
@@ -65,14 +64,11 @@ const CreatedistributionCenter = () => {
                     </div>
                 </div>
             </div>
-
             <div id="loader" style={{ display: 'none' }}>
                 <span className="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent text-blue rounded-full" role="status" aria-label="loading">
                     <span className="sr-only">Loading...</span>
                 </span>
             </div>
-
-
         </div>
     )
 }
