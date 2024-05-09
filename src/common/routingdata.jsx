@@ -1,5 +1,7 @@
 //Dashboards 
 import MainDashboard from "../views/general/main_dashboard/main_dashboard";
+// agents
+import Agents_dashboard from "../views/Agents_portal/dashboard";
 
 
 //Other Pages
@@ -10,11 +12,11 @@ import Widgets from "../views/widgets/dashboard/widgets";
 //User Pages
 import Profile from "../views/user_module/profile/home/home";
 import UserDashboard from "../views/user_module/dashboard/user_dashboard";
-import CreateUser from "../views/user_module/inventory-users/create-new-user";
-import Activeusers from "../views/user_module/inventory-users/active-users";
-import Deletedusers from "../views/user_module/inventory-users/deleted-users";
-import Deactivatedusers from "../views/user_module/inventory-users/deactivated-users";
-import Newusers from "../views/user_module/inventory-users/new-users";
+import CreateUser from "../views/user_module/users/create_new_user";
+import Activeusers from "../views/user_module/users/active_users";
+import Deletedusers from "../views/user_module/users/deleted_users";
+import Deactivatedusers from "../views/user_module/users/deactivated_users";
+import Newusers from "../views/user_module/users/new_users";
 
 //Supplier Pages
 import SupplierDashboard from "../views/supplier_module/dashboard/supplier_dashboard";
@@ -31,13 +33,14 @@ import InventoryDashboard from "../views/inventory_module/dashboard/inventory_da
 import ProductManagement from "../views/inventory_module/product_management/product_management";
 import QualityControl from "../views/inventory_module/quality_control/quality_control";
 import InventoryManagement from "../views/inventory_module/inventory_management/inventory_management";
-import CreatedistributionCenter from "../views/inventory_module/dashboard/distribution-centers/create-distribution";
-import Approvenewdistribution from "../views/inventory_module/dashboard/distribution-centers/approve-new-distribution";
-import Activedistributioncenters from "../views/inventory_module/dashboard/distribution-centers/active-distribution-centers";
-import Deleteddistributions from "../views/inventory_module/dashboard/distribution-centers/deleted-distributions";
-import Deactivateddistributions from "../views/inventory_module/dashboard/distribution-centers/deactivated-distributions";
-import Reactivateddistributions from "../views/inventory_module/dashboard/distribution-centers/reactivated-distributions";
-import Receivestock from "../views/inventory_module/dashboard/stock-in-transit/receive-stock";
+import CreatedistributionCenter from "../views/inventory_module/dashboard/distribution_centers/create_distribution";
+import Approvenewdistribution from "../views/inventory_module/dashboard/distribution_centers/list_newunapproved_distribution";
+import Activedistributioncenters from "../views/inventory_module/dashboard/distribution_centers/list_active_distribution-centers";
+import Deleteddistributions from "../views/inventory_module/dashboard/distribution_centers/list_deleted_distributions";
+import Deactivateddistributions from "../views/inventory_module/dashboard/distribution_centers/list_deactivated_distributions";
+import Reactivateddistributions from "../views/inventory_module/dashboard/distribution_centers/list_reactivated_distributions";
+import Receivestock from "../views/inventory_module/dashboard/stock_in_transit/receive_stock";
+import BuyusingPrepayment from "../views/inventory_module/dashboard/purchase_stock/buy_using_prepayment";
 
 // product Managment
 import Activephones from "../views/inventory_module/product_management/mobile-models/list_active_phone_models";
@@ -226,6 +229,7 @@ import Remixicons from "../component/icon/remixicons/remixicons";
 import Tablericons from "../component/icon/tablericons/tablericons";
 
 
+
 //component path END
 
 export const RouteData = [
@@ -236,6 +240,7 @@ export const RouteData = [
 
     { path: `${import.meta.env.BASE_URL}dashboards/sales`, element: <Sales /> , title: ''},
     { path: `${import.meta.env.BASE_URL}dashboards/main`, element: <MainDashboard /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}dashboards/agents`, element: <Agents_dashboard /> , title: ''},
     { path: `${import.meta.env.BASE_URL}dashboards/ecommerce`, element: <Ecommerce /> , title: ''},
     { path: `${import.meta.env.BASE_URL}dashboards/crypto`, element: <Crypto /> , title: ''},
     { path: `${import.meta.env.BASE_URL}dashboards/jobs`, element: <Jobs /> , title: ''},
@@ -288,7 +293,8 @@ export const RouteData = [
     { path: `${import.meta.env.BASE_URL}inventory/deleted-distribution-centers`, element: <Deleteddistributions /> , title: ''},
     { path: `${import.meta.env.BASE_URL}inventory/deactivated-distribution-centers`, element: <Deactivateddistributions /> , title: ''},
     { path: `${import.meta.env.BASE_URL}inventory/reactivated-distribution-centers`, element: <Reactivateddistributions /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/receive-stock`, element: <Receivestock /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/reactivated-distribution-centers`, element: <Reactivateddistributions /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/buy-using-prepayments`, element: <BuyusingPrepayment /> , title: ''},
 
     // product managment
     { path: `${import.meta.env.BASE_URL}inventory/active-phones-models`, element: <Activephones /> , title: ''},

@@ -1,14 +1,37 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PageHeader from '../../../../layout/layoutsection/pageHeader/pageHeader'
 import { useForm } from "react-hook-form"
 import Dropzone from 'react-dropzone-uploader'
+import 'react-dropzone-uploader/dist/styles.css'
+import mtaApi from '../../../../api/mtaApi'
 
 const Createphonemodel = () => {
-    const { register, handleSubmit, formState: { errors, isValid }, formState } = useForm();
+    const { register, handleSubmit, formState: { errors, isValid }, reset, setValue } = useForm();
+    const [filePaths, setFilePaths] = useState([]);
 
-    const onSubmit = async values => {
-        console.log(values)
-    }
+    const getUploadParams = ({ meta }) => { return { url: 'https://httpbin.org/post' } }
+    const handleChangeStatus = ({ meta, file }, status) => {
+        console.log(status);
+        if (status === 'done') {
+            setFilePaths(prevFilePaths => [...prevFilePaths, meta.name]);
+            setValue('image_path', [...filePaths, meta.name]);
+        } else if (status === 'removed') {
+            setFilePaths(prevFilePaths => prevFilePaths.filter(filePath => filePath !== meta.name));
+            setValue('image_path', [...filePaths.filter(filePath => filePath !== meta.name)]);
+        }
+    };
+
+    const onSubmit = async (values) => {
+        const filePathsJSON = JSON.stringify(filePaths);
+        try {
+            const response = await mtaApi.product_models.createPhoneModel(values)
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
+        reset()
+        // setFilePaths([]);
+    };
     return (
         <div>
             <PageHeader currentpage="Create Phone Model" href="/inventory/product-management" activepage="Inventory" mainpage="Create Phone Model" />
@@ -54,7 +77,7 @@ const Createphonemodel = () => {
                             </div>
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">Processor</label>
-                                <input type="number" {...register("processor", { required: true })} id='processor' className="my-auto ti-form-input" placeholder="...Enter processor type" required />
+                                <input type="text" {...register("processor", { required: true })} id='processor' className="my-auto ti-form-input" placeholder="...Enter processor type" required />
                             </div>
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">Slect Operating System</label>
@@ -73,9 +96,18 @@ const Createphonemodel = () => {
                                 <input type="text" {...register("battery")} id='battery' className="my-auto ti-form-input" placeholder="Enter phone's battery capacity" required />
                             </div>
                         </div>
-                        <div className="space-y-4">
-                            <label className="ti-form-label mb-0">Upload Phone Model Images</label>
-                            <Dropzone />
+                        <div className="box-body dropzone-file-upload">
+                            <label className="ti-form-label mb-0">Upload Product Images</label>
+                            <p>Please upload Max of 2 images with a maximum size of 1MB each.</p>
+                            <Dropzone
+                                maxFiles={2}
+                                maxSizeBytes={1 * 1024 * 1024}
+                                getUploadParams={getUploadParams}
+                                onChangeStatus={handleChangeStatus}
+                                instructions="upload max 1 mb"
+                                accept="image/*"
+                                required
+                            />
                         </div>
                     </div>
                 </div>

@@ -756,9 +756,9 @@ const Header = ({ local_varaiable, ThemeChanger }) => {
                         </div>
                         <div>
                           <p className="ti-dropdown-header-title !text-white">
-                            {user.username}
+                            {user.user_lastName}
                           </p>
-                          <p className="ti-dropdown-header-content !text-white/50">{user.user_email}</p>
+                          <p className="ti-dropdown-header-content !text-white/50">{user.user_firstName}</p>
                         </div>
                       </div>
                       <div className="mt-2 ti-dropdown-divider">

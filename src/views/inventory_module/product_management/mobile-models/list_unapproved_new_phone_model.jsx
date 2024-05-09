@@ -1,65 +1,41 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import PageHeader from "../../../../layout/layoutsection/pageHeader/pageHeader";
 import { AgGridReact } from "ag-grid-react";
 import "@ag-grid-community/styles/ag-grid.css";
 import "@ag-grid-community/styles/ag-theme-alpine.css";
 import { CSVLink } from "react-csv";
 import { useForm } from "react-hook-form";
+import mtaApi from "../../../../api/mtaApi";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import ALLImages from "../../../../common/imagesdata";
 
-const sampleRowData = [
-  {
-    id: 1,
-    name: "Tecno cammon 30",
-    ram: "8",
-    internal_storage: "256",
-    main_camera: "50mp",
-    front_camera: "16mp",
-    display: "6.78 OLED",
-    processor: "Octa-core",
-    operating_system: "android 14",
-    connectivity: "5G",
-    colors: "blue",
-    battery: "5000",
-    image_path: "android 14",
-  },
-  {
-    id: 2,
-    name: "Vivo 30",
-    ram: "8",
-    internal_storage: "256",
-    main_camera: "50mp",
-    front_camera: "16mp",
-    display: "6.78 OLED",
-    processor: "Octa-core",
-    operating_system: "android 14",
-    connectivity: "5G",
-    colors: "blue",
-    battery: "5000",
-    image_path: "android 14",
-  },
-];
 
 const ApprovenewPhone = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
-  const [rowData, setRowData] = useState(sampleRowData);
+  const [rowData, setRowData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedRowData, setSelectedRowData] = useState(null);
   const [divStack, setDivStack] = useState(["table"]);
   const [editMode, setEditMode] = useState(false);
   const [showStatusModal, setShowStatusModal] = useState(false);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-    formState,
-    setValue,
-    reset,
-  } = useForm();
+  const { register, handleSubmit, formState: { errors, isValid }, formState, setValue, reset, } = useForm();
+
+  const columnDefs = [
+    { headerName: "#", field: "id", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 3 },
+    { headerName: "Phone Name", field: "name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5 },
+    { headerName: "Ram", field: "ram", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 3},
+    { headerName: "Rom", field: "internal_storage", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 3},
+    { headerName: "Back Camera", field: "main_camera", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth:5 },
+    { headerName: "Selfie Camera", field: "front_camera", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5 },
+    { headerName: "Dispaly", field: "display", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5 },
+    { headerName: "Battery", field: "battery", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5 },
+    { headerName: "OS", field: "operating_system", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5 },
+    { headerName: "Connectivity", field: "connectivity", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5 },
+  ];
+
+  const defaultColDef = {sortable: true, flex: 1, filter: true, floatingFilter: false };
 
   function dec(el) {
     let unit = el.currentTarget.parentElement.querySelector("input").value;
@@ -78,13 +54,22 @@ const ApprovenewPhone = () => {
     setEditMode(!editMode);
   };
 
-  const columnDefs = Object.keys(sampleRowData[0]).map((key) => ({
-    headerName: key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, " "),
-    field: key,
-    sortable: true,
-    editable: false,
-    filter: true,
-  }));
+  const onGridReady = useCallback((params) => {
+    const newUnApproved = async () => {
+      try {
+        const { data } = await mtaApi.product_models.ListMobilePhones({ id: '2' });
+        // console.log(data.response)
+        setRowData(data.response)
+        // if (data.status == 200) {
+        //   setRowData(data.response);
+        //   // setLoading(false);
+        // }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    newUnApproved();
+  }, []);
 
   const onRowClicked = (event) => {
     const selectedData = event.data;
@@ -96,17 +81,17 @@ const ApprovenewPhone = () => {
     setSearchQuery(event.target.value);
   };
 
-  const filteredData = rowData.filter((row) => {
-    return columnDefs.some((column) => {
-      const fieldValue = row[column.field];
-      if (fieldValue && typeof fieldValue === "string") {
-        return fieldValue.toLowerCase().includes(searchQuery.toLowerCase());
-      } else if (fieldValue && typeof fieldValue !== "string") {
-        return fieldValue.toString().toLowerCase().includes(searchQuery.toLowerCase());
-      }
-      return false;
-    });
-  });
+  // const filteredData = rowData.filter((row) => {
+  //   return columnDefs.some((column) => {
+  //     const fieldValue = row[column.field];
+  //     if (fieldValue && typeof fieldValue === "string") {
+  //       return fieldValue.toLowerCase().includes(searchQuery.toLowerCase());
+  //     } else if (fieldValue && typeof fieldValue !== "string") {
+  //       return fieldValue.toString().toLowerCase().includes(searchQuery.toLowerCase());
+  //     }
+  //     return false;
+  //   });
+  // });
 
   const handleClick = (divId) => {
     setDivStack((prevStack) => {
@@ -155,9 +140,9 @@ const ApprovenewPhone = () => {
                 boxSizing: "border-box",
               }}
             />
-            <CSVLink
+            {/* <CSVLink
               data={filteredData.length > 0 ? filteredData : rowData}
-              filename="Active Phone Models.csv"
+              filename="New unapproved Phone Models.csv"
               separator={","}
               className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600"
             >
@@ -176,7 +161,7 @@ const ApprovenewPhone = () => {
                 />
               </svg>
               Export
-            </CSVLink>
+            </CSVLink> */}
           </div>
           <div
             className="ag-theme-alpine"
@@ -189,12 +174,13 @@ const ApprovenewPhone = () => {
             }}
           >
             <AgGridReact
-              rowData={filteredData.length > 0 ? filteredData : rowData}
+              // rowData={filteredData.length > 0 ? filteredData : rowData}
+              // rowData={rowData.length > 0 ? rowData : 'Loading...'}
               columnDefs={columnDefs}
-              // defaultColDef={defaultColDef}
+              defaultColDef={defaultColDef}
               pagination={true}
               paginationPageSize={20}
-              // onGridReady={onGridReady}
+              onGridReady={onGridReady}
               getRowNodeId={(data) => data.id}
               onRowClicked={onRowClicked}
             />

@@ -1,63 +1,52 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import PageHeader from "../../../../layout/layoutsection/pageHeader/pageHeader";
 import { AgGridReact } from "ag-grid-react";
 import "@ag-grid-community/styles/ag-grid.css";
 import "@ag-grid-community/styles/ag-theme-alpine.css";
 import { CSVLink } from "react-csv";
+import mtaApi from "../../../../api/mtaApi";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import ALLImages from "../../../../common/imagesdata";
 
-const sampleRowData = [
-    {
-        id: 1,
-        name: "Tecno cammon 30",
-        ram: "8",
-        internal_storage: "256",
-        main_camera: "50mp",
-        front_camera: "16mp",
-        display: "6.78 OLED",
-        processor: "Octa-core",
-        operating_system: "android 14",
-        connectivity: "5G",
-        colors: "blue",
-        battery: "5000",
-        image_path: "android 14",
-    },
-    {
-        id: 2,
-        name: "Vivo 30",
-        ram: "8",
-        internal_storage: "256",
-        main_camera: "50mp",
-        front_camera: "16mp",
-        display: "6.78 OLED",
-        processor: "Octa-core",
-        operating_system: "android 14",
-        connectivity: "5G",
-        colors: "blue",
-        battery: "5000",
-        image_path: "android 14",
-    },
-];
 const Activephones = () => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
-    const [rowData, setRowData] = useState(sampleRowData);
+    const [rowData, setRowData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedRowData, setSelectedRowData] = useState(null);
     const [divStack, setDivStack] = useState(["table"]);
     // const [alert, setAlert] = useState(null);
     const [showStatusModal, setShowStatusModal] = useState(false);
 
-    const columnDefs = Object.keys(sampleRowData[0]).map(key => ({
-        headerName: key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, " "),
-        field: key,
-        sortable: true,
-        editable: false,
-        filter: true,
-    }));
+    const columnDefs = [
+        { headerName: "#", field: "id", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 3 },
+        { headerName: "Phone Name", field: "name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5 },
+        { headerName: "Ram", field: "ram", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 3 },
+        { headerName: "Rom", field: "internal_storage", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 3 },
+        { headerName: "Back Camera", field: "main_camera", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5 },
+        { headerName: "Selfie Camera", field: "front_camera", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5 },
+        { headerName: "Dispaly", field: "display", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5 },
+        { headerName: "Battery", field: "battery", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5 },
+        { headerName: "OS", field: "operating_system", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5 },
+        { headerName: "Connectivity", field: "connectivity", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5 },
+    ];
 
+    const defaultColDef = { sortable: true, flex: 1, filter: true, floatingFilter: false };
+
+    const onGridReady = useCallback((params) => {
+        const newUnApproved = async () => {
+            try {
+                const { data } = await mtaApi.product_models.ListMobilePhones({ id: '1' });
+                if (data.status == 200) {
+                    // setRowData(data.response);
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        newUnApproved();
+    }, []);
     const onRowClicked = (event) => {
         const selectedData = event.data;
         setSelectedRowData(selectedData);
@@ -111,21 +100,21 @@ const Activephones = () => {
                             placeholder="Search..."
                             style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '100%', boxSizing: 'border-box' }}
                         />
-                        <CSVLink data={filteredData.length > 0 ? filteredData : rowData} filename="Active Phone Models.csv" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
+                        {/* <CSVLink data={filteredData.length > 0 ? filteredData :rowData.length > 0 ? rowData: null} filename="Active Phone Models.csv" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                             </svg>
                             Export
-                        </CSVLink>
+                        </CSVLink> */}
                     </div>
                     <div className="ag-theme-alpine" style={{ height: 'calc(100dvh - 130px)', width: '100%', position: 'relative', zIndex: 1, overflowY: 'auto' }}>
                         <AgGridReact
                             rowData={filteredData.length > 0 ? filteredData : rowData}
                             columnDefs={columnDefs}
-                            // defaultColDef={defaultColDef}
+                            defaultColDef={defaultColDef}
                             pagination={true}
                             paginationPageSize={20}
-                            // onGridReady={onGridReady}
+                            onGridReady={onGridReady}
                             getRowNodeId={(data) => data.id}
                             onRowClicked={onRowClicked}
                         />

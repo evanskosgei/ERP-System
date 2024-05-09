@@ -46,9 +46,7 @@ const ApproveSupplier = () => {
 
         const newUnApproved = async () => {
             try {
-                
                 const { data } = await mtaApi.suppliers.getNewUnApprovedSuppliers('2');
-
                 if (data.status == 200) {
                     setRowData(data.response);
                     // setLoading(false);

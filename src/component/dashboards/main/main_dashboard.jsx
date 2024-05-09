@@ -5,11 +5,10 @@ import PageHeader from "../../../layout/layoutsection/pageHeader/pageHeader";
 import { connect } from "react-redux"
 import { Link } from 'react-router-dom';
 
-const Sales = ({local_varaiable}) => {
+const Sales = ({ local_varaiable }) => {
 	return (
 		<div>
-			<PageHeader currentpage="Dashboard" activepage="Home" mainpage="Dashboard"/>
-
+			<PageHeader currentpage="Dashboard" activepage="Home" mainpage="Dashboard" />
 			<div className="grid grid-cols-12 gap-x-5">
 				<div className="col-span-12 md:col-span-6 xxl:col-span-3">
 					<div className="box overflow-hidden">
@@ -110,29 +109,26 @@ const Sales = ({local_varaiable}) => {
 					</div>
 				</div>
 			</div>
-			
-			
+
+
 
 			<div className="grid grid-cols-12 gap-x-5">
-			
-				
-
 				<div className="col-span-12 lg:col-span-6 xxl:col-span-4">
 					<div className="box">
 						<div className="box-header flex justify-between">
 							<div className="box-title my-auto">
-                 Recent Activities
+								Recent Activities
 							</div>
 							<div className=" block ltr:ml-auto rtl:mr-auto my-auto">
 								<button type="button"
 									className="ti-btn m-0 rounded-sm p-1 px-3 !border border-gray-200 text-gray-400 hover:text-gray-500 hover:bg-gray-200 hover:border-gray-200 focus:ring-gray-200  dark:hover:bg-black/30 dark:border-white/10 dark:hover:border-white/20 dark:focus:ring-white/10 dark:focus:ring-offset-white/10">
-                    View All</button>
+									View All</button>
 							</div>
 						</div>
 						<div className="box-body">
 							<ul className="list-unstyled mb-0 crm-recent-activity">
-								
-								
+
+
 								<li className="crm-recent-activity-content">
 									<div className="flex items-top">
 										<div className="ltr:mr-3 rtl:ml-3">
@@ -213,7 +209,7 @@ const Sales = ({local_varaiable}) => {
 						</div>
 					</div>
 				</div>
-				
+
 				<div className="col-span-12 lg:col-span-6 xxl:col-span-4">
 					<div className="box">
 						<div className="box-header">
@@ -237,14 +233,14 @@ const Sales = ({local_varaiable}) => {
 									<Link to="#" className="flex  justify-between items-center w-full">
 										<div className="flex space-x-3 rtl:space-x-reverse w-full">
 											<img className="avatar avatar-sm rounded-sm" src={ALLImages('jpg58')}
-												alt="Image Description"/>
+												alt="Image Description" />
 											<div className="flex w-full">
 												<div className="block my-auto">
 													<p className="block text-sm font-semibold text-gray-800 hover:text-gray-900 my-auto  dark:text-white dark:hover:text-gray-200">
-                              Socrates Itumay</p>
+														Socrates Itumay</p>
 													<p
 														className="text-xs text-gray-400 dark:text-white/80 truncate sm:max-w-max max-w-[100px] font-normal">
-                              15 Purchases</p>
+														15 Purchases</p>
 												</div>
 											</div>
 										</div>
@@ -255,15 +251,15 @@ const Sales = ({local_varaiable}) => {
 									<Link to="#" className="flex  justify-between items-center w-full">
 										<div className="flex space-x-3 rtl:space-x-reverse w-full">
 											<img className="avatar avatar-sm rounded-sm" src={ALLImages('jpg59')}
-												alt="Image Description"/>
+												alt="Image Description" />
 											<div className="flex w-full">
 												<div className="block my-auto">
 													<p
 														className="block text-sm font-semibold text-gray-800 hover:text-gray-900 my-auto  dark:text-white dark:hover:text-gray-200">
-                              Json Taylor</p>
+														Json Taylor</p>
 													<p
 														className="text-xs text-gray-400 dark:text-white/80 truncate sm:max-w-max max-w-[100px] font-normal">
-                              18 Purchases</p>
+														18 Purchases</p>
 												</div>
 											</div>
 										</div>
@@ -274,15 +270,15 @@ const Sales = ({local_varaiable}) => {
 									<Link to="#" className="flex  justify-between items-center w-full">
 										<div className="flex space-x-3 rtl:space-x-reverse w-full">
 											<img className="avatar avatar-sm rounded-sm" src={ALLImages('jpg60')}
-												alt="Image Description"/>
+												alt="Image Description" />
 											<div className="flex w-full">
 												<div className="block my-auto">
 													<p
 														className="block text-sm font-semibold text-gray-800 hover:text-gray-900 my-auto  dark:text-white dark:hover:text-gray-200">
-                              Suzika Stallone</p>
+														Suzika Stallone</p>
 													<p
 														className="text-xs text-gray-400 dark:text-white/80 truncate sm:max-w-max max-w-[100px] font-normal">
-                              21 Purchases</p>
+														21 Purchases</p>
 												</div>
 											</div>
 										</div>
@@ -293,22 +289,22 @@ const Sales = ({local_varaiable}) => {
 									<Link to="#" className="flex  justify-between items-center w-full">
 										<div className="flex space-x-3 rtl:space-x-reverse w-full">
 											<img className="avatar avatar-sm rounded-sm" src={ALLImages('jpg61')}
-												alt="Image Description"/>
+												alt="Image Description" />
 											<div className="flex w-full">
 												<div className="block my-auto">
 													<p
 														className="block text-sm font-semibold text-gray-800 hover:text-gray-900 my-auto  dark:text-white dark:hover:text-gray-200">
-                              Angelina Hose</p>
+														Angelina Hose</p>
 													<p
 														className="text-xs text-gray-400 dark:text-white/80 truncate sm:max-w-max max-w-[100px] font-normal">
-                              24 Purchases</p>
+														24 Purchases</p>
 												</div>
 											</div>
 										</div>
 										<div className=""><span className="text-sm font-bold">2,624</span></div>
 									</Link>
 								</li>
-								
+
 							</ul>
 						</div>
 					</div>
@@ -326,7 +322,7 @@ const Sales = ({local_varaiable}) => {
 									<Link className="ti-dropdown-item" to="#">Action</Link>
 									<Link className="ti-dropdown-item" to="#">Another Action</Link>
 									<Link className="ti-dropdown-item" to="#">Something else
-                      here</Link>
+										here</Link>
 								</div>
 							</div>
 						</div>
@@ -336,7 +332,7 @@ const Sales = ({local_varaiable}) => {
 									<thead>
 										<tr>
 											<th scope="col" className="text-center !p-[0.65rem]">Product</th>
-											
+
 											<th scope="col" className="!p-[0.65rem]">Stock</th>
 											<th scope="col" className="!p-[0.65rem]">TotalSales</th>
 										</tr>
@@ -344,13 +340,13 @@ const Sales = ({local_varaiable}) => {
 									<tbody>
 										<tr>
 											<td className="leading-none !text-gray-800 dark:!text-white !p-[0.65rem]">
-												<img src={ALLImages('png37')}  
+												<img src={ALLImages('png37')}
 													className="avatar avatar-sm p-2 rounded-full bg-gray-100 dark:bg-black/20 ltr:mr-2 rtl:ml-2"
-													alt="Image Description"/>Tecno Spark 20 Pro
+													alt="Image Description" />Tecno Spark 20 Pro
 											</td>
 											<td className="!p-[0.65rem] text-sm"><span
 												className="badge leading-none bg-success/10 text-success rounded-sm">In
-                            Stock</span></td>
+												Stock</span></td>
 											<td className="!p-[0.65rem]">
 												<span className="text-sm font-semibold">25,699</span>
 											</td>
@@ -358,13 +354,13 @@ const Sales = ({local_varaiable}) => {
 
 										<tr>
 											<td className="leading-none !text-gray-800 dark:!text-white !p-[0.65rem]">
-												<img src={ALLImages('png38')}  
+												<img src={ALLImages('png38')}
 													className="avatar avatar-sm p-2 rounded-full bg-gray-100 dark:bg-black/20 ltr:mr-2 rtl:ml-2"
-													alt="Image Description"/>Huawei P30 Pro
+													alt="Image Description" />Huawei P30 Pro
 											</td>
 											<td className="!p-[0.65rem] text-sm"><span
 												className="badge leading-none bg-success/10 text-success rounded-sm">In
-                            Stock</span></td>
+												Stock</span></td>
 											<td className="!p-[0.65rem]">
 												<span className="text-sm font-semibold">12,299</span>
 											</td>
@@ -372,32 +368,32 @@ const Sales = ({local_varaiable}) => {
 
 										<tr>
 											<td className="leading-none !text-gray-800 dark:!text-white !p-[0.65rem]">
-												<img src={ALLImages('png39')}  
+												<img src={ALLImages('png39')}
 													className="avatar avatar-sm p-2 rounded-full bg-gray-100 dark:bg-black/20 ltr:mr-2 rtl:ml-2"
-													alt="Image Description"/>Samsung Galaxy A35 5G
+													alt="Image Description" />Samsung Galaxy A35 5G
 											</td>
 											<td className="!p-[0.65rem] text-sm"><span
 												className="badge leading-none bg-danger/10 text-danger rounded-sm">Out Of
-                            Stock</span></td>
+												Stock</span></td>
 											<td className="!p-[0.65rem]">
 												<span className="text-sm font-semibold">32,993</span>
 											</td>
 										</tr>
-										
+
 										<tr>
 											<td className="leading-none !text-gray-800 dark:!text-white !p-[0.65rem]">
-												<img src={ALLImages('png40')} 
+												<img src={ALLImages('png40')}
 													className="avatar avatar-sm p-2 rounded-full bg-gray-100 dark:bg-black/20 ltr:mr-2 rtl:ml-2"
-													alt="Image Description"/>Redmi Note 12 Dual Sim
+													alt="Image Description" />Redmi Note 12 Dual Sim
 											</td>
 											<td className="!p-[0.65rem] text-sm"><span
 												className="badge leading-none bg-danger/10 text-danger rounded-sm">Out Of
-                            Stock</span></td>
+												Stock</span></td>
 											<td className="!p-[0.65rem]">
 												<span className="text-sm font-semibold">32,929</span>
 											</td>
 										</tr>
-										
+
 									</tbody>
 								</table>
 							</div>
@@ -407,203 +403,203 @@ const Sales = ({local_varaiable}) => {
 			</div>
 
 
-			
+
 
 			<div className="col-span-12">
-					<div className="box">
-						<div className="box-header">
-							<div className="flex justify-between">
-								<h5 className="box-title my-auto">Available Stock Per Product</h5>
-								<button type="button" className="ti-btn m-0 rounded-sm p-1 px-3 !border border-gray-200 text-gray-400 hover:text-gray-500 hover:bg-gray-200 hover:border-gray-200 focus:ring-gray-200  dark:hover:bg-black/30 dark:border-white/10 dark:hover:border-white/20 dark:focus:ring-white/10 dark:focus:ring-offset-white/10">
-                                        View All</button>
-							</div>
+				<div className="box">
+					<div className="box-header">
+						<div className="flex justify-between">
+							<h5 className="box-title my-auto">Available Stock Per Product</h5>
+							<button type="button" className="ti-btn m-0 rounded-sm p-1 px-3 !border border-gray-200 text-gray-400 hover:text-gray-500 hover:bg-gray-200 hover:border-gray-200 focus:ring-gray-200  dark:hover:bg-black/30 dark:border-white/10 dark:hover:border-white/20 dark:focus:ring-white/10 dark:focus:ring-offset-white/10">
+								View All</button>
 						</div>
-						<div className="box-body p-0">
-							<div className="grid md:grid-cols-3  xxl:grid-cols-5">
-								<div className="p-4 ltr:md:border-r rtl:md:border-l xxl:border-b-0 border-b border-gray-200 dark:border-white/10">
-									<div className="flex items-start mb-6">
-										<img src= {ALLImages('jpg60')} alt=""
-											className="avatar avatar-sm rounded-full ltr:mr-2 rtl:ml-2 leading-none"/>
-										<div className="flex-auto">
-											<div className="recent-recruiter">
-												<p className="text-sm font-semibold mb-0 truncate">Tecno Spark 20 Pro</p>
-												<p className="mb-0 text-xs text-gray-500 dark:text-white/70 truncate">
-                                                        4GB 128GB </p>
-											</div>
-										</div>
-										<div>
-											<button type="button" aria-label="button"
-												className="ti-btn bg-gray-100 text-gray-500 hover:text-gray-600 hover:bg-gray-200 ring-offset-white focus:ring-gray-500 dark:bg-black/20 dark:hover:bg-black/30 dark:focus:ring-gray-600 dark:text-white dark:focus:ring-offset-white/10">
-												<i className="ri-arrow-right-s-line rtl:rotate-180"></i>
-											</button>
+					</div>
+					<div className="box-body p-0">
+						<div className="grid md:grid-cols-3  xxl:grid-cols-5">
+							<div className="p-4 ltr:md:border-r rtl:md:border-l xxl:border-b-0 border-b border-gray-200 dark:border-white/10">
+								<div className="flex items-start mb-6">
+									<img src={ALLImages('jpg60')} alt=""
+										className="avatar avatar-sm rounded-full ltr:mr-2 rtl:ml-2 leading-none" />
+									<div className="flex-auto">
+										<div className="recent-recruiter">
+											<p className="text-sm font-semibold mb-0 truncate">Tecno Spark 20 Pro</p>
+											<p className="mb-0 text-xs text-gray-500 dark:text-white/70 truncate">
+												4GB 128GB </p>
 										</div>
 									</div>
-									<div className="flex  justify-between mb-2">
-										<div className="text-gray-500 dark:text-white/70 text-xs">
-                                                Items
-										</div>
-										<div className="font-semibold text-sm">
-                                            254
-										</div>
-									</div>
-									<div className="flex  justify-between mb-0">
-										<div className="text-gray-500 dark:text-white/70 text-xs">
-                                                Location
-										</div>
-										<div>
-											<span
-												className="badge bg-info/10 text-info leading-none rounded-sm text-xs py-1">HQ Warehouse</span>
-										</div>
+									<div>
+										<button type="button" aria-label="button"
+											className="ti-btn bg-gray-100 text-gray-500 hover:text-gray-600 hover:bg-gray-200 ring-offset-white focus:ring-gray-500 dark:bg-black/20 dark:hover:bg-black/30 dark:focus:ring-gray-600 dark:text-white dark:focus:ring-offset-white/10">
+											<i className="ri-arrow-right-s-line rtl:rotate-180"></i>
+										</button>
 									</div>
 								</div>
-								<div className="p-4 ltr:md:border-r rtl:md:border-l xxl:border-b-0 border-b border-gray-200 dark:border-white/10">
-									<div className="flex items-start mb-6">
-										<img src= {ALLImages('jpg77')} alt=""
-											className="avatar avatar-sm rounded-full ltr:mr-2 rtl:ml-2 leading-none"/>
-										<div className="flex-auto">
-											<div className="recent-recruiter">
-												<p className="text-sm font-semibold mb-0 truncate">Huawei Mate 30 Pro</p>
-												<p className="mb-0 text-xs text-gray-500 dark:text-white/70 truncate">
-                                                        8GB 256GB</p>
-											</div>
-										</div>
-										<div>
-											<button type="button" aria-label="button"
-												className="ti-btn bg-gray-100 text-gray-500 hover:text-gray-600 hover:bg-gray-200 ring-offset-white focus:ring-gray-500 dark:bg-black/20 dark:hover:bg-black/30 dark:focus:ring-gray-600 dark:text-white/70 dark:focus:ring-offset-white/10">
-												<i className="ri-arrow-right-s-line rtl:rotate-180"></i>
-											</button>
-										</div>
+								<div className="flex  justify-between mb-2">
+									<div className="text-gray-500 dark:text-white/70 text-xs">
+										Items
 									</div>
-									<div className="flex  justify-between mb-2">
-										<div className="text-gray-500 dark:text-white/70 text-xs">
-                                                Items
-										</div>
-										<div className="font-semibold text-sm">
-                                                168
-										</div>
-									</div>
-									<div className="flex  justify-between mb-0">
-										<div className="text-gray-500 dark:text-white/70 text-xs">
-                                                Location
-										</div>
-										<div>
-											<span
-												className="badge bg-warning/10 text-warning leading-none rounded-sm text-xs py-1">Moi Avenue</span>
-										</div>
+									<div className="font-semibold text-sm">
+										254
 									</div>
 								</div>
-								<div className="p-4 ltr:md:border-r rtl:md:border-l xxl:border-b-0 border-b border-gray-200 dark:border-white/10">
-									<div className="flex items-start mb-6">
-										<img src= {ALLImages('jpg68')} alt=""
-											className="avatar avatar-sm rounded-full ltr:mr-2 rtl:ml-2 leading-none"/>
-										<div className="flex-auto">
-											<div className="recent-recruiter">
-												<p className="text-sm font-semibold mb-0 truncate">Samsung Galaxy A35 5G</p>
-												<p className="mb-0 text-xs text-gray-500 dark:text-white/70 truncate">
-                                                        8GB 256GB</p>
-											</div>
-										</div>
-										<div>
-											<button type="button" aria-label="button"
-												className="ti-btn bg-gray-100 text-gray-500 hover:text-gray-600 hover:bg-gray-200 ring-offset-white focus:ring-gray-500 dark:bg-black/20 dark:hover:bg-black/30 dark:focus:ring-gray-600 dark:text-white/70 dark:focus:ring-offset-white/10">
-												<i className="ri-arrow-right-s-line rtl:rotate-180"></i>
-											</button>
-										</div>
+								<div className="flex  justify-between mb-0">
+									<div className="text-gray-500 dark:text-white/70 text-xs">
+										Location
 									</div>
-									<div className="flex  justify-between mb-2">
-										<div className="text-gray-500 dark:text-white/70 text-xs">
-                                                Items
-										</div>
-										<div className="font-semibold text-sm">
-                                                89
-										</div>
-									</div>
-									<div className="flex  justify-between mb-0">
-										<div className="text-gray-500 dark:text-white/70 text-xs">
-                                                Location
-										</div>
-										<div>
-											<span
-												className="badge bg-secondary/10 text-secondary leading-none rounded-sm text-xs py-1">Thika Town</span>
-										</div>
+									<div>
+										<span
+											className="badge bg-info/10 text-info leading-none rounded-sm text-xs py-1">HQ Warehouse</span>
 									</div>
 								</div>
-								<div className="p-4 ltr:md:border-r rtl:md:border-l md:border-b-0 border-b border-gray-200 dark:border-white/10">
-									<div className="flex items-start mb-6">
-										<img src= {ALLImages('jpg71')} alt=""
-											className="avatar avatar-sm rounded-full ltr:mr-2 rtl:ml-2 leading-none"/>
-										<div className="flex-auto">
-											<div className="recent-recruiter">
-												<p className="text-sm font-semibold mb-0 truncate">Redmi A3 Dual Sim 4GB/128GB</p>
-												<p className="mb-0 text-xs text-gray-500 dark:text-white/70 truncate">
-                                                        12GB 512GB</p>
-											</div>
-										</div>
-										<div>
-											<button type="button" aria-label="button"
-												className="ti-btn bg-gray-100 text-gray-500 hover:text-gray-600 hover:bg-gray-200 ring-offset-white focus:ring-gray-500 dark:bg-black/20 dark:hover:bg-black/30 dark:focus:ring-gray-600 dark:text-white/70 dark:focus:ring-offset-white/10">
-												<i className="ri-arrow-right-s-line rtl:rotate-180"></i>
-											</button>
+							</div>
+							<div className="p-4 ltr:md:border-r rtl:md:border-l xxl:border-b-0 border-b border-gray-200 dark:border-white/10">
+								<div className="flex items-start mb-6">
+									<img src={ALLImages('jpg77')} alt=""
+										className="avatar avatar-sm rounded-full ltr:mr-2 rtl:ml-2 leading-none" />
+									<div className="flex-auto">
+										<div className="recent-recruiter">
+											<p className="text-sm font-semibold mb-0 truncate">Huawei Mate 30 Pro</p>
+											<p className="mb-0 text-xs text-gray-500 dark:text-white/70 truncate">
+												8GB 256GB</p>
 										</div>
 									</div>
-									<div className="flex  justify-between mb-2">
-										<div className="text-gray-500 dark:text-white/70 text-xs">
-                                                Items
-										</div>
-										<div className="font-semibold text-sm">
-                                                32
-										</div>
-									</div>
-									<div className="flex  justify-between mb-0">
-										<div className="text-gray-500 dark:text-white/70 text-xs">
-                                                Location
-										</div>
-										<div>
-											<span
-												className="badge bg-primary/10 text-primary leading-none rounded-sm text-xs py-1">Kitengela</span>
-										</div>
+									<div>
+										<button type="button" aria-label="button"
+											className="ti-btn bg-gray-100 text-gray-500 hover:text-gray-600 hover:bg-gray-200 ring-offset-white focus:ring-gray-500 dark:bg-black/20 dark:hover:bg-black/30 dark:focus:ring-gray-600 dark:text-white/70 dark:focus:ring-offset-white/10">
+											<i className="ri-arrow-right-s-line rtl:rotate-180"></i>
+										</button>
 									</div>
 								</div>
-								<div className="p-4">
-									<div className="flex items-start mb-6">
-										<img src= {ALLImages('jpg59')} alt=""
-											className="avatar avatar-sm rounded-full ltr:mr-2 rtl:ml-2 leading-none"/>
-										<div className="flex-auto">
-											<div className="recent-recruiter">
-												<p className="text-sm font-semibold mb-0 truncate">Oppo A18 Dual Sim</p>
-												<p className="mb-0 text-xs text-gray-500 dark:text-white/70 truncate">
-                                                        6GB 128GB</p>
-											</div>
-										</div>
-										<div>
-											<button type="button" aria-label="button"
-												className="ti-btn bg-gray-100 text-gray-500 hover:text-gray-600 hover:bg-gray-200 ring-offset-white focus:ring-gray-500 dark:bg-black/20 dark:hover:bg-black/30 dark:focus:ring-gray-600 dark:text-white/70 dark:focus:ring-offset-white/10">
-												<i className="ri-arrow-right-s-line rtl:rotate-180"></i>
-											</button>
+								<div className="flex  justify-between mb-2">
+									<div className="text-gray-500 dark:text-white/70 text-xs">
+										Items
+									</div>
+									<div className="font-semibold text-sm">
+										168
+									</div>
+								</div>
+								<div className="flex  justify-between mb-0">
+									<div className="text-gray-500 dark:text-white/70 text-xs">
+										Location
+									</div>
+									<div>
+										<span
+											className="badge bg-warning/10 text-warning leading-none rounded-sm text-xs py-1">Moi Avenue</span>
+									</div>
+								</div>
+							</div>
+							<div className="p-4 ltr:md:border-r rtl:md:border-l xxl:border-b-0 border-b border-gray-200 dark:border-white/10">
+								<div className="flex items-start mb-6">
+									<img src={ALLImages('jpg68')} alt=""
+										className="avatar avatar-sm rounded-full ltr:mr-2 rtl:ml-2 leading-none" />
+									<div className="flex-auto">
+										<div className="recent-recruiter">
+											<p className="text-sm font-semibold mb-0 truncate">Samsung Galaxy A35 5G</p>
+											<p className="mb-0 text-xs text-gray-500 dark:text-white/70 truncate">
+												8GB 256GB</p>
 										</div>
 									</div>
-									<div className="flex  justify-between mb-2">
-										<div className="text-gray-500 dark:text-white/70 text-xs">
-                                                Items
-										</div>
-										<div className="font-semibold text-sm">
-                                                12
+									<div>
+										<button type="button" aria-label="button"
+											className="ti-btn bg-gray-100 text-gray-500 hover:text-gray-600 hover:bg-gray-200 ring-offset-white focus:ring-gray-500 dark:bg-black/20 dark:hover:bg-black/30 dark:focus:ring-gray-600 dark:text-white/70 dark:focus:ring-offset-white/10">
+											<i className="ri-arrow-right-s-line rtl:rotate-180"></i>
+										</button>
+									</div>
+								</div>
+								<div className="flex  justify-between mb-2">
+									<div className="text-gray-500 dark:text-white/70 text-xs">
+										Items
+									</div>
+									<div className="font-semibold text-sm">
+										89
+									</div>
+								</div>
+								<div className="flex  justify-between mb-0">
+									<div className="text-gray-500 dark:text-white/70 text-xs">
+										Location
+									</div>
+									<div>
+										<span
+											className="badge bg-secondary/10 text-secondary leading-none rounded-sm text-xs py-1">Thika Town</span>
+									</div>
+								</div>
+							</div>
+							<div className="p-4 ltr:md:border-r rtl:md:border-l md:border-b-0 border-b border-gray-200 dark:border-white/10">
+								<div className="flex items-start mb-6">
+									<img src={ALLImages('jpg71')} alt=""
+										className="avatar avatar-sm rounded-full ltr:mr-2 rtl:ml-2 leading-none" />
+									<div className="flex-auto">
+										<div className="recent-recruiter">
+											<p className="text-sm font-semibold mb-0 truncate">Redmi A3 Dual Sim 4GB/128GB</p>
+											<p className="mb-0 text-xs text-gray-500 dark:text-white/70 truncate">
+												12GB 512GB</p>
 										</div>
 									</div>
-									<div className="flex  justify-between mb-0">
-										<div className="text-gray-500 dark:text-white/70 text-xs">
-                                                Location
+									<div>
+										<button type="button" aria-label="button"
+											className="ti-btn bg-gray-100 text-gray-500 hover:text-gray-600 hover:bg-gray-200 ring-offset-white focus:ring-gray-500 dark:bg-black/20 dark:hover:bg-black/30 dark:focus:ring-gray-600 dark:text-white/70 dark:focus:ring-offset-white/10">
+											<i className="ri-arrow-right-s-line rtl:rotate-180"></i>
+										</button>
+									</div>
+								</div>
+								<div className="flex  justify-between mb-2">
+									<div className="text-gray-500 dark:text-white/70 text-xs">
+										Items
+									</div>
+									<div className="font-semibold text-sm">
+										32
+									</div>
+								</div>
+								<div className="flex  justify-between mb-0">
+									<div className="text-gray-500 dark:text-white/70 text-xs">
+										Location
+									</div>
+									<div>
+										<span
+											className="badge bg-primary/10 text-primary leading-none rounded-sm text-xs py-1">Kitengela</span>
+									</div>
+								</div>
+							</div>
+							<div className="p-4">
+								<div className="flex items-start mb-6">
+									<img src={ALLImages('jpg59')} alt=""
+										className="avatar avatar-sm rounded-full ltr:mr-2 rtl:ml-2 leading-none" />
+									<div className="flex-auto">
+										<div className="recent-recruiter">
+											<p className="text-sm font-semibold mb-0 truncate">Oppo A18 Dual Sim</p>
+											<p className="mb-0 text-xs text-gray-500 dark:text-white/70 truncate">
+												6GB 128GB</p>
 										</div>
-										<div>
-											<span
-												className="badge bg-primary/10 text-primary leading-none rounded-sm text-xs py-1">Junction Mall</span>
-										</div>
+									</div>
+									<div>
+										<button type="button" aria-label="button"
+											className="ti-btn bg-gray-100 text-gray-500 hover:text-gray-600 hover:bg-gray-200 ring-offset-white focus:ring-gray-500 dark:bg-black/20 dark:hover:bg-black/30 dark:focus:ring-gray-600 dark:text-white/70 dark:focus:ring-offset-white/10">
+											<i className="ri-arrow-right-s-line rtl:rotate-180"></i>
+										</button>
+									</div>
+								</div>
+								<div className="flex  justify-between mb-2">
+									<div className="text-gray-500 dark:text-white/70 text-xs">
+										Items
+									</div>
+									<div className="font-semibold text-sm">
+										12
+									</div>
+								</div>
+								<div className="flex  justify-between mb-0">
+									<div className="text-gray-500 dark:text-white/70 text-xs">
+										Location
+									</div>
+									<div>
+										<span
+											className="badge bg-primary/10 text-primary leading-none rounded-sm text-xs py-1">Junction Mall</span>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
 
 			<div className="grid grid-cols-12 gap-x-6">
 				<div className="col-span-12">
@@ -642,7 +638,7 @@ const Sales = ({local_varaiable}) => {
 											<td>
 												<div className="flex space-x-3 rtl:space-x-reverse w-full">
 													<img className="avatar rounded-sm bg-gray-100 dark:bg-black/20 p-2"
-														src={ALLImages('png25')} alt="Image Description"/>
+														src={ALLImages('png25')} alt="Image Description" />
 													<div className="block w-full my-auto">
 														<span
 															className="block text-sm font-semibold text-gray-800 dark:text-gray-300 min-w-[180px] truncate">Tecno Spark 20 Pro</span>
@@ -654,10 +650,10 @@ const Sales = ({local_varaiable}) => {
 											<td>
 												<div className="flex space-x-3 rtl:space-x-reverse text-start">
 													<img className="avatar avatar-sm rounded-sm" src={ALLImages('jpg58')}
-														alt="Image Description"/>
+														alt="Image Description" />
 													<div className="block my-auto">
 														<p className="block text-sm font-semibold my-auto text-gray-800 dark:text-white">Socrates
-                                Itumay</p>
+															Itumay</p>
 														<span
 															className="block text-xs text-gray-400 dark:text-white/80 !font-normal my-auto">+254 110 928 038</span>
 													</div>
@@ -676,11 +672,11 @@ const Sales = ({local_varaiable}) => {
 														<span
 															className="hs-tooltip-content ti-main-tooltip-content py-1 px-2 bg-gray-900 text-xs font-medium text-white shadow-sm dark:bg-slate-700"
 															role="tooltip">
-                                View
+															View
 														</span>
 													</Link>
 												</div>
-												
+
 											</td>
 										</tr>
 										<tr className="">
@@ -688,7 +684,7 @@ const Sales = ({local_varaiable}) => {
 											<td>
 												<div className="flex space-x-3 rtl:space-x-reverse w-full">
 													<img className="avatar rounded-sm bg-gray-100 dark:bg-black/20 p-2"
-													 	src= {ALLImages('png26')} alt="Image Description"/>
+														src={ALLImages('png26')} alt="Image Description" />
 													<div className="block w-full my-auto">
 														<span
 															className="block text-sm font-semibold text-gray-800 dark:text-gray-300 min-w-[180px] truncate">Huawei P30 Pro</span>
@@ -699,11 +695,11 @@ const Sales = ({local_varaiable}) => {
 											<td className="!text-success font-semibold text-base">+254 721 000 038</td>
 											<td>
 												<div className="flex space-x-3 rtl:space-x-reverse text-start">
-													<img className="avatar avatar-sm rounded-sm"  src= {ALLImages('jpg59')}
-														alt="Image Description"/>
+													<img className="avatar avatar-sm rounded-sm" src={ALLImages('jpg59')}
+														alt="Image Description" />
 													<div className="block my-auto">
 														<p className="block text-sm font-semibold my-auto text-gray-800 dark:text-white">
-                                Json Taylor</p>
+															Json Taylor</p>
 														<span
 															className="block text-xs text-gray-400 dark:text-white/80 !font-normal my-auto">+254 701 118 038</span>
 													</div>
@@ -722,11 +718,11 @@ const Sales = ({local_varaiable}) => {
 														<span
 															className="hs-tooltip-content ti-main-tooltip-content py-1 px-2 bg-gray-900 text-xs font-medium text-white shadow-sm dark:bg-slate-700"
 															role="tooltip">
-                                View
+															View
 														</span>
 													</Link>
 												</div>
-												
+
 											</td>
 										</tr>
 										<tr className="">
@@ -734,7 +730,7 @@ const Sales = ({local_varaiable}) => {
 											<td>
 												<div className="flex space-x-3 rtl:space-x-reverse w-full">
 													<img className="avatar rounded-sm bg-gray-100 dark:bg-black/20 p-2"
-													 	src= {ALLImages('png27')} alt="Image Description"/>
+														src={ALLImages('png27')} alt="Image Description" />
 													<div className="block w-full my-auto">
 														<span
 															className="block text-sm font-semibold text-gray-800 dark:text-gray-300 min-w-[180px] truncate">Samsung Galaxy A35 5G</span>
@@ -745,11 +741,11 @@ const Sales = ({local_varaiable}) => {
 											<td className="!text-success font-semibold text-base">+254 701 928 038</td>
 											<td>
 												<div className="flex space-x-3 rtl:space-x-reverse text-start">
-													<img className="avatar avatar-sm rounded-sm"  src= {ALLImages('jpg60')}
-														alt="Image Description"/>
+													<img className="avatar avatar-sm rounded-sm" src={ALLImages('jpg60')}
+														alt="Image Description" />
 													<div className="block my-auto">
 														<p className="block text-sm font-semibold my-auto text-gray-800 dark:text-white">
-                                Suzika Stallone</p>
+															Suzika Stallone</p>
 														<span
 															className="block text-xs text-gray-400 dark:text-white/80 !font-normal my-auto">+254 735 948 075</span>
 													</div>
@@ -758,7 +754,7 @@ const Sales = ({local_varaiable}) => {
 											<td>12-03-2024</td>
 											<td><span
 												className="truncate whitespace-nowrap inline-block py-1 px-3 rounded-full text-xs font-medium bg-warning/10 text-warning/80">Out
-                            For Delivery</span>
+												For Delivery</span>
 											</td>
 											<td>Ksh 8,599</td>
 											<td className="font-medium space-x-2 rtl:space-x-reverse">
@@ -769,11 +765,11 @@ const Sales = ({local_varaiable}) => {
 														<span
 															className="hs-tooltip-content ti-main-tooltip-content py-1 px-2 bg-gray-900 text-xs font-medium text-white shadow-sm dark:bg-slate-700"
 															role="tooltip">
-                                View
+															View
 														</span>
 													</Link>
 												</div>
-												
+
 											</td>
 										</tr>
 										<tr className="">
@@ -781,7 +777,7 @@ const Sales = ({local_varaiable}) => {
 											<td>
 												<div className="flex space-x-3 rtl:space-x-reverse w-full">
 													<img className="avatar rounded-sm bg-gray-100 dark:bg-black/20 p-2"
-													 	src= {ALLImages('png28')} alt="Image Description"/>
+														src={ALLImages('png28')} alt="Image Description" />
 													<div className="block w-full my-auto">
 														<span
 															className="block text-sm font-semibold text-gray-800 dark:text-gray-300 min-w-[180px] truncate">Redmi Note 12 Dual Sim</span>
@@ -792,11 +788,11 @@ const Sales = ({local_varaiable}) => {
 											<td className="!text-success font-semibold text-base">+254 723 118 031</td>
 											<td>
 												<div className="flex space-x-3 rtl:space-x-reverse text-start">
-													<img className="avatar avatar-sm rounded-sm"  src= {ALLImages('jpg61')}
-														alt="Image Description"/>
+													<img className="avatar avatar-sm rounded-sm" src={ALLImages('jpg61')}
+														alt="Image Description" />
 													<div className="block my-auto">
 														<p className="block text-sm font-semibold my-auto text-gray-800 dark:text-white">
-                                Selena Deoyl</p>
+															Selena Deoyl</p>
 														<span
 															className="block text-xs text-gray-400 dark:text-white/80 !font-normal my-auto">+254 701 118 042</span>
 													</div>
@@ -815,11 +811,11 @@ const Sales = ({local_varaiable}) => {
 														<span
 															className="hs-tooltip-content ti-main-tooltip-content py-1 px-2 bg-gray-900 text-xs font-medium text-white shadow-sm dark:bg-slate-700"
 															role="tooltip">
-                                View
+															View
 														</span>
 													</Link>
 												</div>
-												
+
 											</td>
 										</tr>
 										<tr className="">
@@ -827,7 +823,7 @@ const Sales = ({local_varaiable}) => {
 											<td>
 												<div className="flex space-x-3 rtl:space-x-reverse w-full">
 													<img className="avatar rounded-sm bg-gray-100 dark:bg-black/20 p-2"
-													 	src= {ALLImages('png29')} alt="Image Description"/>
+														src={ALLImages('png29')} alt="Image Description" />
 													<div className="block w-full my-auto">
 														<span
 															className="block text-sm font-semibold text-gray-800 dark:text-gray-300 min-w-[180px] truncate">Infinix smart 8 X6525 Dual sim 3GB/64GB</span>
@@ -838,11 +834,11 @@ const Sales = ({local_varaiable}) => {
 											<td className="!text-success font-semibold text-base">+254 711 920 011</td>
 											<td>
 												<div className="flex space-x-3 rtl:space-x-reverse text-start">
-													<img className="avatar avatar-sm rounded-sm"  src= {ALLImages('jpg65')}
-														alt="Image Description"/>
+													<img className="avatar avatar-sm rounded-sm" src={ALLImages('jpg65')}
+														alt="Image Description" />
 													<div className="block my-auto">
 														<p className="block text-sm font-semibold my-auto text-gray-800 dark:text-white">
-                                Roman Killon</p>
+															Roman Killon</p>
 														<span
 															className="block text-xs text-gray-400 dark:text-white/80 !font-normal my-auto">+254 792 438 044</span>
 													</div>
@@ -861,11 +857,11 @@ const Sales = ({local_varaiable}) => {
 														<span
 															className="hs-tooltip-content ti-main-tooltip-content py-1 px-2 bg-gray-900 text-xs font-medium text-white shadow-sm dark:bg-slate-700"
 															role="tooltip">
-                                View
+															View
 														</span>
 													</Link>
 												</div>
-												
+
 											</td>
 										</tr>
 										<tr className="">
@@ -873,7 +869,7 @@ const Sales = ({local_varaiable}) => {
 											<td>
 												<div className="flex space-x-3 rtl:space-x-reverse w-full">
 													<img className="avatar rounded-sm bg-gray-100 dark:bg-black/20 p-2"
-													 	src= {ALLImages('png30')} alt="Image Description"/>
+														src={ALLImages('png30')} alt="Image Description" />
 													<div className="block w-full my-auto">
 														<span
 															className="block text-sm font-semibold text-gray-800 dark:text-gray-300 min-w-[180px] truncate">Realme C53 Dual Sim 6GB/128GB</span>
@@ -884,11 +880,11 @@ const Sales = ({local_varaiable}) => {
 											<td className="!text-success font-semibold text-base">+254 721 922 041</td>
 											<td>
 												<div className="flex space-x-3 rtl:space-x-reverse text-start">
-													<img className="avatar avatar-sm rounded-sm"  src= {ALLImages('jpg66')}
-														alt="Image Description"/>
+													<img className="avatar avatar-sm rounded-sm" src={ALLImages('jpg66')}
+														alt="Image Description" />
 													<div className="block my-auto">
 														<p className="block text-sm font-semibold my-auto text-gray-800 dark:text-white">
-                                Charlie Davieson</p>
+															Charlie Davieson</p>
 														<span
 															className="block text-xs text-gray-400 dark:text-white/80 !font-normal my-auto">+254 711 933 099</span>
 													</div>
@@ -907,11 +903,11 @@ const Sales = ({local_varaiable}) => {
 														<span
 															className="hs-tooltip-content ti-main-tooltip-content py-1 px-2 bg-gray-900 text-xs font-medium text-white shadow-sm dark:bg-slate-700"
 															role="tooltip">
-                                View
+															View
 														</span>
 													</Link>
 												</div>
-												
+
 											</td>
 										</tr>
 									</tbody>
@@ -928,6 +924,6 @@ const Sales = ({local_varaiable}) => {
 
 const mapStateToProps = (state) => ({
 	local_varaiable: state
-  })
+})
 
-export default connect(mapStateToProps,{})(Sales)
+export default connect(mapStateToProps, {})(Sales)

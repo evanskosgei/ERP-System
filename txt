@@ -66,7 +66,7 @@ PHASE 1 PROGRESS
 1.   Create Supplier Types                           DONE                  DONE             DONE             DONE        PENDING        PENDING       PENDING
 2.   Create Product Categories  *******************  DONE                  DONE             PENDING          DONE        In-PROGRESS    PENDING       PENDING  ===> Import because of stock account
 2.   Create Product Sub-Categories  ***************  DONE                  DONE             PENDING          DONE        In-PROGRESS    PENDING       PENDING
-2.   Create Product Models mobile_phones_models ***  DONE                  DONE             PENDING          DONE        DONE           In-PROGRESS   In-PROGRESS 
+2.   Create Product Models mobile_phones_models ***  DONE                  DONE             DONE             DONE        DONE           In-PROGRESS   In-PROGRESS 
 2.   Create Product Models television_models ******  DONE                  DONE             PENDING          In-PROGRESS PENDING        PENDING       PENDING
 2.   Create Product Models accessories_modles *****  DONE                  DONE             PENDING          In-PROGRESS PENDING        PENDING       PENDING
 3.   Create Distribution Centers  *****************  DONE                  DONE             PENDING          PENDING     PENDING        PENDING       PENDING  ===> Priority 2

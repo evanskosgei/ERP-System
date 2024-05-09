@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { RouteData } from "./common/routingdata";
 
 import App from "./layout/App";
+import App2 from "./layout/AppAgent";
 
 //Dashboards
 import MainDashboard from "./component/dashboards/main/main_dashboard";
@@ -44,6 +45,10 @@ import VerificationCover2 from "./component/Authentication/twostepverification/c
 import Underconstruction from "./component/Authentication/underconstruction/underconstruction";
 import Undermaintenance from "./component/Authentication/undermaintenance/undermaintenance";
 
+// manager Dashbaord
+// import Managerdashboard from "./views/Agents_portal/dashboard";
+import Agents_dashboard from "./views/Agents_portal/dashboard";
+
 // import AddSupplier from "./views/supplier_module/supplierForms/addSupplier";
 
 // Pages
@@ -60,23 +65,31 @@ export default function Router() {
   // console.log(user);
   return (
     <Routes>
-      {/* <Route path={`${import.meta.env.BASE_URL}`} element={<Firebaselayout />}>
-					<Route index element={<Firebaselogin />} />
-					<Route path={`${import.meta.env.BASE_URL}firebase/firebaselogin`} element={<Firebaselogin />} />
-					<Route path={`${import.meta.env.BASE_URL}firebase/firebaseregister`} element={<Firebaseregister />} />
-				</Route> */}
-
       {RouteData.map((idx) => (
         <Fragment key={Math.random()}>
           {/* //Sign in page (Landing) */}
           {user === null && <Route path={`${import.meta.env.BASE_URL}`} element={<SignInPage />} />}
           {/* //Main page */}
-          {user != null && (
-            <Route path={`${import.meta.env.BASE_URL}`} element={<App />}>
-              <Route index element={<MainDashboard />} />
-              <Route exact path={idx.path} element={idx.element} />
-            </Route>
+          <></>
+          {user !== null && (
+            <>
+              {user.user_type === 1 ? (
+                <Route path={`${import.meta.env.BASE_URL}`} element={<App2 />}>
+                  <Route index element={<Agents_dashboard />} />
+                  <Route exact path={idx.path} element={idx.element} />
+                </Route>
+              ) : (
+                user.user_type === 2 && (
+                  <Route path={`${import.meta.env.BASE_URL}`} element={<App />}>
+                    <Route index element={<MainDashboard />} />
+                    <Route exact path={idx.path} element={idx.element} />
+                  </Route>
+                )
+              )}
+            </>
           )}
+
+
           <Route path={`${import.meta.env.BASE_URL}`} element={<Pagelayout />}>
             <Route path={`${import.meta.env.BASE_URL}pagecomponent/aboutus`} element={<Aboutus />} />
             <Route path={`${import.meta.env.BASE_URL}pagecomponent/faqs`} element={<Faqs />} />
@@ -169,7 +182,8 @@ export default function Router() {
             <Route path={`${import.meta.env.BASE_URL}Authentication/undermaintenance`} element={<Undermaintenance />} />
           </Route>
         </Fragment>
-      ))}
-    </Routes>
+      ))
+      }
+    </Routes >
   );
 }
