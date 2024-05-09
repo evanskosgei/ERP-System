@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const UsersDashboard = () => {
 	return (
 		<div>
-			<PageHeader currentpage="Users Dashboard" activepage="Users" mainpage="Users Dashboard" />
+			<PageHeader currentpage="Users Dashboard" href="/users/dashboard/" activepage="Users" mainpage="Users Dashboard" />
 
 			<div className="grid grid-cols-12 gap-6">
 				<div className="col-span-12 md:col-span-6 xxl:!col-span-4">
