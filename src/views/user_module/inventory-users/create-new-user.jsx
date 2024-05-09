@@ -1,6 +1,8 @@
 import React from 'react'
 import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader';
 import { useForm } from "react-hook-form";
+import Select from 'react-select';
+import { Availability, Brand, Category, Color, Gender, ProductStatus, ProductVisibility, Size } from "../../../common/select2data";
 import { useState } from 'react';
 import Dropzone from 'react-dropzone-uploader';
 
@@ -17,12 +19,12 @@ const CreateUser = () => {
     }
     return (
         <div>
-            <PageHeader currentpage="Create Users" href="/users/dashboard" activepage="Users" mainpage="create Users" />
+            <PageHeader currentpage="Add a New User" href="/users/dashboard" activepage="Users" mainpage="Create a New User" />
             <div className="grid grid-cols-12 gap-6">
                 <div className="col-span-12">
                     <div className="box">
                         <div className="box-header">
-                            <h5 className="box-title  text-center">Contact Person Details</h5>
+                            <h5 className="box-title  text-center">User Details</h5>
                         </div>
                         <div className="box-body">
 
@@ -38,7 +40,7 @@ const CreateUser = () => {
 
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">User type</label>
-                                    <select type="text" {...register("user_type", { required: true })} id='user_type' className="ti-form-input" required>
+                                    <select type="text" {...register("user_categories", { required: true })} id='user_categories' className="ti-form-input" required>
                                         <option>Select a user type</option>
                                         <option>Administrator</option>
                                         <option>Stockist</option>
@@ -49,18 +51,46 @@ const CreateUser = () => {
                                 </div>
 
                                 <div className="space-y-2">
+                                    <label className="ti-form-label mb-0">Gender</label>
+                                    <select type="text" {...register("gender", { required: true })} id='gender' className="ti-form-input" required>
+                                        <option>Select a Gender</option>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                        <option>Other</option>
+                                       
+                                    </select>
+                                </div>
+
+
+                                <div className="space-y-2">
+                                    <label className="ti-form-label mb-0">Marital Status</label>
+                                    <select type="text" {...register("marital_status", { required: true })} id='marital_status' className="ti-form-input" required>
+                                        <option>Select Marital Status</option>
+                                        <option>Married</option>
+                                        <option>Single</option>
+                                        <option>Divorced</option>
+                                        <option>Separated</option>
+                                       
+                                    </select>
+                                </div>
+                                {/* <div className="space-y-2">
+                                <label className="ti-form-label mb-0">Gender</label>
+								<Select  className="product-search" classNamePrefix="react-select" options={Gender} placeholder='Gender' />
+                                </div> */}
+
+                                <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Mobile Number</label>
-                                    <input type="text" {...register("contact_mobile_number", { required: true })} id='contact_mobile_number' className="ti-form-input" placeholder=" ... Enter user phone number" required />
+                                    <input type="text" {...register("mobile_number", { required: true })} id='mobile_number' className="ti-form-input" placeholder=" ... Enter user phone number" required />
                                 </div>
 
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Email Address</label>
-                                    <input type="email" {...register("contact_email_address", { required: true })} id='contact_email_address' className="ti-form-input" placeholder=" ... Enter user Email Address" required />
+                                    <input type="email" {...register("email_address", { required: true })} id='email_address' className="ti-form-input" placeholder=" ... Enter user Email Address" required />
                                 </div>
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Alternative Mobile Number</label>
-                                    <input type="text" {...register("company_alternative_mobile_number", { required: true })} id='company_alternative_mobile_number' className="my-auto ti-form-input" placeholder=" ... Enter alternative mobile number" required />
-                                    {errors.company_alternative_mobile_number && <span className="text-red-500 text-xs">Trade Name is required</span>}
+                                    <input type="text" {...register("alternative_mobile_number", { required: true })} id='alternative_mobile_number' className="my-auto ti-form-input" placeholder=" ... Enter alternative mobile number" required />
+                                    {errors.alternative_mobile_number && <span className="text-red-500 text-xs">Trade Name is required</span>}
                                 </div>
                             </div>
                         </div>
@@ -71,7 +101,7 @@ const CreateUser = () => {
             <div className="col-span-12">
                 <div className="box">
                     <div className="box-header">
-                        <h5 className="box-title text-center">Other Details</h5>
+                        <h5 className="box-title text-center">Other User Details</h5>
                     </div>
                     <div className="box-body">
                         <div className="grid lg:grid-cols-2 gap-6">
@@ -94,6 +124,10 @@ const CreateUser = () => {
                                 <input type="text" {...register("country")} id='country' className="my-auto ti-form-input" placeholder="Kenya" required />
                             </div>
                             <div className="space-y-2">
+                                <label className="ti-form-label mb-0">County</label>
+                                <input type="text" {...register("county")} id='county' className="my-auto ti-form-input" placeholder="Enter country name" required />
+                            </div>
+                            <div className="space-y-2">
                                 <label className="ti-form-label mb-0">City</label>
                                 <input type="text" {...register("city")} id='city' className="my-auto ti-form-input" placeholder="Enter city or town name" required />
                             </div>
@@ -102,12 +136,12 @@ const CreateUser = () => {
                                 <input type="text" {...register("kra_pin", { required: false })} id='kra_pin' className="ti-form-input" placeholder=" ... Enter user kra pin" />
                             </div>
                             <div className="space-y-2">
-                                <label className="ti-form-label mb-0">NHIF PIN</label>
-                                <input type="text" {...register("nhif_pin", { required: false })} id='tax_id' className="ti-form-input" placeholder=" ... Enter user nhif pin number" />
+                                <label className="ti-form-label mb-0">NHIF Number</label>
+                                <input type="text" {...register("nhif_number", { required: false })} id='nhif_number' className="ti-form-input" placeholder=" ... Enter user nhif number" />
                             </div>
                             <div className="space-y-2">
-                                <label className="ti-form-label mb-0">NSSF PIN</label>
-                                <input type="email" {...register("nssf_pin", { required: false })} id='nssf_pin' className="ti-form-input" placeholder=" ... Enter nssf pin" />
+                                <label className="ti-form-label mb-0">NSSF Number</label>
+                                <input type="email" {...register("nssf_number", { required: false })} id='nssf_number' className="ti-form-input" placeholder=" ... Enter user nssf number" />
                             </div>
                         </div>
                     </div>
