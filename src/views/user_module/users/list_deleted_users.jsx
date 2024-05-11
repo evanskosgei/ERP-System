@@ -1,50 +1,17 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader';
 import { AgGridReact } from 'ag-grid-react';
 import '@ag-grid-community/styles/ag-grid.css';
 import '@ag-grid-community/styles/ag-theme-alpine.css';
 import { CSVLink } from "react-csv";
+import mtaApi from '../../../api/mtaApi';
 
-const sampleRowData = [
-    {
-        id: 1,
-        first_name: "John",
-        last_name: "Doe",
-        email: "john.doe@example.com",
-        id_no: "3354162",
-        contact: "+123456789",
-        address: "123 Main St",
-        postal_code: "12345",
-        city: "kampala",
-        country: "Uganda",
-        kra_pin: "123456",
-        nhif_pin: "789012",
-        nssf_pin: "345678"
-    },
-    {
-        id: 2,
-        first_name: "Jane",
-        last_name: "Smith",
-        email: "jane.smith@example.com",
-        id_no: "6104774",
-        contact: "+987654321",
-        address: "456 Elm St",
-        postal_code: "54321",
-        city: "Kinshasa",
-        country: "Kongo",
-        kra_pin: "567890",
-        nhif_pin: "901234",
-        nssf_pin: "678901"
-    },
-];
-
-const Activeusers = () => {
-    const [rowData, setRowData] = useState(sampleRowData);
+const Deletedusers = () => {
+    const [rowData, setRowData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedRowData, setSelectedRowData] = useState(null);
     const [divStack, setDivStack] = useState(["table"]);
-    // const [alert, setAlert] = useState(null);
-    // const [showStatusModal, setShowStatusModal] = useState(false);
+
 
     const columnDefs = [
         { headerName: "#", field: "id", sortable: true, editable: false, filter: true },
@@ -68,6 +35,21 @@ const Activeusers = () => {
         filter: true,
         floatingFilter: false
     };
+
+    const onGridReady = useCallback((params) => {
+        const newUnApproved = async () => {
+            try {
+                const { data } = await mtaApi.users.list_users('5');
+                if (data.status == 200) {
+                    setRowData(data.response);
+                }
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        newUnApproved();
+    }, []);
     const onRowClicked = (event) => {
         const selectedData = event.data;
         setSelectedRowData(selectedData);
@@ -106,23 +88,20 @@ const Activeusers = () => {
         }
     };
     const currentDiv = divStack[divStack.length - 1];
-
-
     return (
         <div>
             {currentDiv === "table" && (
                 <div>
-                    <PageHeader currentpage="Active Users" href="/users/dashboard" activepage="Users" mainpage="Active Users" />
-
+                    <PageHeader currentpage="Deleted Users" href="/users/dashboard" activepage="Users" mainpage="Deleted Users" />
                     <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                         <input
                             type="text"
                             value={searchQuery}
                             onChange={handleSearchChange}
                             placeholder="Search..."
-                            style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '100%', boxSizing: 'border-box' }}
+                            style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '50%', boxSizing: 'border-box' }}
                         />
-                        <CSVLink data={rowData} filename="Active users.csv" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
+                        <CSVLink data={filteredData.length >0 ?filteredData : rowData.length > 0 ? rowData : []} filename="deleted_users.csv" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                             </svg>
@@ -136,7 +115,7 @@ const Activeusers = () => {
                             defaultColDef={defaultColDef}
                             pagination={true}
                             paginationPageSize={20}
-                            // onGridReady={onGridReady}
+                            onGridReady={onGridReady}
                             getRowNodeId={(data) => data.id}
                             onRowClicked={onRowClicked}
                         />
@@ -146,7 +125,7 @@ const Activeusers = () => {
 
             {currentDiv === "Activesupplier" && (
                 <div>
-                    <PageHeader currentpage="Active user Details" activepage="user" mainpage="Active user Details" />
+                    <PageHeader currentpage="Deleted user Details" activepage="user" mainpage="Deleted user Details" />
                     <button className='className="flex left-0 text-blue-700 hover:bg-gray-100 p-3 font-bold'
                         onClick={handleBack}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -189,17 +168,11 @@ const Activeusers = () => {
                                         <td className="!p-2">:</td>
                                         <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.alternative_number}</td>
                                     </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <h5 className="box-title my-3">Other Information</h5>
-                        <div className="overflow-auto">
-                            <table className="ti-custom-table border-0 whitespace-nowrap">
-                                <tbody>
+                                    <h5 className="box-title my-3">Other Information</h5>
                                     <tr className="">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">ID/passport Number</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.id_no}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/60">{selectedRowData.id_no}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Address</td>
@@ -254,26 +227,11 @@ const Activeusers = () => {
                             <span className="sr-only">Loading...</span>
                         </span>
                     </div>
-                    <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                        <button
-                            onClick=""
-                            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 dark:text-white dark:hover:text-white"
-                        >
-                            Deactivate
-                        </button>
-                        <button
-                            onClick=""
-                            className="py-2.5 px-5 ms-3 text-sm border-2 border-black font-medium focus:outline-none rounded-lg hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"
-                        >
-                            Remove
-                        </button>
-                    </div>
-                    {/* {alert && <Alert alert={alert} />}
-                    {showStatusModal && <Status closeModal={closeModal} />} */}
                 </div>
             )}
+
         </div>
     )
 }
 
-export default Activeusers;
+export default Deletedusers;

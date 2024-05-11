@@ -7,8 +7,10 @@ import { CSVLink } from "react-csv";
 import { useForm } from "react-hook-form";
 import mtaApi from '../../../api/mtaApi';
 import Alert from "../../../components/Alert";
+import { useNavigate } from 'react-router-dom';
 
 const ApproveSupplier = () => {
+    const navigate = useNavigate();
     const [rowData, setRowData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedRowData, setSelectedRowData] = useState(null);
@@ -25,7 +27,7 @@ const ApproveSupplier = () => {
     } = useForm();
 
     const columnDefs = [
-        { headerName: "#", field: "id", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 5 },
+        { headerName: "#", field: "count", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 5 },
         { headerName: "Business Name", field: "business_name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
         { headerName: "Trade Name", field: "trading_name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
         { headerName: "Email", field: "company_email", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
@@ -33,6 +35,7 @@ const ApproveSupplier = () => {
         { headerName: "Address", field: "address", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
         { headerName: "Postal Code", field: "postal_code", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
         { headerName: "Country", field: "country", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "ID", field: "id", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 2 },
         // { headerName: "Status", field: "active", sortable: false, filter: true, editable: false },
     ];
 
@@ -42,16 +45,18 @@ const ApproveSupplier = () => {
         filter: true,
         floatingFilter: false
     };
-    const onGridReady = useCallback((params) => {
-
+    const onGridReady = useEffect(() => {
         const newUnApproved = async () => {
             try {
-                const { data } = await mtaApi.suppliers.getNewUnApprovedSuppliers('2');
-                if (data.status == 200) {
-                    setRowData(data.response);
-                    // setLoading(false);
-                  }
-
+                const { data } = await mtaApi.suppliers.get_suppliers('2');
+                if (data.status === 200) {
+                    // Add a count property to each item in rowData
+                    const modifiedData = data.response.map((item, index) => ({
+                        ...item,
+                        count: index + 1 // Assigning a sequential count starting from 1
+                    }));
+                    setRowData(modifiedData);
+                }
             } catch (error) {
                 console.log(error)
             }
@@ -120,11 +125,9 @@ const ApproveSupplier = () => {
     }
     const approve = async () => {
         try {
-            const { data } = await mtaApi.suppliers.updateSupplier(selectedRowData.id, {
-                status: "ACTIVE",
-                approved: true,
-            })
-            console.log(data.message)
+            const { data } = await mtaApi.suppliers.approve_supplier(selectedRowData.id)
+            console.log(data)
+            // navigate("/supplier/approve-suppliers");
         } catch (error) {
             const message = error.response?.data?.error ?? error.message;
             setAlert({ type: "error", message });
@@ -142,9 +145,9 @@ const ApproveSupplier = () => {
                             value={searchQuery}
                             onChange={handleSearchChange}
                             placeholder="Search..."
-                            style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '20%', boxSizing: 'border-box' }}
+                            style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '50%', boxSizing: 'border-box' }}
                         />
-                        <CSVLink data={rowData} filename="suppliers" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
+                        <CSVLink data={filteredData.length > 0 ? filteredData : rowData.length > 0 ? rowData : []} filename="new_unapproved_suppliers" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                             </svg>
@@ -216,23 +219,32 @@ const ApproveSupplier = () => {
                                         <td className="!p-2">:</td>
                                         <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.country} {...register("country")} /> : selectedRowData.country}</td>
                                     </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Created By</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.createdby}</td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Created By</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.datecreated}</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <h5 className="box-title my-3">Personal Information</h5>
+                        {/* <h5 className="box-title my-3">Personal Information</h5>
                         <div className="overflow-auto">
                             <table className="ti-custom-table border-0 whitespace-nowrap">
                                 <tbody>
                                     <tr className="">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">First Name</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">John</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.first_name} {...register("first_name")} /> : selectedRowData.first_name}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Middle Name</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">Pombe
-                                        </td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.middle_name} {...register("middle_name")} /> : selectedRowData.middle_name}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Last Name</td>
@@ -266,7 +278,7 @@ const ApproveSupplier = () => {
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
+                        </div> */}
                     </div>
                     <div id="loader" style={{ display: 'none' }}>
                         <span className="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent text-blue rounded-full" role="status" aria-label="loading">

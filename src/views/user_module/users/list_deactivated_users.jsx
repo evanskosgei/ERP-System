@@ -1,46 +1,16 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader';
 import { AgGridReact } from 'ag-grid-react';
 import '@ag-grid-community/styles/ag-grid.css';
 import '@ag-grid-community/styles/ag-theme-alpine.css';
 import { CSVLink } from "react-csv";
+import mtaApi from '../../../api/mtaApi';
 import RemoveModal from './removeModal';
 
-const sampleRowData = [
-    {
-        id: 1,
-        first_name: "John",
-        last_name: "Doe",
-        email: "john.doe@example.com",
-        id_no: "3354162",
-        contact: "+123456789",
-        address: "123 Main St",
-        postal_code: "12345",
-        city: "kampala",
-        country: "Uganda",
-        kra_pin: "123456",
-        nhif_pin: "789012",
-        nssf_pin: "345678"
-    },
-    {
-        id: 2,
-        first_name: "Jane",
-        last_name: "Smith",
-        email: "jane.smith@example.com",
-        id_no: "6104774",
-        contact: "+987654321",
-        address: "456 Elm St",
-        postal_code: "54321",
-        city: "Kinshasa",
-        country: "Kongo",
-        kra_pin: "567890",
-        nhif_pin: "901234",
-        nssf_pin: "678901"
-    },
-];
+
 const Deactivatedusers = () => {
 
-    const [rowData, setRowData] = useState(sampleRowData);
+    const [rowData, setRowData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedRowData, setSelectedRowData] = useState(null);
     const [divStack, setDivStack] = useState(["table"]);
@@ -69,6 +39,21 @@ const Deactivatedusers = () => {
         filter: true,
         floatingFilter: false
     };
+    const onGridReady = useCallback((params) => {
+        const newUnApproved = async () => {
+            try {
+                const { data } = await mtaApi.users.list_users('3');
+                if (data.status == 200) {
+                    setRowData(data.response);
+                }
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        newUnApproved();
+    }, []);
+
     const onRowClicked = (event) => {
         const selectedData = event.data;
         setSelectedRowData(selectedData);
@@ -126,7 +111,7 @@ const Deactivatedusers = () => {
                             placeholder="Search..."
                             style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '100%', boxSizing: 'border-box' }}
                         />
-                        <CSVLink data={rowData} filename="Active users.csv" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
+                        <CSVLink data={filteredData.length> 0 ? filteredData : rowData.length>0 ?rowData : []} filename="deactivated_users.csv" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                             </svg>
@@ -140,7 +125,7 @@ const Deactivatedusers = () => {
                             defaultColDef={defaultColDef}
                             pagination={true}
                             paginationPageSize={20}
-                            // onGridReady={onGridReady}
+                            onGridReady={onGridReady}
                             getRowNodeId={(data) => data.id}
                             onRowClicked={onRowClicked}
                         />

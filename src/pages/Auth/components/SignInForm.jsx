@@ -15,10 +15,8 @@ export default function SignInForm() {
   const onSubmit = async (values) => {
     try {
       const { data } = await mtaApi.auth.login(values);
-      // if (data.message !== "Successful Login") throw new Error(data.description);
-      console.log(data)
+      if (data.message !== "Logged in Successfully!") throw new Error(data.description);
       setToken(data.access_token);
-      // console.log(data.access_token);
       setUser(data);
     } catch (error) {
       // console.log(error)
@@ -52,7 +50,7 @@ export default function SignInForm() {
             <label htmlFor="password" className="block text-sm mb-2 dark:text-white">
               Password
             </label>
-            
+
           </div>
           <div className="relative">
             <input

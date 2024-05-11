@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import PageHeader from "../../../../layout/layoutsection/pageHeader/pageHeader";
 import { AgGridReact } from "ag-grid-react";
 import "@ag-grid-community/styles/ag-grid.css";
@@ -11,7 +11,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import ALLImages from "../../../../common/imagesdata";
 
-
 const ApprovenewPhone = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [rowData, setRowData] = useState([]);
@@ -20,22 +19,83 @@ const ApprovenewPhone = () => {
   const [divStack, setDivStack] = useState(["table"]);
   const [editMode, setEditMode] = useState(false);
   const [showStatusModal, setShowStatusModal] = useState(false);
-  const { register, handleSubmit, formState: { errors, isValid }, formState, setValue, reset, } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+    formState,
+    setValue,
+    reset,
+  } = useForm();
 
   const columnDefs = [
-    { headerName: "#", field: "id", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 3 },
-    { headerName: "Phone Name", field: "name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5 },
-    { headerName: "Ram", field: "ram", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 3},
-    { headerName: "Rom", field: "internal_storage", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 3},
-    { headerName: "Back Camera", field: "main_camera", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth:5 },
-    { headerName: "Selfie Camera", field: "front_camera", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5 },
-    { headerName: "Dispaly", field: "display", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5 },
-    { headerName: "Battery", field: "battery", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5 },
-    { headerName: "OS", field: "operating_system", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5 },
-    { headerName: "Connectivity", field: "connectivity", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5 },
+    { headerName: "#",field: "id",sortable: true,editable: false,filter: true,flex: 1,resizable: true,minWidth: 3, },
+    {headerName: "Phone Name",field: "name",sortable: true,editable: false, filter: true,flex: 2,resizable: true,minWidth: 5,},
+    {headerName: "Ram",field: "ram",sortable: true,editable: false,filter: true,flex: 2,resizable: true,minWidth: 3,},
+    { headerName: "Rom",field: "internal_storage",sortable: true,editable: false,filter: true,flex: 2,resizable: true,minWidth: 3,},
+    {
+      headerName: "Back Camera",
+      field: "main_camera",
+      sortable: true,
+      editable: false,
+      filter: true,
+      flex: 2,
+      resizable: true,
+      minWidth: 5,
+    },
+    {
+      headerName: "Selfie Camera",
+      field: "front_camera",
+      sortable: true,
+      editable: false,
+      filter: true,
+      flex: 2,
+      resizable: true,
+      minWidth: 5,
+    },
+    {
+      headerName: "Dispaly",
+      field: "display",
+      sortable: true,
+      editable: false,
+      filter: true,
+      flex: 2,
+      resizable: true,
+      minWidth: 5,
+    },
+    {
+      headerName: "Battery",
+      field: "battery",
+      sortable: true,
+      editable: false,
+      filter: true,
+      flex: 2,
+      resizable: true,
+      minWidth: 5,
+    },
+    {
+      headerName: "OS",
+      field: "operating_system",
+      sortable: true,
+      editable: false,
+      filter: true,
+      flex: 2,
+      resizable: true,
+      minWidth: 5,
+    },
+    {
+      headerName: "Connectivity",
+      field: "connectivity",
+      sortable: true,
+      editable: false,
+      filter: true,
+      flex: 2,
+      resizable: true,
+      minWidth: 5,
+    },
   ];
 
-  const defaultColDef = {sortable: true, flex: 1, filter: true, floatingFilter: false };
+  const defaultColDef = { sortable: true, flex: 1, filter: true, floatingFilter: false };
 
   function dec(el) {
     let unit = el.currentTarget.parentElement.querySelector("input").value;
@@ -54,20 +114,19 @@ const ApprovenewPhone = () => {
     setEditMode(!editMode);
   };
 
-  const onGridReady = useCallback((params) => {
+  const onGridReady = useEffect((params) => {
     const newUnApproved = async () => {
-      try {
-        const { data } = await mtaApi.product_models.ListMobilePhones({ id: '2' });
-        // console.log(data.response)
-        setRowData(data.response)
-        // if (data.status == 200) {
-        //   setRowData(data.response);
-        //   // setLoading(false);
-        // }
-      } catch (error) {
-        console.log(error)
-      }
-    }
+      // try {
+      //   const { data } = await mtaApi.product_models.list_mobile_phone_model("2");
+      //   setRowData(data.response);
+      //   if (data.status == 200) {
+      //     setRowData(data.response);
+      //     // setLoading(false);
+      //   }
+      // } catch (error) {
+      //   console.log(error);
+      // }
+    };
     newUnApproved();
   }, []);
 
@@ -136,12 +195,12 @@ const ApprovenewPhone = () => {
                 marginTop: "10px",
                 marginBottom: "10px",
                 padding: "5px",
-                width: "100%",
+                width: "50%",
                 boxSizing: "border-box",
               }}
             />
             {/* <CSVLink
-              data={filteredData.length > 0 ? filteredData : rowData}
+              data={filteredData.length > 0 ? filteredData : rowData.length > 0 ? rowData : []}
               filename="New unapproved Phone Models.csv"
               separator={","}
               className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600"
@@ -163,12 +222,7 @@ const ApprovenewPhone = () => {
               Export
             </CSVLink> */}
           </div>
-          <div
-            className="ag-theme-alpine"
-            style={{
-              height: "calc(100dvh - 130px)",
-              width: "100%",
-              position: "relative",
+          <div className="ag-theme-alpine" style={{height: "calc(100dvh - 130px)",width: "100%",position: "relative",
               zIndex: 1,
               overflowY: "auto",
             }}
@@ -189,7 +243,12 @@ const ApprovenewPhone = () => {
       )}
       {currentDiv === "phoneDetails" && (
         <div>
-          <PageHeader currentpage="New Phone Model" href="/inventory/product-management" activepage="Inventory" mainpage="New Phone Model" />
+          <PageHeader
+            currentpage="New Phone Model"
+            href="/inventory/product-management"
+            activepage="Inventory"
+            mainpage="New Phone Model"
+          />
           <div className="box">
             <div className="grid grid-cols-12">
               <div className="col-span-12 xxl:col-span-5">

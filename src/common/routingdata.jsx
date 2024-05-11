@@ -13,10 +13,11 @@ import Widgets from "../views/widgets/dashboard/widgets";
 import Profile from "../views/user_module/profile/home/home";
 import UserDashboard from "../views/user_module/dashboard/user_dashboard";
 import CreateUser from "../views/user_module/users/create_new_user";
-import Activeusers from "../views/user_module/users/active_users";
-import Deletedusers from "../views/user_module/users/deleted_users";
-import Deactivatedusers from "../views/user_module/users/deactivated_users";
-import Newusers from "../views/user_module/users/new_users";
+import Activeusers from "../views/user_module/users/list_active_users";
+import Deletedusers from "../views/user_module/users/list_deleted_users";
+import Deactivatedusers from "../views/user_module/users/list_deactivated_users";
+import Newusers from "../views/user_module/users/list_newUnapproved_users";
+import Reactivatedusers from "../views/user_module/users/list_reactivated_users";
 
 //Supplier Pages
 import SupplierDashboard from "../views/supplier_module/dashboard/supplier_dashboard";
@@ -27,6 +28,7 @@ import ActiveSuppliers from "../views/supplier_module/inventory_suppliers/list_a
 import InactiveSuppliers from "../views/supplier_module/inventory_suppliers/list_deactived_suppliers";
 import ApproveSupplier from "../views/supplier_module/inventory_suppliers/list_unapproved_suppliers";
 import DeletedSuppliers from "../views/supplier_module/inventory_suppliers/list_deleted_suppliers";
+import ReactivatedSuppliers from "../views/supplier_module/inventory_suppliers/list_reactivated_suppliers";
 
 //Inventory Pages
 import InventoryDashboard from "../views/inventory_module/dashboard/inventory_dashboard";
@@ -266,6 +268,7 @@ export const RouteData = [
     { path: `${import.meta.env.BASE_URL}users/active-users`, element: <Activeusers /> , title: ''},
     { path: `${import.meta.env.BASE_URL}users/deleted-users`, element: <Deletedusers /> , title: ''},
     { path: `${import.meta.env.BASE_URL}users/deactivated-users`, element: <Deactivatedusers /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}users/reactivated-users`, element: <Reactivatedusers /> , title: ''},
 
     // {/* Widgets content */}
 
@@ -277,6 +280,7 @@ export const RouteData = [
     { path: `${import.meta.env.BASE_URL}supplier/active-suppliers`, element: <ActiveSuppliers /> , title: ''},
     { path: `${import.meta.env.BASE_URL}supplier/approve-suppliers`, element: <ApproveSupplier /> , title: ''},
     { path: `${import.meta.env.BASE_URL}supplier/deactivated-suppliers`, element: <InactiveSuppliers /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}supplier/reactivated-suppliers`, element: <ReactivatedSuppliers /> , title: ''},
     { path: `${import.meta.env.BASE_URL}supplier/deleted-suppliers`, element: <DeletedSuppliers /> , title: ''},
     { path: `${import.meta.env.BASE_URL}supplier/supply-chain`, element: <SupplyChain /> , title: ''},
     { path: `${import.meta.env.BASE_URL}supplier/sms-management`, element: <SmsManagement /> , title: ''},

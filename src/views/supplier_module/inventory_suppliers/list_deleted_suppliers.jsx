@@ -1,30 +1,28 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader';
 import { AgGridReact } from 'ag-grid-react';
 import '@ag-grid-community/styles/ag-grid.css';
 import '@ag-grid-community/styles/ag-theme-alpine.css';
 import { CSVLink } from "react-csv";
-import EditSupplier from './edit_supplier';
 import mtaApi from '../../../api/mtaApi';
 
 const DeletedSuppliers = () => {
     const [rowData, setRowData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
-    const [selectedRowData, setSelectedRowData] = useState(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
+    // const [selectedRowData, setSelectedRowData] = useState(null);
+    // const [isModalOpen, setIsModalOpen] = useState(false);
 
     const columnDefs = [
-        { headerName: "#", field: "id", sortable: true, editable: false, filter: true },
-        { headerName: "Business Name", field: "business_name", sortable: true, editable: false, filter: true },
-        { headerName: "Trade Name", field: "trading_name", sortable: true, editable: false, filter: true },
-        { headerName: "Email", field: "email", sortable: true, editable: false, filter: true },
-        { headerName: "Business No.", field: "contact", sortable: true, editable: false, filter: true },
-        { headerName: "Address", field: "address", sortable: true, editable: false, filter: true },
-        { headerName: "Postal Code", field: "postal_code", sortable: true, editable: false, filter: true },
-        { headerName: "Country", field: "country", sortable: true, editable: false, filter: true },
+        { headerName: "#", field: "count", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 5 },
+        { headerName: "Business Name", field: "business_name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Trade Name", field: "trading_name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Email", field: "company_email", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Mobile Number", field: "company_mobile_number", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Address", field: "address", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Postal Code", field: "postal_code", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Country", field: "country", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "ID", field: "id", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 2 },
     ];
-
     const defaultColDef = {
         sortable: true,
         flex: 1,
@@ -32,25 +30,29 @@ const DeletedSuppliers = () => {
         floatingFilter: false
     };
 
-    const onGridReady = useCallback((params) => {
-        const deletedSupp = async () => {
-            await mtaApi.suppliers.deletedSuppliers
-                .then(resp => {
-                    setRowData(resp.data.message);
-                    console.log(resp.data.message)
-                })
-                .catch(error => {
-                    console.log(error)
-                });
-        };
-        deletedSupp();
+    const onGridReady = useEffect(() => {
+        const DeletedSuppliers = async () => {
+            try {
+                const { data } = await mtaApi.suppliers.get_suppliers('2');
+                if (data.status === 200) {
+                    const modifiedData = data.response.map((item, index) => ({
+                        ...item,
+                        count: index + 1
+                    }));
+                    setRowData(modifiedData);
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        DeletedSuppliers();
     }, []);
 
-    const onRowClicked = (event) => {
-        const selectedData = event.data;
-        setSelectedRowData(selectedData);
-        setIsModalOpen(true);
-    };
+    // const onRowClicked = (event) => {
+    //     const selectedData = event.data;
+    //     setSelectedRowData(selectedData);
+    //     setIsModalOpen(true);
+    // };
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value);
     };
@@ -67,10 +69,6 @@ const DeletedSuppliers = () => {
         });
     });
 
-    const closeModal = () => {
-        setIsModalOpen(false);
-        setSelectedRowData(null);
-    };
     return (
         <div>
             <PageHeader currentpage="Deleted Supplier" href="/supplier/dashboard/" activepage="Supplier" mainpage="Deleted Supplier" />
@@ -81,9 +79,9 @@ const DeletedSuppliers = () => {
                     value={searchQuery}
                     onChange={handleSearchChange}
                     placeholder="Search..."
-                    style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '100%', boxSizing: 'border-box' }}
+                    style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '50%', boxSizing: 'border-box' }}
                 />
-                <CSVLink data={rowData} filename="suppliers" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
+                <CSVLink data={filteredData.length >0 ?filteredData : rowData.length >0 ?rowData : []} filename="deleted_suppliers" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                     </svg>
@@ -99,7 +97,7 @@ const DeletedSuppliers = () => {
                     paginationPageSize={20}
                     onGridReady={onGridReady}
                     getRowNodeId={(data) => data}
-                    onRowClicked={onRowClicked}
+                    // onRowClicked={onRowClicked}
                 />
             </div>
         </div>

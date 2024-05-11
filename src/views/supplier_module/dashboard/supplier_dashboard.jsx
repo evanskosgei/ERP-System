@@ -101,7 +101,7 @@ const SupplierDashboard = () => {
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<div className="flex space-x-3 rtl:space-x-reverse">
+												<Link to="/supplier/reactivated-suppliers" className="flex space-x-3 rtl:space-x-reverse">
 													<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 														<i className="ri ri-tablet-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
 													</div>
@@ -109,7 +109,7 @@ const SupplierDashboard = () => {
 														<p className="mb-0 text-sm">Approve Reactivated Supplier</p>
 														<p className="mb-0 text-gray-500 dark:text-white/70 text-xs">Approve a reactivated product supplier</p>
 													</div>
-												</div>
+												</Link>
 											</div>
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">

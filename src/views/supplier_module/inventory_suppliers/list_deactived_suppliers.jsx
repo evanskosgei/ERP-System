@@ -6,6 +6,8 @@ import '@ag-grid-community/styles/ag-theme-alpine.css';
 import { CSVLink } from "react-csv";
 import Status from './status';
 import mtaApi from '../../../api/mtaApi';
+import Success from '../../../components/Success';
+import Alert from '../../../components/Alert';
 
 const InactiveSuppliers = () => {
     const [rowData, setRowData] = useState([]);
@@ -13,19 +15,20 @@ const InactiveSuppliers = () => {
     const [selectedRowData, setSelectedRowData] = useState(null);
     const [showStatusModal, setShowStatusModal] = useState(false);
     const [divStack, setDivStack] = useState(["listpage"]);
-
+    const [alert, setAlert] = useState(null);
+    const [success, setSuccess] = useState(null);
 
     const columnDefs = [
-        { headerName: "#", field: "id", sortable: true, editable: false, filter: true },
-        { headerName: "Business Name", field: "business_name", sortable: true, editable: false, filter: true },
-        { headerName: "Trade Name", field: "trading_name", sortable: true, editable: false, filter: true },
-        { headerName: "Email", field: "email", sortable: true, editable: false, filter: true },
-        { headerName: "Business No.", field: "contact", sortable: true, editable: false, filter: true },
-        { headerName: "Address", field: "address", sortable: true, editable: false, filter: true },
-        { headerName: "Postal Code", field: "postal_code", sortable: true, editable: false, filter: true },
-        { headerName: "Country", field: "country", sortable: true, editable: false, filter: true },
+        { headerName: "#", field: "count", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 5 },
+        { headerName: "Business Name", field: "business_name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Trade Name", field: "trading_name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Email", field: "company_email", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Mobile Number", field: "company_mobile_number", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Address", field: "address", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Postal Code", field: "postal_code", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Country", field: "country", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "ID", field: "id", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 2 },
     ];
-
     const defaultColDef = {
         sortable: true,
         flex: 1,
@@ -33,19 +36,22 @@ const InactiveSuppliers = () => {
         floatingFilter: false
     };
 
-
-    const onGridReady = useCallback((params) => {
-        const inactiveSupp = async () => {
-            await mtaApi.suppliers.getInactiveSuppliers
-                .then(resp => {
-                    setRowData(resp.data.message);
-                    console.log(resp.data.message)
-                })
-                .catch(error => {
-                    console.log(error)
-                })
+    const onGridReady = useEffect(() => {
+        const DeactivatedSuppliers = async () => {
+            try {
+                const { data } = await mtaApi.suppliers.get_suppliers('3');
+                if (data.status === 200) {
+                    const modifiedData = data.response.map((item, index) => ({
+                        ...item,
+                        count: index + 1
+                    }));
+                    setRowData(modifiedData);
+                }
+            } catch (error) {
+                console.log(error)
+            }
         }
-        inactiveSupp();
+        DeactivatedSuppliers();
     }, []);
 
     const onRowClicked = (event) => {
@@ -92,11 +98,33 @@ const InactiveSuppliers = () => {
     const deleteSupplier = (data) => {
         setShowStatusModal(true);
     };
+    const deleteExp = async () => {
+        await mtaApi.suppliers.deactivate_supplier(selectedRowData.id)
+            .then(response => {
+                const msg = response.description;
+                setSuccess({ type: "success", msg })
+                navigate("/supplier/deactivated-suppliers")
+            }).catch(error => {
+                const message = error.response?.data?.error ?? error.message;
+                setAlert({ type: "error", message });
+            })
+    }
+    const Activate = async () => {
+        await mtaApi.suppliers.approve_supplier(selectedRowData.id)
+            .then(response => {
+                const msg = response.description;
+                setSuccess({ type: "success", msg })
+                navigate("/supplier/active-suppliers")
+            }).catch(error =>{
+                const message = error.response?.data?.error ?? error.message;
+                setAlert({ type: "error", message });
+            })
+    }
     return (
         <div>
             {currentDiv === "listpage" && (
                 <div>
-                    <PageHeader currentpage="Deactived Suppliers" href="/supplier/dashboard/" activepage="Supplier" mainpage="Deactived Suppliers" />
+                    <PageHeader currentpage="Deactivated Suppliers" href="/supplier/dashboard/" activepage="Supplier" mainpage="Deactivated Suppliers" />
 
                     <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                         <input
@@ -104,9 +132,9 @@ const InactiveSuppliers = () => {
                             value={searchQuery}
                             onChange={handleSearchChange}
                             placeholder="Search..."
-                            style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '100%', boxSizing: 'border-box' }}
+                            style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '50%', boxSizing: 'border-box' }}
                         />
-                        <CSVLink data={rowData} filename="Deactivated suppliers" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
+                        <CSVLink data={filteredData.length > 0 ? filteredData : rowData.length > 0 ? rowData : []} filename="Deactivated_suppliers" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                             </svg>
@@ -127,10 +155,9 @@ const InactiveSuppliers = () => {
                     </div>
                 </div>
             )}
-
             {currentDiv === "Deactivedsupplier" && (
                 <div>
-                    <PageHeader currentpage="Deactived Supplier Details" activepage="Supplier" mainpage="Deactived Supplier Details" />
+                    <PageHeader currentpage="Deactivated Supplier Details" activepage="Supplier" mainpage="Deactivated Supplier Details" />
                     <button className='className="flex left-0 text-blue-700 hover:bg-gray-100 p-3 font-bold'
                         onClick={handleBack}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -156,12 +183,12 @@ const InactiveSuppliers = () => {
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Business Email</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.email}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70"> {selectedRowData.company_email}</td>
                                     </tr>
                                     <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Business Contact</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Mobile Number</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.contact}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.company_mobile_number}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Business Address</td>
@@ -178,11 +205,21 @@ const InactiveSuppliers = () => {
                                         <td className="!p-2">:</td>
                                         <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.country}</td>
                                     </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Created By</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.createdby}</td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Created By</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.datecreated}</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <h5 className="box-title my-3">Personal Information</h5>
-                        <div className="overflow-auto">
+                        {/* <h5 className="box-title my-3">Personal Information</h5> */}
+                        {/* <div className="overflow-auto">
                             <table className="ti-custom-table border-0 whitespace-nowrap">
                                 <tbody>
                                     <tr className="">
@@ -228,7 +265,7 @@ const InactiveSuppliers = () => {
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
+                        </div> */}
                     </div>
                     <div id="loader" style={{ display: 'none' }}>
                         <span className="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent text-blue rounded-full" role="status" aria-label="loading">
@@ -237,7 +274,7 @@ const InactiveSuppliers = () => {
                     </div>
                     <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
                         <button
-                            onClick=""
+                            onClick={Activate}
                             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 dark:text-white dark:hover:text-white"
                         >
                             Activate
@@ -249,9 +286,9 @@ const InactiveSuppliers = () => {
                             Delete
                         </button>
                     </div>
-                    {/* {alert && <Alert alert={alert} />}
-                    {success && <Success success={success} />} */}
-                    {showStatusModal && <Status supplierdata={selectedRowData} closeModal={closeModal} />} 
+                    {alert && <Alert alert={alert} />}
+                    {success && <Success success={success} />}
+                    {showStatusModal && <Status deleteEXP={deleteExp} closeModal={closeModal} />}
                 </div>
 
             )}

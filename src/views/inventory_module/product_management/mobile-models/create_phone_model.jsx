@@ -4,14 +4,18 @@ import { useForm } from "react-hook-form"
 import Dropzone from 'react-dropzone-uploader'
 import 'react-dropzone-uploader/dist/styles.css'
 import mtaApi from '../../../../api/mtaApi'
+import { useNavigate } from 'react-router-dom'
+import Alert from '../../../../components/Alert'
 
 const Createphonemodel = () => {
     const { register, handleSubmit, formState: { errors, isValid }, reset, setValue } = useForm();
     const [filePaths, setFilePaths] = useState([]);
+    const navigate = useNavigate();
+    const [alert, setAlert] = useState(null);
 
     const getUploadParams = ({ meta }) => { return { url: 'https://httpbin.org/post' } }
     const handleChangeStatus = ({ meta, file }, status) => {
-        console.log(status);
+        // console.log(status);
         if (status === 'done') {
             setFilePaths(prevFilePaths => [...prevFilePaths, meta.name]);
             setValue('image_path', [...filePaths, meta.name]);
@@ -22,12 +26,18 @@ const Createphonemodel = () => {
     };
 
     const onSubmit = async (values) => {
-        const filePathsJSON = JSON.stringify(filePaths);
+        // console.log(values)
+        // console.log(filePaths)
+
+        // const filePathsJSON = JSON.stringify(filePaths);
         try {
             const response = await mtaApi.product_models.createPhoneModel(values)
+            navigate("/inventory/approve-new-phone-model")
             console.log(response)
         } catch (error) {
             console.log(error)
+            const message = error.response?.data?.error ?? error.message;
+            setAlert({ type: "error", message });
         }
         reset()
         // setFilePaths([]);
@@ -43,17 +53,17 @@ const Createphonemodel = () => {
                     <div className="box-body">
                         <div className="grid lg:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <label className="ti-form-label mb-0">Slect Phone's Category</label>
-                                <select type="text" {...register("category")} id='category' className="my-auto ti-form-input" placeholder="...Enter phone's category" required>
-                                    <option>Select phone category</option>
-                                    <option>Android Phones</option>
-                                    <option>iOS Phones</option>
-                                    <option>Feature Phones</option>
+                                <label className="ti-form-label mb-0">Select product sub-category</label>
+                                <select type="text" {...register("product_sub_category_id", { required: true })} className="my-auto ti-form-input" required>
+                                    <option value="">Select phone category</option>
+                                    <option value="1">Android Phones</option>
+                                    <option value="2">iOS Phones</option>
+                                    <option value="3">Feature Phones</option>
                                 </select>
                             </div>
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">Phone name</label>
-                                <input type="text" {...register("name", { required: true })} id='name' className="my-auto ti-form-input" placeholder=" ... Enter Phone name" />
+                                <input type="text" {...register("phone_name", { required: true })} id='name' className="my-auto ti-form-input" placeholder=" ... Enter Phone name" />
                             </div>
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">Ram</label>
@@ -80,12 +90,12 @@ const Createphonemodel = () => {
                                 <input type="text" {...register("processor", { required: true })} id='processor' className="my-auto ti-form-input" placeholder="...Enter processor type" required />
                             </div>
                             <div className="space-y-2">
-                                <label className="ti-form-label mb-0">Slect Operating System</label>
+                                <label className="ti-form-label mb-0">Operating System</label>
                                 <input type="text" {...register("operating_system")} id='operating_system' className="my-auto ti-form-input" placeholder="...Enter Operating system type" required />
                             </div>
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">connectivity</label>
-                                <input type="text" {...register("connectivity")} id='connectivity' className="my-auto ti-form-input" placeholder="Enter phone's connectivity" required />
+                                <input type="text" {...register("connectivity")} className="my-auto ti-form-input" placeholder="Enter phone's connectivity" required />
                             </div>
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">Colors</label>
@@ -95,11 +105,16 @@ const Createphonemodel = () => {
                                 <label className="ti-form-label mb-0">Battery Capacity</label>
                                 <input type="text" {...register("battery")} id='battery' className="my-auto ti-form-input" placeholder="Enter phone's battery capacity" required />
                             </div>
+                            <div className="space-y-2">
+                                <label className="ti-form-label mb-0">Image path</label>
+                                <input type="text" {...register("image_path")} id='image_path' className="my-auto ti-form-input" placeholder="Enter phone's battery capacity" required />
+                            </div>
                         </div>
-                        <div className="box-body dropzone-file-upload">
+                        {/* <div className="box-body dropzone-file-upload">
                             <label className="ti-form-label mb-0">Upload Product Images</label>
                             <p>Please upload Max of 2 images with a maximum size of 1MB each.</p>
                             <Dropzone
+                            {...register("image_path")}
                                 maxFiles={2}
                                 maxSizeBytes={1 * 1024 * 1024}
                                 getUploadParams={getUploadParams}
@@ -108,7 +123,7 @@ const Createphonemodel = () => {
                                 accept="image/*"
                                 required
                             />
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
@@ -126,6 +141,7 @@ const Createphonemodel = () => {
                     <span className="sr-only">Loading...</span>
                 </span>
             </div>
+            {alert && <Alert alert={alert} />}
         </div>
     )
 }

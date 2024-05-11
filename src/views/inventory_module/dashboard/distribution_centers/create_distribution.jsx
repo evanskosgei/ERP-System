@@ -1,12 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PageHeader from '../../../../layout/layoutsection/pageHeader/pageHeader';
 import { useForm } from "react-hook-form"
+import mtaApi from '../../../../api/mtaApi';
+import { useNavigate } from 'react-router-dom';
+import Alert from '../../../../components/Alert';
+import Success from '../../../../components/Success';
 
 const CreatedistributionCenter = () => {
     const { register, handleSubmit, formState: { errors, isValid }, formState } = useForm();
+    const navigate = useNavigate();
+    const [alert, setAlert] = useState(null);
+    const [success, setSuccess] = useState(null);
 
     const onSubmit = async values => {
-        console.log(values)
+        await mtaApi.distributions.create_distribution(values)
+            .then(response => {
+                const message = response.description;
+                setSuccess({ type: "success", message })
+                navigate("/inventory/approve-new-distribution-center")
+            }).catch(error => {
+                const message = error.response?.data?.error ?? error.message;
+                setAlert({ type: "error", message });
+            })
     }
     return (
         <div>
@@ -18,40 +33,69 @@ const CreatedistributionCenter = () => {
                     </div>
                     <div className="box-body">
                         <div className="grid lg:grid-cols-2 gap-6">
-                            <div className="space-y-2">
-                                <label className="ti-form-label mb-0">Shop name</label>
-                                <input type="text" {...register("shop_name", { required: true })} id='shop_name' className="my-auto ti-form-input" placeholder=" ... Enter shop name" />
+                            <div className="hidden space-y-2">
+                                <label className="ti-form-label mb-0">Distribution Center type</label>
+                                <input type="number" value="2" {...register("distribution_center_type_id", { required: true })} className="my-auto ti-form-input" placeholder=" ... Distribution Center type" />
                             </div>
                             <div className="space-y-2">
-                                <label className="ti-form-label mb-0">Shop Contact</label>
-                                <input type="number" {...register("shop_contact", { required: true })} id='shop_contact' className="my-auto ti-form-input" placeholder=" ... Enter shop contact" />
+                                <label className="ti-form-label mb-0">Shop name</label>
+                                <input type="text" {...register("name", { required: true })} className="my-auto ti-form-input" placeholder=" ... Enter shop name" />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="ti-form-label mb-0">Shop Email</label>
+                                <input type="email" {...register("email", { required: true })} className="my-auto ti-form-input" placeholder=" ... Enter shop Email" />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="ti-form-label mb-0">Shop mobile number</label>
+                                <input type="number" {...register("mobile_number", { required: true })} className="my-auto ti-form-input" placeholder=" ... Enter shop mobile number" />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="ti-form-label mb-0">Shop Telephone</label>
+                                <input type="number" {...register("telephone_number", { required: true })} className="my-auto ti-form-input" placeholder=" ... Enter shop telephone number" />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="ti-form-label mb-0">Shop Number</label>
+                                <input type="number" {...register("shop_number", { required: true })} className="my-auto ti-form-input" placeholder=" ... Enter shop contact" />
                             </div>
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">Building Name</label>
-                                <input type="text" {...register("building_name", { required: true })} id='building_name' className="my-auto ti-form-input" placeholder=" ...Enter building name" required />
+                                <input type="text" {...register("building", { required: true })} className="my-auto ti-form-input" placeholder=" ...Enter building name" required />
                             </div>
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">Street Name/Number</label>
-                                <input type="text" {...register("street_name", { required: true })} id='street_name' className="my-auto ti-form-input" placeholder=" ...Enter street name or number" required />
+                                <input type="text" {...register("physical_location", { required: true })} className="my-auto ti-form-input" placeholder=" ...Enter street name or number" required />
                             </div>
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">Address Number</label>
-                                <input type="text" {...register("address_number", { required: true })} id='address_number' className="my-auto ti-form-input" placeholder=" ...sample po.Box 193" required />
+                                <input type="text" {...register("address", { required: true })} className="my-auto ti-form-input" placeholder=" ...sample po.Box 193" required />
                             </div>
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">Postal code</label>
-                                <input type="number" {...register("postal_code", { required: true })} id='postal_code' className="my-auto ti-form-input" placeholder="...sample, 00100" required />
-                                {errors.postal_code && <span className="text-red-500 text-xs">Postal Code is required</span>}
+                                <input type="number" {...register("postal_code", { required: true })} className="my-auto ti-form-input" placeholder="...sample, 00100" required />
                             </div>
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">County/State Name</label>
-                                <input type="text" {...register("county_name")} id='county_name' className="my-auto ti-form-input" placeholder="Nairobi" required />
+                                <input type="text" {...register("county")} className="my-auto ti-form-input" placeholder="Nairobi County" required />
                             </div>
                             <div className="space-y-2">
-                                <label className="ti-form-label mb-0">City</label>
-                                <input type="text" {...register("city")} id='city' className="my-auto ti-form-input" placeholder="Enter city or town name" required />
+                                <label className="ti-form-label mb-0">City/Towm</label>
+                                <input type="text" {...register("city")} className="my-auto ti-form-input" placeholder="Enter city or town name" required />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="ti-form-label mb-0">Region</label>
+                                <input type="text" {...register("region")} className="my-auto ti-form-input" placeholder="Enter shop region" required />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="ti-form-label mb-0">Country</label>
+                                <input type="text" {...register("country")} className="my-auto ti-form-input" placeholder="Enter country located" required />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="ti-form-label mb-0">Remarks</label>
+                                <textarea type="text" {...register("notes")} className="my-auto ti-form-input" placeholder="Enter remarks" required />
                             </div>
                         </div>
+                        {alert && <Alert alert={alert} />}
+                        {success && <Success success={success} />}
                     </div>
                 </div>
             </div>

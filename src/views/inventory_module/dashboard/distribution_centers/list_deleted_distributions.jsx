@@ -1,53 +1,60 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PageHeader from '../../../../layout/layoutsection/pageHeader/pageHeader';
 import { AgGridReact } from 'ag-grid-react';
 import '@ag-grid-community/styles/ag-grid.css';
 import '@ag-grid-community/styles/ag-theme-alpine.css';
 import { CSVLink } from "react-csv";
+import Alert from '../../../../components/Alert';
+import mtaApi from '../../../../api/mtaApi';
+import Status from '../../../supplier_module/inventory_suppliers/status';
+import { useNavigate } from 'react-router-dom';
+import Success from '../../../../components/Success';
 
-const sampleRowData = [
-    {
-        id: 1,
-        shop_name: "John",
-        shop_contact: "0757657268",
-        building_name: "Pombe",
-        street_name: "6104774",
-        address_number: "456 Elm St",
-        postal_code: "54321",
-        city: "Kinshasa",
-        County: "Kongo",
-    },
-    {
-        id: 2,
-        shop_name: "Jane",
-        shop_contact: "0757657268",
-        building_name: "Smith",
-        street_name: "6104774",
-        address_number: "456 Elm St",
-        postal_code: "54321",
-        city: "Kinshasa",
-        County: "Kongo",
-    },
-];
 const Deleteddistributions = () => {
-    const [rowData, setRowData] = useState(sampleRowData);
+    const [rowData, setRowData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedRowData, setSelectedRowData] = useState(null);
     const [divStack, setDivStack] = useState(["table"]);
-    // const [alert, setAlert] = useState(null);
+    const [alert, setAlert] = useState(null);
+    const [success, setSuccess] = useState(null);
     const [showStatusModal, setShowStatusModal] = useState(false);
 
     const columnDefs = [
-        { headerName: "#", field: "id", sortable: true, editable: false, filter: true },
-        { headerName: "Shop Name", field: "shop_name", sortable: true, editable: false, filter: true },
-        { headerName: "Shop Contact", field: "shop_contact", sortable: true, editable: false, filter: true },
-        { headerName: "Building Name", field: "building_name", sortable: true, editable: false, filter: true },
-        { headerName: "Street Name", field: "street_name", sortable: true, editable: false, filter: true },
-        { headerName: "Address", field: "address_number", sortable: true, editable: false, filter: true },
-        { headerName: "Postal Code", field: "postal_code", sortable: true, editable: false, filter: true },
-        { headerName: "City", field: "city", sortable: true, editable: false, filter: true },
-        { headerName: "County", field: "County", sortable: true, editable: false, filter: true },
+        { headerName: "#", field: "count", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 5 },
+        { headerName: "Name", field: "name", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
+        { headerName: "Mobile Number", field: "mobile_number", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
+        // { headerName: "Tel Number", field: "telephone_number", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
+        { headerName: "Email", field: "email", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
+        { headerName: "Shop Number", field: "shop_number", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 5 },
+        // { headerName: "P.Location", field: "physical_location", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
+        { headerName: "Address", field: "address", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
+        { headerName: "Building", field: "building", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
+        { headerName: "Postal Code", field: "postal_code", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
+        { headerName: "City", field: "city", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
+        { headerName: "County", field: "county", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
+        // { headerName: "Region", field: "region", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
+        { headerName: "Country", field: "country", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
+        // { headerName: "Date Created", field: "created_date", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
+        // { headerName: "D.Center ID", field: "distribution_center_type_id", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
     ];
+
+    const onGridReady = useEffect(() => {
+        const Activedistributions = async () => {
+            try {
+                const { data } = await mtaApi.distributions.list_distribution('1')
+                if (data.status === 200) {
+                    const modifiedData = data.response.map((item, index) => ({
+                        ...item,
+                        count: index + 1
+                    }));
+                    setRowData(modifiedData);
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        Activedistributions();
+    }, []);
 
     const onRowClicked = (event) => {
         const selectedData = event.data;
@@ -87,6 +94,37 @@ const Deleteddistributions = () => {
     };
     const currentDiv = divStack[divStack.length - 1];
 
+    const deleteDistribution = (data) => {
+        console.log('Deleting distributions:', data);
+        setShowStatusModal(true);
+    };
+    const closeModal = () => {
+        setShowStatusModal(false);
+    };
+
+    const deleteEXP = async () => {
+        await mtaApi.distributions.delete_distribution(selectedRowData.id)
+            .then(response => {
+                const msg = response.description;
+                setSuccess({ type: "success", msg })
+                navigate("/supplier/deactivated-suppliers")
+            }).catch(error => {
+                const message = error.response?.data?.error ?? error.message;
+                setAlert({ type: "error", message });
+            })
+    }
+    const deactivate = async () => {
+        // await mtaApi.suppliers.deactivate_supplier(selectedRowData.id)
+        //     .then(response => {
+        //         const msg = response.description;
+        //         setSuccess({ type: "success", msg })
+        //         navigate("/supplier/deactivated-suppliers")
+        //     }).catch(error => {
+        //         const message = error.response?.data?.error ?? error.message;
+        //         setAlert({ type: "error", message });
+        //     })
+    }
+
     return (
         <div>
             {currentDiv === "table" && (
@@ -98,7 +136,7 @@ const Deleteddistributions = () => {
                             value={searchQuery}
                             onChange={handleSearchChange}
                             placeholder="Search..."
-                            style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '100%', boxSizing: 'border-box' }}
+                            style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '50%', boxSizing: 'border-box' }}
                         />
                         <CSVLink data={filteredData.length > 0 ? filteredData : rowData} filename="Deleted Distribution Centers.csv" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -114,7 +152,7 @@ const Deleteddistributions = () => {
                             // defaultColDef={defaultColDef}
                             pagination={true}
                             paginationPageSize={20}
-                            // onGridReady={onGridReady}
+                            onGridReady={onGridReady}
                             getRowNodeId={(data) => data.id}
                             onRowClicked={onRowClicked}
                         />
@@ -136,30 +174,45 @@ const Deleteddistributions = () => {
                         <div className="overflow-auto">
                             <table className="ti-custom-table border-0 whitespace-nowrap">
                                 <tbody>
+                                <tr className="">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Shop Number</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.shop_number}</td>
+                                    </tr>
                                     <tr className="">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Shop Name</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.shop_name}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.name}</td>
                                     </tr>
                                     <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Shop Contact</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Shop Mobile No.</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.shop_contact}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.mobile_number}</td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Shop Tel No.</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.telephone_number}</td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Shop Email</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.email}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Building Name</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.building_name}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.building}</td>
                                     </tr>
                                     <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Street Name</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Physical Location</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.street_name}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.physical_location}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Address</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.address_number}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.address}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Postal Code</td>
@@ -174,7 +227,27 @@ const Deleteddistributions = () => {
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">County</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.County}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.county}</td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Region</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.region}</td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Country</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.country}</td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Date created</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.created_date}</td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Remarks</td>
+                                        <td className="!p-2">:</td>
+                                        <div className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.notes}</div>
                                     </tr>
                                 </tbody>
                             </table>

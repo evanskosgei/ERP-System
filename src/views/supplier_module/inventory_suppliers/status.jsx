@@ -1,22 +1,6 @@
-import React, { useEffect, useState } from "react";
-import mtaApi from "../../../api/mtaApi";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 
-const Status = ({ supplierdata, closeModal }) => {
-    const [alert, setAlert] = useState(null)
-    const deleteSupplier = async () => {
-        await mtaApi.supplier.updateSupplier(supplierdata.id, ({
-            status: "DELETED"
-        })).then(resp => {
-            closeModal()
-        }).catch(error => {
-            console.log(error)
-            const message = error.response?.data?.msg ?? error.message;
-            // console.log(message)
-            setAlert({ type: "error", message });
-        })
-    }
-
+const Status = ({closeModal , deleteEXP }) => {
     return (
         <div>
             
@@ -35,7 +19,7 @@ const Status = ({ supplierdata, closeModal }) => {
                                 <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" />
                             </svg>
                             <h2 className="text-xl font-bold py-4 ">Are you sure?</h2>
-                            <p className="text-sm text-gray-500 px-8">Do you really want to delete this Supplier?
+                            <p className="text-sm text-gray-500 px-8">Do you really want to delete?
                                 This process cannot be undone</p>
                         </div>
 
@@ -46,12 +30,11 @@ const Status = ({ supplierdata, closeModal }) => {
                                 Cancel
                             </button>
                             <button
-                                onClick={deleteSupplier}
+                                onClick={deleteEXP}
                                 className="mb-2 md:mb-0 bg-red-500 border border-red-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-red-600">
                                 Delete
                             </button>
                         </div>
-                        {alert && <Alert alert={alert} />}
                     </div>
                 </div>
             </div>

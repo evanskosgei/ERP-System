@@ -1,21 +1,36 @@
-import React from 'react'
 import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader';
 import { useForm } from "react-hook-form";
-import Select from 'react-select';
-import { Availability, Brand, Category, Color, Gender, ProductStatus, ProductVisibility, Size } from "../../../common/select2data";
-import { useState } from 'react';
-import Dropzone from 'react-dropzone-uploader';
+import { useEffect, useState } from 'react';
+import mtaApi from '../../../api/mtaApi';
+import { useNavigate } from 'react-router-dom';
 
 
 const CreateUser = () => {
-    const { register, handleSubmit, formState: { errors, isValid }, formState } = useForm();
-    const [files, setFiles] = useState([]);
+    const { register, handleSubmit, formState: { errors, isValid }, formState, reset } = useForm();
+    const [category, setCategory] = useState([])
+    const navigate = useNavigate();
 
-    const getUploadParams = ({ file, meta }) => { return { url: 'https://httpbin.org/post' }; };
-    const handleChangeStatus = ({ meta, file }, status) => { console.log(status, meta, file) }
+    useEffect(() => {
+        const getCategories = async () => {
+            await mtaApi.users.list_categories("1")
+                .then(response => {
+                    setCategory(response.data.response)
+                }).catch(error => {
+                    console.log(error)
+                })
+        }
+        getCategories();
+    }, [])
 
     const onSubmit = async values => {
         console.log(values)
+        try {
+            const response = await mtaApi.users.create_user(values)
+            console.log(response)
+        }
+        catch (error) {
+            console.log(error)
+        }
     }
     return (
         <div>
@@ -37,27 +52,23 @@ const CreateUser = () => {
                                     <label className="ti-form-label mb-0">Last Name</label>
                                     <input type="text" {...register("last_name", { required: true })} id='last_name' className="ti-form-input" placeholder=" ... last name" required />
                                 </div>
-
                                 <div className="space-y-2">
-                                    <label className="ti-form-label mb-0">User type</label>
-                                    <select type="text" {...register("user_categories", { required: true })} id='user_categories' className="ti-form-input" required>
-                                        <option>Select a user type</option>
-                                        <option>Administrator</option>
-                                        <option>Stockist</option>
-                                        <option>Manager</option>
-                                        <option>Team Leader</option>
-                                        <option>Agents</option>
+                                    <label htmlFor="user_categories" className="ti-form-label mb-0">User type</label>
+                                    <select id='user_categories' className="ti-form-input" {...register("user_categories", { required: true })} required>
+                                        <option value="">Select a user type</option>
+                                        {category.map((cat, index) => (
+                                            <option key={index} value={cat.id}>{cat.name}</option>
+                                        ))}
                                     </select>
                                 </div>
-
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Gender</label>
                                     <select type="text" {...register("gender", { required: true })} id='gender' className="ti-form-input" required>
-                                        <option>Select a Gender</option>
-                                        <option>Male</option>
-                                        <option>Female</option>
-                                        <option>Other</option>
-                                       
+                                        <option value="">Select a Gender</option>
+                                        <option value="1">Male</option>
+                                        <option value="2">Female</option>
+                                        <option value="3">Other</option>
+
                                     </select>
                                 </div>
 
@@ -65,19 +76,14 @@ const CreateUser = () => {
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Marital Status</label>
                                     <select type="text" {...register("marital_status", { required: true })} id='marital_status' className="ti-form-input" required>
-                                        <option>Select Marital Status</option>
-                                        <option>Married</option>
-                                        <option>Single</option>
-                                        <option>Divorced</option>
-                                        <option>Separated</option>
-                                       
+                                        <option value="">Select Marital Status</option>
+                                        <option value="1">Married</option>
+                                        <option value="2">Single</option>
+                                        <option value="3">Divorced</option>
+                                        <option value="4">Separated</option>
+
                                     </select>
                                 </div>
-                                {/* <div className="space-y-2">
-                                <label className="ti-form-label mb-0">Gender</label>
-								<Select  className="product-search" classNamePrefix="react-select" options={Gender} placeholder='Gender' />
-                                </div> */}
-
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Mobile Number</label>
                                     <input type="text" {...register("mobile_number", { required: true })} id='mobile_number' className="ti-form-input" placeholder=" ... Enter user phone number" required />
@@ -141,7 +147,7 @@ const CreateUser = () => {
                             </div>
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">NSSF Number</label>
-                                <input type="email" {...register("nssf_number", { required: false })} id='nssf_number' className="ti-form-input" placeholder=" ... Enter user nssf number" />
+                                <input type="text" {...register("nssf_number", { required: false })} id='nssf_number' className="ti-form-input" placeholder=" ... Enter user nssf number" />
                             </div>
                         </div>
                     </div>
@@ -152,14 +158,53 @@ const CreateUser = () => {
                     <div className="box-header">
                         <h5 className="box-title text-center">ID and Profile Image</h5>
                     </div>
-                    <div className="box-body">
-                        <div className="col-span-12 lg:col-span-6">
-                            <div className="box">
-                                <div className="box-header">
-                                    <h5 className="box-title">Upload Both sides of ID/Passport</h5>
+                    <div className="col-span-12 lg:col-span-4">
+                        <div className="box">
+                            <div className="box-header">
+                                <h5 className="box-title">Upload ID Front</h5>
+                            </div>
+                            <div className="col-span-12 lg:col-span-6">
+                                <div className="box-body">
+                                    <div>
+                                        <label className="block">
+                                            <span className="sr-only">Choose Profile photo</span>
+                                            <input type="file" {...register("id_front", { required: false })} className="block w-full text-sm text-gray-500 dark:text-white/70 focus:outline-0 ltr:file:mr-4 rtl:file:ml-4 file:py-2 file:px-4 file:rounded-sm file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary focus-visible:outline-none" />
+                                        </label>
+                                    </div>
                                 </div>
-                                <div className="box-body dropzone-file-upload">
-                                    <Dropzone getUploadParams={getUploadParams} onChangeStatus={handleChangeStatus} onSubmit="" accept="image/*,audio/*,video/*,pdf/*,xlsx/*,txt/*" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-span-12 lg:col-span-4">
+                        <div className="box">
+                            <div className="box-header">
+                                <h5 className="box-title">Upload ID Back</h5>
+                            </div>
+                            <div className="col-span-12 lg:col-span-6">
+                                <div className="box-body">
+                                    <div>
+                                        <label className="block">
+                                            <span className="sr-only">Choose Profile photo</span>
+                                            <input type="file"{...register("id_back", { required: false })} className="block w-full text-sm text-gray-500 dark:text-white/70 focus:outline-0 ltr:file:mr-4 rtl:file:ml-4 file:py-2 file:px-4 file:rounded-sm file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary focus-visible:outline-none" />
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-span-12 lg:col-span-4">
+                        <div className="box">
+                            <div className="box-header">
+                                <h5 className="box-title">Upload Selfie</h5>
+                            </div>
+                            <div className="col-span-12 lg:col-span-6">
+                                <div className="box-body">
+                                    <div>
+                                        <label className="block">
+                                            <span className="sr-only">Choose Profile photo</span>
+                                            <input type="file" {...register("selfie", { required: false })} className="block w-full text-sm text-gray-500 dark:text-white/70 focus:outline-0 ltr:file:mr-4 rtl:file:ml-4 file:py-2 file:px-4 file:rounded-sm file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary focus-visible:outline-none" />
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>

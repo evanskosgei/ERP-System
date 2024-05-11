@@ -1,65 +1,60 @@
-import React, { useEffect, useState } from 'react'
-import PageHeader from '../../../../layout/layoutsection/pageHeader/pageHeader';
+import React, { useCallback, useState } from 'react'
+import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader';
 import { AgGridReact } from 'ag-grid-react';
 import '@ag-grid-community/styles/ag-grid.css';
 import '@ag-grid-community/styles/ag-theme-alpine.css';
 import { CSVLink } from "react-csv";
-import Alert from '../../../../components/Alert';
-import mtaApi from '../../../../api/mtaApi';
-import Status from '../../../supplier_module/inventory_suppliers/status';
-import { useNavigate } from 'react-router-dom';
-import Success from '../../../../components/Success';
+import mtaApi from '../../../api/mtaApi';
 
-const Reactivateddistributions = () => {
+const Activeusers = () => {
     const [rowData, setRowData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedRowData, setSelectedRowData] = useState(null);
     const [divStack, setDivStack] = useState(["table"]);
-    const [alert, setAlert] = useState(null);
-    const [success, setSuccess] = useState(null);
-    const [showStatusModal, setShowStatusModal] = useState(false);
+    // const [alert, setAlert] = useState(null);
+    // const [showStatusModal, setShowStatusModal] = useState(false);
 
     const columnDefs = [
-        { headerName: "#", field: "count", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 5 },
-        { headerName: "Name", field: "name", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
-        { headerName: "Mobile Number", field: "mobile_number", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
-        // { headerName: "Tel Number", field: "telephone_number", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
-        { headerName: "Email", field: "email", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
-        { headerName: "Shop Number", field: "shop_number", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 5 },
-        // { headerName: "P.Location", field: "physical_location", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
-        { headerName: "Address", field: "address", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
-        { headerName: "Building", field: "building", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
-        { headerName: "Postal Code", field: "postal_code", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
-        { headerName: "City", field: "city", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
-        { headerName: "County", field: "county", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
-        // { headerName: "Region", field: "region", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
-        { headerName: "Country", field: "country", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
-        // { headerName: "Date Created", field: "created_date", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
-        // { headerName: "D.Center ID", field: "distribution_center_type_id", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
+        { headerName: "#", field: "id", sortable: true, editable: false, filter: true },
+        { headerName: "First name", field: "first_name", sortable: true, editable: false, filter: true },
+        { headerName: "Last name", field: "last_name", sortable: true, editable: false, filter: true },
+        { headerName: "Email", field: "email", sortable: true, editable: false, filter: true },
+        { headerName: "ID/Passport", field: "id_no", sortable: true, editable: false, filter: true },
+        { headerName: "Mobile No.", field: "contact", sortable: true, editable: false, filter: true },
+        { headerName: "Address", field: "address", sortable: true, editable: false, filter: true },
+        { headerName: "Postal Code", field: "postal_code", sortable: true, editable: false, filter: true },
+        { headerName: "City", field: "city", sortable: true, editable: false, filter: true },
+        { headerName: "Country", field: "country", sortable: true, editable: false, filter: true },
+        { headerName: "KRA PIN", field: "kra_pin", sortable: true, editable: false, filter: true },
+        { headerName: "NHIF PIN", field: "nhif_pin", sortable: true, editable: false, filter: true },
+        { headerName: "NSSF PIN", field: "nssf_pin", sortable: true, editable: false, filter: true },
     ];
 
-    const onGridReady = useEffect(() => {
-        const Activedistributions = async () => {
+    const defaultColDef = {
+        sortable: true,
+        flex: 1,
+        filter: true,
+        floatingFilter: false
+    };
+    const onGridReady = useCallback((params) => {
+        const newUnApproved = async () => {
             try {
-                const { data } = await mtaApi.distributions.list_distribution('1')
-                if (data.status === 200) {
-                    const modifiedData = data.response.map((item, index) => ({
-                        ...item,
-                        count: index + 1
-                    }));
-                    setRowData(modifiedData);
+                const { data } = await mtaApi.users.list_users('2');
+                if (data.status == 200) {
+                    setRowData(data.response);
                 }
+
             } catch (error) {
                 console.log(error)
             }
         }
-        Activedistributions();
+        newUnApproved();
     }, []);
 
     const onRowClicked = (event) => {
         const selectedData = event.data;
         setSelectedRowData(selectedData);
-        handleClick('distributioncenterDetails');
+        handleClick('Activesupplier');
     };
 
     const handleSearchChange = (event) => {
@@ -95,42 +90,12 @@ const Reactivateddistributions = () => {
     };
     const currentDiv = divStack[divStack.length - 1];
 
-    const deleteDistribution = (data) => {
-        console.log('Deleting distributions:', data);
-        setShowStatusModal(true);
-      };
-    const closeModal = () => {
-        setShowStatusModal(false);
-      };
-
-    const deleteEXP = async () => {
-        await mtaApi.distributions.delete_distribution(selectedRowData.id)
-            .then(response => {
-                const msg = response.description;
-                setSuccess({ type: "success", msg })
-                navigate("/supplier/deactivated-suppliers")
-            }).catch(error => {
-                const message = error.response?.data?.error ?? error.message;
-                setAlert({ type: "error", message });
-            })
-    }
-    const deactivate = async () => {
-        // await mtaApi.suppliers.deactivate_supplier(selectedRowData.id)
-        //     .then(response => {
-        //         const msg = response.description;
-        //         setSuccess({ type: "success", msg })
-        //         navigate("/supplier/deactivated-suppliers")
-        //     }).catch(error => {
-        //         const message = error.response?.data?.error ?? error.message;
-        //         setAlert({ type: "error", message });
-        //     })
-    }
 
     return (
         <div>
             {currentDiv === "table" && (
                 <div>
-                    <PageHeader currentpage="Reactivated Distribution Centers" href="/inventory/dashboard/" activepage="Inventory" mainpage="Reactivated Distribution Centers" />
+                    <PageHeader currentpage="Active Users" href="/users/dashboard" activepage="Users" mainpage="Active Users" />
 
                     <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                         <input
@@ -140,18 +105,24 @@ const Reactivateddistributions = () => {
                             placeholder="Search..."
                             style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '50%', boxSizing: 'border-box' }}
                         />
-                        <CSVLink data={filteredData.length > 0 ? filteredData : rowData} filename="Reactivated Distribution Centers.csv" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
+                        <CSVLink
+                            data={filteredData.length > 0 ? filteredData : rowData.length > 0 ? rowData : []}
+                            filename="Active_users.csv"
+                            separator={","}
+                            className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600"
+                        >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                             </svg>
                             Export
                         </CSVLink>
+
                     </div>
                     <div className="ag-theme-alpine" style={{ height: 'calc(100dvh - 130px)', width: '100%', position: 'relative', zIndex: 1, overflowY: 'auto' }}>
                         <AgGridReact
                             rowData={filteredData.length > 0 ? filteredData : rowData}
                             columnDefs={columnDefs}
-                            // defaultColDef={defaultColDef}
+                            defaultColDef={defaultColDef}
                             pagination={true}
                             paginationPageSize={20}
                             onGridReady={onGridReady}
@@ -162,9 +133,9 @@ const Reactivateddistributions = () => {
                 </div>
             )}
 
-            {currentDiv === "distributioncenterDetails" && (
+            {currentDiv === "Activesupplier" && (
                 <div>
-                    <PageHeader currentpage="Reactivated Distribution Center" activepage="Inventory" mainpage="Reactivated Distribution Center" />
+                    <PageHeader currentpage="Active user Details" activepage="user" mainpage="Active user Details" />
                     <button className='className="flex left-0 text-blue-700 hover:bg-gray-100 p-3 font-bold'
                         onClick={handleBack}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -178,39 +149,46 @@ const Reactivateddistributions = () => {
                             <table className="ti-custom-table border-0 whitespace-nowrap">
                                 <tbody>
                                     <tr className="">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Shop Number</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">First Name</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.shop_number}</td>
-                                    </tr>
-                                    <tr className="">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Shop Name</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.name}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.first_name}</td>
                                     </tr>
                                     <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Shop Mobile No.</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Last Name</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.mobile_number}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.last_name}</td>
                                     </tr>
                                     <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Shop Tel No.</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Other Names</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.telephone_number}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.other_names}</td>
                                     </tr>
                                     <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Shop Email</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Mobile Number</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.contact}</td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Email Address</td>
                                         <td className="!p-2">:</td>
                                         <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.email}</td>
                                     </tr>
                                     <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Building Name</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Alt number</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.building}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.alternative_number}</td>
                                     </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Physical Location</td>
+                                </tbody>
+                            </table>
+                        </div>
+                        <h5 className="box-title my-3">Other Information</h5>
+                        <div className="overflow-auto">
+                            <table className="ti-custom-table border-0 whitespace-nowrap">
+                                <tbody>
+                                    <tr className="">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">ID/passport Number</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.physical_location}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.id_no}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Address</td>
@@ -222,20 +200,10 @@ const Reactivateddistributions = () => {
                                         <td className="!p-2">:</td>
                                         <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.postal_code}</td>
                                     </tr>
-                                    <tr className="">
+                                    <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">City</td>
                                         <td className="!p-2">:</td>
                                         <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.city}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">County</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.county}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Region</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.region}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Country</td>
@@ -243,14 +211,28 @@ const Reactivateddistributions = () => {
                                         <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.country}</td>
                                     </tr>
                                     <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Date created</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">KRA Pin</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.created_date}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.kra_pin}
+                                        </td>
                                     </tr>
                                     <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Remarks</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Nhif pin</td>
                                         <td className="!p-2">:</td>
-                                        <div className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.notes}</div>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.nhif_pin}
+                                        </td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Nssf Pin</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.nssf_pin}
+                                        </td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Date Created</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">4/5/1960
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -263,25 +245,24 @@ const Reactivateddistributions = () => {
                     </div>
                     <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
                         <button
-                            onClick={deactivate}
+                            onClick=""
                             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 dark:text-white dark:hover:text-white"
                         >
-                            Activate
+                            Deactivate
                         </button>
                         <button
-                            onClick={deleteDistribution}
+                            onClick=""
                             className="py-2.5 px-5 ms-3 text-sm border-2 border-black font-medium focus:outline-none rounded-lg hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"
                         >
                             Remove
                         </button>
                     </div>
-                    {alert && <Alert alert={alert} />}
-                    {success && <Success success={success} />}
-                    {showStatusModal && <Status closeModal={closeModal} deleteEXP={deleteEXP} />}
+                    {/* {alert && <Alert alert={alert} />}
+                    {showStatusModal && <Status closeModal={closeModal} />} */}
                 </div>
             )}
         </div>
     )
 }
 
-export default Reactivateddistributions;
+export default Activeusers;

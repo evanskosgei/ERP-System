@@ -3,9 +3,7 @@ import { useForm } from "react-hook-form";
 import { useState } from 'react';
 import mtaApi from '../../../api/mtaApi';
 import { useNavigate } from 'react-router-dom';
-import Alert from '../../../component/components/alerts/alerts';
-import Select from 'react-select';
-import { Availability, Brand, Category, Color, Gender, ProductStatus, ProductVisibility, Size } from "../../../common/select2data";
+import Alert from '../../../components/Alert';
 
 const CreateSupplier = () => {
     const { register, handleSubmit, formState: { errors, isValid }, formState } = useForm();
@@ -14,9 +12,9 @@ const CreateSupplier = () => {
 
     const onSubmit = async values => {
         try {
-            const { data } = await mtaApi.suppliers.createSupplier(values);
+            const { data } = await mtaApi.suppliers.create_supplier(values);
             document.getElementById('loader').style.display = 'block';
-            navigate("/supplier/approve-suppliers")
+            navigate("/supplier/approve-suppliers");
         } catch (error) {
             const message = error.response?.data?.error ?? error.message;
             setAlert({ type: "error", message });
@@ -138,9 +136,6 @@ const CreateSupplier = () => {
                 <div className="col-span-12">
                     <div className="box !bg-transparent border-0 shadow-none">
                         <div className="box-footer text-center border-t-0 px-0">
-                            {/* <Link to={`${import.meta.env.BASE_URL}pagecomponent/Ecommerce/product/`} className="ti-btn ti-btn-primary"><i className="ri-add-line"></i>Add Product</Link>
-							<Link to='#' className="ti-btn ti-btn-secondary"><i className="ri-file-download-line"></i>Save Product</Link>
-							<Link to='#' className="ti-btn ti-btn-danger"><i className="ri-delete-bin-line"></i>Discard Product</Link> */}
                             <button type="submit" onClick={handleSubmit(onSubmit)} className={`ti-btn ti-btn-primary ti-custom-validate-btn ${!isValid && 'opacity-50 cursor-not-allowed'}`} disabled={!isValid}>Submit Details</button>
                         </div>
                     </div>
@@ -153,7 +148,7 @@ const CreateSupplier = () => {
                 </span>
             </div>
 
-            {/* {alert && <Alert alert={alert} />} */}
+            {alert && <Alert alert={alert} />}
         </div >
     );
 }
