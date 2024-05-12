@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader';
 import { AgGridReact } from 'ag-grid-react';
 import '@ag-grid-community/styles/ag-grid.css';
 import '@ag-grid-community/styles/ag-theme-alpine.css';
 import { CSVLink } from "react-csv";
 import { useForm } from "react-hook-form";
-import mtaApi from '../../../api/mtaApi';
-import Alert from "../../../components/Alert";
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect, useCallback } from "react";
+import Alert from '../../../components/Alert';
+import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader';
+import mtaApi from '../../../api/mtaApi';
 
-const ApproveSupplier = () => {
+const Unapproved_capital_injection = () => {
     const navigate = useNavigate();
     const [rowData, setRowData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
@@ -17,38 +17,29 @@ const ApproveSupplier = () => {
     const [divStack, setDivStack] = useState(["listpage"]);
     const [editMode, setEditMode] = useState(false);
     const [alert, setAlert] = useState(null);
-    const {
-        register,
-        handleSubmit,
-        formState: { errors, isValid },
-        formState,
-        setValue,
-        reset
-    } = useForm();
+    const { register, handleSubmit, formState: { errors, isValid }, formState, setValue, reset } = useForm();
 
     const columnDefs = [
-        { headerName: "#", field: "count", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 5 },
-        { headerName: "Business Name", field: "business_name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Trade Name", field: "trading_name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Email", field: "company_email", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Mobile Number", field: "company_mobile_number", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Address", field: "address", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Postal Code", field: "postal_code", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Country", field: "country", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "ID", field: "id", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 2 },
-        // { headerName: "Status", field: "active", sortable: false, filter: true, editable: false },
+        { headerName: "No", field: "no", sortable: true, editable: false, filter: true, flex: 1, resizable: false, minWidth: 10 },
+        { headerName: "Transaction ID", field: "transaction_id", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
+        { headerName: "Bank Account", field: "bank_account", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
+        { headerName: "Shareholder Account", field: "shareholder_account", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
+        { headerName: "Amount", field: "amount", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
+        { headerName: "Settlement Date", field: "settlement_date", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
+        { headerName: "Reference", field: "reference", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
+        { headerName: "Narrative", field: "narrative", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
+        { headerName: "Created By", field: "createdby", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
+        { headerName: "Created By ID", field: "created_by_id", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
+        { headerName: "Date Created", field: "datecreated", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
+        { headerName: "Global ID", field: "globalId", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
     ];
 
-    const defaultColDef = {
-        sortable: true,
-        flex: 1,
-        filter: true,
-        floatingFilter: false
-    };
+    const defaultColDef = { sortable: true, flex: 1, filter: true, floatingFilter: false };
+
     const onGridReady = useEffect(() => {
         const newUnApproved = async () => {
             try {
-                const { data } = await mtaApi.suppliers.get_suppliers('2');
+                const { data } = await mtaApi.finance_module.list_capital_entries("1")
                 if (data.status === 200) {
                     const modifiedData = data.response.map((item, index) => ({
                         ...item,
@@ -124,9 +115,8 @@ const ApproveSupplier = () => {
     }
     const approve = async () => {
         try {
-            const { data } = await mtaApi.suppliers.approve_supplier(selectedRowData.id)
-            console.log(data)
-            navigate("/supplier/approve-suppliers");
+            const { data } = await mtaApi.finance_module.approve_capital_injections(selectedRowData.id)
+            navigate("/finance/active-capital-injection");
         } catch (error) {
             const message = error.response?.data?.error ?? error.message;
             setAlert({ type: "error", message });
@@ -137,7 +127,7 @@ const ApproveSupplier = () => {
         <div>
             {currentDiv === "listpage" && (
                 <div>
-                    <PageHeader currentpage="Approve New Supplier" href="/supplier/dashboard/" activepage="Dashboard" mainpage="New suppliers pending approval" />
+                    <PageHeader currentpage="Approve New Capital Injections" href="/finance/expenses/" activepage="Dashboard" mainpage="New Capital Injections pending approval" />
                     <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                         <input
                             type="text"
@@ -146,14 +136,14 @@ const ApproveSupplier = () => {
                             placeholder="Search..."
                             style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '50%', boxSizing: 'border-box' }}
                         />
-                        <CSVLink data={filteredData.length > 0 ? filteredData : rowData.length > 0 ? rowData : []} filename="new_unapproved_suppliers" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
+                        <CSVLink data={filteredData.length > 0 ? filteredData : rowData.length > 0 ? rowData : []} filename="new_unapproved_capital_injections" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                             </svg>
                             Export
                         </CSVLink>
                     </div>
-                    <div className="ag-theme-alpine" style={{ height: 'calc(100dvh - 130px)', width: '100%', position: 'relative', zIndex: 1, overflowY: 'auto' }}>
+                    <div className="ag-theme-alpine" style={{ height: 'calc(80dvh - 130px)', width: '100%', position: 'relative', zIndex: 1, overflowY: 'auto', overflowX: 'auto' }}>
                         <AgGridReact
                             rowData={filteredData.length > 0 ? filteredData : rowData}
                             columnDefs={columnDefs}
@@ -170,7 +160,7 @@ const ApproveSupplier = () => {
 
             {currentDiv === "details" && (
                 <div>
-                    <PageHeader currentpage="Supplier Details" activepage="Supplier" mainpage="Supplier Details" />
+                    <PageHeader currentpage="New capital injection Details" activepage="finance" mainpage="New Capital Injection pending approval Details" />
                     <button className='className="flex left-0 text-blue-700 hover:bg-gray-100 p-3 font-bold'
                         onClick={handleBack}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -179,44 +169,24 @@ const ApproveSupplier = () => {
                         <h4>back</h4>
                     </button>
                     <div id="profile-1" className="ml-4" role="tabpanel">
-                        <h5 className="box-title my-3">Business Information</h5>
+                        <h5 className="box-title my-3">Account Information</h5>
                         <div className="overflow-auto">
                             <table className="ti-custom-table border-0 whitespace-nowrap">
                                 <tbody>
                                     <tr className="">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Business Name</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Bank Account</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.business_name}{...register("business_name")} /> : selectedRowData.business_name}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.bank_account} {...register("bank_account")} /> : selectedRowData.bank_account}</td>
                                     </tr>
                                     <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Trading Name</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Amount</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.trading_name} {...register("trading_name")} /> : selectedRowData.trading_name}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.amount} {...register("amount")} /> : selectedRowData.amount}</td>
                                     </tr>
                                     <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Business Email</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Created By ID</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70"> {editMode ? <input type="text" defaultValue={selectedRowData.company_email} {...register("company_email")} /> : selectedRowData.company_email}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Mobile Number</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.company_mobile_number} {...register("company_mobile_number")} /> : selectedRowData.company_mobile_number}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Business Address</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.address} {...register("address")} /> : selectedRowData.address}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Business Postal Code</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.postal_code} {...register("postal_code")} /> : selectedRowData.postal_code}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Business Country</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.country} {...register("country")} /> : selectedRowData.country}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.created_by_id}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Created By</td>
@@ -224,60 +194,53 @@ const ApproveSupplier = () => {
                                         <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.createdby}</td>
                                     </tr>
                                     <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Created By</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Date Created</td>
                                         <td className="!p-2">:</td>
                                         <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.datecreated}</td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Global ID</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.globalId}</td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">ID</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.id}</td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Narrative</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.narrative} {...register("narrative")} /> : selectedRowData.narrative}</td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">No</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.no}</td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Reference</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.reference} {...register("reference")} /> : selectedRowData.reference}</td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Settlement Date</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.settlement_date}</td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Shareholder Account</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.shareholder_account} {...register("shareholder_account")} /> : selectedRowData.shareholder_account}</td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Transaction ID</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.transaction_id} {...register("transaction_id")} /> : selectedRowData.transaction_id}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        {/* <h5 className="box-title my-3">Personal Information</h5>
-                        <div className="overflow-auto">
-                            <table className="ti-custom-table border-0 whitespace-nowrap">
-                                <tbody>
-                                    <tr className="">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">First Name</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.first_name} {...register("first_name")} /> : selectedRowData.first_name}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Middle Name</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.middle_name} {...register("middle_name")} /> : selectedRowData.middle_name}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Last Name</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">Magufuli
-                                        </td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Email Address</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">@pombeM@gmail.com
-                                        </td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Phone Number</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">+254 12345678
-                                        </td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Alternative Phone Number</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">+254 12345678
-                                        </td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Date Created</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">4/5/1960
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div> */}
                     </div>
                     <div id="loader" style={{ display: 'none' }}>
                         <span className="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent text-blue rounded-full" role="status" aria-label="loading">
@@ -305,4 +268,4 @@ const ApproveSupplier = () => {
     )
 }
 
-export default ApproveSupplier
+export default Unapproved_capital_injection;

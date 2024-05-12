@@ -37,10 +37,10 @@ const Deactivatedphones = () => {
     const onGridReady = useCallback((params) => {
         const newUnApproved = async () => {
             try {
-                const { data } = await mtaApi.product_models.ListMobilePhones({ id: '2' });
+                const { data } = await mtaApi.product_models.list_mobile_phone_model('2');
                 console.log(data.response)
                 if (data.status == 200) {
-                    // setRowData(data.response);
+                    setRowData(data.response);
                 }
             } catch (error) {
                 console.log(error)
@@ -86,7 +86,6 @@ const Deactivatedphones = () => {
         }
     };
     const currentDiv = divStack[divStack.length - 1];
-
 
     return (
         <div>
@@ -176,13 +175,13 @@ const Deactivatedphones = () => {
                                             <div className="space-y-4">
                                                 <h5 className="font-bold text-sm my-auto w-28 text-gray-800 dark:text-white">Description :</h5>
 
-                                                <p className="my-auto font-medium text-sm text-gray-500 dark:text-white/70">
+                                                {/* <p className="my-auto font-medium text-sm text-gray-500 dark:text-white/70">
                                                     <p className="my-auto font-medium text-sm text-gray-500 dark:text-white/70">
                                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas sint exercitationem
                                                         veritatis harum maiores corporis perspiciatis quos accusantium velit. Deserunt tenetur
                                                         rerum nemo illum. Dolor laboriosam atque accusantium perspiciatis rerum?
                                                     </p>
-                                                </p>
+                                                </p> */}
                                             </div>
                                             <div className="sm:flex sm:space-x-5">
                                                 <h5 className="font-bold text-sm my-auto w-28 text-gray-800 dark:text-white">Ram :</h5>
