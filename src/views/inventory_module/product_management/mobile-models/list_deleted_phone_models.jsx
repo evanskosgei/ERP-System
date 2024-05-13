@@ -37,10 +37,10 @@ const Deletedphonedmodels = () => {
     const onGridReady = useCallback((params) => {
         const newUnApproved = async () => {
             try {
-                const { data } = await mtaApi.product_models.ListMobilePhones({ id: '4' });
+                const { data } = await mtaApi.product_models.list_mobile_phone_model('4');
                 console.log(data.response)
                 if (data.status == 200) {
-                    // setRowData(data.response);
+                    setRowData(data.response);
                 }
             } catch (error) {
                 console.log(error)
@@ -99,7 +99,7 @@ const Deletedphonedmodels = () => {
                             value={searchQuery}
                             onChange={handleSearchChange}
                             placeholder="Search..."
-                            style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '100%', boxSizing: 'border-box' }}
+                            style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '50%', boxSizing: 'border-box' }}
                         />
                         <CSVLink data={filteredData.length > 0 ? filteredData : rowData} filename="Deleted Phone Models.csv" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -175,11 +175,11 @@ const Deletedphonedmodels = () => {
                                             <div className="space-y-4">
                                                 <h5 className="font-bold text-sm my-auto w-28 text-gray-800 dark:text-white">Description :</h5>
 
-                                                <p className="my-auto font-medium text-sm text-gray-500 dark:text-white/70">
+                                                {/* <p className="my-auto font-medium text-sm text-gray-500 dark:text-white/70">
                                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas sint exercitationem
                                                     veritatis harum maiores corporis perspiciatis quos accusantium velit. Deserunt tenetur
                                                     rerum nemo illum. Dolor laboriosam atque accusantium perspiciatis rerum?
-                                                </p>
+                                                </p> */}
                                             </div>
                                             <div className="sm:flex sm:space-x-5">
                                                 <h5 className="font-bold text-sm my-auto w-28 text-gray-800 dark:text-white">Ram :</h5>

@@ -23,10 +23,11 @@ const CreateUser = () => {
     }, [])
 
     const onSubmit = async values => {
-        console.log(values)
         try {
-            const response = await mtaApi.users.create_user(values)
-            console.log(response)
+            const {data} = await mtaApi.users.create_user(values)
+            if(data.status === 200){
+                navigate("/users/new-user")
+            }
         }
         catch (error) {
             console.log(error)
@@ -42,11 +43,14 @@ const CreateUser = () => {
                             <h5 className="box-title  text-center">User Details</h5>
                         </div>
                         <div className="box-body">
-
                             <div className="grid lg:grid-cols-2 gap-6">
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">First Name</label>
-                                    <input type="text" {...register("first_name", { required: true })} id='first_name' className="ti-form-input" placeholder=" ... first name" required />
+                                    <input type="text" {...register("first_name", { required: true })} className="ti-form-input" placeholder=" ... first name" required />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="ti-form-label mb-0">Middle Name</label>
+                                    <input type="text" {...register("middle_name", { required: true })}className="ti-form-input" placeholder=" ... middle name" required />
                                 </div>
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Last Name</label>
@@ -54,7 +58,7 @@ const CreateUser = () => {
                                 </div>
                                 <div className="space-y-2">
                                     <label htmlFor="user_categories" className="ti-form-label mb-0">User type</label>
-                                    <select id='user_categories' className="ti-form-input" {...register("user_categories", { required: true })} required>
+                                    <select className="ti-form-input" {...register("user_categories", { required: true })} required>
                                         <option value="">Select a user type</option>
                                         {category.map((cat, index) => (
                                             <option key={index} value={cat.id}>{cat.name}</option>
@@ -71,8 +75,6 @@ const CreateUser = () => {
 
                                     </select>
                                 </div>
-
-
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Marital Status</label>
                                     <select type="text" {...register("marital_status", { required: true })} id='marital_status' className="ti-form-input" required>
@@ -103,7 +105,6 @@ const CreateUser = () => {
                     </div>
                 </div>
             </div>
-
             <div className="col-span-12">
                 <div className="box">
                     <div className="box-header">
@@ -143,17 +144,25 @@ const CreateUser = () => {
                             </div>
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">NHIF Number</label>
-                                <input type="text" {...register("nhif_number", { required: false })} id='nhif_number' className="ti-form-input" placeholder=" ... Enter user nhif number" />
+                                <input type="text" {...register("nhif_number", { required: false })} className="ti-form-input" placeholder=" ... Enter user nhif number" />
                             </div>
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">NSSF Number</label>
-                                <input type="text" {...register("nssf_number", { required: false })} id='nssf_number' className="ti-form-input" placeholder=" ... Enter user nssf number" />
+                                <input type="text" {...register("nssf_number", { required: false })} className="ti-form-input" placeholder=" ... Enter user nssf number" />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="ti-form-label mb-0">Username</label>
+                                <input type="text" {...register("username", { required: false })}className="ti-form-input" placeholder=" ... Enter username" />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="ti-form-label mb-0">Confirm password</label>
+                                <input type="password" {...register("confirm_password", { required: false })} className="ti-form-input" placeholder=" ... confirm password" />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="col-span-12">
+            <div className="hidden col-span-12">
                 <div className="box">
                     <div className="box-header">
                         <h5 className="box-title text-center">ID and Profile Image</h5>
@@ -168,7 +177,8 @@ const CreateUser = () => {
                                     <div>
                                         <label className="block">
                                             <span className="sr-only">Choose Profile photo</span>
-                                            <input type="file" {...register("id_front", { required: false })} className="block w-full text-sm text-gray-500 dark:text-white/70 focus:outline-0 ltr:file:mr-4 rtl:file:ml-4 file:py-2 file:px-4 file:rounded-sm file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary focus-visible:outline-none" />
+                                            {/* <input type="file" {...register("id_front", { required: false })} className="block w-full text-sm text-gray-500 dark:text-white/70 focus:outline-0 ltr:file:mr-4 rtl:file:ml-4 file:py-2 file:px-4 file:rounded-sm file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary focus-visible:outline-none" /> */}
+                                            <input type="text" {...register("id_front", { required: false })} className="block w-full text-sm text-gray-500 dark:text-white/70 focus:outline-0 ltr:file:mr-4 rtl:file:ml-4 file:py-2 file:px-4 file:rounded-sm file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary focus-visible:outline-none" />
                                         </label>
                                     </div>
                                 </div>
@@ -185,7 +195,8 @@ const CreateUser = () => {
                                     <div>
                                         <label className="block">
                                             <span className="sr-only">Choose Profile photo</span>
-                                            <input type="file"{...register("id_back", { required: false })} className="block w-full text-sm text-gray-500 dark:text-white/70 focus:outline-0 ltr:file:mr-4 rtl:file:ml-4 file:py-2 file:px-4 file:rounded-sm file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary focus-visible:outline-none" />
+                                            {/* <input type="file"{...register("id_back", { required: false })} className="block w-full text-sm text-gray-500 dark:text-white/70 focus:outline-0 ltr:file:mr-4 rtl:file:ml-4 file:py-2 file:px-4 file:rounded-sm file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary focus-visible:outline-none" /> */}
+                                            <input type="text"{...register("id_back", { required: false })} className="block w-full text-sm text-gray-500 dark:text-white/70 focus:outline-0 ltr:file:mr-4 rtl:file:ml-4 file:py-2 file:px-4 file:rounded-sm file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary focus-visible:outline-none" />
                                         </label>
                                     </div>
                                 </div>
@@ -202,7 +213,8 @@ const CreateUser = () => {
                                     <div>
                                         <label className="block">
                                             <span className="sr-only">Choose Profile photo</span>
-                                            <input type="file" {...register("selfie", { required: false })} className="block w-full text-sm text-gray-500 dark:text-white/70 focus:outline-0 ltr:file:mr-4 rtl:file:ml-4 file:py-2 file:px-4 file:rounded-sm file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary focus-visible:outline-none" />
+                                            {/* <input type="file" {...register("selfie", { required: false })} className="block w-full text-sm text-gray-500 dark:text-white/70 focus:outline-0 ltr:file:mr-4 rtl:file:ml-4 file:py-2 file:px-4 file:rounded-sm file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary focus-visible:outline-none" /> */}
+                                            <input type="text" {...register("selfie", { required: false })} className="block w-full text-sm text-gray-500 dark:text-white/70 focus:outline-0 ltr:file:mr-4 rtl:file:ml-4 file:py-2 file:px-4 file:rounded-sm file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary focus-visible:outline-none" />
                                         </label>
                                     </div>
                                 </div>

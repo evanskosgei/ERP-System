@@ -37,9 +37,9 @@ const Activephones = () => {
     const onGridReady = useCallback((params) => {
         const newUnApproved = async () => {
             try {
-                const { data } = await mtaApi.product_models.ListMobilePhones({ id: '1' });
+                const { data } = await mtaApi.product_models.list_mobile_phone_model('1');
                 if (data.status == 200) {
-                    // setRowData(data.response);
+                    setRowData(data.response);
                 }
             } catch (error) {
                 console.log(error)
@@ -98,14 +98,14 @@ const Activephones = () => {
                             value={searchQuery}
                             onChange={handleSearchChange}
                             placeholder="Search..."
-                            style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '100%', boxSizing: 'border-box' }}
+                            style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '50%', boxSizing: 'border-box' }}
                         />
-                        {/* <CSVLink data={filteredData.length > 0 ? filteredData :rowData.length > 0 ? rowData: null} filename="Active Phone Models.csv" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
+                        <CSVLink data={filteredData.length > 0 ? filteredData :rowData.length > 0 ? rowData: []} filename="Active Phone Models.csv" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                             </svg>
                             Export
-                        </CSVLink> */}
+                        </CSVLink>
                     </div>
                     <div className="ag-theme-alpine" style={{ height: 'calc(100dvh - 130px)', width: '100%', position: 'relative', zIndex: 1, overflowY: 'auto' }}>
                         <AgGridReact
@@ -171,7 +171,7 @@ const Activephones = () => {
                                             <h5 className="font-bold text-xl text-gray-800 dark:text-white">
                                                 {selectedRowData.name}
                                             </h5>
-                                            <div className="space-y-4">
+                                            {/* <div className="space-y-4">
                                                 <h5 className="font-bold text-sm my-auto w-28 text-gray-800 dark:text-white">Description :</h5>
 
                                                 <p className="my-auto font-medium text-sm text-gray-500 dark:text-white/70">
@@ -179,7 +179,7 @@ const Activephones = () => {
                                                     veritatis harum maiores corporis perspiciatis quos accusantium velit. Deserunt tenetur
                                                     rerum nemo illum. Dolor laboriosam atque accusantium perspiciatis rerum?
                                                 </p>
-                                            </div>
+                                            </div> */}
                                             <div className="sm:flex sm:space-x-5">
                                                 <h5 className="font-bold text-sm my-auto w-28 text-gray-800 dark:text-white">Ram :</h5>
                                                 <span className="my-auto font-medium text-md">
@@ -196,7 +196,7 @@ const Activephones = () => {
                                             </div>
                                             <div className="sm:flex sm:space-x-2">
                                                 <h5 className="font-bold text-sm my-auto w-30 text-gray-800 dark:text-white">Main Camera :</h5>
-                                                <h5 className="font-medium text-sm my-auto w-28 text-gray-800 dark:text-white">
+                                                <h5 className="font-medium text-sm my-auto w-auto text-gray-800 dark:text-white">
                                                     {selectedRowData.main_camera}
                                                 </h5>
                                             </div>
@@ -213,8 +213,8 @@ const Activephones = () => {
                                                 </h5>
                                             </div>
                                             <div className="sm:flex sm:space-x-2">
-                                                <h5 className="font-bold text-sm my-auto w-30 text-gray-800 dark:text-white">Processor :</h5>
-                                                <h5 className="font-medium text-sm my-auto w-28 text-gray-800 dark:text-white">
+                                                <h5 className="font-bold text-sm my-auto w-35 text-gray-800 dark:text-white">Processor :</h5>
+                                                <h5 className="font-medium text-sm my-auto w-35 text-gray-800 dark:text-white">
                                                     {selectedRowData.processor}
                                                 </h5>
                                             </div>

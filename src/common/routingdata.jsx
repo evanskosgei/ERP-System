@@ -66,6 +66,22 @@ import Reactivatedaccessory from "../views/inventory_module/product_management/a
 import ProductCategories from "../views/inventory_module/product_management/product_categories/list_product_categories";
 import ProductsubCategories from "../views/inventory_module/product_management/product_categories/list_product_subCategories";
 
+// accounting pages
+import Create_accounts from "../views/finance_module/accounts_module/create_accounts";
+import Unapproved_accounts from "../views/finance_module/accounts_module/list_unapproved_account";
+import Active_accounts from "../views/finance_module/accounts_module/list_active_accounts";
+import Deactivated_accounts from "../views/finance_module/accounts_module/list_deactivated_accounts";
+import Reactivated_accounts from "../views/finance_module/accounts_module/list_reactivated_accounts";
+import Deleted_accounts from "../views/finance_module/accounts_module/list_deleted_accounts";
+
+// finance module
+import Create_capital_injection from "../views/finance_module/finance_module/create_capital_injection";
+import Unapproved_capital_injection from "../views/finance_module/finance_module/list_unapproved_capital_injection";
+import Active_capital_injection from "../views/finance_module/finance_module/list_active_capital_injection";
+import Deactivated_capital_injections from "../views/finance_module/finance_module/list_deactivated_capital_injections";
+import Reactivated_capital_injection from "../views/finance_module/finance_module/list_reactivated_capital_injection";
+import Deleted_capital_injection from "../views/finance_module/finance_module/list_deleted_capital_injection";
+
 
 //Transport Pages
 import TransportDashboard from "../views/transport_module/dashboard/transport_dashboard";
@@ -342,9 +358,23 @@ export const RouteData = [
     { path: `${import.meta.env.BASE_URL}payments/cash`, element: <CashPayments /> , title: ''},
 
 
-    // {/* Finance content */}
+    // {/* Accounts content */}
     { path: `${import.meta.env.BASE_URL}finance/accouting`, element: <AccountingDashboard /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}finance/create-accounts`, element: <Create_accounts /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}finance/unapproved-accounts`, element: <Unapproved_accounts /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}finance/active-accounts`, element: <Active_accounts /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}finance/deactivated-accounts`, element: <Deactivated_accounts /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}finance/reactivated-accounts`, element: <Reactivated_accounts /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}finance/deleted-accounts`, element: <Deleted_accounts /> , title: ''},
+
+    // finance 
     { path: `${import.meta.env.BASE_URL}finance/expenses`, element: <ExpensesDashboard /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}finance/create-capital-injection`, element: <Create_capital_injection /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}finance/new-unapproved-capital-injection`, element: <Unapproved_capital_injection /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}finance/active-capital-injection`, element: <Active_capital_injection /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}finance/deactivated-capital-injection`, element: <Deactivated_capital_injections /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}finance/reactivated-capital-injection`, element: <Reactivated_capital_injection /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}finance/deleted-capital-injection`, element: <Deleted_capital_injection /> , title: ''},
 
     // {/* Email content */}
     { path: `${import.meta.env.BASE_URL}email/dashboard`, element: <EmailDashboard /> , title: ''},

@@ -5,6 +5,7 @@ import '@ag-grid-community/styles/ag-grid.css';
 import '@ag-grid-community/styles/ag-theme-alpine.css';
 import { CSVLink } from "react-csv";
 import mtaApi from '../../../api/mtaApi';
+import Alert from '../../../components/Alert';
 
 
 const Newusers = () => {
@@ -12,7 +13,7 @@ const Newusers = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedRowData, setSelectedRowData] = useState(null);
     const [divStack, setDivStack] = useState(["table"]);
-    // const [alert, setAlert] = useState(null);
+    const [alert, setAlert] = useState(null);
     // const [showStatusModal, setShowStatusModal] = useState(false);
 
     const columnDefs = [
@@ -41,11 +42,10 @@ const Newusers = () => {
     const onGridReady = useCallback((params) => {
         const newUnApproved = async () => {
             try {
-                const { data } = await mtaApi.users.list_users('1');
+                const { data } = await mtaApi.users.list_users('2');
                 if (data.status == 200) {
                     setRowData(data.response);
                 }
-
             } catch (error) {
                 console.log(error)
             }
@@ -84,13 +84,23 @@ const Newusers = () => {
             }
         });
     };
-
     const handleBack = () => {
         if (divStack.length > 1) {
             setDivStack(prevStack => prevStack.slice(0, -1));
         }
     };
     const currentDiv = divStack[divStack.length - 1];
+
+    const approveUser = async() =>{
+        await mtaApi.users.approve_users(selectedRowData.id)
+        .then(response =>{
+            console.log(response)
+        }).catch(error =>{
+            const message = error.response?.data?.error ?? error.message;
+            setAlert({ type: "error", message });
+        })
+    }
+
     return (
         <div>
             {currentDiv === "table" && (
@@ -149,20 +159,26 @@ const Newusers = () => {
                             <table className="ti-custom-table border-0 whitespace-nowrap">
                                 <tbody>
                                     <tr className="">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">User Name</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.username}</td>
+                                    </tr>
+                                    <tr className="">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">First Name</td>
                                         <td className="!p-2">:</td>
                                         <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.first_name}</td>
+                                    </tr>
+                                    <tr className="">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Middle Name</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.middle_name}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Last Name</td>
                                         <td className="!p-2">:</td>
                                         <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.last_name}</td>
                                     </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Other Names</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.other_names}</td>
-                                    </tr>
+
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Mobile Number</td>
                                         <td className="!p-2">:</td>
@@ -176,7 +192,24 @@ const Newusers = () => {
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Alt number</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.alternative_number}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.other_mobile_number}</td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Gender</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">
+                                            {selectedRowData.gender === "1" ? "male" : selectedRowData.gender === "2" ? "Female" : "Others"}</td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Marital Status</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">
+                                            {selectedRowData.marital_status === "1" ? "Married" :
+                                                selectedRowData.marital_status === "2" ? "Single" :
+                                                    selectedRowData.marital_status === "3" ? "Divorced" :
+                                                        selectedRowData.marital_status === "4" ? "Separated" :
+                                                            "Unknown"}
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -188,7 +221,7 @@ const Newusers = () => {
                                     <tr className="">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">ID/passport Number</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.id_no}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.id_number}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Address</td>
@@ -201,9 +234,14 @@ const Newusers = () => {
                                         <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.postal_code}</td>
                                     </tr>
                                     <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">City</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">City/Town</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.city}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.town}</td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">County</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.county}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Country</td>
@@ -219,13 +257,13 @@ const Newusers = () => {
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Nhif pin</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.nhif_pin}
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.nhif_number}
                                         </td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Nssf Pin</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.nssf_pin}
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.nssf_number}
                                         </td>
                                     </tr>
                                     <tr className="!border-0">
@@ -245,7 +283,7 @@ const Newusers = () => {
                     </div>
                     <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
                         <button
-                            onClick=""
+                            onClick={approveUser}
                             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 dark:text-white dark:hover:text-white"
                         >
                             Approve
@@ -257,6 +295,7 @@ const Newusers = () => {
                             Delete
                         </button>
                     </div>
+                    {alert && <Alert alert={alert} />}
                 </div>
             )}
         </div>

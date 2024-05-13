@@ -15,7 +15,6 @@ const Createphonemodel = () => {
 
     const getUploadParams = ({ meta }) => { return { url: 'https://httpbin.org/post' } }
     const handleChangeStatus = ({ meta, file }, status) => {
-        // console.log(status);
         if (status === 'done') {
             setFilePaths(prevFilePaths => [...prevFilePaths, meta.name]);
             setValue('image_path', [...filePaths, meta.name]);
@@ -33,7 +32,6 @@ const Createphonemodel = () => {
         try {
             const response = await mtaApi.product_models.createPhoneModel(values)
             navigate("/inventory/approve-new-phone-model")
-            console.log(response)
         } catch (error) {
             console.log(error)
             const message = error.response?.data?.error ?? error.message;
@@ -105,7 +103,7 @@ const Createphonemodel = () => {
                                 <label className="ti-form-label mb-0">Battery Capacity</label>
                                 <input type="text" {...register("battery")} id='battery' className="my-auto ti-form-input" placeholder="Enter phone's battery capacity" required />
                             </div>
-                            <div className="space-y-2">
+                            <div className="space-y-2 hidden">
                                 <label className="ti-form-label mb-0">Image path</label>
                                 <input type="text" {...register("image_path")} id='image_path' className="my-auto ti-form-input" placeholder="Enter phone's battery capacity" required />
                             </div>

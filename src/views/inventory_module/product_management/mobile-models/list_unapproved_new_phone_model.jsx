@@ -6,6 +6,7 @@ import "@ag-grid-community/styles/ag-theme-alpine.css";
 import { CSVLink } from "react-csv";
 import { useForm } from "react-hook-form";
 import mtaApi from "../../../../api/mtaApi";
+import { useNavigate } from "react-router-dom";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
@@ -13,6 +14,7 @@ import ALLImages from "../../../../common/imagesdata";
 
 const ApprovenewPhone = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const navigate = useNavigate();
   const [rowData, setRowData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedRowData, setSelectedRowData] = useState(null);
@@ -29,77 +31,21 @@ const ApprovenewPhone = () => {
   } = useForm();
 
   const columnDefs = [
-    { headerName: "#",field: "id",sortable: true,editable: false,filter: true,flex: 1,resizable: true,minWidth: 3, },
-    {headerName: "Phone Name",field: "name",sortable: true,editable: false, filter: true,flex: 2,resizable: true,minWidth: 5,},
-    {headerName: "Ram",field: "ram",sortable: true,editable: false,filter: true,flex: 2,resizable: true,minWidth: 3,},
-    { headerName: "Rom",field: "internal_storage",sortable: true,editable: false,filter: true,flex: 2,resizable: true,minWidth: 3,},
-    {
-      headerName: "Back Camera",
-      field: "main_camera",
-      sortable: true,
-      editable: false,
-      filter: true,
-      flex: 2,
-      resizable: true,
-      minWidth: 5,
-    },
-    {
-      headerName: "Selfie Camera",
-      field: "front_camera",
-      sortable: true,
-      editable: false,
-      filter: true,
-      flex: 2,
-      resizable: true,
-      minWidth: 5,
-    },
-    {
-      headerName: "Dispaly",
-      field: "display",
-      sortable: true,
-      editable: false,
-      filter: true,
-      flex: 2,
-      resizable: true,
-      minWidth: 5,
-    },
-    {
-      headerName: "Battery",
-      field: "battery",
-      sortable: true,
-      editable: false,
-      filter: true,
-      flex: 2,
-      resizable: true,
-      minWidth: 5,
-    },
-    {
-      headerName: "OS",
-      field: "operating_system",
-      sortable: true,
-      editable: false,
-      filter: true,
-      flex: 2,
-      resizable: true,
-      minWidth: 5,
-    },
-    {
-      headerName: "Connectivity",
-      field: "connectivity",
-      sortable: true,
-      editable: false,
-      filter: true,
-      flex: 2,
-      resizable: true,
-      minWidth: 5,
-    },
+    { headerName: "#", field: "id", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 3, },
+    { headerName: "Phone Name", field: "name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5, },
+    { headerName: "Ram", field: "ram", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 3, },
+    { headerName: "Rom", field: "internal_storage", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 3, },
+    { headerName: "Back Camera", field: "main_camera", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5, },
+    { headerName: "Selfie Camera", field: "front_camera", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5, },
+    { headerName: "Dispaly", field: "display", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5, },
+    { headerName: "Battery", field: "battery", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5, },
+    { headerName: "OS", field: "operating_system", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5, },
+    { headerName: "Connectivity", field: "connectivity", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5, },
   ];
-
   const defaultColDef = { sortable: true, flex: 1, filter: true, floatingFilter: false };
 
   function dec(el) {
     let unit = el.currentTarget.parentElement.querySelector("input").value;
-
     if (Number(unit) === 0) {
       return false;
     } else {
@@ -116,16 +62,14 @@ const ApprovenewPhone = () => {
 
   const onGridReady = useEffect((params) => {
     const newUnApproved = async () => {
-      // try {
-      //   const { data } = await mtaApi.product_models.list_mobile_phone_model("2");
-      //   setRowData(data.response);
-      //   if (data.status == 200) {
-      //     setRowData(data.response);
-      //     // setLoading(false);
-      //   }
-      // } catch (error) {
-      //   console.log(error);
-      // }
+      try {
+        const { data } = await mtaApi.product_models.list_mobile_phone_model("2");
+        if (data.status == 200) {
+          setRowData(data.response);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     };
     newUnApproved();
   }, []);
@@ -140,17 +84,17 @@ const ApprovenewPhone = () => {
     setSearchQuery(event.target.value);
   };
 
-  // const filteredData = rowData.filter((row) => {
-  //   return columnDefs.some((column) => {
-  //     const fieldValue = row[column.field];
-  //     if (fieldValue && typeof fieldValue === "string") {
-  //       return fieldValue.toLowerCase().includes(searchQuery.toLowerCase());
-  //     } else if (fieldValue && typeof fieldValue !== "string") {
-  //       return fieldValue.toString().toLowerCase().includes(searchQuery.toLowerCase());
-  //     }
-  //     return false;
-  //   });
-  // });
+  const filteredData = rowData.filter((row) => {
+    return columnDefs.some((column) => {
+      const fieldValue = row[column.field];
+      if (fieldValue && typeof fieldValue === "string") {
+        return fieldValue.toLowerCase().includes(searchQuery.toLowerCase());
+      } else if (fieldValue && typeof fieldValue !== "string") {
+        return fieldValue.toString().toLowerCase().includes(searchQuery.toLowerCase());
+      }
+      return false;
+    });
+  });
 
   const handleClick = (divId) => {
     setDivStack((prevStack) => {
@@ -174,6 +118,17 @@ const ApprovenewPhone = () => {
     setEditMode(false);
     reset();
   };
+
+  const approve = async () => {
+    await mtaApi.product_models.approve_mobile_phone_model(selectedRowData.id)
+      .then(response => {
+        if (response.data.status === 200) {
+          navigate("/inventory/active-phones-models")
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+  }
   return (
     <div>
       {currentDiv === "table" && (
@@ -199,7 +154,7 @@ const ApprovenewPhone = () => {
                 boxSizing: "border-box",
               }}
             />
-            {/* <CSVLink
+            <CSVLink
               data={filteredData.length > 0 ? filteredData : rowData.length > 0 ? rowData : []}
               filename="New unapproved Phone Models.csv"
               separator={","}
@@ -220,15 +175,16 @@ const ApprovenewPhone = () => {
                 />
               </svg>
               Export
-            </CSVLink> */}
+            </CSVLink>
           </div>
-          <div className="ag-theme-alpine" style={{height: "calc(100dvh - 130px)",width: "100%",position: "relative",
-              zIndex: 1,
-              overflowY: "auto",
-            }}
+          <div className="ag-theme-alpine" style={{
+            height: "calc(100dvh - 130px)", width: "100%", position: "relative",
+            zIndex: 1,
+            overflowY: "auto",
+          }}
           >
             <AgGridReact
-              // rowData={filteredData.length > 0 ? filteredData : rowData}
+              rowData={filteredData.length > 0 ? filteredData : rowData}
               // rowData={rowData.length > 0 ? rowData : 'Loading...'}
               columnDefs={columnDefs}
               defaultColDef={defaultColDef}
@@ -302,7 +258,7 @@ const ApprovenewPhone = () => {
                       <div className="space-y-4">
                         <h5 className="font-bold text-sm my-auto w-28 text-gray-800 dark:text-white">Description :</h5>
 
-                        <p className="my-auto font-medium text-sm text-gray-500 dark:text-white/70">
+                        {/* <p className="my-auto font-medium text-sm text-gray-500 dark:text-white/70">
                           {editMode ? (
                             <textarea
                               defaultValue="Lorem ipsum dolor sit
@@ -317,7 +273,7 @@ const ApprovenewPhone = () => {
                               rerum nemo illum. Dolor laboriosam atque accusantium perspiciatis rerum?
                             </p>
                           )}
-                        </p>
+                        </p> */}
                       </div>
                       <div className="sm:flex sm:space-x-5">
                         <h5 className="font-bold text-sm my-auto w-28 text-gray-800 dark:text-white">Ram :</h5>
@@ -442,7 +398,9 @@ const ApprovenewPhone = () => {
                           <span className="sr-only">Loading...</span>
                         </span>
                       </div>
-                      <button className="ti-btn ti-btn-ghost-primary text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:text-white dark:hover:text-white">
+                      <button
+                        onClick={approve}
+                        className="ti-btn ti-btn-ghost-primary text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:text-white dark:hover:text-white">
                         Approve
                       </button>
                       <button

@@ -7,12 +7,35 @@ import Alert from '../../../components/Alert';
 
 const CreateSupplier = () => {
     const { register, handleSubmit, formState: { errors, isValid }, formState } = useForm();
+    const [contactPersons, setContactPersons] = useState([{ id: 1 }]);
     const [alert, setAlert] = useState(null);
     const navigate = useNavigate();
 
-    const onSubmit = async values => {
+    const onSubmit = async (data) => {
+        const formattedData = {
+            business_name: data.business_name,
+            trading_name: data.trading_name,
+            company_mobile_number: data.company_mobile_number,
+            company_alternative_mobile_number: data.company_alternative_mobile_number,
+            address: data.address,
+            postal_code: data.postal_code,
+            country: data.country,
+            city: data.city,
+            registration_number: data.registration_number,
+            tax_id: data.tax_id,
+            company_email: data.company_email,
+            company_website: data.company_website,
+            contact_persons: contactPersons.map((person, index) => ({
+                title: person.title || data[`title_${index}`],
+                first_name: person.first_name || data[`first_name_${index}`],
+                last_name: person.last_name || data[`last_name_${index}`],
+                mobile_number: person.mobile_number || data[`mobile_number_${index}`],
+                alternative_mobile_number: person.alternative_mobile_number || data[`alternative_mobile_number_${index}`],
+                email: person.email || data[`email_${index}`],
+            }))
+        };
         try {
-            const { data } = await mtaApi.suppliers.create_supplier(values);
+            const { data } = await mtaApi.suppliers.create_supplier(formattedData);
             document.getElementById('loader').style.display = 'block';
             navigate("/supplier/approve-suppliers");
         } catch (error) {
@@ -23,11 +46,17 @@ const CreateSupplier = () => {
         }
     };
 
+    const addContactPerson = () => {
+        setContactPersons([...contactPersons, { id: contactPersons.length + 1 }]);
+    };
+    const removeContactPerson = (id) => {
+        setContactPersons(contactPersons.filter(person => person.id !== id));
+    };
+
     return (
         <div>
             <PageHeader currentpage="Create New Supplier" href="/supplier/dashboard/" activepage="Dashboard" mainpage="Add new supplier" />
             <div className="grid grid-cols-12 gap-6">
-
                 <div className="col-span-12">
                     <div className="box">
                         <div className="box-header">
@@ -46,19 +75,16 @@ const CreateSupplier = () => {
                                     {errors.trading_name && <span className="text-red-500 text-xs">Trade Name is required</span>}
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="ti-form-label mb-0">Mobile Number</label>
+                                    <label className="ti-form-label mb-0">Company Mobile Number</label>
                                     <input type="text" {...register("company_mobile_number", { required: true })} id='company_mobile_number' className="my-auto ti-form-input" placeholder=" ... Enter mobile number" required />
-                                    {/* {errors.company_mobile_number && <span className="text-red-500 text-xs">Trade Name is required</span>} */}
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="ti-form-label mb-0">Alternative Mobile Number</label>
+                                    <label className="ti-form-label mb-0">Company Alternative Mobile Number</label>
                                     <input type="text" {...register("company_alternative_mobile_number", { required: true })} id='company_alternative_mobile_number' className="my-auto ti-form-input" placeholder=" ... Enter alternative mobile number" required />
-                                    {/* {errors.company_alternative_mobile_number && <span className="text-red-500 text-xs">Trade Name is required</span>} */}
                                 </div>
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Business Address</label>
                                     <input type="text" {...register("address", { required: true })} id='address' className="my-auto ti-form-input" placeholder=" ... sample, P O Box 00000" required />
-                                    {errors.address && <span className="text-red-500 text-xs">Address Number is required</span>}
                                 </div>
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Postal code</label>
@@ -76,61 +102,80 @@ const CreateSupplier = () => {
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Business Registration Number</label>
                                     <input type="text" {...register("registration_number", { required: true })} id='registration_number' className="ti-form-input" placeholder=" ... Enter business registration number" required />
-                                    {/* {errors.registration_number && <span className="text-red-500 text-xs">Business Number is required</span>} */}
                                 </div>
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Tax ID</label>
                                     <input type="text" {...register("tax_id", { required: true })} id='tax_id' className="ti-form-input" placeholder=" ... Enter supplier tax ID or Vat number" required />
-                                    {/* {errors.tax_id && <span className="text-red-500 text-xs">Business Number is required</span>} */}
                                 </div>
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Company Email</label>
                                     <input type="email" {...register("company_email", { required: true })} id='company_email' className="ti-form-input" placeholder=" ... sample, info@example.com" required />
-                                    {/* {errors.company_email && <span className="text-red-500 text-xs">Company Email is required</span>} */}
                                 </div>
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Company Website</label>
                                     <input type="text" {...register("company_website", { required: true })} id='company_website' className="ti-form-input" placeholder=" ... sample, example.com" required />
-                                    {/* {errors.company_website && <span className="text-red-500 text-xs">Company Website is required</span>} */}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                
+                {contactPersons.map((person, index) => (
+                    <div className="col-span-12">
+                        <div className="box">
+                            <div className="box-header flex justify-between items-center">
+                                <h5 className="box-title text-center">Contact Person Details</h5>
+                                <button 
+                                onClick={() => removeContactPerson(person.id)} 
+                                className="... text-indigo-500 background-transparent font-bold uppercase px-8 py-3 outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
+                                    </svg>
+                                </button>
 
-                <div className="col-span-12">
-                    <div className="box">
-                        <div className="box-header">
-                            <h5 className="box-title  text-center">Contact Person Details</h5>
-                        </div>
-                        <div className="box-body">
+                            </div>
+                            <div className="box-body">
+                                <div key={person.id} className="grid lg:grid-cols-2 gap-6">
+                                    <div className="space-y-2">
+                                        <label className="ti-form-label mb-0">Title</label>
+                                        <input type="text"{...register(`title_${index}`, { required: true })} className="ti-form-input" placeholder=" ... Title" required />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="ti-form-label mb-0">First Name</label>
+                                        <input type="text" {...register(`first_name_${index}`, { required: true })} className="ti-form-input" placeholder=" ... first name" required />
+                                    </div>
 
-                            <div className="grid lg:grid-cols-2 gap-6">
-                                <div className="space-y-2">
-                                    <label className="ti-form-label mb-0">First Name</label>
-                                    <input type="text" {...register("first_name", { required: true })} id='first_name' className="ti-form-input" placeholder=" ... first name" required />
-                                </div>
+                                    <div className="space-y-2">
+                                        <label className="ti-form-label mb-0">Last Names</label>
+                                        <input type="text"{...register(`last_name_${index}`, { required: true })} className="ti-form-input" placeholder=" ... last names" required />
+                                    </div>
 
-                                <div className="space-y-2">
-                                    <label className="ti-form-label mb-0">Other Names</label>
-                                    <input type="text" {...register("other_names", { required: true })} id='other_names' className="ti-form-input" placeholder=" ... other names" required />
-                                </div>
+                                    <div className="space-y-2">
+                                        <label className="ti-form-label mb-0">Mobile Number</label>
+                                        <input type="number"{...register(`mobile_number_${index}`, { required: true })} className="ti-form-input" placeholder=" ... Enter supplier mobile number" required />
+                                    </div>
 
-                                <div className="space-y-2">
-                                    <label className="ti-form-label mb-0">Mobile Number</label>
-                                    <input type="text" {...register("contact_mobile_number", { required: true })} id='contact_mobile_number' className="ti-form-input" placeholder=" ... Enter supplier tax ID or Vat number" required />
-                                </div>
+                                    <div className="space-y-2">
+                                        <label className="ti-form-label mb-0">Alternative Mobile Number</label>
+                                        <input type="number"{...register(`alternative_mobile_number_${index}`, { required: true })} className="ti-form-input" placeholder=" ... Enter supplier alt. mobile number" required />
+                                    </div>
 
-                                <div className="space-y-2">
-                                    <label className="ti-form-label mb-0">Email Address</label>
-                                    <input type="email" {...register("contact_email_address", { required: true })} id='contact_email_address' className="ti-form-input" placeholder=" ... Enter supplier tax ID or Vat number" required />
-
+                                    <div className="space-y-2">
+                                        <label className="ti-form-label mb-0">Email Address</label>
+                                        <input type="email" {...register(`email_${index}`, { required: true })} className="ti-form-input" placeholder=" ... Enter supplier email address" required />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                ))}
             </div>
+
+            <button onClick={addContactPerson} className="... text-indigo-500 background-transparent font-bold uppercase px-8 py-3 outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+            </button>
 
             <div className="grid grid-cols-12 gap-x-6">
                 <div className="col-span-12">
