@@ -5,6 +5,7 @@ import { AgGridReact } from "ag-grid-react";
 import "@ag-grid-community/styles/ag-grid.css";
 import "@ag-grid-community/styles/ag-theme-alpine.css";
 import mtaApi from '../../../../api/mtaApi';
+import Alert from "../../../../components/Alert";
 
 const BuyusingPrepayment = () => {
     const { register, handleSubmit, formState: { errors, isValid }, formState } = useForm();
@@ -16,7 +17,7 @@ const BuyusingPrepayment = () => {
     const [modalData, setModalData] = useState({});
     const [showModal, setShowModal] = useState(false);
     const [selectedSupplierId, setSelectedSupplierId] = useState(''); 
-
+    const [alert, setAlert] = useState(null);
 
     const columnDefs = [
         { cellRenderer: 'agCheckboxCellRenderer', checkboxSelection: true, showDisabledCheckboxes: false, cellEditor: 'agCheckboxCellEditor', resizable: true, minWidth: 10 },
@@ -41,7 +42,8 @@ const BuyusingPrepayment = () => {
                 const response = await mtaApi.suppliers.get_suppliers("2");
                 setSuppliers(response.data.response);
             } catch (error) {
-                console.error('Error fetching suppliers:', error);
+                const message = error.response?.data?.error ?? error.message;
+                setAlert({ type: "error", message });
             }
         };
         fetchData();
@@ -53,7 +55,8 @@ const BuyusingPrepayment = () => {
             const response = await mtaApi.product_models.list_mobile_phone_model(1);
             setRowData(response.data.response);
         } catch (error) {
-            console.error('Error fetching data:', error);
+            const message = error.response?.data?.error ?? error.message;
+            setAlert({ type: "error", message });
         }
     };
     const handleSupplierChange = (event) => {
@@ -68,19 +71,26 @@ const BuyusingPrepayment = () => {
     const onSubmitModal = async (modalData) => {
         const validRows = selectedRows.filter(row => row.amount !== null && row.quantity !== null);
         if (!selectedSupplierId) {
-            alert("Please select a supplier.");
+            const message = "Please select a supplier"
+            setAlert({ type: "error", message});
             return;
         }
 
         if (validRows.length === 0) {
-            alert("Please select rows with non-null amount and quantity.");
+            const message = "Please select rows with non-null amount and quantityr"
+            setAlert({ type: "error", message});
             return;
         }
     
         // Proceed with purchase request
+        const totalAmount = validRows.reduce((acc, row) => {
+            return acc + (row.amount * row.quantity);
+        }, 0).toFixed(2);
+        // console.log("amount", totalAmount);
+        
         const payload = {
             transaction_id: modalData.transaction_id,
-            total_amount: modalData.total_amount,
+            total_amount: totalAmount,
             // supplier_name: selectedSupplier.business_name,
             supplier_id: selectedSupplierId,
             supplier_payable_account_number: modalData.supplier_payable_account_number,
@@ -99,7 +109,8 @@ const BuyusingPrepayment = () => {
             const response = await mtaApi.purchase.cashstockPurchase(payload);
             console.log("Purchase successful:", response);
         } catch (error) {
-            console.error("Error making purchase:", error);
+            const message = error.response?.data?.error ?? error.message;
+            setAlert({ type: "error", message });
         }
         setShowModal(false);
     };
@@ -107,6 +118,7 @@ const BuyusingPrepayment = () => {
 
     return (
         <div>
+            {alert && <Alert alert={alert} />}
             {showModal && (
                 <div className={`modal fixed inset-0 flex items-center justify-center ${showModal ? '' : 'hidden'}`} style={{ zIndex: 9999 }}>
                     <div className="modal-overlay fixed inset-0 bg-black opacity-50"></div>
@@ -116,10 +128,6 @@ const BuyusingPrepayment = () => {
                             <div className="mb-4">
                                 <label htmlFor="transaction_id" className="block text-gray-700">Transaction ID:</label>
                                 <input id="transaction_id" {...register("transaction_id")} defaultValue={modalData.transaction_id} className="form-input mt-1 block w-full" />
-                            </div>
-                            <div className="mb-4">
-                                <label htmlFor="total_amount" className="block text-gray-700">Total Amount:</label>
-                                <input id="total_amount" {...register("total_amount")} defaultValue={modalData.total_amount} className="form-input mt-1 block w-full" />
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="supplier_payable_account_number" className="block text-gray-700">Supplier Payable Account Number:</label>
