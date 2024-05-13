@@ -18,13 +18,16 @@ const mtaApi = {
   },
   suppliers: {
     create_supplier: (data: any) => post("/suppliers/create-inventory-supplier", data),
-    get_suppliers: (status: any) => post("/suppliers/list-inventory-suppliers", { id: status }),
+    get_suppliers: (status: any) => post("/suppliers/list-inventory-suppliers", { status: status }),
     approve_supplier: (status: any) => post("/approve-inventory-supplier", {id: status}),
     deactivate_supplier: (id: any) => post("", id),
   },
   product_models: {
     createPhoneModel: (data: any) => post("/products/create-phone-model", data),
-    list_mobile_phone_model: (status: any) => post('/products/list-phone-models', {id: status}),
+    list_mobile_phone_model: (status: any) => post('/products/list-phone-models', {status: status}),
+  },
+  purchase: {
+    cashstockPurchase: (data: any) => post("/cashstock-purchase/create-cash-stock-purchase", data),
   },
 };
 
