@@ -16,7 +16,7 @@ const BuyusingPrepayment = () => {
     const [selectedCategory, setSelectedCategory] = useState('');
     const [modalData, setModalData] = useState({});
     const [showModal, setShowModal] = useState(false);
-    const [selectedSupplierId, setSelectedSupplierId] = useState(''); 
+    const [selectedSupplierId, setSelectedSupplierId] = useState('');
     const [alert, setAlert] = useState(null);
 
     const columnDefs = [
@@ -60,38 +60,38 @@ const BuyusingPrepayment = () => {
         }
     };
     const handleSupplierChange = (event) => {
-        setSelectedSupplierId(event.target.value); 
+        setSelectedSupplierId(event.target.value);
     };
 
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value);
     };
-   
-    
+
+
     const onSubmitModal = async (modalData) => {
         const validRows = selectedRows.filter(row => row.amount !== null && row.quantity !== null);
         if (!selectedSupplierId) {
             const message = "Please select a supplier"
-            setAlert({ type: "error", message});
+            setAlert({ type: "error", message });
             return;
         }
 
         if (validRows.length === 0) {
             const message = "Please select rows with non-null amount and quantityr"
-            setAlert({ type: "error", message});
+            setAlert({ type: "error", message });
             return;
         }
-    
+
         // Proceed with purchase request
         const totalAmount = validRows.reduce((acc, row) => {
             return acc + (row.amount * row.quantity);
         }, 0).toFixed(2);
         // console.log("amount", totalAmount);
-        
+
         const payload = {
             transaction_id: modalData.transaction_id,
             total_amount: totalAmount,
-            // supplier_name: selectedSupplier.business_name,
+            supplier_name:"",
             supplier_id: selectedSupplierId,
             supplier_payable_account_number: modalData.supplier_payable_account_number,
             bank_account_number: modalData.bank_account_number,
@@ -142,8 +142,8 @@ const BuyusingPrepayment = () => {
                                 <input id="purchase_date" type='date' {...register("purchase_date")} defaultValue={modalData.purchase_date} className="form-input mt-1 block w-full" />
                             </div>
                             <div className="flex justify-between">
-                                <button type="submit"  onClick={() => setShowModal(false)}  className={`ti-btn ti-btn-danger ti-custom-validate-btn ${!isValid && 'opacity-50 cursor-not-allowed'}`}>Cancel</button>
-                                <button type="submit"  className={`ti-btn ti-btn-primary ti-custom-validate-btn ${!isValid && 'opacity-50 cursor-not-allowed'}`}>Purchase</button>
+                                <button type="submit" onClick={() => setShowModal(false)} className={`ti-btn ti-btn-danger ti-custom-validate-btn ${!isValid && 'opacity-50 cursor-not-allowed'}`}>Cancel</button>
+                                <button type="submit" className={`ti-btn ti-btn-primary ti-custom-validate-btn ${!isValid && 'opacity-50 cursor-not-allowed'}`}>Purchase</button>
                             </div>
                         </form>
                     </div>
