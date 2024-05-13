@@ -91,7 +91,7 @@ const BuyusingPrepayment = () => {
         const payload = {
             transaction_id: modalData.transaction_id,
             total_amount: totalAmount,
-            supplier_name:"",
+            supplier_name: "",
             supplier_id: selectedSupplierId,
             supplier_payable_account_number: modalData.supplier_payable_account_number,
             bank_account_number: modalData.bank_account_number,
@@ -119,36 +119,31 @@ const BuyusingPrepayment = () => {
     return (
         <div>
             {alert && <Alert alert={alert} />}
-            {showModal && (
-                <div className={`modal fixed inset-0 flex items-center justify-center ${showModal ? '' : 'hidden'}`} style={{ zIndex: 9999 }}>
-                    <div className="modal-overlay fixed inset-0 bg-black opacity-50"></div>
-                    <div className="modal-content bg-white rounded-lg p-8 max-w-md mx-auto z-10">
-                        <span className="modal-close absolute top-0 right-0 cursor-pointer text-2xl" onClick={() => setShowModal(false)}>&times;</span>
-                        <form onSubmit={handleSubmit(onSubmitModal)}>
-                            <div className="mb-4">
-                                <label htmlFor="transaction_id" className="block text-gray-700">Transaction ID:</label>
-                                <input id="transaction_id" {...register("transaction_id")} defaultValue={modalData.transaction_id} className="form-input mt-1 block w-full" />
-                            </div>
-                            <div className="mb-4">
-                                <label htmlFor="supplier_payable_account_number" className="block text-gray-700">Supplier Payable Account Number:</label>
-                                <input id="supplier_payable_account_number" {...register("supplier_payable_account_number")} defaultValue={modalData.supplier_payable_account_number} className="form-input mt-1 block w-full" />
-                            </div>
-                            <div className="mb-4">
-                                <label htmlFor="bank_account_number" className="block text-gray-700">Bank Account Number:</label>
-                                <input id="bank_account_number" {...register("bank_account_number")} defaultValue={modalData.bank_account_number} className="form-input mt-1 block w-full" />
-                            </div>
-                            <div className="mb-4">
-                                <label htmlFor="purchase_date" className="block text-gray-700">Purchase Date:</label>
-                                <input id="purchase_date" type='date' {...register("purchase_date")} defaultValue={modalData.purchase_date} className="form-input mt-1 block w-full" />
-                            </div>
-                            <div className="flex justify-between">
-                                <button type="submit" onClick={() => setShowModal(false)} className={`ti-btn ti-btn-danger ti-custom-validate-btn ${!isValid && 'opacity-50 cursor-not-allowed'}`}>Cancel</button>
-                                <button type="submit" className={`ti-btn ti-btn-primary ti-custom-validate-btn ${!isValid && 'opacity-50 cursor-not-allowed'}`}>Purchase</button>
-                            </div>
-                        </form>
+            <div className="mb-8">
+                <form onSubmit={handleSubmit(onSubmitModal)} className="grid grid-cols-2 gap-4">
+                    <div className="mb-4">
+                        <label htmlFor="transaction_id" className="block text-gray-700">Transaction ID:</label>
+                        <input id="transaction_id" {...register("transaction_id")} defaultValue={modalData.transaction_id} className="form-input mt-1 block w-full" />
                     </div>
-                </div>
-            )}
+                    <div className="mb-4">
+                        <label htmlFor="supplier_payable_account_number" className="block text-gray-700">Supplier Payable Account Number:</label>
+                        <input id="supplier_payable_account_number" {...register("supplier_payable_account_number")} defaultValue={modalData.supplier_payable_account_number} className="form-input mt-1 block w-full" />
+                    </div>
+                    <div className="mb-4">
+                        <label htmlFor="bank_account_number" className="block text-gray-700">Bank Account Number:</label>
+                        <input id="bank_account_number" {...register("bank_account_number")} defaultValue={modalData.bank_account_number} className="form-input mt-1 block w-full" />
+                    </div>
+                    <div className="mb-4">
+                        <label htmlFor="purchase_date" className="block text-gray-700">Purchase Date:</label>
+                        <input id="purchase_date" type='date' {...register("purchase_date")} defaultValue={modalData.purchase_date} className="form-input mt-1 block w-full" />
+                    </div>
+                    <div className="col-span-2 flex justify-center">
+                        <button type="submit" className={`ti-btn ti-btn-primary  ti-custom-validate-btn`}>Purchase</button>
+                    </div>
+                </form>
+            </div>
+
+
 
             <PageHeader currentpage="Buy Using Prepayments" href="/inventory/dashboard/" activepage="Inventory" mainpage="Buy Using Prepayments" />
             <div className="col-span-12">
@@ -188,13 +183,6 @@ const BuyusingPrepayment = () => {
                     placeholder="Search..."
                     style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '50%', border: 'none', borderBottom: '1px solid black' }}
                 />
-            </div>
-            <div className="col-span-12">
-                <div className="box float-right !bg-transparent border-0 shadow-none">
-                    <div className="box-footer text-center border-t-0 px-0">
-                        <button type="submit" onClick={() => setShowModal(true)} className={`ti-btn ti-btn-primary ti-custom-validate-btn ${!isValid && 'opacity-50 cursor-not-allowed'}`} disabled={!isValid}>Make Purchase</button>
-                    </div>
-                </div>
             </div>
             <div className="ag-theme-alpine" style={{ height: 'calc(60vh - 100px)', width: '100%', position: 'relative', zIndex: 1, overflowY: 'auto', overflowX: 'auto' }}>
                 <AgGridReact
