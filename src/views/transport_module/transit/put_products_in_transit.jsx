@@ -10,7 +10,7 @@ import Alert from '../../../components/Alert';
 import { useForm } from "react-hook-form";
 
 const Put_products_in_transit = () => {
-    const { register, handleSubmit, formState: { errors, isValid }, formState } = useForm();
+    const { register, handleSubmit, formState: { errors, isValid }, formState, reset } = useForm();
     const navigate = useNavigate();
     const [rowData, setRowData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
@@ -53,7 +53,7 @@ const Put_products_in_transit = () => {
         const get_transporter_modes = async () => {
             try {
                 const { data } = await mtaApi.transport.list_transport_modes('1')
-                if(data.status === 200){
+                if (data.status === 200) {
                     setModes(data.response)
                 }
             } catch (error) {
@@ -70,7 +70,6 @@ const Put_products_in_transit = () => {
             setAlert({ type: "error", message });
             return;
         } else {
-            // console.log(selectedRows)
             setDivStack(prevStack => [...prevStack, "details"]);
             setAlert('');
         }
@@ -80,10 +79,10 @@ const Put_products_in_transit = () => {
         if (divStack.length > 1) {
             setDivStack(prevStack => prevStack.slice(0, -1));
             setSelectedRows()
+            setAlert('')
         }
     };
     const currentDiv = divStack[divStack.length - 1];
-
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value);
     };
@@ -109,15 +108,25 @@ const Put_products_in_transit = () => {
                 quantity: product.quantity
             })))
         };
-        try{
-        const response = await mtaApi.stock_in_transit.put_in_transit(formattedData)
-        console.log(response)
-        }catch(error){
+        try {
+            const response = await mtaApi.stock_in_transit.put_in_transit(formattedData)
+            if(response.data.status === 200){
+                navigate("/transport/new-uanpproved-products-in-transit")
+                reset()
+            }else{
+                const message = response.data.description
+                setAlert({ type: "error", message });
+            }
+        } catch (error) {
             const message = error.response?.data?.error ?? error.message;
             setAlert({ type: "error", message });
         }
     };
 
+    const rowTotals = selectedRows ? selectedRows.map((row) =>
+        row.product_details.reduce((total, product) => total + product.quantity, 0)
+    ) : [];
+    const grandTotal = rowTotals.reduce((total, subtotal) => total + subtotal, 0);
 
     return (
         <div>
@@ -181,7 +190,7 @@ const Put_products_in_transit = () => {
                                                 <option value="">...select purchase type</option>
                                                 <option value="1">Cash</option>
                                                 <option value="2">Prepay</option>
-                                                <option value="3">Post Pay</option>
+                                                <option value="3">PostPay</option>
                                             </select>
                                         </div>
                                         <div className="space-y-2">
@@ -190,7 +199,7 @@ const Put_products_in_transit = () => {
                                         </div>
                                         <div className="space-y-2">
                                             <label className="ti-form-label mb-0">Global ID</label>
-                                            <input type="text" defaultValue={"zz7e425ae42c57"} {...register("global_id", { required: true })} className="my-auto ti-form-input" placeholder=" ... Enter Global id" readOnly />
+                                            <input type="text" {...register("global_id", { required: true })} className="my-auto ti-form-input" placeholder=" ... Enter Global id" />
                                         </div>
                                         <div className="space-y-2">
                                             <label className="ti-form-label mb-0">Delivery Address</label>
@@ -269,23 +278,49 @@ const Put_products_in_transit = () => {
                             </div>
                         </div>
                     </div>
-                    <h5 className="box-title text-center mb-4">Product Details</h5>
-                    {selectedRows.map((row, index) => (
-                        <div key={index}>
-                            {row.product_details.map((product, productIndex) => (
-                                <div key={productIndex} className="grid lg:grid-cols-2 gap-6">
-                                    <div className="space-y-2">
-                                        <label className="ti-form-label mb-0">Model ID</label>
-                                        <input type="text" defaultValue={product.model_id} {...register(`product_details[${index}][${productIndex}].model_id`)} className="my-auto ti-form-input" readOnly />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="ti-form-label mb-0">Quantity</label>
-                                        <input type="text" defaultValue={product.quantity} {...register(`product_details[${index}][${productIndex}].quantity`)} className="my-auto ti-form-input" readOnly />
-                                    </div>
+                    <h5 className="hidden box-title text-center mb-4">Product Details</h5>
+                    <div>
+                        {selectedRows && selectedRows.length > 0 ? (
+                            selectedRows.map((row, index) => (
+                                <div key={index}>
+                                    {row.product_details.map((product, productIndex) => (
+                                        <div key={productIndex} className="grid lg:grid-cols-2 gap-6">
+                                            <div className="hidden space-y-2">
+                                                <label className="ti-form-label mb-0">Model ID</label>
+                                                <input
+                                                    type="text"
+                                                    defaultValue={product.model_id}
+                                                    {...register(`product_details[${index}][${productIndex}].model_id`)}
+                                                    className="my-auto ti-form-input"
+                                                    readOnly
+                                                />
+                                            </div>
+                                            <div className="hidden space-y-2">
+                                                <label className="ti-form-label mb-0">Quantity</label>
+                                                <input
+                                                    type="text"
+                                                    defaultValue={product.quantity}
+                                                    {...register(`product_details[${index}][${productIndex}].quantity`)}
+                                                    className="my-auto ti-form-input"
+                                                    readOnly
+                                                />
+                                            </div>
+                                        </div>
+                                    ))}
+                                    {/* <div>
+                                        <h2 className="text-md font-medium" ><strong>Total Quantity for Row  {index + 1} : {rowTotals[index]}</strong></h2>
+                                    </div> */}
                                 </div>
-                            ))}
-                        </div>
-                    ))}
+                            ))
+                        ) : (
+                            <div>No data available</div>
+                        )}
+                        {/* {selectedRows && selectedRows.length > 0 && (
+                            <div className="text-lg font-bold mt-4">
+                                <strong>Grand Total Quantity: {grandTotal}</strong>
+                            </div>
+                        )} */}
+                    </div>
                     <div className="grid grid-cols-12 gap-x-6">
                         <div className="col-span-12">
                             <div className="box !bg-transparent border-0 shadow-none">

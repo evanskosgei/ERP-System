@@ -128,8 +128,8 @@ const BuyusingPrepayment = () => {
             notes: "Stock purchased to be delivered immediately"
         };
         try {
-            // const { data } = await mtaApi.purchase.cashstockPurchase(payload);
-            const { data } = await mtaApi.stock_in_transit.put_in_transit(payload)
+            const { data } = await mtaApi.purchase.cashstockPurchase(payload);
+            // const { data } = await mtaApi.stock_in_transit.put_in_transit(payload)
             navigate("/inventory/new-stock-purchased-using-cash");
         } catch (error) {
             if(error.response.data.status === 501){
@@ -209,7 +209,7 @@ const BuyusingPrepayment = () => {
                     style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '50%', border: 'none', borderBottom: '1px solid black' }}
                 />
             </div>
-            <div className="ag-theme-alpine" style={{ height: 'calc(40vh - 100px)', width: '100%', position: 'relative', zIndex: 1, overflowY: 'auto', overflowX: 'auto' }}>
+            <div className="ag-theme-alpine" style={{ height: 'calc(50vh - 100px)', width: '100%', position: 'relative', zIndex: 1, overflowY: 'auto', overflowX: 'auto' }}>
                 <AgGridReact
                     rowData={rowData.length < 0 ? filteredData : rowData}
                     columnDefs={columnDefs}
