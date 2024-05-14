@@ -53,6 +53,11 @@ const mtaApi = {
   transport: {
     list_transport_modes: (status: any) => post("/transport/list-transport-modes", {status}),
   },
+  receive_stock:{
+  receive_phone_models: (data: any) =>post("/mobilephone-receive-transit-stock/receive-stock"),
+  list_received_phone_models: (status :any) =>post("/mobilephone-receive-transit-stock/list-received-stock", {status}),
+  approve_received_phones_models: (status: any) => post("/mobilephone-receive-transit-stock/approve-received-stock",{id:status}),
+  },
 };
 
 export default mtaApi;

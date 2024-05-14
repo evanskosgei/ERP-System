@@ -42,13 +42,18 @@ import Deleteddistributions from "../views/inventory_module/dashboard/distributi
 import Deactivateddistributions from "../views/inventory_module/dashboard/distribution_centers/list_deactivated_distributions";
 import Reactivateddistributions from "../views/inventory_module/dashboard/distribution_centers/list_reactivated_distributions";
 
+// distributions
+import Distribution_dashboard from "../views/distribution_module/dashboard";
+
 // purchased with cash
 import BuyusingPrepayment from "../views/inventory_module/dashboard/purchase_stock_cash/buy_using_prepayment";
 import Unapproved_stock_cash_purchased from "../views/inventory_module/dashboard/purchase_stock_cash/list_unapproved_stock_cash_purchased";
 import Active_purchase_stock_cash from "../views/inventory_module/dashboard/purchase_stock_cash/list_active_purchase_stock_cash";
 
-// stock in transit
+// Receive in transit
 import Receivestock from "../views/inventory_module/dashboard/stock_in_transit/receive_stock";
+import Approve_received_stock from "../views/inventory_module/dashboard/stock_in_transit/list_unapproved_received_stock";
+import Available_stock from "../views/inventory_module/dashboard/stock_in_transit/list_available_stock";
 
 // product Managment
 import Activephones from "../views/inventory_module/product_management/mobile-models/list_active_phone_models";
@@ -96,6 +101,7 @@ import TransportDashboard from "../views/transport_module/dashboard/transport_da
 import ProductTransit from "../views/transport_module/transit/listjourneys";
 import Put_products_in_transit from "../views/transport_module/transit/put_products_in_transit";
 import Activestock_in_transit from "../views/transport_module/transit/list_active_stock_in_transit";
+import New_unapproved_stock_in_transit from "../views/transport_module/transit/list_unapproved_stock_in_transit";
 
 //Customer Pages
 import CustomerDashboard from "../views/crm_module/dashboard/crm_dashboard";
@@ -143,7 +149,7 @@ import InventoryReports from "../views/reports_module/inventory_reports/inventor
 import SalesReports from "../views/reports_module/sales_reports/sales_reports";
 import SupplierReports from "../views/reports_module/supplier_reports/supplier_reports";
 import TransporterReports from "../views/reports_module/transporter_reports/transporter_reports";
-import PaymentsReports from "../views/reports_module/payments_reports/payments_reports"; 
+import PaymentsReports from "../views/reports_module/payments_reports/payments_reports";
 import CustomerReports from "../views/reports_module/customer_reports/customer_reports";
 import HrReports from "../views/reports_module/hr_reports/hr_reports";
 
@@ -264,208 +270,218 @@ export const RouteData = [
 
     // {/* Dashboard content */}
 
-    { path: `${import.meta.env.BASE_URL}dashboards/sales`, element: <Sales /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}dashboards/main`, element: <MainDashboard /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}dashboards/agents`, element: <Agents_dashboard /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}dashboards/ecommerce`, element: <Ecommerce /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}dashboards/crypto`, element: <Crypto /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}dashboards/jobs`, element: <Jobs /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}dashboards/nft`, element: <Nft /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}dashboards/analytics`, element: <Analytics /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}dashboards/projects`, element: <Projects /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}dashboards/hrm`, element: <Hrm /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}dashboards/crm`, element: <Crm /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}dashboards/personal`, element: <Personal /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}dashboards/stocks`, element: <Stocks /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}dashboards/course`, element: <Course /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}dashboards/sales`, element: <Sales />, title: '' },
+    { path: `${import.meta.env.BASE_URL}dashboards/main`, element: <MainDashboard />, title: '' },
+    { path: `${import.meta.env.BASE_URL}dashboards/agents`, element: <Agents_dashboard />, title: '' },
+    { path: `${import.meta.env.BASE_URL}dashboards/ecommerce`, element: <Ecommerce />, title: '' },
+    { path: `${import.meta.env.BASE_URL}dashboards/crypto`, element: <Crypto />, title: '' },
+    { path: `${import.meta.env.BASE_URL}dashboards/jobs`, element: <Jobs />, title: '' },
+    { path: `${import.meta.env.BASE_URL}dashboards/nft`, element: <Nft />, title: '' },
+    { path: `${import.meta.env.BASE_URL}dashboards/analytics`, element: <Analytics />, title: '' },
+    { path: `${import.meta.env.BASE_URL}dashboards/projects`, element: <Projects />, title: '' },
+    { path: `${import.meta.env.BASE_URL}dashboards/hrm`, element: <Hrm />, title: '' },
+    { path: `${import.meta.env.BASE_URL}dashboards/crm`, element: <Crm />, title: '' },
+    { path: `${import.meta.env.BASE_URL}dashboards/personal`, element: <Personal />, title: '' },
+    { path: `${import.meta.env.BASE_URL}dashboards/stocks`, element: <Stocks />, title: '' },
+    { path: `${import.meta.env.BASE_URL}dashboards/course`, element: <Course />, title: '' },
 
 
     // {/* Activities content */}
-    { path: `${import.meta.env.BASE_URL}activities`, element: <Activities /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}notifications`, element: <Notifications /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}activities`, element: <Activities />, title: '' },
+    { path: `${import.meta.env.BASE_URL}notifications`, element: <Notifications />, title: '' },
 
     // {/* User content */} 
-    { path: `${import.meta.env.BASE_URL}my_profile`, element: <Profile /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}users/dashboard`, element: <UserDashboard /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}users/create-user`, element: <CreateUser /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}users/new-user`, element: <Newusers /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}users/active-users`, element: <Activeusers /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}users/deleted-users`, element: <Deletedusers /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}users/deactivated-users`, element: <Deactivatedusers /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}users/reactivated-users`, element: <Reactivatedusers /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}my_profile`, element: <Profile />, title: '' },
+    { path: `${import.meta.env.BASE_URL}users/dashboard`, element: <UserDashboard />, title: '' },
+    { path: `${import.meta.env.BASE_URL}users/create-user`, element: <CreateUser />, title: '' },
+    { path: `${import.meta.env.BASE_URL}users/new-user`, element: <Newusers />, title: '' },
+    { path: `${import.meta.env.BASE_URL}users/active-users`, element: <Activeusers />, title: '' },
+    { path: `${import.meta.env.BASE_URL}users/deleted-users`, element: <Deletedusers />, title: '' },
+    { path: `${import.meta.env.BASE_URL}users/deactivated-users`, element: <Deactivatedusers />, title: '' },
+    { path: `${import.meta.env.BASE_URL}users/reactivated-users`, element: <Reactivatedusers />, title: '' },
 
     // {/* Widgets content */}
 
-    { path: `${import.meta.env.BASE_URL}widgets`, element: <Widgets /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}widgets`, element: <Widgets />, title: '' },
 
     // {/* Supplier content */}
-    { path: `${import.meta.env.BASE_URL}supplier/dashboard`, element: <SupplierDashboard /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}supplier/create-supplier`, element: <CreateSupplier /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}supplier/active-suppliers`, element: <ActiveSuppliers /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}supplier/approve-suppliers`, element: <ApproveSupplier /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}supplier/deactivated-suppliers`, element: <InactiveSuppliers /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}supplier/reactivated-suppliers`, element: <ReactivatedSuppliers /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}supplier/deleted-suppliers`, element: <DeletedSuppliers /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}supplier/supply-chain`, element: <SupplyChain /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}supplier/sms-management`, element: <SmsManagement /> , title: ''},
-    
+    { path: `${import.meta.env.BASE_URL}supplier/dashboard`, element: <SupplierDashboard />, title: '' },
+    { path: `${import.meta.env.BASE_URL}supplier/create-supplier`, element: <CreateSupplier />, title: '' },
+    { path: `${import.meta.env.BASE_URL}supplier/active-suppliers`, element: <ActiveSuppliers />, title: '' },
+    { path: `${import.meta.env.BASE_URL}supplier/approve-suppliers`, element: <ApproveSupplier />, title: '' },
+    { path: `${import.meta.env.BASE_URL}supplier/deactivated-suppliers`, element: <InactiveSuppliers />, title: '' },
+    { path: `${import.meta.env.BASE_URL}supplier/reactivated-suppliers`, element: <ReactivatedSuppliers />, title: '' },
+    { path: `${import.meta.env.BASE_URL}supplier/deleted-suppliers`, element: <DeletedSuppliers />, title: '' },
+    { path: `${import.meta.env.BASE_URL}supplier/supply-chain`, element: <SupplyChain />, title: '' },
+    { path: `${import.meta.env.BASE_URL}supplier/sms-management`, element: <SmsManagement />, title: '' },
+
 
     // {/* Inventory content */}
-    { path: `${import.meta.env.BASE_URL}inventory/dashboard`, element: <InventoryDashboard /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/product-management`, element: <ProductManagement /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/inventory-management`, element: <InventoryManagement /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/quality-control`, element: <QualityControl /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/create-distribution-center`, element: <CreatedistributionCenter /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/approve-new-distribution-center`, element: <Approvenewdistribution /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/active-distribution-centers`, element: <Activedistributioncenters /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/deleted-distribution-centers`, element: <Deleteddistributions /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/deactivated-distribution-centers`, element: <Deactivateddistributions /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/reactivated-distribution-centers`, element: <Reactivateddistributions /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/reactivated-distribution-centers`, element: <Reactivateddistributions /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/dashboard`, element: <InventoryDashboard />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/product-management`, element: <ProductManagement />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/inventory-management`, element: <InventoryManagement />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/quality-control`, element: <QualityControl />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/create-distribution-center`, element: <CreatedistributionCenter />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/approve-new-distribution-center`, element: <Approvenewdistribution />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/active-distribution-centers`, element: <Activedistributioncenters />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/deleted-distribution-centers`, element: <Deleteddistributions />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/deactivated-distribution-centers`, element: <Deactivateddistributions />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/reactivated-distribution-centers`, element: <Reactivateddistributions />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/reactivated-distribution-centers`, element: <Reactivateddistributions />, title: '' },
+
+    // Distribution Dashboard
+    { path: `${import.meta.env.BASE_URL}distribution/dashboard/`, element: <Distribution_dashboard />, title: '' },
+
+    // receive stock
+    { path: `${import.meta.env.BASE_URL}inventory/receive-stock`, element: <Receivestock />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/approve-receive-stock`, element: <Approve_received_stock />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/available-stock`, element: <Available_stock />, title: '' },
 
     // purchase stock with cash
-    { path: `${import.meta.env.BASE_URL}inventory/buy-using-cash`, element: <BuyusingPrepayment /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/new-stock-purchased-using-cash`, element: <Unapproved_stock_cash_purchased /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/active-stock-purchased-using-cash`, element: <Active_purchase_stock_cash /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/buy-using-cash`, element: <BuyusingPrepayment />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/new-stock-purchased-using-cash`, element: <Unapproved_stock_cash_purchased />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/active-stock-purchased-using-cash`, element: <Active_purchase_stock_cash />, title: '' },
+    // { path: `${import.meta.env.BASE_URL}inventory/active-stock-purchased-using-cash`, element: <New_unapproved_stock_in_transit /> , title: ''},
 
     // product managment
-    { path: `${import.meta.env.BASE_URL}inventory/active-phones-models`, element: <Activephones /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/create-phone-model`, element: <Createphonemodel /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/approve-new-phone-model`, element: <ApprovenewPhone /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/deactivated-phone-model`, element: <Deactivatedphones /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/deleted-phone-model`, element: <Deletedphonedmodels /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/reactivated-phone-model`, element: <ReactivatedPhonemodels /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/create-tv-model`, element: <Createtvmodels /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/active-tv-model`, element: <Activetvmodels /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/approve-new-tv-model`, element: <NewUnapprovedtv /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/deactivated-tv-model`, element: <Deactivatedtv /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/deleted-tv-model`, element: <DeletedtvModels /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/reactivated-tv-model`, element: <Reactivatedtvmodels /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/active-accessories-model`, element: <Activeaccessories /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/create-accessories-model`, element: <Createaccessory /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/new-unapproved-accessories-model`, element: <Newunapprovedaccessories /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/deactivated-accessories-model`, element: <Deactivatedaccessory /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/deleted-accessories-model`, element: <Deletedaccessory /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/reactivated-accessories-model`, element: <Reactivatedaccessory /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/product-categories`, element: <ProductCategories /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/product-subcategories`, element: <ProductsubCategories /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/active-phones-models`, element: <Activephones />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/create-phone-model`, element: <Createphonemodel />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/approve-new-phone-model`, element: <ApprovenewPhone />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/deactivated-phone-model`, element: <Deactivatedphones />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/deleted-phone-model`, element: <Deletedphonedmodels />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/reactivated-phone-model`, element: <ReactivatedPhonemodels />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/create-tv-model`, element: <Createtvmodels />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/active-tv-model`, element: <Activetvmodels />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/approve-new-tv-model`, element: <NewUnapprovedtv />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/deactivated-tv-model`, element: <Deactivatedtv />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/deleted-tv-model`, element: <DeletedtvModels />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/reactivated-tv-model`, element: <Reactivatedtvmodels />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/active-accessories-model`, element: <Activeaccessories />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/create-accessories-model`, element: <Createaccessory />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/new-unapproved-accessories-model`, element: <Newunapprovedaccessories />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/deactivated-accessories-model`, element: <Deactivatedaccessory />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/deleted-accessories-model`, element: <Deletedaccessory />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/reactivated-accessories-model`, element: <Reactivatedaccessory />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/product-categories`, element: <ProductCategories />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/product-subcategories`, element: <ProductsubCategories />, title: '' },
 
 
     // {/* Transport content */}
-    { path: `${import.meta.env.BASE_URL}transport/dashboard`, element: <TransportDashboard /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}transport/dashboard`, element: <TransportDashboard />, title: '' },
 
     //  products in transit
-    { path: `${import.meta.env.BASE_URL}transport/transit`, element: <ProductTransit /> , title: ''}, 
-    { path: `${import.meta.env.BASE_URL}transport/Put-products-in-transit`, element: <Put_products_in_transit /> , title: ''}, 
-    { path: `${import.meta.env.BASE_URL}transport/active-products-in-transit`, element: <Activestock_in_transit /> , title: ''}, 
+    { path: `${import.meta.env.BASE_URL}transport/transit`, element: <ProductTransit />, title: '' },
+    { path: `${import.meta.env.BASE_URL}transport/Put-products-in-transit`, element: <Put_products_in_transit />, title: '' },
+    { path: `${import.meta.env.BASE_URL}transport/active-products-in-transit`, element: <Activestock_in_transit />, title: '' },
+    { path: `${import.meta.env.BASE_URL}transport/new-uanpproved-products-in-transit`, element: <New_unapproved_stock_in_transit />, title: '' },
 
     // {/* CRM content */}
-    { path: `${import.meta.env.BASE_URL}customer/dashboard`, element: <CustomerDashboard /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}customer/ticket-management`, element: <TicketManagement /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}customer/dashboard`, element: <CustomerDashboard />, title: '' },
+    { path: `${import.meta.env.BASE_URL}customer/ticket-management`, element: <TicketManagement />, title: '' },
 
     // {/* Sales content */}
-    { path: `${import.meta.env.BASE_URL}sales/dashboard`, element: <SalesDashboard /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}sales/dashboard`, element: <SalesDashboard />, title: '' },
 
 
     // {/* Payments content */}
-    { path: `${import.meta.env.BASE_URL}payments/dashboard`, element: <PaymentsDashboard /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}payments/mobilemoney`, element: <MobileMoney /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}payments/bank`, element: <BankPayments /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}payments/cash`, element: <CashPayments /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}payments/dashboard`, element: <PaymentsDashboard />, title: '' },
+    { path: `${import.meta.env.BASE_URL}payments/mobilemoney`, element: <MobileMoney />, title: '' },
+    { path: `${import.meta.env.BASE_URL}payments/bank`, element: <BankPayments />, title: '' },
+    { path: `${import.meta.env.BASE_URL}payments/cash`, element: <CashPayments />, title: '' },
 
 
     // {/* Accounts content */}
-    { path: `${import.meta.env.BASE_URL}finance/accouting`, element: <AccountingDashboard /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}finance/create-accounts`, element: <Create_accounts /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}finance/unapproved-accounts`, element: <Unapproved_accounts /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}finance/active-accounts`, element: <Active_accounts /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}finance/deactivated-accounts`, element: <Deactivated_accounts /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}finance/reactivated-accounts`, element: <Reactivated_accounts /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}finance/deleted-accounts`, element: <Deleted_accounts /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}finance/accouting`, element: <AccountingDashboard />, title: '' },
+    { path: `${import.meta.env.BASE_URL}finance/create-accounts`, element: <Create_accounts />, title: '' },
+    { path: `${import.meta.env.BASE_URL}finance/unapproved-accounts`, element: <Unapproved_accounts />, title: '' },
+    { path: `${import.meta.env.BASE_URL}finance/active-accounts`, element: <Active_accounts />, title: '' },
+    { path: `${import.meta.env.BASE_URL}finance/deactivated-accounts`, element: <Deactivated_accounts />, title: '' },
+    { path: `${import.meta.env.BASE_URL}finance/reactivated-accounts`, element: <Reactivated_accounts />, title: '' },
+    { path: `${import.meta.env.BASE_URL}finance/deleted-accounts`, element: <Deleted_accounts />, title: '' },
 
     // finance 
-    { path: `${import.meta.env.BASE_URL}finance/expenses`, element: <ExpensesDashboard /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}finance/create-capital-injection`, element: <Create_capital_injection /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}finance/new-unapproved-capital-injection`, element: <Unapproved_capital_injection /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}finance/active-capital-injection`, element: <Active_capital_injection /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}finance/deactivated-capital-injection`, element: <Deactivated_capital_injections /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}finance/reactivated-capital-injection`, element: <Reactivated_capital_injection /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}finance/deleted-capital-injection`, element: <Deleted_capital_injection /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}finance/expenses`, element: <ExpensesDashboard />, title: '' },
+    { path: `${import.meta.env.BASE_URL}finance/create-capital-injection`, element: <Create_capital_injection />, title: '' },
+    { path: `${import.meta.env.BASE_URL}finance/new-unapproved-capital-injection`, element: <Unapproved_capital_injection />, title: '' },
+    { path: `${import.meta.env.BASE_URL}finance/active-capital-injection`, element: <Active_capital_injection />, title: '' },
+    { path: `${import.meta.env.BASE_URL}finance/deactivated-capital-injection`, element: <Deactivated_capital_injections />, title: '' },
+    { path: `${import.meta.env.BASE_URL}finance/reactivated-capital-injection`, element: <Reactivated_capital_injection />, title: '' },
+    { path: `${import.meta.env.BASE_URL}finance/deleted-capital-injection`, element: <Deleted_capital_injection />, title: '' },
 
     // {/* Email content */}
-    { path: `${import.meta.env.BASE_URL}email/dashboard`, element: <EmailDashboard /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}email/dashboard`, element: <EmailDashboard />, title: '' },
 
     // {/* SMS content */}
-    { path: `${import.meta.env.BASE_URL}sms/dashboard`, element: <SmsDashboard /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}sms/dashboard`, element: <SmsDashboard />, title: '' },
 
 
     // {/* Hr content */}
-    { path: `${import.meta.env.BASE_URL}hr/dashboard`, element: <HrDashboard /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}hr/employee-profile`, element: <EmployeeProfile /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}hr/performance-management`, element: <PerformanceManagement /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}hr/payroll-management`, element: <PayrollManagement /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}hr/dashboard`, element: <HrDashboard />, title: '' },
+    { path: `${import.meta.env.BASE_URL}hr/employee-profile`, element: <EmployeeProfile />, title: '' },
+    { path: `${import.meta.env.BASE_URL}hr/performance-management`, element: <PerformanceManagement />, title: '' },
+    { path: `${import.meta.env.BASE_URL}hr/payroll-management`, element: <PayrollManagement />, title: '' },
 
     // {/* Analytics content */}
-    { path: `${import.meta.env.BASE_URL}analytics/dashboard`, element: <AnalyticsDashboard /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}analytics/sales-analysis`, element: <SalesAnalysis /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}analytics/inventory-analysis`, element: <InventoryAnalysis /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}analytics/supplier-analysis`, element: <SupplierAnalysis /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}analytics/dashboard`, element: <AnalyticsDashboard />, title: '' },
+    { path: `${import.meta.env.BASE_URL}analytics/sales-analysis`, element: <SalesAnalysis />, title: '' },
+    { path: `${import.meta.env.BASE_URL}analytics/inventory-analysis`, element: <InventoryAnalysis />, title: '' },
+    { path: `${import.meta.env.BASE_URL}analytics/supplier-analysis`, element: <SupplierAnalysis />, title: '' },
 
 
     // {/* Reports content */}
-    { path: `${import.meta.env.BASE_URL}reports/dashboard`, element: <ReportsDashboard /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}reports/finance-reports`, element: <FinanceReports /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}reports/inventory-reports`, element: <InventoryReports /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}reports/sales-reports`, element: <SalesReports /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}reports/supplier-reports`, element: <SupplierReports /> , title: ''}, 
-    { path: `${import.meta.env.BASE_URL}reports/transporter-reports`, element: <TransporterReports /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}reports/hr-reports`, element: <HrReports /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}reports/payments-reports`, element: <PaymentsReports /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}reports/customer-reports`, element: <CustomerReports /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}reports/dashboard`, element: <ReportsDashboard />, title: '' },
+    { path: `${import.meta.env.BASE_URL}reports/finance-reports`, element: <FinanceReports />, title: '' },
+    { path: `${import.meta.env.BASE_URL}reports/inventory-reports`, element: <InventoryReports />, title: '' },
+    { path: `${import.meta.env.BASE_URL}reports/sales-reports`, element: <SalesReports />, title: '' },
+    { path: `${import.meta.env.BASE_URL}reports/supplier-reports`, element: <SupplierReports />, title: '' },
+    { path: `${import.meta.env.BASE_URL}reports/transporter-reports`, element: <TransporterReports />, title: '' },
+    { path: `${import.meta.env.BASE_URL}reports/hr-reports`, element: <HrReports />, title: '' },
+    { path: `${import.meta.env.BASE_URL}reports/payments-reports`, element: <PaymentsReports />, title: '' },
+    { path: `${import.meta.env.BASE_URL}reports/customer-reports`, element: <CustomerReports />, title: '' },
 
-    
+
     // {/* Settings content */}
-    { path: `${import.meta.env.BASE_URL}settings/dashboard`, element: <SettingsDashboard /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}settings/roles-and-permissions`, element: <RolesAndPermissions /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}settings/sms-settings`, element: <SmsSettings /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}settings/email-settings`, element: <EmailSettings /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}settings/general-settings`, element: <GeneralSettings /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}settings/logs-settings`, element: <LogsSettings /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}settings/dashboard`, element: <SettingsDashboard />, title: '' },
+    { path: `${import.meta.env.BASE_URL}settings/roles-and-permissions`, element: <RolesAndPermissions />, title: '' },
+    { path: `${import.meta.env.BASE_URL}settings/sms-settings`, element: <SmsSettings />, title: '' },
+    { path: `${import.meta.env.BASE_URL}settings/email-settings`, element: <EmailSettings />, title: '' },
+    { path: `${import.meta.env.BASE_URL}settings/general-settings`, element: <GeneralSettings />, title: '' },
+    { path: `${import.meta.env.BASE_URL}settings/logs-settings`, element: <LogsSettings />, title: '' },
 
     // {/* Component content */}
 
-    { path: `${import.meta.env.BASE_URL}components/accordion`, element: <Accordion /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}components/alerts`, element: <Alerts /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}components/avatars`, element: <Avatars /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}components/badges`, element: <Badges /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}components/blockquotes`, element: <Blockquotes /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}components/buttons`, element: <Buttons /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}components/cards`, element: <Cards /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}components/collapse`, element: <Collapse /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}components/indicators`, element: <Indicators /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}components/list`, element: <List /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}components/listgroup`, element: <Listgroup /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}components/progress`, element: <Progress /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}components/skeletons`, element: <Skeletons /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}components/spinners`, element: <Spinners /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}components/toasts`, element: <Toasts /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}components/accordion`, element: <Accordion />, title: '' },
+    { path: `${import.meta.env.BASE_URL}components/alerts`, element: <Alerts />, title: '' },
+    { path: `${import.meta.env.BASE_URL}components/avatars`, element: <Avatars />, title: '' },
+    { path: `${import.meta.env.BASE_URL}components/badges`, element: <Badges />, title: '' },
+    { path: `${import.meta.env.BASE_URL}components/blockquotes`, element: <Blockquotes />, title: '' },
+    { path: `${import.meta.env.BASE_URL}components/buttons`, element: <Buttons />, title: '' },
+    { path: `${import.meta.env.BASE_URL}components/cards`, element: <Cards />, title: '' },
+    { path: `${import.meta.env.BASE_URL}components/collapse`, element: <Collapse />, title: '' },
+    { path: `${import.meta.env.BASE_URL}components/indicators`, element: <Indicators />, title: '' },
+    { path: `${import.meta.env.BASE_URL}components/list`, element: <List />, title: '' },
+    { path: `${import.meta.env.BASE_URL}components/listgroup`, element: <Listgroup />, title: '' },
+    { path: `${import.meta.env.BASE_URL}components/progress`, element: <Progress />, title: '' },
+    { path: `${import.meta.env.BASE_URL}components/skeletons`, element: <Skeletons />, title: '' },
+    { path: `${import.meta.env.BASE_URL}components/spinners`, element: <Spinners />, title: '' },
+    { path: `${import.meta.env.BASE_URL}components/toasts`, element: <Toasts />, title: '' },
 
     // {/* Component content */}
 
-    { path: `${import.meta.env.BASE_URL}elements/breadcrumbs`, element: <Breadcrumbs /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}elements/columns`, element: <Columns /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}elements/grids`, element: <Grids /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}elements/megaMenu`, element: <MegaMenu /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}elements/nav&tabs`, element: <NavTabs /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}elements/navbar`, element: <Navbar /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}elements/paginations`, element: <Paginations /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}elements/breadcrumbs`, element: <Breadcrumbs />, title: '' },
+    { path: `${import.meta.env.BASE_URL}elements/columns`, element: <Columns />, title: '' },
+    { path: `${import.meta.env.BASE_URL}elements/grids`, element: <Grids />, title: '' },
+    { path: `${import.meta.env.BASE_URL}elements/megaMenu`, element: <MegaMenu />, title: '' },
+    { path: `${import.meta.env.BASE_URL}elements/nav&tabs`, element: <NavTabs />, title: '' },
+    { path: `${import.meta.env.BASE_URL}elements/navbar`, element: <Navbar />, title: '' },
+    { path: `${import.meta.env.BASE_URL}elements/paginations`, element: <Paginations />, title: '' },
 
     // {/* Forms content */ }
 
-    { path: `${import.meta.env.BASE_URL}forms/advancedforms`, element: <Advancedforms /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}forms/fileuploads`, element: <Fileuploads /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}forms/formcheckbox`, element: <Formcheckbox /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}forms/formeditors`, element: <Formeditors /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}forms/advancedforms`, element: <Advancedforms />, title: '' },
+    { path: `${import.meta.env.BASE_URL}forms/fileuploads`, element: <Fileuploads />, title: '' },
+    { path: `${import.meta.env.BASE_URL}forms/formcheckbox`, element: <Formcheckbox />, title: '' },
+    { path: `${import.meta.env.BASE_URL}forms/formeditors`, element: <Formeditors />, title: '' },
     { path: `${import.meta.env.BASE_URL}forms/formelements`, element: <Formelements /> },
     { path: `${import.meta.env.BASE_URL}forms/forminputgroup`, element: <Forminputgroup /> },
     { path: `${import.meta.env.BASE_URL}forms/formlayout`, element: <Formlayout /> },
@@ -570,153 +586,153 @@ export const RouteData = [
 export const SearchData = [
 
     // {/* Dashboard content */}
-    
-
-    { path: `${import.meta.env.BASE_URL}dashboards/main`, element: <MainDashboard /> , title: 'main'},
-    { path: `${import.meta.env.BASE_URL}dashboards/sales`, element: <Sales /> , title: 'sales'},
-    { path: `${import.meta.env.BASE_URL}dashboards/ecommerce`, element: <Ecommerce /> , title: 'ecommerce'},
-    { path: `${import.meta.env.BASE_URL}dashboards/crypto`, element: <Crypto /> , title: 'crypto'},
-    { path: `${import.meta.env.BASE_URL}dashboards/jobs`, element: <Jobs /> , title: 'jobs'},
-    { path: `${import.meta.env.BASE_URL}dashboards/nft`, element: <Nft /> , title: 'nft'},
-    { path: `${import.meta.env.BASE_URL}dashboards/analytics`, element: <Analytics /> , title: 'analytics'},
-    { path: `${import.meta.env.BASE_URL}dashboards/projects`, element: <Projects /> , title: 'projects'},
-    { path: `${import.meta.env.BASE_URL}dashboards/hrm`, element: <Hrm /> , title: 'hrm'},
-    { path: `${import.meta.env.BASE_URL}dashboards/crm`, element: <Crm /> , title: 'crm'},
-    { path: `${import.meta.env.BASE_URL}dashboards/personal`, element: <Personal /> , title: 'personal'},
-    { path: `${import.meta.env.BASE_URL}dashboards/stocks`, element: <Stocks /> , title: 'stocks'},
-    { path: `${import.meta.env.BASE_URL}dashboards/course`, element: <Course /> , title: 'course'},
 
 
-    // {/* Component content */}
+    { path: `${import.meta.env.BASE_URL}dashboards/main`, element: <MainDashboard />, title: 'main' },
+    { path: `${import.meta.env.BASE_URL}dashboards/sales`, element: <Sales />, title: 'sales' },
+    { path: `${import.meta.env.BASE_URL}dashboards/ecommerce`, element: <Ecommerce />, title: 'ecommerce' },
+    { path: `${import.meta.env.BASE_URL}dashboards/crypto`, element: <Crypto />, title: 'crypto' },
+    { path: `${import.meta.env.BASE_URL}dashboards/jobs`, element: <Jobs />, title: 'jobs' },
+    { path: `${import.meta.env.BASE_URL}dashboards/nft`, element: <Nft />, title: 'nft' },
+    { path: `${import.meta.env.BASE_URL}dashboards/analytics`, element: <Analytics />, title: 'analytics' },
+    { path: `${import.meta.env.BASE_URL}dashboards/projects`, element: <Projects />, title: 'projects' },
+    { path: `${import.meta.env.BASE_URL}dashboards/hrm`, element: <Hrm />, title: 'hrm' },
+    { path: `${import.meta.env.BASE_URL}dashboards/crm`, element: <Crm />, title: 'crm' },
+    { path: `${import.meta.env.BASE_URL}dashboards/personal`, element: <Personal />, title: 'personal' },
+    { path: `${import.meta.env.BASE_URL}dashboards/stocks`, element: <Stocks />, title: 'stocks' },
+    { path: `${import.meta.env.BASE_URL}dashboards/course`, element: <Course />, title: 'course' },
 
-    { path: `${import.meta.env.BASE_URL}components/accordion`, element: <Accordion /> , title: 'accordion'},
-    { path: `${import.meta.env.BASE_URL}components/alerts`, element: <Alerts /> , title: 'alerts'},
-    { path: `${import.meta.env.BASE_URL}components/avatars`, element: <Avatars /> , title: 'avatars'},
-    { path: `${import.meta.env.BASE_URL}components/badges`, element: <Badges /> , title: 'badges'},
-    { path: `${import.meta.env.BASE_URL}components/blockquotes`, element: <Blockquotes /> , title: 'blockquotes'},
-    { path: `${import.meta.env.BASE_URL}components/buttons`, element: <Buttons /> , title: 'buttons'},
-    { path: `${import.meta.env.BASE_URL}components/cards`, element: <Cards /> , title: 'cards'},
-    { path: `${import.meta.env.BASE_URL}components/collapse`, element: <Collapse /> , title: 'collapse'},
-    { path: `${import.meta.env.BASE_URL}components/indicators`, element: <Indicators /> , title: 'indicators'},
-    { path: `${import.meta.env.BASE_URL}components/list`, element: <List /> , title: 'list'},
-    { path: `${import.meta.env.BASE_URL}components/listgroup`, element: <Listgroup /> , title: 'listgroup'},
-    { path: `${import.meta.env.BASE_URL}components/progress`, element: <Progress /> , title: 'progress'},
-    { path: `${import.meta.env.BASE_URL}components/skeletons`, element: <Skeletons /> , title: 'skeletons'},
-    { path: `${import.meta.env.BASE_URL}components/spinners`, element: <Spinners /> , title: 'spinners'},
-    { path: `${import.meta.env.BASE_URL}components/toasts`, element: <Toasts /> , title: 'toasts'},
 
     // {/* Component content */}
 
-    { path: `${import.meta.env.BASE_URL}elements/breadcrumbs`, element: <Breadcrumbs /> , title: 'breadcrumbs'},
-    { path: `${import.meta.env.BASE_URL}elements/columns`, element: <Columns /> , title: 'columns'},
-    { path: `${import.meta.env.BASE_URL}elements/grids`, element: <Grids /> , title: 'grids'},
-    { path: `${import.meta.env.BASE_URL}elements/megaMenu`, element: <MegaMenu /> , title: 'megaMenu'},
-    { path: `${import.meta.env.BASE_URL}elements/nav&tabs`, element: <NavTabs /> , title: 'nav&tabs'},
-    { path: `${import.meta.env.BASE_URL}elements/navbar`, element: <Navbar /> , title: 'navbar'},
-    { path: `${import.meta.env.BASE_URL}elements/paginations`, element: <Paginations /> , title: 'paginations'},
+    { path: `${import.meta.env.BASE_URL}components/accordion`, element: <Accordion />, title: 'accordion' },
+    { path: `${import.meta.env.BASE_URL}components/alerts`, element: <Alerts />, title: 'alerts' },
+    { path: `${import.meta.env.BASE_URL}components/avatars`, element: <Avatars />, title: 'avatars' },
+    { path: `${import.meta.env.BASE_URL}components/badges`, element: <Badges />, title: 'badges' },
+    { path: `${import.meta.env.BASE_URL}components/blockquotes`, element: <Blockquotes />, title: 'blockquotes' },
+    { path: `${import.meta.env.BASE_URL}components/buttons`, element: <Buttons />, title: 'buttons' },
+    { path: `${import.meta.env.BASE_URL}components/cards`, element: <Cards />, title: 'cards' },
+    { path: `${import.meta.env.BASE_URL}components/collapse`, element: <Collapse />, title: 'collapse' },
+    { path: `${import.meta.env.BASE_URL}components/indicators`, element: <Indicators />, title: 'indicators' },
+    { path: `${import.meta.env.BASE_URL}components/list`, element: <List />, title: 'list' },
+    { path: `${import.meta.env.BASE_URL}components/listgroup`, element: <Listgroup />, title: 'listgroup' },
+    { path: `${import.meta.env.BASE_URL}components/progress`, element: <Progress />, title: 'progress' },
+    { path: `${import.meta.env.BASE_URL}components/skeletons`, element: <Skeletons />, title: 'skeletons' },
+    { path: `${import.meta.env.BASE_URL}components/spinners`, element: <Spinners />, title: 'spinners' },
+    { path: `${import.meta.env.BASE_URL}components/toasts`, element: <Toasts />, title: 'toasts' },
+
+    // {/* Component content */}
+
+    { path: `${import.meta.env.BASE_URL}elements/breadcrumbs`, element: <Breadcrumbs />, title: 'breadcrumbs' },
+    { path: `${import.meta.env.BASE_URL}elements/columns`, element: <Columns />, title: 'columns' },
+    { path: `${import.meta.env.BASE_URL}elements/grids`, element: <Grids />, title: 'grids' },
+    { path: `${import.meta.env.BASE_URL}elements/megaMenu`, element: <MegaMenu />, title: 'megaMenu' },
+    { path: `${import.meta.env.BASE_URL}elements/nav&tabs`, element: <NavTabs />, title: 'nav&tabs' },
+    { path: `${import.meta.env.BASE_URL}elements/navbar`, element: <Navbar />, title: 'navbar' },
+    { path: `${import.meta.env.BASE_URL}elements/paginations`, element: <Paginations />, title: 'paginations' },
 
     // {/* Forms content */ }
 
-    { path: `${import.meta.env.BASE_URL}forms/advancedforms`, element: <Advancedforms /> , title: 'advancedforms'},
-    { path: `${import.meta.env.BASE_URL}forms/fileuploads`, element: <Fileuploads /> , title: 'fileuploads'},
-    { path: `${import.meta.env.BASE_URL}forms/formcheckbox`, element: <Formcheckbox /> , title: 'formcheckbox'},
-    { path: `${import.meta.env.BASE_URL}forms/formeditors`, element: <Formeditors /> , title: 'formeditors'},
-    { path: `${import.meta.env.BASE_URL}forms/formelements`, element: <Formelements /> , title: 'formelements'},
-    { path: `${import.meta.env.BASE_URL}forms/forminputgroup`, element: <Forminputgroup /> , title: 'forminputgroup'},
-    { path: `${import.meta.env.BASE_URL}forms/formlayout`, element: <Formlayout /> , title: 'formlayout'},
-    { path: `${import.meta.env.BASE_URL}forms/formradio`, element: <Formradio /> , title: 'formradio'},
-    { path: `${import.meta.env.BASE_URL}forms/formselect`, element: <Formselect /> , title: 'formselect'},
-    { path: `${import.meta.env.BASE_URL}forms/formswitch`, element: <Formswitch /> , title: 'formswitch'},
-    { path: `${import.meta.env.BASE_URL}forms/formvalidation`, element: <Formvalidation /> , title: 'formvalidation'},
+    { path: `${import.meta.env.BASE_URL}forms/advancedforms`, element: <Advancedforms />, title: 'advancedforms' },
+    { path: `${import.meta.env.BASE_URL}forms/fileuploads`, element: <Fileuploads />, title: 'fileuploads' },
+    { path: `${import.meta.env.BASE_URL}forms/formcheckbox`, element: <Formcheckbox />, title: 'formcheckbox' },
+    { path: `${import.meta.env.BASE_URL}forms/formeditors`, element: <Formeditors />, title: 'formeditors' },
+    { path: `${import.meta.env.BASE_URL}forms/formelements`, element: <Formelements />, title: 'formelements' },
+    { path: `${import.meta.env.BASE_URL}forms/forminputgroup`, element: <Forminputgroup />, title: 'forminputgroup' },
+    { path: `${import.meta.env.BASE_URL}forms/formlayout`, element: <Formlayout />, title: 'formlayout' },
+    { path: `${import.meta.env.BASE_URL}forms/formradio`, element: <Formradio />, title: 'formradio' },
+    { path: `${import.meta.env.BASE_URL}forms/formselect`, element: <Formselect />, title: 'formselect' },
+    { path: `${import.meta.env.BASE_URL}forms/formswitch`, element: <Formswitch />, title: 'formswitch' },
+    { path: `${import.meta.env.BASE_URL}forms/formvalidation`, element: <Formvalidation />, title: 'formvalidation' },
 
     // {/* Advanced UI content */ }
 
-    { path: `${import.meta.env.BASE_URL}advancedUi/calender`, element: <Calender /> , title: 'calender'},
-    { path: `${import.meta.env.BASE_URL}advancedUi/carousel`, element: <Carousel /> , title: 'carousel'},
-    { path: `${import.meta.env.BASE_URL}advancedUi/gallery`, element: <Gallery /> , title: 'gallery'},
-    { path: `${import.meta.env.BASE_URL}advancedUi/notification`, element: <Notification /> , title: 'notification'},
-    { path: `${import.meta.env.BASE_URL}advancedUi/rangeslider`, element: <Rangeslider /> , title: 'rangeslider'},
-    { path: `${import.meta.env.BASE_URL}advancedUi/rating`, element: <Rating /> , title: 'rating'},
-    { path: `${import.meta.env.BASE_URL}advancedUi/sweetalert`, element: <Sweetalert /> , title: 'sweetalert'},
-    { path: `${import.meta.env.BASE_URL}advancedUi/treeview`, element: <Treeview /> , title: 'treeview'},
+    { path: `${import.meta.env.BASE_URL}advancedUi/calender`, element: <Calender />, title: 'calender' },
+    { path: `${import.meta.env.BASE_URL}advancedUi/carousel`, element: <Carousel />, title: 'carousel' },
+    { path: `${import.meta.env.BASE_URL}advancedUi/gallery`, element: <Gallery />, title: 'gallery' },
+    { path: `${import.meta.env.BASE_URL}advancedUi/notification`, element: <Notification />, title: 'notification' },
+    { path: `${import.meta.env.BASE_URL}advancedUi/rangeslider`, element: <Rangeslider />, title: 'rangeslider' },
+    { path: `${import.meta.env.BASE_URL}advancedUi/rating`, element: <Rating />, title: 'rating' },
+    { path: `${import.meta.env.BASE_URL}advancedUi/sweetalert`, element: <Sweetalert />, title: 'sweetalert' },
+    { path: `${import.meta.env.BASE_URL}advancedUi/treeview`, element: <Treeview />, title: 'treeview' },
 
     // {/* File Manager content */ }
 
-    { path: `${import.meta.env.BASE_URL}advancedUi/filemanager/filedetails`, element: <Filedetails /> , title: 'filedetails'},
-    { path: `${import.meta.env.BASE_URL}advancedUi/filemanager/filemanagerlist`, element: <Filemanagerlist /> , title: 'filemanagerlist'},
-    { path: `${import.meta.env.BASE_URL}advancedUi/filemanager/filemanagermain`, element: <Filemanagermain /> , title: 'filemanagermain'},
+    { path: `${import.meta.env.BASE_URL}advancedUi/filemanager/filedetails`, element: <Filedetails />, title: 'filedetails' },
+    { path: `${import.meta.env.BASE_URL}advancedUi/filemanager/filemanagerlist`, element: <Filemanagerlist />, title: 'filemanagerlist' },
+    { path: `${import.meta.env.BASE_URL}advancedUi/filemanager/filemanagermain`, element: <Filemanagermain />, title: 'filemanagermain' },
 
     // {/* Basic UI content */ }
 
-    { path: `${import.meta.env.BASE_URL}basicUi/dropdowns`, element: <Dropdowns /> , title: 'dropdowns'},
-    { path: `${import.meta.env.BASE_URL}basicUi/modal`, element: <Modal /> , title: 'modal'},
-    { path: `${import.meta.env.BASE_URL}basicUi/offcanvas`, element: <Offcanvas /> , title: 'offcanvas'},
-    { path: `${import.meta.env.BASE_URL}basicUi/tooltip&popover`, element: <TooltipPopover /> , title: 'tooltip&popover'},
+    { path: `${import.meta.env.BASE_URL}basicUi/dropdowns`, element: <Dropdowns />, title: 'dropdowns' },
+    { path: `${import.meta.env.BASE_URL}basicUi/modal`, element: <Modal />, title: 'modal' },
+    { path: `${import.meta.env.BASE_URL}basicUi/offcanvas`, element: <Offcanvas />, title: 'offcanvas' },
+    { path: `${import.meta.env.BASE_URL}basicUi/tooltip&popover`, element: <TooltipPopover />, title: 'tooltip&popover' },
 
     // {/* Table content */ }
-    { path: `${import.meta.env.BASE_URL}basicUi/tables/basictable`, element: <Basictable /> , title: 'basictable'},
-    { path: `${import.meta.env.BASE_URL}basicUi/tables/datatable`, element: <Datatable /> , title: 'datatable'},
-    { path: `${import.meta.env.BASE_URL}basicUi/tables/tableEdit`, element: <TableEdit /> , title: 'tableEdit'},
+    { path: `${import.meta.env.BASE_URL}basicUi/tables/basictable`, element: <Basictable />, title: 'basictable' },
+    { path: `${import.meta.env.BASE_URL}basicUi/tables/datatable`, element: <Datatable />, title: 'datatable' },
+    { path: `${import.meta.env.BASE_URL}basicUi/tables/tableEdit`, element: <TableEdit />, title: 'tableEdit' },
 
     // {/* Maps content */ }
 
-    { path: `${import.meta.env.BASE_URL}maps/leafletmap`, element: <Leafletmap /> , title: 'leafletmap'},
-    { path: `${import.meta.env.BASE_URL}maps/vectormap`, element: <Simplemap /> , title: 'vectormap'},
+    { path: `${import.meta.env.BASE_URL}maps/leafletmap`, element: <Leafletmap />, title: 'leafletmap' },
+    { path: `${import.meta.env.BASE_URL}maps/vectormap`, element: <Simplemap />, title: 'vectormap' },
 
     // {/* Charts content */ }
 
-    { path: `${import.meta.env.BASE_URL}charts/apexchart`, element: <Apexchart /> , title: 'apexchart'},
-    { path: `${import.meta.env.BASE_URL}charts/chartjs`, element: <Chartjs /> , title: 'chartjs'},
-    { path: `${import.meta.env.BASE_URL}charts/echart`, element: <Echart /> , title: 'echart'},
+    { path: `${import.meta.env.BASE_URL}charts/apexchart`, element: <Apexchart />, title: 'apexchart' },
+    { path: `${import.meta.env.BASE_URL}charts/chartjs`, element: <Chartjs />, title: 'chartjs' },
+    { path: `${import.meta.env.BASE_URL}charts/echart`, element: <Echart />, title: 'echart' },
 
     // {/* Pages content */ }
 
-    { path: `${import.meta.env.BASE_URL}pagecomponent/contacts`, element: <Contacts /> , title: 'contacts'},
-    { path: `${import.meta.env.BASE_URL}pagecomponent/pricingtables`, element: <Pricingtables /> , title: 'pricingtables'},
-    { path: `${import.meta.env.BASE_URL}pagecomponent/timeline`, element: <Timeline /> , title: 'timeline'},
-    { path: `${import.meta.env.BASE_URL}pagecomponent/team`, element: <Team /> , title: 'team'},
-    { path: `${import.meta.env.BASE_URL}pagecomponent/todolist`, element: <Todolist /> , title: 'todolist'},
-    { path: `${import.meta.env.BASE_URL}pagecomponent/tasks`, element: <Tasks /> , title: 'tasks'},
-    { path: `${import.meta.env.BASE_URL}pagecomponent/reviews`, element: <Reviews /> , title: 'reviews'},
-    { path: `${import.meta.env.BASE_URL}pagecomponent/emptypages`, element: <Emptypages /> , title: 'emptypages'},
+    { path: `${import.meta.env.BASE_URL}pagecomponent/contacts`, element: <Contacts />, title: 'contacts' },
+    { path: `${import.meta.env.BASE_URL}pagecomponent/pricingtables`, element: <Pricingtables />, title: 'pricingtables' },
+    { path: `${import.meta.env.BASE_URL}pagecomponent/timeline`, element: <Timeline />, title: 'timeline' },
+    { path: `${import.meta.env.BASE_URL}pagecomponent/team`, element: <Team />, title: 'team' },
+    { path: `${import.meta.env.BASE_URL}pagecomponent/todolist`, element: <Todolist />, title: 'todolist' },
+    { path: `${import.meta.env.BASE_URL}pagecomponent/tasks`, element: <Tasks />, title: 'tasks' },
+    { path: `${import.meta.env.BASE_URL}pagecomponent/reviews`, element: <Reviews />, title: 'reviews' },
+    { path: `${import.meta.env.BASE_URL}pagecomponent/emptypages`, element: <Emptypages />, title: 'emptypages' },
 
     // {/* Profile content */ }
 
-    { path: `${import.meta.env.BASE_URL}pagecomponent/profile/profilesetting`, element: <Profilesetting /> , title: 'profilesetting'},
+    { path: `${import.meta.env.BASE_URL}pagecomponent/profile/profilesetting`, element: <Profilesetting />, title: 'profilesetting' },
 
     // {/* Invoice content */ }
 
-    { path: `${import.meta.env.BASE_URL}pagecomponent/invoice/invoicedetails`, element: <Invoicedetails /> , title: 'invoicedetails'},
-    { path: `${import.meta.env.BASE_URL}pagecomponent/invoice/invoicelist`, element: <Invoicelist /> , title: 'invoicelist'},
+    { path: `${import.meta.env.BASE_URL}pagecomponent/invoice/invoicedetails`, element: <Invoicedetails />, title: 'invoicedetails' },
+    { path: `${import.meta.env.BASE_URL}pagecomponent/invoice/invoicelist`, element: <Invoicelist />, title: 'invoicelist' },
 
     // {/* Blog content */ }
 
-    { path: `${import.meta.env.BASE_URL}pagecomponent/blog/blogdetails`, element: <Blogdetails /> , title: 'blogdetails'},
-    { path: `${import.meta.env.BASE_URL}pagecomponent/blog/blogedit`, element: <Blogedit /> , title: 'blogedit'},
-    { path: `${import.meta.env.BASE_URL}pagecomponent/blog/blogmain`, element: <Blogmain /> , title: 'blogmain'},
+    { path: `${import.meta.env.BASE_URL}pagecomponent/blog/blogdetails`, element: <Blogdetails />, title: 'blogdetails' },
+    { path: `${import.meta.env.BASE_URL}pagecomponent/blog/blogedit`, element: <Blogedit />, title: 'blogedit' },
+    { path: `${import.meta.env.BASE_URL}pagecomponent/blog/blogmain`, element: <Blogmain />, title: 'blogmain' },
 
     // {/* Mail content */ }
 
-    { path: `${import.meta.env.BASE_URL}pagecomponent/mail/chat`, element: <Chat /> , title: 'chat'},
-    { path: `${import.meta.env.BASE_URL}pagecomponent/mail/mailsettings`, element: <Mailsettings /> , title: 'mailsettings'},
-    { path: `${import.meta.env.BASE_URL}pagecomponent/mail/mainMail`, element: <MainMail /> , title: 'mainMail'},
+    { path: `${import.meta.env.BASE_URL}pagecomponent/mail/chat`, element: <Chat />, title: 'chat' },
+    { path: `${import.meta.env.BASE_URL}pagecomponent/mail/mailsettings`, element: <Mailsettings />, title: 'mailsettings' },
+    { path: `${import.meta.env.BASE_URL}pagecomponent/mail/mainMail`, element: <MainMail />, title: 'mainMail' },
 
     // {/* Ecommerce-content content */ }
 
-    { path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/addproduct`, element: <Addproduct /> , title: 'addproduct'},
-    { path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/cart`, element: <Cart /> , title: 'cart'},
-    { path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/checkout`, element: <Checkout /> , title: 'checkout'},
-    { path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/editproduct`, element: <Editproduct /> , title: 'editproduct'},
-    { path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/orderdetails`, element: <Orderdetails /> , title: 'orderdetails'},
-    { path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/orders`, element: <Orders /> , title: 'orders'},
-    { path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/product`, element: <Product /> , title: 'product'},
-    { path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/productdetails`, element: <Productdetails /> , title: 'productdetails'},
-    { path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/productlist`, element: <Productlist /> , title: 'productlist'},
-    { path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/wishlist`, element: <Wishlist /> , title: 'wishlist'},
+    { path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/addproduct`, element: <Addproduct />, title: 'addproduct' },
+    { path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/cart`, element: <Cart />, title: 'cart' },
+    { path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/checkout`, element: <Checkout />, title: 'checkout' },
+    { path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/editproduct`, element: <Editproduct />, title: 'editproduct' },
+    { path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/orderdetails`, element: <Orderdetails />, title: 'orderdetails' },
+    { path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/orders`, element: <Orders />, title: 'orders' },
+    { path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/product`, element: <Product />, title: 'product' },
+    { path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/productdetails`, element: <Productdetails />, title: 'productdetails' },
+    { path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/productlist`, element: <Productlist />, title: 'productlist' },
+    { path: `${import.meta.env.BASE_URL}pagecomponent/Ecommerce/wishlist`, element: <Wishlist />, title: 'wishlist' },
 
     // {/* Icons content */ }
 
-    { path: `${import.meta.env.BASE_URL}icon/remixicons`, element: <Remixicons /> , title: 'remixicons'},
-    { path: `${import.meta.env.BASE_URL}icon/tablericons`, element: <Tablericons /> , title: 'tablericons'},
+    { path: `${import.meta.env.BASE_URL}icon/remixicons`, element: <Remixicons />, title: 'remixicons' },
+    { path: `${import.meta.env.BASE_URL}icon/tablericons`, element: <Tablericons />, title: 'tablericons' },
 
 ]

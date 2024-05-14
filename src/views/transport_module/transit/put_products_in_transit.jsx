@@ -52,8 +52,10 @@ const Put_products_in_transit = () => {
     useEffect(() => {
         const get_transporter_modes = async () => {
             try {
-                const { data } = await mtaApi.transport.list_transport_modes
-                console.log(data)
+                const { data } = await mtaApi.transport.list_transport_modes('1')
+                if(data.status === 200){
+                    setModes(data.response)
+                }
             } catch (error) {
                 const message = error.response?.data?.error ?? error.message;
                 setAlert({ type: "error", message });
@@ -155,7 +157,7 @@ const Put_products_in_transit = () => {
 
             {currentDiv === "details" && (
                 <div>
-                    <PageHeader currentpage="Stock Purchased Details" href="/inventory/dashboard/" activepage="Inventory" mainpage="Stock Purchased Details" />
+                    <PageHeader currentpage="Stock Purchased Details" href="/transport/transit/" activepage="Transport" mainpage="Stock Purchased Details" />
                     {alert && <Alert alert={alert} />}
                     <button className='className="flex left-0 text-blue-700 hover:bg-gray-100 p-3 font-bold'
                         onClick={handleBack}>
@@ -237,13 +239,13 @@ const Put_products_in_transit = () => {
                                         <div className="space-y-2">
                                             <label className="ti-form-label mb-0">Transport mode</label>
                                             <select type="text" {...register("transport_mode", { required: true })} className="ti-form-input">
-                                                <option value=""> ...Select mode of transport</option>
+                                                {/* <option value=""> ...Select mode of transport</option>
                                                 <option value="1"> Air</option>
                                                 <option value="2"> Road</option>
-                                                <option value="3"> Rail</option>
-                                                {/* {ModeSharp.map((mode, index) => (
+                                                <option value="3"> Rail</option> */}
+                                                {modes.map((mode, index) => (
                                                     <option key={index} value={mode.id}>{mode.name}</option>
-                                                ))} */}
+                                                ))}
                                             </select>
                                         </div>
                                         <div className="space-y-2">
@@ -267,14 +269,14 @@ const Put_products_in_transit = () => {
                             </div>
                         </div>
                     </div>
+                    <h5 className="box-title text-center mb-4">Product Details</h5>
                     {selectedRows.map((row, index) => (
                         <div key={index}>
-                            <h5 className="box-title text-center">Product Details</h5>
                             {row.product_details.map((product, productIndex) => (
                                 <div key={productIndex} className="grid lg:grid-cols-2 gap-6">
                                     <div className="space-y-2">
                                         <label className="ti-form-label mb-0">Model ID</label>
-                                        <input type="text" defaultValue={product.model_name} {...register(`product_details[${index}][${productIndex}].model_id`)} className="my-auto ti-form-input" readOnly />
+                                        <input type="text" defaultValue={product.model_id} {...register(`product_details[${index}][${productIndex}].model_id`)} className="my-auto ti-form-input" readOnly />
                                     </div>
                                     <div className="space-y-2">
                                         <label className="ti-form-label mb-0">Quantity</label>

@@ -130,7 +130,7 @@ const Activestock_in_transit = () => {
       )}
       {currentDiv === "details" && (
         <div>
-          <PageHeader currentpage="Stock Purchased Details" href="/inventory/dashboard/" activepage="Inventory" mainpage="Stock Purchased Details" />
+          <PageHeader currentpage="Stock Purchased Details" href="/transport/transit/" activepage="Transport" mainpage="Stock Purchased Details" />
           <button className='className="flex left-0 text-blue-700 hover:bg-gray-100 p-3 font-bold'
             onClick={handleBack}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -139,7 +139,7 @@ const Activestock_in_transit = () => {
             <h4>back</h4>
           </button>
           <div id="profile-1" className="ml-4" role="tabpanel">
-            <h5 className="box-title my-3">Business Information</h5>
+            <h5 className="box-title my-3">Product Information</h5>
             <div className="overflow-auto">
               <table className="ti-custom-table border-0 whitespace-nowrap">
                 <tbody>

@@ -172,7 +172,7 @@ const InventoryDashboard = () => {
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/approve-suppliers" className="">
+												<Link to="/inventory/approve-receive-stock" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-tablet-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -187,7 +187,7 @@ const InventoryDashboard = () => {
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/active-suppliers" className="">
+												<Link to="/inventory/available-stock" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-airplay-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
