@@ -13,37 +13,46 @@ const mtaApi = {
   },
   distributions: {
     create_distribution: (data: any) => post("/distribution-centers/create-distribution-center", data),
-    list_distribution: (status: any) => post("/distribution-centers/list-distribution-centers", {status}),
-    approve_distribution: (status: any) => post("/distribution-centers/approve-distribution-center",{id: status}),
-    delete_distribution: (id: any) => post('',id)
+    list_distribution: (status: any) => post("/distribution-centers/list-distribution-centers", { status }),
+    approve_distribution: (status: any) => post("/distribution-centers/approve-distribution-center", { id: status }),
+    delete_distribution: (id: any) => post('', id)
   },
   suppliers: {
     create_supplier: (data: any) => post("/suppliers/create-inventory-supplier", data),
     get_suppliers: (status: any) => post("/suppliers/list-inventory-suppliers", { status: status }),
-    approve_supplier: (status: any) => post("/approve-inventory-supplier", {id: status}),
-
+    approve_supplier: (status: any) => post("/suppliers/approve-inventory-supplier", { id: status }),
     deactivate_supplier: (id: any) => post("", id),
   },
   product_models: {
     createPhoneModel: (data: any) => post("/products/create-phone-model", data),
-    list_mobile_phone_model: (status: any) => post('/products/list-phone-models', {status}),
-    approve_mobile_phone_model: (status: any) => post("/products/approve-phone-model", {id:status}),
+    list_mobile_phone_model: (status: any) => post('/products/list-phone-models', { status }),
+    approve_mobile_phone_model: (status: any) => post("/products/approve-phone-model", { id: status }),
   },
   Accounts_model: {
-    create_account:(data: any) => post("/accounting/create-account", data),
-    list_account: (status: any) => post("/accounting/list-accounts",{status}),
-    approve_account: (status: any) => post("/accounting/approve-account", {id:status}),
-    list_account_categories: (status: any) => post("accounting/list-account-categories", {status}),
-    list_account_types: (status :any) => post("/accounting/list-account-types", {status}),
+    create_account: (data: any) => post("/accounting/create-account", data),
+    list_account: (status: any) => post("/accounting/list-accounts", { status }),
+    approve_account: (status: any) => post("/accounting/approve-account", { id: status }),
+    list_account_categories: (status: any) => post("accounting/list-account-categories", { status }),
+    list_account_types: (status: any) => post("/accounting/list-account-types", { status }),
   },
   purchase: {
     cashstockPurchase: (data: any) => post("/cashstock-purchase/create-cash-stock-purchase", data),
+    list_stock_purchased_cash: (status: any) => post("/cashstock-purchase/list-cash-stock-purchase", { status }),
+    approve_stock_purchased_cash: (status: any) => post("/cashstock-purchase/approve-cash-stock-purchase", { id: status })
   },
-  finance_module:{
-    create_finance_injection:(data: any) => post("/finance/create-capital-injection", data),
-    list_capital_entries: (status: any) => post("/finance/list-capital-injection-entries", {status}),
-    approve_capital_injections: (status: any) =>post("/finance/approve-capital-injection", {id: status})
-},
+  finance_module: {
+    create_finance_injection: (data: any) => post("/finance/create-capital-injection", data),
+    list_capital_entries: (status: any) => post("/finance/list-capital-injection-entries", { status }),
+    approve_capital_injections: (status: any) => post("/finance/approve-capital-injection", { id: status })
+  },
+  stock_in_transit: {
+    put_in_transit: (data: any) => post("/transit-stock/create-stock-transit", data),
+    list_stock_in_transit: (status: any) => post("/transit-stock/list-stock-transit", { status }),
+    approve_stock_in_transit: (status: any) => post("/transit-stock/approve-stock-transit", { id: status }),
+  },
+  transport: {
+    list_transport_modes: (status: any) => post("/transport/list-transport-modes", {status}),
+  },
 };
 
 export default mtaApi;

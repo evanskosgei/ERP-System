@@ -41,8 +41,14 @@ import Activedistributioncenters from "../views/inventory_module/dashboard/distr
 import Deleteddistributions from "../views/inventory_module/dashboard/distribution_centers/list_deleted_distributions";
 import Deactivateddistributions from "../views/inventory_module/dashboard/distribution_centers/list_deactivated_distributions";
 import Reactivateddistributions from "../views/inventory_module/dashboard/distribution_centers/list_reactivated_distributions";
+
+// purchased with cash
+import BuyusingPrepayment from "../views/inventory_module/dashboard/purchase_stock_cash/buy_using_prepayment";
+import Unapproved_stock_cash_purchased from "../views/inventory_module/dashboard/purchase_stock_cash/list_unapproved_stock_cash_purchased";
+import Active_purchase_stock_cash from "../views/inventory_module/dashboard/purchase_stock_cash/list_active_purchase_stock_cash";
+
+// stock in transit
 import Receivestock from "../views/inventory_module/dashboard/stock_in_transit/receive_stock";
-import BuyusingPrepayment from "../views/inventory_module/dashboard/purchase_stock/buy_using_prepayment";
 
 // product Managment
 import Activephones from "../views/inventory_module/product_management/mobile-models/list_active_phone_models";
@@ -85,7 +91,11 @@ import Deleted_capital_injection from "../views/finance_module/finance_module/li
 
 //Transport Pages
 import TransportDashboard from "../views/transport_module/dashboard/transport_dashboard";
+
+// stock in transit
 import ProductTransit from "../views/transport_module/transit/listjourneys";
+import Put_products_in_transit from "../views/transport_module/transit/put_products_in_transit";
+import Activestock_in_transit from "../views/transport_module/transit/list_active_stock_in_transit";
 
 //Customer Pages
 import CustomerDashboard from "../views/crm_module/dashboard/crm_dashboard";
@@ -254,8 +264,6 @@ export const RouteData = [
 
     // {/* Dashboard content */}
 
-    
-
     { path: `${import.meta.env.BASE_URL}dashboards/sales`, element: <Sales /> , title: ''},
     { path: `${import.meta.env.BASE_URL}dashboards/main`, element: <MainDashboard /> , title: ''},
     { path: `${import.meta.env.BASE_URL}dashboards/agents`, element: <Agents_dashboard /> , title: ''},
@@ -314,7 +322,11 @@ export const RouteData = [
     { path: `${import.meta.env.BASE_URL}inventory/deactivated-distribution-centers`, element: <Deactivateddistributions /> , title: ''},
     { path: `${import.meta.env.BASE_URL}inventory/reactivated-distribution-centers`, element: <Reactivateddistributions /> , title: ''},
     { path: `${import.meta.env.BASE_URL}inventory/reactivated-distribution-centers`, element: <Reactivateddistributions /> , title: ''},
-    { path: `${import.meta.env.BASE_URL}inventory/buy-using-prepayments`, element: <BuyusingPrepayment /> , title: ''},
+
+    // purchase stock with cash
+    { path: `${import.meta.env.BASE_URL}inventory/buy-using-cash`, element: <BuyusingPrepayment /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/new-stock-purchased-using-cash`, element: <Unapproved_stock_cash_purchased /> , title: ''},
+    { path: `${import.meta.env.BASE_URL}inventory/active-stock-purchased-using-cash`, element: <Active_purchase_stock_cash /> , title: ''},
 
     // product managment
     { path: `${import.meta.env.BASE_URL}inventory/active-phones-models`, element: <Activephones /> , title: ''},
@@ -341,7 +353,11 @@ export const RouteData = [
 
     // {/* Transport content */}
     { path: `${import.meta.env.BASE_URL}transport/dashboard`, element: <TransportDashboard /> , title: ''},
+
+    //  products in transit
     { path: `${import.meta.env.BASE_URL}transport/transit`, element: <ProductTransit /> , title: ''}, 
+    { path: `${import.meta.env.BASE_URL}transport/Put-products-in-transit`, element: <Put_products_in_transit /> , title: ''}, 
+    { path: `${import.meta.env.BASE_URL}transport/active-products-in-transit`, element: <Activestock_in_transit /> , title: ''}, 
 
     // {/* CRM content */}
     { path: `${import.meta.env.BASE_URL}customer/dashboard`, element: <CustomerDashboard /> , title: ''},

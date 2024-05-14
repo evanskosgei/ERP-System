@@ -125,8 +125,7 @@ const ApproveSupplier = () => {
     const approve = async () => {
         try {
             const { data } = await mtaApi.suppliers.approve_supplier(selectedRowData.id)
-            console.log(data)
-            navigate("/supplier/approve-suppliers");
+            navigate("/supplier/active-suppliers");
         } catch (error) {
             const message = error.response?.data?.error ?? error.message;
             setAlert({ type: "error", message });

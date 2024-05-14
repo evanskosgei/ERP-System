@@ -8,8 +8,6 @@ const InventoryDashboard = () => {
 			<PageHeader currentpage="Inventory Dashboard" activepage="Inventory" mainpage="Inventory Dashboard" />
 
 			<div className="grid grid-cols-12 gap-6">
-
-
 				<div className="col-span-12 md:col-span-6 xxl:!col-span-4">
 					<div className="box">
 						<div className="box-header">
@@ -284,13 +282,12 @@ const InventoryDashboard = () => {
 									<ul className="flex flex-col">
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/create-supplier" className="">
+												<Link to="/inventory/buy-using-cash" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-smartphone-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
 														</div>
 														<div className="">
-
 															<p className="mb-0 text-sm">Buy Stock with Cash</p>
 															<p className="mb-0 text-gray-500 dark:text-white/70 text-xs">Cash stock purchase transaction</p>
 
@@ -301,7 +298,7 @@ const InventoryDashboard = () => {
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/approve-suppliers" className="">
+												<Link to="/inventory/new-stock-purchased-using-cash" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-tablet-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -316,7 +313,7 @@ const InventoryDashboard = () => {
 										</li>
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/supplier/active-suppliers" className="">
+												<Link to="/inventory/active-stock-purchased-using-cash" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-airplay-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -362,7 +359,7 @@ const InventoryDashboard = () => {
 									<ul className="flex flex-col">
 										<li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
 											<div className="sm:flex w-full space-y-2">
-												<Link to="/inventory/buy-using-prepayments" className="">
+												<Link to="" className="">
 													<div className="flex space-x-3 rtl:space-x-reverse">
 														<div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
 															<i className="ri ri-smartphone-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -467,7 +464,6 @@ const InventoryDashboard = () => {
 						</div>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	);

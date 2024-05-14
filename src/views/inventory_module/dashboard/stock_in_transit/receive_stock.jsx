@@ -10,7 +10,7 @@ const Receivestock = () => {
     }
   return (
     <div>
-        receive
+       stock
       
     </div>
   )

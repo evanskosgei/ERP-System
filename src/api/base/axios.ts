@@ -8,7 +8,7 @@ declare const importMeta: {
 
 const baseURL =
   import.meta.env.MODE === 'development'
-    ? import.meta.env.VITE_APP_HOST_URL_LIVE
+    ? import.meta.env.VITE_APP_HOST_URL
     : import.meta.env.VITE_APP_HOST_URL_LIVE;
 
 const instance = axios.create({
