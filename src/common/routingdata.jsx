@@ -44,6 +44,8 @@ import Reactivateddistributions from "../views/inventory_module/dashboard/distri
 
 // distributions
 import Distribution_dashboard from "../views/distribution_module/dashboard";
+import Dispatch from "../views/distribution_module/manager/dispatch";
+import ApproveDispatch from "../views/distribution_module/manager/approve_dispatch";
 
 // purchased with cash
 import BuyusingPrepayment from "../views/inventory_module/dashboard/purchase_stock_cash/buy_using_prepayment";
@@ -331,6 +333,8 @@ export const RouteData = [
 
     // Distribution Dashboard
     { path: `${import.meta.env.BASE_URL}distribution/dashboard/`, element: <Distribution_dashboard />, title: '' },
+    { path: `${import.meta.env.BASE_URL}distribution/manager/dispatch/`, element: <Dispatch />, title: '' },
+    { path: `${import.meta.env.BASE_URL}distribution/manager/approve/dispatch/`, element: <ApproveDispatch />, title: '' },
 
     // receive stock
     { path: `${import.meta.env.BASE_URL}inventory/receive-stock`, element: <Receivestock />, title: '' },

@@ -58,6 +58,11 @@ const mtaApi = {
   list_received_phone_models: (status :any) =>post("/mobilephone-receive-transit-stock/list-received-stock", {status}),
   approve_received_phones_models: (status: any) => post("/mobilephone-receive-transit-stock/approve-received-stock",{id:status}),
   },
+  distribute_stock_stockist:{
+    distribute_stock_manager: (data: any) =>post("/manager-distribution/dispatch-stock",data),
+    list_distribution:(id:any)=>post("manager-distribution/list-dispatched-stock",{status:id}),
+    approve_distribution:(id:any)=>post("manager-distribution/approve-dispatched-stock",{id:id})
+    },
 };
 
 export default mtaApi;
