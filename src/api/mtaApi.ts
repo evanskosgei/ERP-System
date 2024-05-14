@@ -54,7 +54,7 @@ const mtaApi = {
     list_transport_modes: (status: any) => post("/transport/list-transport-modes", {status}),
   },
   receive_stock:{
-  receive_phone_models: (data: any) =>post("/mobilephone-receive-transit-stock/receive-stock"),
+  receive_phone_models: (data: any) =>post("/mobilephone-receive-transit-stock/receive-stock", data),
   list_received_phone_models: (status :any) =>post("/mobilephone-receive-transit-stock/list-received-stock", {status}),
   approve_received_phones_models: (status: any) => post("/mobilephone-receive-transit-stock/approve-received-stock",{id:status}),
   },
@@ -63,6 +63,9 @@ const mtaApi = {
     list_distribution:(id:any)=>post("manager-distribution/list-dispatched-stock",{status:id}),
     approve_distribution:(id:any)=>post("manager-distribution/approve-dispatched-stock",{id:id})
     },
+  team_leader_distribution : {
+    team_leader_dispatch_phones:(data:any) => post("/teamleader-distribution/dispatch-stock", data),
+  }
 };
 
 export default mtaApi;
