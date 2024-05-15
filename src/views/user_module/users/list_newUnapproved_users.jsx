@@ -6,6 +6,7 @@ import '@ag-grid-community/styles/ag-theme-alpine.css';
 import { CSVLink } from "react-csv";
 import mtaApi from '../../../api/mtaApi';
 import Alert from '../../../components/Alert';
+import { useNavigate } from 'react-router-dom';
 
 
 const Newusers = () => {
@@ -14,6 +15,7 @@ const Newusers = () => {
     const [selectedRowData, setSelectedRowData] = useState(null);
     const [divStack, setDivStack] = useState(["table"]);
     const [alert, setAlert] = useState(null);
+    const navigate = useNavigate();
     // const [showStatusModal, setShowStatusModal] = useState(false);
 
     const columnDefs = [
@@ -91,14 +93,16 @@ const Newusers = () => {
     };
     const currentDiv = divStack[divStack.length - 1];
 
-    const approveUser = async() =>{
+    const approveUser = async () => {
         await mtaApi.users.approve_users(selectedRowData.id)
-        .then(response =>{
-            console.log(response)
-        }).catch(error =>{
-            const message = error.response?.data?.error ?? error.message;
-            setAlert({ type: "error", message });
-        })
+            .then(response => {
+                if (response.data.status === 200) {
+                    navigate("/users/active-users")
+                }
+            }).catch(error => {
+                const message = error.response?.data?.error ?? error.message;
+                setAlert({ type: "error", message });
+            })
     }
 
     return (

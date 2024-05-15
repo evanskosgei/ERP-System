@@ -2,7 +2,7 @@ export default function Alert({ alert }) {
   // console.log({ alert });
   return (
     <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-      <strong className="font-bold">{alert.type.toUpperCase()} | </strong>
+      <strong className="font-bold">{alert.type} | </strong>
       <span className="block sm:inline">{alert.message}</span>
       <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
         <svg

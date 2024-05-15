@@ -8,9 +8,8 @@ import { useForm } from "react-hook-form";
 import mtaApi from '../../../api/mtaApi';
 import { useNavigate } from 'react-router-dom';
 import Alert from '../../../components/Alert';
-// import { AlertSuccess } from '../../../components/AlertSuccess';
 
-const ApprovephoneDispatch = () => {
+const List_new_Team_leader_dispatch = () => {
     const navigate = useNavigate();
     const [rowData, setRowData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
@@ -23,7 +22,7 @@ const ApprovephoneDispatch = () => {
     const onGridReady = useCallback(() => {
         const fetchDistributions = async () => {
             try {
-                const { data } = await mtaApi.distribute_stock_stockist.list_distribution('2');
+                const { data } = await mtaApi.team_leader_distribution.team_leader_dispatches('2');
                 if (data.status === 200) {
                     setRowData(data.response);
                 }
@@ -92,20 +91,21 @@ const ApprovephoneDispatch = () => {
     };
     const handleApprove = async () => {
         try {
-            const {data} = await mtaApi.distribute_stock_stockist.approve_distribution(selectedRowData.id)
+            const { data } = await mtaApi.team_leader_distribution.team_leader_approve_dispatch(selectedRowData.id)
             if (data.status === 200) {
-                navigate("/distribution/manager/approve/dispatch/");
+                navigate("/distribution/teamleader/active-dispatch");
             }
         } catch (error) {
             const message = error.response?.data?.error ?? error.message;
             setAlert({ type: "error", message });
         }
     };
+
     return (
         <div>
             {currentDiv === "table" && (
                 <div>
-                    <PageHeader currentpage="Approve Manager Distribution" href="/distribution/dashboard/" activepage="Distribution" mainpage="New Manager Distributions" />
+                    <PageHeader currentpage="Approve Team Leader Distribution" href="/distribution/dashboard/" activepage="Distribution" mainpage="New Team Leader Distributions" />
                     {alert && <Alert alert={alert} />}
                     <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                         <input
@@ -115,7 +115,7 @@ const ApprovephoneDispatch = () => {
                             placeholder="Search..."
                             style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '50%', boxSizing: 'border-box' }}
                         />
-                        <CSVLink data={filteredData.length > 0 ? filteredData : rowData.length > 0 ? rowData : []} filename="new_manager_dispatched_phones.csv" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
+                        <CSVLink data={filteredData.length > 0 ? filteredData : rowData.length > 0 ? rowData : []} filename="new_team_leader_dispatched_phones.csv" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                             </svg>
@@ -168,15 +168,15 @@ const ApprovephoneDispatch = () => {
                         </div>
                     </div>
                     <button
-                            onClick={handleApprove}
-                            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 dark:text-white dark:hover:text-white"
-                        >
-                            Approve
-                        </button>
+                        onClick={handleApprove}
+                        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 dark:text-white dark:hover:text-white"
+                    >
+                        Approve
+                    </button>
                 </div>
             )}
         </div>
-    );
-};
+    )
+}
 
-export default ApprovephoneDispatch;
+export default List_new_Team_leader_dispatch;

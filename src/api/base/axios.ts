@@ -1,6 +1,7 @@
 //@ts-nocheck
 import axios from "axios";
 import { getToken } from "../../utils/helpers";
+import { setUserDetails } from "../../utils/helpers";
 
 declare const importMeta: {
   readonly env: ImportMetaEnv;
@@ -26,7 +27,8 @@ instance.interceptors.response.use(
   (response) => response,
   async (error) => {
     if (error.response?.status === 401 && error.config.url !== "/auth/login") {
-      console.log("interceptor");
+      setUserDetails(null)
+      // console.log("interceptor");
       
       // window.logout();
     }

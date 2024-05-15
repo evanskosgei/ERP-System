@@ -39,7 +39,7 @@ const Activeusers = () => {
     const onGridReady = useCallback((params) => {
         const newUnApproved = async () => {
             try {
-                const { data } = await mtaApi.users.list_users('2');
+                const { data } = await mtaApi.users.list_users('1');
                 if (data.status == 200) {
                     setRowData(data.response);
                 }

@@ -62,7 +62,7 @@ const Distribution_dashboard = () => {
                                         </li>
                                         <li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
                                             <div className="sm:flex w-full space-y-2">
-                                                <Link to="" className="">
+                                                <Link to="/distribution/manager/active-dispatch" className="">
                                                     <div className="flex space-x-3 rtl:space-x-reverse">
                                                         <div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
                                                             <i className="ri ri-airplay-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -70,6 +70,21 @@ const Distribution_dashboard = () => {
                                                         <div className="">
                                                             <p className="mb-0 text-sm">List Active Dispatched Phones</p>
                                                             <p className="mb-0 text-gray-500 dark:text-white/70 text-xs">List Active Dispatched mobile Phones</p>
+                                                        </div>
+                                                    </div>
+                                                </Link>
+                                            </div>
+                                        </li>
+                                        <li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
+                                            <div className="sm:flex w-full space-y-2">
+                                                <Link to="/distribution/manager/receive-dispatch" className="">
+                                                    <div className="flex space-x-3 rtl:space-x-reverse">
+                                                        <div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
+                                                            <i className="ri ri-airplay-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
+                                                        </div>
+                                                        <div className="">
+                                                            <p className="mb-0 text-sm">Receive Dispatched Phones</p>
+                                                            <p className="mb-0 text-gray-500 dark:text-white/70 text-xs">Receive Dispatched mobile Phones</p>
                                                         </div>
                                                     </div>
                                                 </Link>
@@ -153,7 +168,7 @@ const Distribution_dashboard = () => {
                                     <ul className="flex flex-col">
                                         <li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
                                             <div className="sm:flex w-full space-y-2">
-                                                <Link to="/inventory/receive-stock" className="">
+                                                <Link to="/distribution/teamleader/dispatch" className="">
                                                     <div className="flex space-x-3 rtl:space-x-reverse">
                                                         <div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
                                                             <i className="ri ri-smartphone-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -170,7 +185,7 @@ const Distribution_dashboard = () => {
                                         </li>
                                         <li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
                                             <div className="sm:flex w-full space-y-2">
-                                                <Link to="/inventory/approve-receive-stock" className="">
+                                                <Link to="/distribution/teamleader/new-dispatch" className="">
                                                     <div className="flex space-x-3 rtl:space-x-reverse">
                                                         <div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
                                                             <i className="ri ri-tablet-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -185,7 +200,7 @@ const Distribution_dashboard = () => {
                                         </li>
                                         <li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
                                             <div className="sm:flex w-full space-y-2">
-                                                <Link to="/inventory/available-stock" className="">
+                                                <Link to="/distribution/teamleader/active-dispatch" className="">
                                                     <div className="flex space-x-3 rtl:space-x-reverse">
                                                         <div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
                                                             <i className="ri ri-airplay-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -193,6 +208,21 @@ const Distribution_dashboard = () => {
                                                         <div className="">
                                                             <p className="mb-0 text-sm">List Active Dispatched Phones</p>
                                                             <p className="mb-0 text-gray-500 dark:text-white/70 text-xs">List of Active Dispatched Mobile Phones</p>
+                                                        </div>
+                                                    </div>
+                                                </Link>
+                                            </div>
+                                        </li>
+                                        <li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
+                                            <div className="sm:flex w-full space-y-2">
+                                                <Link to="/distribution/teamleader/receive-dispatch" className="">
+                                                    <div className="flex space-x-3 rtl:space-x-reverse">
+                                                        <div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
+                                                            <i className="ri ri-airplay-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
+                                                        </div>
+                                                        <div className="">
+                                                            <p className="mb-0 text-sm">Receive Dispatched Phones</p>
+                                                            <p className="mb-0 text-gray-500 dark:text-white/70 text-xs">Receive Dispatched Mobile Phones</p>
                                                         </div>
                                                     </div>
                                                 </Link>

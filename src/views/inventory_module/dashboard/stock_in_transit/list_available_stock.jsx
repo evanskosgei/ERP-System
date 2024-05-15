@@ -34,7 +34,7 @@ const Available_stock = () => {
         const newUnApproved = async () => {
             try {
                 const { data } = await mtaApi.receive_stock.list_received_phone_models('1')
-                console.log(data)
+                // console.log(data)
                 if (data.status === 200) {
                     const modifiedData = data.response.map((item, index) => ({
                         ...item,

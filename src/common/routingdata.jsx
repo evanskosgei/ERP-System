@@ -46,6 +46,12 @@ import Reactivateddistributions from "../views/inventory_module/dashboard/distri
 import Distribution_dashboard from "../views/distribution_module/dashboard";
 import Dispatch from "../views/distribution_module/manager/dispatch";
 import ApproveDispatch from "../views/distribution_module/manager/approve_dispatch";
+import List_active_dispatch from "../views/distribution_module/manager/list_active_dispatch";
+import Receive_stock from "../views/distribution_module/manager/receive_stock";
+import Team_leader_dispatch_phones from "../views/distribution_module/team_leader/dispatch_mobile_phones";
+import List_new_Team_leader_dispatch from "../views/distribution_module/team_leader/list_new_dispatch";
+import Active_team_leader_distributions from "../views/distribution_module/team_leader/list_active_distributions";
+import Receive_Team_leader_dispatched from "../views/distribution_module/team_leader/receive_dispatched_phones";
 
 // purchased with cash
 import BuyusingPrepayment from "../views/inventory_module/dashboard/purchase_stock_cash/buy_using_prepayment";
@@ -335,6 +341,12 @@ export const RouteData = [
     { path: `${import.meta.env.BASE_URL}distribution/dashboard/`, element: <Distribution_dashboard />, title: '' },
     { path: `${import.meta.env.BASE_URL}distribution/manager/dispatch/`, element: <Dispatch />, title: '' },
     { path: `${import.meta.env.BASE_URL}distribution/manager/approve/dispatch/`, element: <ApproveDispatch />, title: '' },
+    { path: `${import.meta.env.BASE_URL}distribution/manager/active-dispatch`, element: <List_active_dispatch />, title: '' },
+    { path: `${import.meta.env.BASE_URL}distribution/manager/receive-dispatch`, element: <Receive_stock />, title: '' },
+    { path: `${import.meta.env.BASE_URL}distribution/teamleader/dispatch`, element: <Team_leader_dispatch_phones />, title: '' },
+    { path: `${import.meta.env.BASE_URL}distribution/teamleader/new-dispatch`, element: <List_new_Team_leader_dispatch />, title: '' },
+    { path: `${import.meta.env.BASE_URL}distribution/teamleader/active-dispatch`, element: <Active_team_leader_distributions />, title: '' },
+    { path: `${import.meta.env.BASE_URL}distribution/teamleader/receive-dispatch`, element: <Receive_Team_leader_dispatched />, title: '' },
 
     // receive stock
     { path: `${import.meta.env.BASE_URL}inventory/receive-stock`, element: <Receivestock />, title: '' },
