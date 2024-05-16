@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import PageHeader from '../../../../layout/layoutsection/pageHeader/pageHeader';
+import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader';
 import { useForm } from "react-hook-form"
-import mtaApi from '../../../../api/mtaApi';
+import mtaApi from '../../../api/mtaApi';
 import { useNavigate } from 'react-router-dom';
-import Alert from '../../../../components/Alert';
-import Success from '../../../../components/Success';
+import Alert from '../../../components/Alert';
+import Success from '../../../components/Success';
 
 const CreatedistributionCenter = () => {
     const { register, handleSubmit, formState: { errors, isValid }, formState } = useForm();

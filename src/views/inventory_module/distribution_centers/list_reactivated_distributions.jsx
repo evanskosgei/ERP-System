@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import PageHeader from '../../../../layout/layoutsection/pageHeader/pageHeader';
+import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader';
 import { AgGridReact } from 'ag-grid-react';
 import '@ag-grid-community/styles/ag-grid.css';
 import '@ag-grid-community/styles/ag-theme-alpine.css';
 import { CSVLink } from "react-csv";
-import Alert from '../../../../components/Alert';
-import mtaApi from '../../../../api/mtaApi';
-import Status from '../../../supplier_module/inventory_suppliers/status';
+import Alert from '../../../components/Alert';
+import mtaApi from '../../../api/mtaApi';
+import Status from '../../supplier_module/inventory_suppliers/status';
 import { useNavigate } from 'react-router-dom';
-import Success from '../../../../components/Success';
+import Success from '../../../components/Success';
 
-const Deleteddistributions = () => {
+const Reactivateddistributions = () => {
     const [rowData, setRowData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedRowData, setSelectedRowData] = useState(null);
@@ -87,6 +87,7 @@ const Deleteddistributions = () => {
             }
         });
     };
+
     const handleBack = () => {
         if (divStack.length > 1) {
             setDivStack(prevStack => prevStack.slice(0, -1));
@@ -97,10 +98,10 @@ const Deleteddistributions = () => {
     const deleteDistribution = (data) => {
         console.log('Deleting distributions:', data);
         setShowStatusModal(true);
-    };
+      };
     const closeModal = () => {
         setShowStatusModal(false);
-    };
+      };
 
     const deleteEXP = async () => {
         await mtaApi.distributions.delete_distribution(selectedRowData.id)
@@ -129,7 +130,8 @@ const Deleteddistributions = () => {
         <div>
             {currentDiv === "table" && (
                 <div>
-                    <PageHeader currentpage="Deleted Distribution Centers" href="/inventory/dashboard/" activepage="Inventory" mainpage="Deleted Distribution Centers" />
+                    <PageHeader currentpage="Reactivated Distribution Centers" href="/inventory/dashboard/" activepage="Inventory" mainpage="Reactivated Distribution Centers" />
+
                     <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                         <input
                             type="text"
@@ -138,7 +140,7 @@ const Deleteddistributions = () => {
                             placeholder="Search..."
                             style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '50%', boxSizing: 'border-box' }}
                         />
-                        <CSVLink data={filteredData.length > 0 ? filteredData : rowData} filename="Deleted Distribution Centers.csv" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
+                        <CSVLink data={filteredData.length > 0 ? filteredData : rowData} filename="Reactivated Distribution Centers.csv" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                             </svg>
@@ -159,9 +161,10 @@ const Deleteddistributions = () => {
                     </div>
                 </div>
             )}
+
             {currentDiv === "distributioncenterDetails" && (
                 <div>
-                    <PageHeader currentpage="Deleted Distribution Center" activepage="Inventory" mainpage="Deleted Distribution Center" />
+                    <PageHeader currentpage="Reactivated Distribution Center" activepage="Inventory" mainpage="Reactivated Distribution Center" />
                     <button className='className="flex left-0 text-blue-700 hover:bg-gray-100 p-3 font-bold'
                         onClick={handleBack}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -174,7 +177,7 @@ const Deleteddistributions = () => {
                         <div className="overflow-auto">
                             <table className="ti-custom-table border-0 whitespace-nowrap">
                                 <tbody>
-                                <tr className="">
+                                    <tr className="">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Shop Number</td>
                                         <td className="!p-2">:</td>
                                         <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.shop_number}</td>
@@ -253,10 +256,32 @@ const Deleteddistributions = () => {
                             </table>
                         </div>
                     </div>
+                    <div id="loader" style={{ display: 'none' }}>
+                        <span className="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent text-blue rounded-full" role="status" aria-label="loading">
+                            <span className="sr-only">Loading...</span>
+                        </span>
+                    </div>
+                    <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                        <button
+                            onClick={deactivate}
+                            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 dark:text-white dark:hover:text-white"
+                        >
+                            Activate
+                        </button>
+                        <button
+                            onClick={deleteDistribution}
+                            className="py-2.5 px-5 ms-3 text-sm border-2 border-black font-medium focus:outline-none rounded-lg hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+                        >
+                            Remove
+                        </button>
+                    </div>
+                    {alert && <Alert alert={alert} />}
+                    {success && <Success success={success} />}
+                    {showStatusModal && <Status closeModal={closeModal} deleteEXP={deleteEXP} />}
                 </div>
             )}
         </div>
     )
 }
 
-export default Deleteddistributions;
+export default Reactivateddistributions;

@@ -1,9 +1,9 @@
-import PageHeader from '../../../../layout/layoutsection/pageHeader/pageHeader'
+import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader'
 import { useForm } from "react-hook-form"
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import mtaApi from '../../../../api/mtaApi';
-import Alert from '../../../../components/Alert';
+import mtaApi from '../../../api/mtaApi';
+import Alert from '../../../components/Alert';
 
 const Receivestock = () => {
   const { register, handleSubmit, formState: { errors, isValid }, formState } = useForm();

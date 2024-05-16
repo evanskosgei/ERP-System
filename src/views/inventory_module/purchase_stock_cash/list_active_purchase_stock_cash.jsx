@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import PageHeader from "../../../../layout/layoutsection/pageHeader/pageHeader";
+import PageHeader from "../../../layout/layoutsection/pageHeader/pageHeader";
 import { AgGridReact } from 'ag-grid-react';
 import '@ag-grid-community/styles/ag-grid.css';
 import '@ag-grid-community/styles/ag-theme-alpine.css';
 import { CSVLink } from "react-csv";
 import { useNavigate } from 'react-router-dom';
-import Alert from '../../../../components/Alert';
-import mtaApi from '../../../../api/mtaApi';
+import Alert from '../../../components/Alert';
+import mtaApi from '../../../api/mtaApi';
 
 const Active_purchase_stock_cash = () => {
     const navigate = useNavigate();

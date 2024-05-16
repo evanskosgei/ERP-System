@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import PageHeader from '../../../../layout/layoutsection/pageHeader/pageHeader';
+import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader';
 import { AgGridReact } from 'ag-grid-react';
 import '@ag-grid-community/styles/ag-grid.css';
 import '@ag-grid-community/styles/ag-theme-alpine.css';
 import { CSVLink } from "react-csv";
-import Alert from '../../../../components/Alert';
-import mtaApi from '../../../../api/mtaApi';
-import Status from '../../../supplier_module/inventory_suppliers/status';
+import { useForm } from "react-hook-form";
+import Alert from '../../../components/Alert';
+import mtaApi from '../../../api/mtaApi';
+import Status from '../../supplier_module/inventory_suppliers/status';
 import { useNavigate } from 'react-router-dom';
-import Success from '../../../../components/Success';
+import Success from '../../../components/Success';
 
-const Reactivateddistributions = () => {
+const Approvenewdistribution = () => {
+    const navigate = useNavigate();
     const [rowData, setRowData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedRowData, setSelectedRowData] = useState(null);
@@ -18,6 +20,8 @@ const Reactivateddistributions = () => {
     const [alert, setAlert] = useState(null);
     const [success, setSuccess] = useState(null);
     const [showStatusModal, setShowStatusModal] = useState(false);
+    const [editMode, setEditMode] = useState(false);
+    const { register, handleSubmit, formState: { errors, isValid }, formState, setValue, reset } = useForm();
 
     const columnDefs = [
         { headerName: "#", field: "count", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 5 },
@@ -41,7 +45,7 @@ const Reactivateddistributions = () => {
     const onGridReady = useEffect(() => {
         const Activedistributions = async () => {
             try {
-                const { data } = await mtaApi.distributions.list_distribution('1')
+                const { data } = await mtaApi.distributions.list_distribution('2')
                 if (data.status === 200) {
                     const modifiedData = data.response.map((item, index) => ({
                         ...item,
@@ -95,42 +99,42 @@ const Reactivateddistributions = () => {
     };
     const currentDiv = divStack[divStack.length - 1];
 
-    const deleteDistribution = (data) => {
-        console.log('Deleting distributions:', data);
-        setShowStatusModal(true);
-      };
-    const closeModal = () => {
-        setShowStatusModal(false);
-      };
+    const toggleEditMode = () => {
+        setEditMode(!editMode);
+    };
 
-    const deleteEXP = async () => {
-        await mtaApi.distributions.delete_distribution(selectedRowData.id)
-            .then(response => {
-                const msg = response.description;
-                setSuccess({ type: "success", msg })
-                navigate("/supplier/deactivated-suppliers")
-            }).catch(error => {
-                const message = error.response?.data?.error ?? error.message;
-                setAlert({ type: "error", message });
-            })
+    const onSubmit = async () => {
+        // try {
+        //     document.getElementById('loader').style.display = 'block';
+        //     const { data } = await mtaApi.distributions.approve_distribution(selectedRowData.id)
+        //     setEditMode(!editMode)
+        //     reset();
+        //     console.log(data.message)
+        // } catch (error) {
+        //     const message = error.response?.data?.error ?? error.message;
+        //     setAlert({ type: "error", message });
+        //     setEditMode(!editMode)
+        // } finally {
+        //     document.getElementById('loader').style.display = 'none';
+        // }
     }
-    const deactivate = async () => {
-        // await mtaApi.suppliers.deactivate_supplier(selectedRowData.id)
-        //     .then(response => {
-        //         const msg = response.description;
-        //         setSuccess({ type: "success", msg })
-        //         navigate("/supplier/deactivated-suppliers")
-        //     }).catch(error => {
-        //         const message = error.response?.data?.error ?? error.message;
-        //         setAlert({ type: "error", message });
-        //     })
+
+    const approve = async () => {
+        try {
+            console.log(selectedRowData.id)
+            const { data } = await mtaApi.distributions.approve_distribution(selectedRowData.id)
+            navigate("/inventory/active-distribution-centers");
+        } catch (error) {
+            const message = error.response?.data?.error ?? error.message;
+            setAlert({ type: "error", message });
+        }
     }
 
     return (
         <div>
             {currentDiv === "table" && (
                 <div>
-                    <PageHeader currentpage="Reactivated Distribution Centers" href="/inventory/dashboard/" activepage="Inventory" mainpage="Reactivated Distribution Centers" />
+                    <PageHeader currentpage="Approve New Distribution Centers" href="/inventory/dashboard/" activepage="Inventory" mainpage="Approve New Distribution Centers" />
 
                     <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                         <input
@@ -140,7 +144,7 @@ const Reactivateddistributions = () => {
                             placeholder="Search..."
                             style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '50%', boxSizing: 'border-box' }}
                         />
-                        <CSVLink data={filteredData.length > 0 ? filteredData : rowData} filename="Reactivated Distribution Centers.csv" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
+                        <CSVLink data={filteredData.length > 0 ? filteredData : rowData.length >0 ? rowData : []} filename="New UnApproved Distribution Centers.csv" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                             </svg>
@@ -154,7 +158,7 @@ const Reactivateddistributions = () => {
                             // defaultColDef={defaultColDef}
                             pagination={true}
                             paginationPageSize={20}
-                            onGridReady={onGridReady}
+                            // onGridReady={onGridReady}
                             getRowNodeId={(data) => data.id}
                             onRowClicked={onRowClicked}
                         />
@@ -164,7 +168,7 @@ const Reactivateddistributions = () => {
 
             {currentDiv === "distributioncenterDetails" && (
                 <div>
-                    <PageHeader currentpage="Reactivated Distribution Center" activepage="Inventory" mainpage="Reactivated Distribution Center" />
+                    <PageHeader currentpage="New Distribution Center" activepage="Inventory" mainpage="New Distribution Center" />
                     <button className='className="flex left-0 text-blue-700 hover:bg-gray-100 p-3 font-bold'
                         onClick={handleBack}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -180,77 +184,77 @@ const Reactivateddistributions = () => {
                                     <tr className="">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Shop Number</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.shop_number}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.shop_number} {...register("shop_number")} /> : selectedRowData.shop_number}</td>
                                     </tr>
                                     <tr className="">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Shop Name</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.name}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.name} {...register("name")} /> : selectedRowData.name}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Shop Mobile No.</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.mobile_number}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.mobile_number} {...register("mobile_number")} /> : selectedRowData.mobile_number}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Shop Tel No.</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.telephone_number}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.telephone_number} {...register("telephone_number")} /> : selectedRowData.telephone_number}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Shop Email</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.email}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.email} {...register("email")} /> : selectedRowData.email}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Building Name</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.building}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.building} {...register("building")} /> : selectedRowData.building}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Physical Location</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.physical_location}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.physical_location} {...register("physical_location")} /> : selectedRowData.physical_location}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Address</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.address}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.address} {...register("address")} /> : selectedRowData.address}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Postal Code</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.postal_code}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.postal_code} {...register("postal_code")} /> : selectedRowData.postal_code}</td>
                                     </tr>
                                     <tr className="">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">City</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.city}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.city} {...register("city")} /> : selectedRowData.city}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">County</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.county}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.county} {...register("county")} /> : selectedRowData.county}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Region</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.region}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.region} {...register("region")} /> : selectedRowData.region}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Country</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.country}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.country} {...register("country")} /> : selectedRowData.country}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Date created</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.created_date}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.created_date} {...register("created_date")} /> : selectedRowData.created_date}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Remarks</td>
                                         <td className="!p-2">:</td>
-                                        <div className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.notes}</div>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.notes} {...register("notes")} /> : selectedRowData.notes}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -263,25 +267,22 @@ const Reactivateddistributions = () => {
                     </div>
                     <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
                         <button
-                            onClick={deactivate}
+                            onClick={editMode ? handleSubmit(onSubmit) : toggleEditMode}
                             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 dark:text-white dark:hover:text-white"
                         >
-                            Activate
+                            {editMode ? "Save" : "Edit"}
                         </button>
                         <button
-                            onClick={deleteDistribution}
+                            onClick={approve}
                             className="py-2.5 px-5 ms-3 text-sm border-2 border-black font-medium focus:outline-none rounded-lg hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"
                         >
-                            Remove
+                            Approve
                         </button>
                     </div>
-                    {alert && <Alert alert={alert} />}
-                    {success && <Success success={success} />}
-                    {showStatusModal && <Status closeModal={closeModal} deleteEXP={deleteEXP} />}
                 </div>
             )}
         </div>
     )
 }
 
-export default Reactivateddistributions;
+export default Approvenewdistribution;

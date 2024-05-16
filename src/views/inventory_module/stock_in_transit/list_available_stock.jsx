@@ -1,16 +1,14 @@
+import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader'
 import React, { useState, useEffect, useCallback } from 'react';
-import PageHeader from "../../../../layout/layoutsection/pageHeader/pageHeader";
 import { AgGridReact } from 'ag-grid-react';
 import '@ag-grid-community/styles/ag-grid.css';
 import '@ag-grid-community/styles/ag-theme-alpine.css';
 import { CSVLink } from "react-csv";
-import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
-import Alert from '../../../../components/Alert';
-import mtaApi from '../../../../api/mtaApi';
+import mtaApi from '../../../api/mtaApi';
+import Alert from '../../../components/Alert';
 
-const Unapproved_stock_cash_purchased = () => {
-
+const Available_stock = () => {
     const navigate = useNavigate();
     const [rowData, setRowData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
@@ -18,29 +16,25 @@ const Unapproved_stock_cash_purchased = () => {
     const [divStack, setDivStack] = useState(["listpage"]);
     const [editMode, setEditMode] = useState(false);
     const [alert, setAlert] = useState(null);
-    const {
-        register,
-        handleSubmit,
-        formState: { errors, isValid },
-        formState,
-        setValue,
-        reset
-    } = useForm();
 
     const columnDefs = [
         { headerName: "#", field: "count", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 5 },
-        { headerName: "Transaction ID", field: "transaction_id", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Total Amount", field: "total_amount", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Supplier Account", field: "supplier_payable_account_number", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Date Purchased", field: "purchase_date", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Bank Account", field: "bank_account_number", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Global ID", field: "global_id", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Distribution ID", field: "distribution_center_id", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "IMEI 1", field: "imei_1", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "IMEI 2", field: "imei_2", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "QR Code", field: "qr_code_id", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Date Received", field: "received_date", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: " Date Created", field: "created_date", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Availability", field: "state", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
     ];
     const defaultColDef = { sortable: true, flex: 1, filter: true, floatingFilter: false };
 
     const onGridReady = useCallback(() => {
         const newUnApproved = async () => {
             try {
-                const { data } = await mtaApi.purchase.list_stock_purchased_cash('2');
+                const { data } = await mtaApi.receive_stock.list_received_phone_models('1')
+                // console.log(data)
                 if (data.status === 200) {
                     const modifiedData = data.response.map((item, index) => ({
                         ...item,
@@ -49,7 +43,8 @@ const Unapproved_stock_cash_purchased = () => {
                     setRowData(modifiedData);
                 }
             } catch (error) {
-                console.log(error)
+                const message = error.response?.data?.error ?? error.message;
+                setAlert({ type: "error", message });
             }
         }
         newUnApproved();
@@ -98,38 +93,24 @@ const Unapproved_stock_cash_purchased = () => {
             return false;
         });
     });
-    const onSubmit = async (values) => {
-        // try {
-        //     document.getElementById('loader').style.display = 'block';
-        //     const { data } = await mtaApi.suppliers.updateSupplier(selectedRowData.id, (values))
-        //     setEditMode(!editMode)
-        //     reset();
-        //     console.log(data.message)
-        // } catch (error) {
-        //     const message = error.response?.data?.error ?? error.message;
-        //     setAlert({ type: "error", message });
-        //     setEditMode(!editMode)
-        // } finally {
-        //     document.getElementById('loader').style.display = 'none';
-        // }
-    }
-    const approve = async () => {
-        try {
-            const { data } = await mtaApi.purchase.approve_stock_purchased_cash(selectedRowData.id)
-            if(data.status === 200){
-            navigate("/inventory/active-stock-purchased-using-cash");
-            }
-        } catch (error) {
-            const message = error.response?.data?.error ?? error.message;
-            setAlert({ type: "error", message });
-        }
-    }
-
-    return (
-        <div>
+    // const approve = async () => {
+    //     try {
+    //         const { data } = await mtaApi.receive_stock.approve_received_phones_models(selectedRowData.id)
+    //         if (data.status === 200) {
+    //             navigate("/transport/active-products-in-transit")
+    //         }
+    //     } catch (error) {
+    //         const message = error.response?.data?.error ?? error.message;
+    //         setAlert({ type: "error", message });
+    //     }
+    // }
+  return (
+    <div>
             {currentDiv === "listpage" && (
                 <div>
-                    <PageHeader currentpage="Approve New Stock" href="/inventory/dashboard/" activepage="Inventory" mainpage="New Stock pending approval" />
+                    <PageHeader currentpage="Available Stock" href="/inventory/dashboard/" activepage="Inventory" mainpage="Available Stock" />
+                    <div className="grid grid-cols-12 gap-6">
+                    </div>
                     <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                         <input
                             type="text"
@@ -138,13 +119,14 @@ const Unapproved_stock_cash_purchased = () => {
                             placeholder="Search..."
                             style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '50%', boxSizing: 'border-box' }}
                         />
-                        <CSVLink data={filteredData.length > 0 ? filteredData : rowData.length > 0 ? rowData : []} filename="new_unapproved_purchased_stock" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
+                        <CSVLink data={filteredData.length > 0 ? filteredData : rowData.length > 0 ? rowData : []} filename="available_stock" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                             </svg>
                             Export
                         </CSVLink>
                     </div>
+                    
                     <div className="ag-theme-alpine" style={{ height: 'calc(100dvh - 130px)', width: '100%', position: 'relative', zIndex: 1, overflowY: 'auto' }}>
                         <AgGridReact
                             rowData={filteredData.length > 0 ? filteredData : rowData}
@@ -159,10 +141,9 @@ const Unapproved_stock_cash_purchased = () => {
                     </div>
                 </div>
             )}
-
             {currentDiv === "details" && (
                 <div>
-                    <PageHeader currentpage="Stock Purchased Details" href="/inventory/dashboard/" activepage="Inventory" mainpage="Stock Purchased Details" />
+                    <PageHeader currentpage="Stock Available Details" href="/transport/transit/" activepage="Transport" mainpage="Stock Available Details" />
                     <button className='className="flex left-0 text-blue-700 hover:bg-gray-100 p-3 font-bold'
                         onClick={handleBack}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -171,38 +152,58 @@ const Unapproved_stock_cash_purchased = () => {
                         <h4>back</h4>
                     </button>
                     <div id="profile-1" className="ml-4" role="tabpanel">
-                        <h5 className="box-title my-3">Business Information</h5>
+                        <h5 className="box-title my-3">Product Information</h5>
                         <div className="overflow-auto">
                             <table className="ti-custom-table border-0 whitespace-nowrap">
                                 <tbody>
-                                    <tr className="">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Transaction ID</td>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Distribution Center</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.transaction_id} {...register("transaction_id")} /> : selectedRowData.transaction_id}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.distribution_center_id}</td>
                                     </tr>
                                     <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Total Amount</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Global ID</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.total_amount} {...register("total_amount")} /> : selectedRowData.total_amount}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.global_id}</td>
                                     </tr>
                                     <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Supplier Account</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">IMEI 1</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.supplier_payable_account_number} {...register("supplier_payable_account_number")} /> : selectedRowData.supplier_payable_account_number}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.imei_1}</td>
                                     </tr>
                                     <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Date Purchased</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">IMEI 2</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.purchase_date} {...register("purchase_date")} /> : selectedRowData.purchase_date}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.imei_2}</td>
                                     </tr>
                                     <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Bank Account</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">QR ID</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.bank_account_number} {...register("bank_account_number")} /> : selectedRowData.bank_account_number}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.qr_code_id}</td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Received Date</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.received_date}</td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Date Created</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.created_date}</td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Availability</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.state}</td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Remarks</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.remarks}</td>
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>  
+                        </div>
                     </div>
                     <div id="loader" style={{ display: 'none' }}>
                         <span className="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent text-blue rounded-full" role="status" aria-label="loading">
@@ -211,23 +212,18 @@ const Unapproved_stock_cash_purchased = () => {
                     </div>
                     <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
                         <button
-                            onClick={editMode ? handleSubmit(onSubmit) : toggleEditMode}
+                            onClick={""}
                             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 dark:text-white dark:hover:text-white"
                         >
-                            {editMode ? "Save" : "Edit"}
-                        </button>
-                        <button
-                            onClick={approve}
-                            className="py-2.5 px-5 ms-3 text-sm font-medium focus:outline-none rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"
-                        >
-                            Approve
+                            Remove
                         </button>
                     </div>
                     {alert && <Alert alert={alert} />}
-                </div >
+                </div>
             )}
+
         </div >
-    )
+  )
 }
 
-export default Unapproved_stock_cash_purchased;
+export default Available_stock;
