@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import PageHeader from '../../../../layout/layoutsection/pageHeader/pageHeader';
+import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader';
 import { useForm } from "react-hook-form";
 import { AgGridReact } from "ag-grid-react";
 import "@ag-grid-community/styles/ag-grid.css";
 import "@ag-grid-community/styles/ag-theme-alpine.css";
-import mtaApi from '../../../../api/mtaApi';
-import Alert from "../../../../components/Alert";
+import mtaApi from '../../../api/mtaApi';
+import Alert from "../../../components/Alert";
 import { useNavigate } from 'react-router-dom';
 
 const BuyusingPrepayment = () => {

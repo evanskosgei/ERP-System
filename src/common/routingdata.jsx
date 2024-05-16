@@ -35,12 +35,12 @@ import InventoryDashboard from "../views/inventory_module/dashboard/inventory_da
 import ProductManagement from "../views/inventory_module/product_management/product_management";
 import QualityControl from "../views/inventory_module/quality_control/quality_control";
 import InventoryManagement from "../views/inventory_module/inventory_management/inventory_management";
-import CreatedistributionCenter from "../views/inventory_module/dashboard/distribution_centers/create_distribution";
-import Approvenewdistribution from "../views/inventory_module/dashboard/distribution_centers/list_newunapproved_distribution";
-import Activedistributioncenters from "../views/inventory_module/dashboard/distribution_centers/list_active_distribution-centers";
-import Deleteddistributions from "../views/inventory_module/dashboard/distribution_centers/list_deleted_distributions";
-import Deactivateddistributions from "../views/inventory_module/dashboard/distribution_centers/list_deactivated_distributions";
-import Reactivateddistributions from "../views/inventory_module/dashboard/distribution_centers/list_reactivated_distributions";
+import CreatedistributionCenter from "../views/inventory_module/distribution_centers/create_distribution";
+import Approvenewdistribution from "../views/inventory_module/distribution_centers/list_newunapproved_distribution";
+import Activedistributioncenters from "../views/inventory_module/distribution_centers/list_active_distribution-centers";
+import Deleteddistributions from "../views/inventory_module/distribution_centers/list_deleted_distributions";
+import Deactivateddistributions from "../views/inventory_module/distribution_centers/list_deactivated_distributions";
+import Reactivateddistributions from "../views/inventory_module/distribution_centers/list_reactivated_distributions";
 
 // distributions
 import Distribution_dashboard from "../views/distribution_module/dashboard";
@@ -54,14 +54,14 @@ import Active_team_leader_distributions from "../views/distribution_module/team_
 import Receive_Team_leader_dispatched from "../views/distribution_module/team_leader/receive_dispatched_phones";
 
 // purchased with cash
-import BuyusingPrepayment from "../views/inventory_module/dashboard/purchase_stock_cash/buy_using_prepayment";
-import Unapproved_stock_cash_purchased from "../views/inventory_module/dashboard/purchase_stock_cash/list_unapproved_stock_cash_purchased";
-import Active_purchase_stock_cash from "../views/inventory_module/dashboard/purchase_stock_cash/list_active_purchase_stock_cash";
+import BuyusingPrepayment from "../views/inventory_module/purchase_stock_cash/buy_using_prepayment";
+import Unapproved_stock_cash_purchased from "../views/inventory_module/purchase_stock_cash/list_unapproved_stock_cash_purchased";
+import Active_purchase_stock_cash from "../views/inventory_module/purchase_stock_cash/list_active_purchase_stock_cash";
 
 // Receive in transit
-import Receivestock from "../views/inventory_module/dashboard/stock_in_transit/receive_stock";
-import Approve_received_stock from "../views/inventory_module/dashboard/stock_in_transit/list_unapproved_received_stock";
-import Available_stock from "../views/inventory_module/dashboard/stock_in_transit/list_available_stock";
+import Receivestock from "../views/inventory_module/stock_in_transit/receive_stock";
+import Approve_received_stock from "../views/inventory_module/stock_in_transit/list_unapproved_received_stock";
+import Available_stock from "../views/inventory_module/stock_in_transit/list_available_stock";
 
 // product Managment
 import Activephones from "../views/inventory_module/product_management/mobile-models/list_active_phone_models";

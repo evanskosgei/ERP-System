@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const CreateUser = () => {
     const { register, handleSubmit, formState: { errors, isValid }, formState, reset } = useForm();
     const [category, setCategory] = useState([])
+    const [distribution_centers, setDistributionCenters] = useState([])
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -20,6 +21,17 @@ const CreateUser = () => {
                 })
         }
         getCategories();
+
+        const getDistributionCenters = async () => {
+            await mtaApi.distributions.list_distribution("1")
+                .then(response => {
+                    setDistributionCenters(response.data.response)
+                }).catch(error => {
+                    console.log(error)
+                })
+        }
+        getDistributionCenters();
+        
     }, [])
 
     const onSubmit = async values => {
@@ -57,6 +69,11 @@ const CreateUser = () => {
                                     <input type="text" {...register("last_name", { required: true })} id='last_name' className="ti-form-input" placeholder=" ... last name" required />
                                 </div>
                                 <div className="space-y-2">
+                                <label className="ti-form-label mb-0">Username</label>
+                                <input type="text" {...register("username", { required: false })}className="ti-form-input" placeholder=" ... Enter username" />
+                            </div>
+                                
+                                <div className="space-y-2">
                                     <label htmlFor="user_categories" className="ti-form-label mb-0">User type</label>
                                     <select className="ti-form-input" {...register("user_categories", { required: true })} required>
                                         <option value="">Select a user type</option>
@@ -65,6 +82,19 @@ const CreateUser = () => {
                                         ))}
                                     </select>
                                 </div>
+                                <div className="space-y-2">
+                                    <label htmlFor="distribution_center_id" className="ti-form-label mb-0">Distribution Center</label>
+                                    <select className="ti-form-input" {...register("distribution_center_id", { required: true })} required>
+                                        <option value="">Select Distribution</option>
+                                        {distribution_centers.map((cat, index) => (
+                                            <option key={index} value={cat.id}>{cat.name}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div className="space-y-2">
+                                <label className="ti-form-label mb-0">ID/Passport Number</label>
+                                <input type="number" {...register("id_number", { required: true })} id='id_number' className="my-auto ti-form-input" placeholder=" ... Enter id or passport number" />
+                            </div>
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Gender</label>
                                     <select type="text" {...register("gender", { required: true })} id='gender' className="ti-form-input" required>
@@ -108,14 +138,17 @@ const CreateUser = () => {
             <div className="col-span-12">
                 <div className="box">
                     <div className="box-header">
-                        <h5 className="box-title text-center">Other User Details</h5>
+                        <h5 className="box-title text-center">Other User Details</h5> 
                     </div>
                     <div className="box-body">
                         <div className="grid lg:grid-cols-2 gap-6">
-                            <div className="space-y-2">
-                                <label className="ti-form-label mb-0">ID/Passport Number</label>
-                                <input type="number" {...register("id_number", { required: true })} id='id_number' className="my-auto ti-form-input" placeholder=" ... Enter id number" />
+
+                        <div className="space-y-2">
+                                <label className="ti-form-label mb-0">Date of Birth</label>
+                                <input type="text" {...register("date_of_birth", { required: true })} id='date_of_birth' className="my-auto ti-form-input" placeholder=" Select Date of Birth" required />
+                                {errors.address && <span className="text-red-500 text-xs">Address Number is required</span>}
                             </div>
+                            
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">Address Number</label>
                                 <input type="text" {...register("address", { required: true })} id='address' className="my-auto ti-form-input" placeholder=" ... sample, P O Box 00000" required />
@@ -135,6 +168,10 @@ const CreateUser = () => {
                                 <input type="text" {...register("county")} id='county' className="my-auto ti-form-input" placeholder="Enter country name" required />
                             </div>
                             <div className="space-y-2">
+                                <label className="ti-form-label mb-0">Sub County</label>
+                                <input type="text" {...register("sub_county")} id='sub_county' className="my-auto ti-form-input" placeholder="Enter sub country name" required />
+                            </div>
+                            <div className="space-y-2">
                                 <label className="ti-form-label mb-0">City</label>
                                 <input type="text" {...register("city")} id='city' className="my-auto ti-form-input" placeholder="Enter city or town name" required />
                             </div>
@@ -150,9 +187,10 @@ const CreateUser = () => {
                                 <label className="ti-form-label mb-0">NSSF Number</label>
                                 <input type="text" {...register("nssf_number", { required: false })} className="ti-form-input" placeholder=" ... Enter user nssf number" />
                             </div>
+                            
                             <div className="space-y-2">
-                                <label className="ti-form-label mb-0">Username</label>
-                                <input type="text" {...register("username", { required: false })}className="ti-form-input" placeholder=" ... Enter username" />
+                                <label className="ti-form-label mb-0">Enter password</label>
+                                <input type="password" {...register("password", { required: false })} className="ti-form-input" placeholder=" ... enter a password" />
                             </div>
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">Confirm password</label>

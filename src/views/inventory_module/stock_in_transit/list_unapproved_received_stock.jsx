@@ -1,14 +1,14 @@
-import PageHeader from '../../../../layout/layoutsection/pageHeader/pageHeader'
+import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader'
 import React, { useState, useEffect, useCallback } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import '@ag-grid-community/styles/ag-grid.css';
 import '@ag-grid-community/styles/ag-theme-alpine.css';
 import { CSVLink } from "react-csv";
 import { useNavigate } from 'react-router-dom';
-import mtaApi from '../../../../api/mtaApi';
-import Alert from '../../../../components/Alert';
+import mtaApi from '../../../api/mtaApi';
+import Alert from '../../../components/Alert';
 
-const Available_stock = () => {
+const Approve_received_stock = () => {
     const navigate = useNavigate();
     const [rowData, setRowData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
@@ -33,8 +33,8 @@ const Available_stock = () => {
     const onGridReady = useCallback(() => {
         const newUnApproved = async () => {
             try {
-                const { data } = await mtaApi.receive_stock.list_received_phone_models('1')
-                // console.log(data)
+                const { data } = await mtaApi.receive_stock.list_received_phone_models('2')
+                console.log(data)
                 if (data.status === 200) {
                     const modifiedData = data.response.map((item, index) => ({
                         ...item,
@@ -93,22 +93,22 @@ const Available_stock = () => {
             return false;
         });
     });
-    // const approve = async () => {
-    //     try {
-    //         const { data } = await mtaApi.receive_stock.approve_received_phones_models(selectedRowData.id)
-    //         if (data.status === 200) {
-    //             navigate("/transport/active-products-in-transit")
-    //         }
-    //     } catch (error) {
-    //         const message = error.response?.data?.error ?? error.message;
-    //         setAlert({ type: "error", message });
-    //     }
-    // }
-  return (
-    <div>
+    const approve = async () => {
+        try {
+            const { data } = await mtaApi.receive_stock.approve_received_phones_models(selectedRowData.id)
+            if (data.status === 200) {
+                navigate("/inventory/available-stock")
+            }
+        } catch (error) {
+            const message = error.response?.data?.error ?? error.message;
+            setAlert({ type: "error", message });
+        }
+    }
+    return (
+        <div>
             {currentDiv === "listpage" && (
                 <div>
-                    <PageHeader currentpage="Available Stock" href="/inventory/dashboard/" activepage="Inventory" mainpage="Available Stock" />
+                    <PageHeader currentpage="New Receive Stock" href="/inventory/dashboard/" activepage="Inventory" mainpage="New Received Stock Pending Approval" />
                     <div className="grid grid-cols-12 gap-6">
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
@@ -119,14 +119,13 @@ const Available_stock = () => {
                             placeholder="Search..."
                             style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '50%', boxSizing: 'border-box' }}
                         />
-                        <CSVLink data={filteredData.length > 0 ? filteredData : rowData.length > 0 ? rowData : []} filename="available_stock" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
+                        <CSVLink data={filteredData.length > 0 ? filteredData : rowData.length > 0 ? rowData : []} filename="Newly_received_stock" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                             </svg>
                             Export
                         </CSVLink>
                     </div>
-                    
                     <div className="ag-theme-alpine" style={{ height: 'calc(100dvh - 130px)', width: '100%', position: 'relative', zIndex: 1, overflowY: 'auto' }}>
                         <AgGridReact
                             rowData={filteredData.length > 0 ? filteredData : rowData}
@@ -143,7 +142,7 @@ const Available_stock = () => {
             )}
             {currentDiv === "details" && (
                 <div>
-                    <PageHeader currentpage="Stock Available Details" href="/transport/transit/" activepage="Transport" mainpage="Stock Available Details" />
+                    <PageHeader currentpage="Stock Received Details" href="/transport/transit/" activepage="Transport" mainpage="Stock Received Details" />
                     <button className='className="flex left-0 text-blue-700 hover:bg-gray-100 p-3 font-bold'
                         onClick={handleBack}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -212,10 +211,10 @@ const Available_stock = () => {
                     </div>
                     <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
                         <button
-                            onClick={""}
+                            onClick={approve}
                             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 dark:text-white dark:hover:text-white"
                         >
-                            Remove
+                            Approve
                         </button>
                     </div>
                     {alert && <Alert alert={alert} />}
@@ -223,7 +222,7 @@ const Available_stock = () => {
             )}
 
         </div >
-  )
+    )
 }
 
-export default Available_stock;
+export default Approve_received_stock;

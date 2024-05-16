@@ -1,6 +1,7 @@
-import React, { useCallback, useState } from 'react'
+import React, { useEffect, useCallback, useState } from 'react'
 import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader';
 import { AgGridReact } from 'ag-grid-react';
+import { Link, useLocation } from 'react-router-dom';
 import '@ag-grid-community/styles/ag-grid.css';
 import '@ag-grid-community/styles/ag-theme-alpine.css';
 import { CSVLink } from "react-csv";
@@ -8,6 +9,8 @@ import mtaApi from '../../../api/mtaApi';
 import Alert from '../../../components/Alert';
 import { useNavigate } from 'react-router-dom';
 
+import ALLImages from "../../../common/imagesdata";
+import ProfileService from "../../../common/profileservices";
 
 const Newusers = () => {
     const [rowData, setRowData] = useState([]);
@@ -18,20 +21,66 @@ const Newusers = () => {
     const navigate = useNavigate();
     // const [showStatusModal, setShowStatusModal] = useState(false);
 
+    const [startDate, setStartDate] = useState(new Date());
+	const [selected, setSelected] = useState(['Laravel', 'Angular', 'Html', 'VueJs', 'React' ]);  // react-tag-input-component
+
+			//URl image
+			const [UrlImage, setUrlImage] = useState(ALLImages('jpg57'));
+			//Disabling input feild
+			const [UrlDisabled, setUrlDisabled] = useState(true);
+		
+			const [fileDisabled, setfileDisabled] = useState(false);
+			//Default image
+			const [Image, setImage] = useState(ALLImages('jpg57'));
+		
+			let location = useLocation();
+		
+		
+			const putImage = () => {
+				setImage(ProfileService.returnImage())
+				if (UrlImage != Image) {
+					ProfileService.handleChangeUrl(UrlImage)
+					setImage(ProfileService.returnImage())
+				}
+				// setSmShow(false)
+			}
+		
+			//toggle button for image 
+			const toggleImage = (type) => {
+				if (type == "fileDisabled") {
+					setfileDisabled(false)
+					setUrlDisabled(true)
+				}
+				if (type == "UrlDisabled") {
+					setUrlDisabled(false)
+					setfileDisabled(true)
+				}
+			}
+			const [ClassName, setClassName] = useState()
+		
+			useEffect(() => {
+				if (ProfileService.returnImage() != undefined) {
+					setImage(ProfileService.returnImage())
+				}
+				let contactItem = document.querySelectorAll(".main-contact-item")
+				contactItem.forEach((ele => {
+					ele.addEventListener("click", () => {
+						setClassName("main-content-body-show")
+					});
+				}))
+		
+			}, [location])
+
     const columnDefs = [
-        { headerName: "#", field: "id", sortable: true, editable: false, filter: true },
+        { headerName: "#", field: "number", sortable: true, editable: false, filter: true, resizable:true, flex:1, maxWidth:60},
         { headerName: "First name", field: "first_name", sortable: true, editable: false, filter: true },
         { headerName: "Last name", field: "last_name", sortable: true, editable: false, filter: true },
         { headerName: "Email", field: "email", sortable: true, editable: false, filter: true },
-        { headerName: "ID/Passport", field: "id_no", sortable: true, editable: false, filter: true },
-        { headerName: "Mobile No.", field: "contact", sortable: true, editable: false, filter: true },
-        { headerName: "Address", field: "address", sortable: true, editable: false, filter: true },
-        { headerName: "Postal Code", field: "postal_code", sortable: true, editable: false, filter: true },
-        { headerName: "City", field: "city", sortable: true, editable: false, filter: true },
-        { headerName: "Country", field: "country", sortable: true, editable: false, filter: true },
-        { headerName: "KRA PIN", field: "kra_pin", sortable: true, editable: false, filter: true },
-        { headerName: "NHIF PIN", field: "nhif_pin", sortable: true, editable: false, filter: true },
-        { headerName: "NSSF PIN", field: "nssf_pin", sortable: true, editable: false, filter: true },
+        { headerName: "ID/Passport", field: "id_number", sortable: true, editable: false, filter: true },
+        { headerName: "Mobile No.", field: "mobile_number", sortable: true, editable: false, filter: true },
+        { headerName: "Distribution Center", field: "distribution_center_name", sortable: true, editable: false, filter: true },
+        { headerName: "City", field: "town", sortable: true, editable: false, filter: true },
+
     ];
 
     const defaultColDef = {
@@ -58,7 +107,7 @@ const Newusers = () => {
     const onRowClicked = (event) => {
         const selectedData = event.data;
         setSelectedRowData(selectedData);
-        handleClick('Activesupplier');
+        handleClick('Activeusers');
     };
 
     const handleSearchChange = (event) => {
@@ -109,15 +158,30 @@ const Newusers = () => {
         <div>
             {currentDiv === "table" && (
                 <div>
-                    <PageHeader currentpage="New Unapproved Users" href="/users/dashboard" activepage="Users" mainpage="New Unapproved Users" />
+                    <PageHeader currentpage="New Users Pending Approval" href="/users/dashboard" activepage="Users" mainpage="Approve New Users" />
 
                     <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                         <input
                             type="text"
                             value={searchQuery}
                             onChange={handleSearchChange}
-                            placeholder="Search..."
-                            style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '50%', boxSizing: 'border-box' }}
+                            placeholder="Search users ..."
+                            style={{
+                                marginTop: '5px',
+                                marginBottom: '15px',
+                                padding: '8px',
+                                width: '30%',
+                                boxSizing: 'border-box',
+                                border: '1px solid #ccc',
+                                borderRadius: '4px',
+                                fontFamily: 'Arial, sans-serif',
+                                fontSize: '14px',
+                                backgroundColor: '#f9f9f9',
+                                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                                transition: 'border-color 0.3s',
+                            }}
+                            onFocus={(e) => e.target.style.borderColor = '#007BFF'}
+                            onBlur={(e) => e.target.style.borderColor = '#ccc'}
                         />
                         <CSVLink
                             data={filteredData.length > 0 ? filteredData : rowData.length > 0 ? rowData : []}
@@ -147,9 +211,10 @@ const Newusers = () => {
                 </div>
             )}
 
-            {currentDiv === "Activesupplier" && (
+            {currentDiv === "Activeusers" && (
                 <div>
-                    <PageHeader currentpage="New user Details" activepage="user" mainpage="New user Details" />
+                    
+                    <PageHeader currentpage="Approve New User" href="/users/dashboard" activepage="Users" mainpage="New User Profile" />
                     <button className='className="flex left-0 text-blue-700 hover:bg-gray-100 p-3 font-bold'
                         onClick={handleBack}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -157,148 +222,213 @@ const Newusers = () => {
                         </svg>
                         <h4>back</h4>
                     </button>
-                    <div id="profile-1" className="ml-4" role="tabpanel">
-                        <h5 className="box-title my-3">Personal Information</h5>
-                        <div className="overflow-auto">
-                            <table className="ti-custom-table border-0 whitespace-nowrap">
-                                <tbody>
-                                    <tr className="">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">User Name</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.username}</td>
-                                    </tr>
-                                    <tr className="">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">First Name</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.first_name}</td>
-                                    </tr>
-                                    <tr className="">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Middle Name</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.middle_name}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Last Name</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.last_name}</td>
-                                    </tr>
 
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Mobile Number</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.contact}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Email Address</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.email}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Alt number</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.other_mobile_number}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Gender</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">
-                                            {selectedRowData.gender === "1" ? "male" : selectedRowData.gender === "2" ? "Female" : "Others"}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Marital Status</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">
-                                            {selectedRowData.marital_status === "1" ? "Married" :
-                                                selectedRowData.marital_status === "2" ? "Single" :
-                                                    selectedRowData.marital_status === "3" ? "Divorced" :
-                                                        selectedRowData.marital_status === "4" ? "Separated" :
-                                                            "Unknown"}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <h5 className="box-title my-3">Other Information</h5>
-                        <div className="overflow-auto">
-                            <table className="ti-custom-table border-0 whitespace-nowrap">
-                                <tbody>
-                                    <tr className="">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">ID/passport Number</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.id_number}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Address</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.address}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Postal Code</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.postal_code}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">City/Town</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.town}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">County</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.county}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Country</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.country}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">KRA Pin</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.kra_pin}
-                                        </td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Nhif pin</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.nhif_number}
-                                        </td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Nssf Pin</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.nssf_number}
-                                        </td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Date Created</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">4/5/1960
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    <div className= "grid grid-cols-12 gap-x-6">
+				<div className= "col-span-12 xl:col-span-3">
+					<div className= "box">
+                    <div className= "box-body relative">
+							<div className= "flex relative before:bg-black/50 before:absolute before:w-full before:h-full before:rounded-sm">
+								<img src= {ALLImages('png106')} alt="" className= "h-[200px] w-full rounded-sm" id="profile-img2"/>
+								
+							</div>
+							<div className= "absolute top-[4.5rem] inset-x-0 text-center space-y-3">
+								<div className= "flex justify-center w-full">
+									<div className= "relative">
+										<img src= {Image} className= "w-24 h-24 rounded-full ring-4 ring-white/10 mx-auto" id="profile-img" alt="pofile-img"/>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className= "box-body pt-0">
+							<nav className= "flex flex-col space-y-2" aria-label="Tabs" role="tablist" data-hs-tabs-vertical="true">
+								<button type="button" className= "hs-tab-active:bg-primary hs-tab-active:border-primary hs-tab-active:text-white dark:hs-tab-active:bg-primary dark:hs-tab-active:border-primary dark:hs-tab-active:text-white -mr-px py-3 px-3 inline-flex items-center gap-2 bg-gray-50 text-sm font-medium text-center border text-gray-500 rounded-sm hover:text-gray-700 dark:bg-black/20 dark:border-white/10 dark:text-white/70 active" id="profile-settings-item-1" data-hs-tab="#profile-settings-1" aria-controls="profile-settings-1" role="tab">
+									<i className= "ri ri-shield-user-line"></i> User Profile Information
+								</button>
+								<button type="button" className= "hs-tab-active:bg-primary hs-tab-active:border-primary hs-tab-active:text-white dark:hs-tab-active:bg-primary dark:hs-tab-active:border-primary dark:hs-tab-active:text-white -mr-px py-3 px-3 inline-flex items-center gap-2 bg-gray-50 text-sm font-medium text-center border text-gray-500 rounded-sm hover:text-gray-700 dark:bg-black/20 dark:border-white/10 dark:text-white/70 dark:hover:text-gray-300" id="profile-settings-item-2" data-hs-tab="#profile-settings-2" aria-controls="profile-settings-2" role="tab">
+									<i className= "ri ri-global-line"></i> Other User Details
+								</button>
+								
+							</nav>
+						</div>
+					</div>
+				</div>
+				<div className= "col-span-12 xl:col-span-9">
+					<div className= "box">
+						<div className= "box-body p-0">
+							<div id="profile-settings-1" role="tabpanel" aria-labelledby="profile-settings-item-1">
+								<div className= "box border-0 shadow-none mb-0">
+									<div className= "box-header">
+										<h5 className= "box-title leading-none flex"><i className= "ri ri-shield-user-line ltr:mr-2 rtl:ml-2"></i> User Profile Information</h5>
+									</div>
+									<div className= "box-body">
+										<div>
+										<div className= "grid lg:grid-cols-2 gap-6">
+                                        
+                                        <div className= "space-x-3">
+										    <span className= "text-sm font-bold">First Name :</span>
+										    <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.first_name}</span>
+									    </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Middle Name :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.middle_name}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Last Name :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.last_name}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Username :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.username}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Mobile number :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.username}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Alternative Mobile number :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.mobile_number}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">ID / Passport Number :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.id_number}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">User Category :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.user_type_name}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Distribution Center :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.distribution_center_name}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Distribution Center Location :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.distribution_center_town}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Gender :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.gender}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Email Address :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.email}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Date of Birth :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.date_of_birth}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Marital Status :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.marital_status}</span>
+                                        </div>
+									
+									</div>
+									</div>
+									</div>
+								</div>
+							</div>
+							<div id="profile-settings-2" className= "hidden" role="tabpanel" aria-labelledby="profile-settings-item-2">
+								<div className= "box border-0 shadow-none mb-0">
+									<div className= "box-header">
+										<h5 className= "box-title leading-none flex"><i className= "ri ri-global-line ltr:mr-2 rtl:ml-2"></i> Other Details</h5>
+									</div>
+									<div className= "box-body">
+										<div>
+										<div className= "grid lg:grid-cols-2 gap-6">
+                                        
+                                        <div className= "space-x-3">
+										    <span className= "text-sm font-bold">Country :</span>
+										    <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.country}</span>
+									    </div>
+
+                                        <div className= "space-x-3">
+										    <span className= "text-sm font-bold">County :</span>
+										    <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.county}</span>
+									    </div>
+
+                                        <div className= "space-x-3">
+										    <span className= "text-sm font-bold">Sub County :</span>
+										    <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.sub_county}</span>
+									    </div>
+
+                                        <div className= "space-x-3">
+										    <span className= "text-sm font-bold">City :</span>
+										    <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.town}</span>
+									    </div>
+
+                                        <div className= "space-x-3">
+										    <span className= "text-sm font-bold">Address :</span>
+										    <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.address}</span>
+									    </div>
+
+                                        <div className= "space-x-3">
+										    <span className= "text-sm font-bold">Postal Code :</span>
+										    <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.postal_code}</span>
+									    </div>
+
+                                        <div className= "space-x-3">
+										    <span className= "text-sm font-bold">KRA PIN :</span>
+										    <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.kra_pin}</span>
+									    </div>
+
+                                        <div className= "space-x-3">
+										    <span className= "text-sm font-bold">NHIF Number :</span>
+										    <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.nhif_number}</span>
+									    </div>
+
+                                        <div className= "space-x-3">
+										    <span className= "text-sm font-bold">NSSF Number :</span>
+										    <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.nssf_number}</span>
+									    </div>
+
+                                        <div className= "space-x-3">
+										    <span className= "text-sm font-bold">ID Front :</span>
+										    <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.id_front}</span>
+									    </div>
+
+                                        <div className= "space-x-3">
+										    <span className= "text-sm font-bold">ID Back :</span>
+										    <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.id_back}</span>
+									    </div>
+
+                                       
+                                        </div>
+                                        </div>
+                                    </div>
+								</div>
+							</div>
+
+							
+						</div>
+						<div className= "box-footer text-end space-x-3 rtl:space-x-reverse" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem' }}>
+							
+                            <Link to="#" className= "ti-btn m-0 ti-btn-soft-primary" onClick={approveUser}><i className="ri ri-refresh-line"></i> Approve</Link>
+							<Link to="#" className= "ti-btn m-0 ti-btn-soft-secondary"><i className= "ri ri-close-circle-line"></i> Delete</Link>
+						</div>
+					</div>
+				</div>
+			</div>
+
                     <div id="loader" style={{ display: 'none' }}>
                         <span className="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent text-blue rounded-full" role="status" aria-label="loading">
                             <span className="sr-only">Loading...</span>
                         </span>
                     </div>
-                    <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                        <button
-                            onClick={approveUser}
-                            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 dark:text-white dark:hover:text-white"
-                        >
-                            Approve
-                        </button>
-                        <button
-                            onClick=""
-                            className="py-2.5 px-5 ms-3 text-sm border-2 border-black font-medium focus:outline-none rounded-lg hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"
-                        >
-                            Delete
-                        </button>
-                    </div>
+
+                   
                     {alert && <Alert alert={alert} />}
                 </div>
             )}
