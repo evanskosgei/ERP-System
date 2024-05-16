@@ -66,7 +66,7 @@ const BuyusingPrepayment = () => {
     const handleCategoryChange = async (event) => {
         const selectedCategory = event.target.value;
         try {
-            const response = await mtaApi.product_models.list_mobile_phone_model(1);
+            const response = await mtaApi.product_models.list_mobile_phone_model("1");
             setRowData(response.data.response);
         } catch (error) {
             const message = error.response?.data?.error ?? error.message;

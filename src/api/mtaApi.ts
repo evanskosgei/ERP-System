@@ -25,7 +25,7 @@ const mtaApi = {
   },
   product_models: {
     createPhoneModel: (data: any) => post("/products/create-phone-model", data),
-    list_mobile_phone_model: (status: any) => post('/products/list-phone-models', { status }),
+    list_mobile_phone_model: (status: any) => post('/products/list-phone-models', { status: status }),
     approve_mobile_phone_model: (status: any) => post("/products/approve-phone-model", { id: status }),
   },
   Accounts_model: {
