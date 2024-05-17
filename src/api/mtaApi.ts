@@ -28,23 +28,25 @@ const mtaApi = {
     list_mobile_phone_model: (status: any) => post('/products/list-phone-models', { status: status }),
     approve_mobile_phone_model: (status: any) => post("/products/approve-phone-model", { id: status }),
   },
-  Accounts_model: {
+  accounts: {
     create_account: (data: any) => post("/accounting/create-account", data),
     list_account: (status: any) => post("/accounting/list-accounts", { status }),
     approve_account: (status: any) => post("/accounting/approve-account", { id: status }),
     list_account_categories: (status: any) => post("accounting/list-account-categories", { status }),
     list_account_types: (status: any) => post("/accounting/list-account-types", { status }),
+    list_account_by_type: (data: any) => post("/accounting/list-specific-accounts-by-type",  data ),
+  },
+  capital_injection: {
+    create_capital_injection: (data: any) => post("/finance/create-capital-injection", data),
+    list_capital_injection_entries: (status: any) => post("/finance/list-capital-injection-entries", { status }),
+    approve_capital_injection: (id: any) => post("/finance/approve-capital-injection", { id: id }),
   },
   purchase: {
     cashstockPurchase: (data: any) => post("/cashstock-purchase/create-cash-stock-purchase", data),
     list_stock_purchased_cash: (status: any) => post("/cashstock-purchase/list-cash-stock-purchase", { status }),
     approve_stock_purchased_cash: (status: any) => post("/cashstock-purchase/approve-cash-stock-purchase", { id: status })
   },
-  finance_module: {
-    create_finance_injection: (data: any) => post("/finance/create-capital-injection", data),
-    list_capital_entries: (status: any) => post("/finance/list-capital-injection-entries", { status }),
-    approve_capital_injections: (status: any) => post("/finance/approve-capital-injection", { id: status })
-  },
+
   stock_in_transit: {
     put_in_transit: (data: any) => post("/transit-stock/create-stock-transit", data),
     list_stock_in_transit: (status: any) => post("/transit-stock/list-stock-transit", { status }),

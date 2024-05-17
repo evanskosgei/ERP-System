@@ -1,45 +1,39 @@
+import { useState, useEffect } from "react";
+import PageHeader from "../../../../layout/layoutsection/pageHeader/pageHeader";
 import { AgGridReact } from 'ag-grid-react';
 import '@ag-grid-community/styles/ag-grid.css';
 import '@ag-grid-community/styles/ag-theme-alpine.css';
 import { CSVLink } from "react-csv";
-import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect, useCallback } from "react";
-import Alert from '../../../components/Alert';
-import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader';
-import mtaApi from '../../../api/mtaApi';
+import mtaApi from "../../../../api/mtaApi";
+import Alert from "../../../../components/Alert";
 
-const Unapproved_capital_injection = () => {
+const Deactivated_accounts = () => {
     const navigate = useNavigate();
     const [rowData, setRowData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedRowData, setSelectedRowData] = useState(null);
     const [divStack, setDivStack] = useState(["listpage"]);
-    const [editMode, setEditMode] = useState(false);
     const [alert, setAlert] = useState(null);
-    const { register, handleSubmit, formState: { errors, isValid }, formState, setValue, reset } = useForm();
-
     const columnDefs = [
-        { headerName: "No", field: "no", sortable: true, editable: false, filter: true, flex: 1, resizable: false, minWidth: 10 },
-        { headerName: "Transaction ID", field: "transaction_id", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
-        { headerName: "Bank Account", field: "bank_account", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
-        { headerName: "Shareholder Account", field: "shareholder_account", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
-        { headerName: "Amount", field: "amount", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
-        { headerName: "Settlement Date", field: "settlement_date", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
-        { headerName: "Reference", field: "reference", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
-        { headerName: "Narrative", field: "narrative", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
+        { headerName: "#", field: "count", sortable: true, editable: false, filter: true, flex: 1, resizable: false, minWidth: 10 },
+        { headerName: "Account Name", field: "accountname", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
+        { headerName: "Balance", field: "balance", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
+        { headerName: "Category Name", field: "category_name", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
         { headerName: "Created By", field: "createdby", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
-        { headerName: "Created By ID", field: "created_by_id", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
+        { headerName: "Currency", field: "currency", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
         { headerName: "Date Created", field: "datecreated", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
-        { headerName: "Global ID", field: "globalId", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
+        { headerName: "Main Account", field: "mainaccount", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
+        { headerName: "Number", field: "number", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
+        { headerName: "Reference No", field: "referenceno", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 },
+        { headerName: "Type", field: "type", sortable: true, editable: false, filter: true, flex: 2, resizable: false, minWidth: 10 }
     ];
-
     const defaultColDef = { sortable: true, flex: 1, filter: true, floatingFilter: false };
 
     const onGridReady = useEffect(() => {
-        const newUnApproved = async () => {
+        const activeAccounts = async () => {
             try {
-                const { data } = await mtaApi.finance_module.list_capital_entries("1")
+                const { data } = await mtaApi.accounts.list_account('3');
                 if (data.status === 200) {
                     const modifiedData = data.response.map((item, index) => ({
                         ...item,
@@ -51,7 +45,7 @@ const Unapproved_capital_injection = () => {
                 console.log(error)
             }
         }
-        newUnApproved();
+        activeAccounts();
     }, []);
 
     const onRowClicked = (event) => {
@@ -76,10 +70,6 @@ const Unapproved_capital_injection = () => {
         }
     };
 
-    const toggleEditMode = () => {
-        setEditMode(!editMode);
-    };
-
     const currentDiv = divStack[divStack.length - 1];
 
     const handleSearchChange = (event) => {
@@ -98,36 +88,21 @@ const Unapproved_capital_injection = () => {
         });
     });
 
-    const onSubmit = async (values) => {
+    const Ractivate = async () => {
         try {
-            document.getElementById('loader').style.display = 'block';
-            const { data } = await mtaApi.suppliers.updateSupplier(selectedRowData.id, (values))
-            setEditMode(!editMode)
-            reset();
-            console.log(data.message)
-        } catch (error) {
-            const message = error.response?.data?.error ?? error.message;
-            setAlert({ type: "error", message });
-            setEditMode(!editMode)
-        } finally {
-            document.getElementById('loader').style.display = 'none';
-        }
-    }
-    const approve = async () => {
-        try {
-            const { data } = await mtaApi.finance_module.approve_capital_injections(selectedRowData.id)
-            navigate("/finance/active-capital-injection");
+            const { data } = await mtaApi.accounts.approve_account(selectedRowData.number)
+            navigate("/finance/active-accounts");
         } catch (error) {
             const message = error.response?.data?.error ?? error.message;
             setAlert({ type: "error", message });
         }
-    }
+    };
 
     return (
         <div>
             {currentDiv === "listpage" && (
                 <div>
-                    <PageHeader currentpage="Approve New Capital Injections" href="/finance/expenses/" activepage="Dashboard" mainpage="New Capital Injections pending approval" />
+                    <PageHeader currentpage="Deactivated Accounts" href="/finance/accouting/" activepage="Dashboard" mainpage="Deactivated Accounts" />
                     <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                         <input
                             type="text"
@@ -136,7 +111,7 @@ const Unapproved_capital_injection = () => {
                             placeholder="Search..."
                             style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '50%', boxSizing: 'border-box' }}
                         />
-                        <CSVLink data={filteredData.length > 0 ? filteredData : rowData.length > 0 ? rowData : []} filename="new_unapproved_capital_injections" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
+                        <CSVLink data={filteredData.length > 0 ? filteredData : rowData.length > 0 ? rowData : []} filename="deactivated_approved_Accounts" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                             </svg>
@@ -157,10 +132,9 @@ const Unapproved_capital_injection = () => {
                     </div>
                 </div>
             )}
-
             {currentDiv === "details" && (
                 <div>
-                    <PageHeader currentpage="New capital injection Details" activepage="finance" mainpage="New Capital Injection pending approval Details" />
+                    <PageHeader currentpage="Deactivated account  Details" activepage="Dashboard" mainpage="Deactivated account Details" />
                     <button className='className="flex left-0 text-blue-700 hover:bg-gray-100 p-3 font-bold'
                         onClick={handleBack}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -174,19 +148,24 @@ const Unapproved_capital_injection = () => {
                             <table className="ti-custom-table border-0 whitespace-nowrap">
                                 <tbody>
                                     <tr className="">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Bank Account</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Account Name</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.bank_account} {...register("bank_account")} /> : selectedRowData.bank_account}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.accountname}</td>
                                     </tr>
                                     <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Amount</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Balance</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.amount} {...register("amount")} /> : selectedRowData.amount}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.balance}</td>
                                     </tr>
                                     <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Created By ID</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Category Name</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.created_by_id}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.category_name}</td>
+                                    </tr>
+                                    <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Count</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.count}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Created By</td>
@@ -194,14 +173,19 @@ const Unapproved_capital_injection = () => {
                                         <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.createdby}</td>
                                     </tr>
                                     <tr className="!border-0">
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Currency</td>
+                                        <td className="!p-2">:</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.currency}</td>
+                                    </tr>
+                                    <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Date Created</td>
                                         <td className="!p-2">:</td>
                                         <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.datecreated}</td>
                                     </tr>
                                     <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Global ID</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Description</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.globalId}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.description}</td>
                                     </tr>
                                     <tr className="!border-0">
                                         <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">ID</td>
@@ -209,34 +193,29 @@ const Unapproved_capital_injection = () => {
                                         <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.id}</td>
                                     </tr>
                                     <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Narrative</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Main Account</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.narrative} {...register("narrative")} /> : selectedRowData.narrative}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.mainaccount}</td>
                                     </tr>
                                     <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">No</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Notes</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.no}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.notes}</td>
                                     </tr>
                                     <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Reference</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Number</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.reference} {...register("reference")} /> : selectedRowData.reference}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.number}</td>
                                     </tr>
                                     <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Settlement Date</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Reference No</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.settlement_date}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.referenceno}</td>
                                     </tr>
                                     <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Shareholder Account</td>
+                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Type</td>
                                         <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.shareholder_account} {...register("shareholder_account")} /> : selectedRowData.shareholder_account}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Transaction ID</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{editMode ? <input type="text" defaultValue={selectedRowData.transaction_id} {...register("transaction_id")} /> : selectedRowData.transaction_id}</td>
+                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.type}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -249,23 +228,23 @@ const Unapproved_capital_injection = () => {
                     </div>
                     <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
                         <button
-                            onClick={editMode ? handleSubmit(onSubmit) : toggleEditMode}
+                            onClick=""
                             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 dark:text-white dark:hover:text-white"
                         >
-                            {editMode ? "Save" : "Edit"}
+                            Deactivate
                         </button>
                         <button
-                            onClick={approve}
+                            onClick={Ractivate}
                             className="py-2.5 px-5 ms-3 text-sm font-medium focus:outline-none rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"
                         >
-                            Approve
+                            Delete
                         </button>
                     </div>
                     {alert && <Alert alert={alert} />}
-                </div >
+                </div>
             )}
-        </div >
+        </div>
     )
-}
+};
 
-export default Unapproved_capital_injection;
+export default Deactivated_accounts;

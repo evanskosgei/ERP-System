@@ -4,8 +4,8 @@ import '@ag-grid-community/styles/ag-theme-alpine.css';
 import { CSVLink } from "react-csv";
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
-import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader';
-import mtaApi from '../../../api/mtaApi';
+import PageHeader from '../../../../layout/layoutsection/pageHeader/pageHeader';
+import mtaApi from '../../../../api/mtaApi';
 
 const Deleted_capital_injection = () => {
 
@@ -36,7 +36,7 @@ const Deleted_capital_injection = () => {
   const onGridReady = useEffect(() => {
     const newUnApproved = async () => {
       try {
-        const { data } = await mtaApi.finance_module.list_capital_entries("5")
+        const { data } = await mtaApi.capital_injection.list_capital_injection_entries("5")
         if (data.status === 200) {
           const modifiedData = data.response.map((item, index) => ({
             ...item,

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import PageHeader from "../../../layout/layoutsection/pageHeader/pageHeader";
+import PageHeader from "../../../../layout/layoutsection/pageHeader/pageHeader";
 import { AgGridReact } from 'ag-grid-react';
 import { Link, useLocation } from 'react-router-dom';
 import '@ag-grid-community/styles/ag-grid.css';
@@ -7,8 +7,8 @@ import '@ag-grid-community/styles/ag-theme-alpine.css';
 import { CSVLink } from "react-csv";
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
-import mtaApi from "../../../api/mtaApi";
-import Alert from "../../../components/Alert";
+import mtaApi from "../../../../api/mtaApi";
+import Alert from "../../../../components/Alert";
 
 const Active_accounts = () => {
 
@@ -33,7 +33,7 @@ const Active_accounts = () => {
     const onGridReady = useEffect(() => {
         const activeAccounts = async () => {
             try {
-                const { data } = await mtaApi.Accounts_model.list_account('1');
+                const { data } = await mtaApi.accounts.list_account('1');
                 if (data.status === 200) {
                     const modifiedData = data.response.map((item, index) => ({
                         ...item,
@@ -90,7 +90,7 @@ const Active_accounts = () => {
 
     const approve = async () => {
         try {
-            const { data } = await mtaApi.Accounts_model.approve_account(selectedRowData.number)
+            const { data } = await mtaApi.accounts.approve_account(selectedRowData.number)
             navigate("/finance/active-accounts");
         } catch (error) {
             const message = error.response?.data?.error ?? error.message;
