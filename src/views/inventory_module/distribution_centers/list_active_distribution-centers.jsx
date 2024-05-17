@@ -3,6 +3,7 @@ import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader';
 import { AgGridReact } from 'ag-grid-react';
 import '@ag-grid-community/styles/ag-grid.css';
 import '@ag-grid-community/styles/ag-theme-alpine.css';
+import { Link } from 'react-router-dom';
 import { CSVLink } from "react-csv";
 import Alert from '../../../components/Alert';
 import mtaApi from '../../../api/mtaApi';
@@ -20,22 +21,15 @@ const Activedistributioncenters = () => {
     const [showStatusModal, setShowStatusModal] = useState(false);
 
     const columnDefs = [
-        { headerName: "#", field: "count", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 5 },
+        { headerName: "#", field: "number", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 5 },
         { headerName: "Name", field: "name", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
-        { headerName: "Mobile Number", field: "mobile_number", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
-        // { headerName: "Tel Number", field: "telephone_number", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
-        { headerName: "Email", field: "email", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
         { headerName: "Shop Number", field: "shop_number", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 5 },
-        // { headerName: "P.Location", field: "physical_location", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
-        { headerName: "Address", field: "address", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
         { headerName: "Building", field: "building", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
-        { headerName: "Postal Code", field: "postal_code", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
-        { headerName: "City", field: "city", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
+        { headerName: "Mobile Number", field: "mobile_number", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
+        { headerName: "Town", field: "city", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
         { headerName: "County", field: "county", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
-        // { headerName: "Region", field: "region", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
-        { headerName: "Country", field: "country", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
-        // { headerName: "Date Created", field: "created_date", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
-        // { headerName: "D.Center ID", field: "distribution_center_type_id", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
+        { headerName: "Region", field: "region", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
+        { headerName: "Location", field: "physical_location", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 10 },
     ];
 
     const onGridReady = useEffect(() => {
@@ -129,7 +123,7 @@ const Activedistributioncenters = () => {
         <div>
             {currentDiv === "table" && (
                 <div>
-                    <PageHeader currentpage="Active Distribution Centers" href="/inventory/dashboard/" activepage="Inventory" mainpage="Active Distribution Centers" />
+                    <PageHeader currentpage="Active Distribution Centers" href="/inventory/dashboard/" activepage="Inventory" mainpage="Distribution Centers" />
 
                     <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                         <input
@@ -137,7 +131,22 @@ const Activedistributioncenters = () => {
                             value={searchQuery}
                             onChange={handleSearchChange}
                             placeholder="Search..."
-                            style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '50%', boxSizing: 'border-box' }}
+                            style={{
+                                marginTop: '5px',
+                                marginBottom: '15px',
+                                padding: '8px',
+                                width: '30%',
+                                boxSizing: 'border-box',
+                                border: '1px solid #ccc',
+                                borderRadius: '4px',
+                                fontFamily: 'Arial, sans-serif',
+                                fontSize: '14px',
+                                backgroundColor: '#f9f9f9',
+                                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                                transition: 'border-color 0.3s',
+                            }}
+                            onFocus={(e) => e.target.style.borderColor = '#007BFF'}
+                            onBlur={(e) => e.target.style.borderColor = '#ccc'}
                         />
                         <CSVLink data={filteredData.length > 0 ? filteredData : rowData} filename="Active Distribution Centers.csv" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -162,7 +171,7 @@ const Activedistributioncenters = () => {
 
             {currentDiv === "distributioncenterDetails" && (
                 <div>
-                    <PageHeader currentpage="Active Distribution Center" activepage="Inventory" mainpage="Active Distribution Center" />
+                    <PageHeader currentpage=" Distribution Center Details" activepage="Inventory" mainpage="Active Distribution Center" />
                     <button className='className="flex left-0 text-blue-700 hover:bg-gray-100 p-3 font-bold'
                         onClick={handleBack}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -170,109 +179,121 @@ const Activedistributioncenters = () => {
                         </svg>
                         <h4>back</h4>
                     </button>
-                    <div id="profile-1" className="ml-4" role="tabpanel">
-                        <h5 className="box-title my-3">Personal Information</h5>
-                        <div className="overflow-auto">
-                            <table className="ti-custom-table border-0 whitespace-nowrap">
-                                <tbody>
-                                    <tr className="">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Shop Number</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.shop_number}</td>
-                                    </tr>
-                                    <tr className="">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Shop Name</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.name}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Shop Mobile No.</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.mobile_number}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Shop Tel No.</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.telephone_number}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Shop Email</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.email}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Building Name</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.building}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Physical Location</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.physical_location}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Address</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.address}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Postal Code</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.postal_code}</td>
-                                    </tr>
-                                    <tr className="">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">City</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.city}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">County</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.county}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Region</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.region}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Country</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.country}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Date created</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.created_date}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Remarks</td>
-                                        <td className="!p-2">:</td>
-                                        <div className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.notes}</div>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div className= "grid grid-cols-12 gap-x-12">
+                    <div className= "col-span-12 xl:col-span-12">
+					<div className= "box">
+						<div className= "box-body p-0">
+
+							<div id="profile-settings-1" role="tabpanel" aria-labelledby="profile-settings-item-1">
+								<div className= "box border-0 shadow-none mb-0">
+									
+                                    <div className="box-header">
+                            <h5 className="box-title  text-center">Distribution Center Details</h5>
                         </div>
-                    </div>
+									<div className= "box-body">
+										<div>
+										<div className= "grid lg:grid-cols-2 gap-6">
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Shop Name :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.name}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+										    <span className= "text-sm font-bold">Shop Number :</span>
+										    <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.shop_number}</span>
+									    </div>
+
+                                       
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Mobile Number :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.mobile_number}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Telephone Number :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.telephone_number}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Email Address :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.email}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Building Name :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.building}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Physical Location :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.physical_location}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Address :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.address}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Postal Code :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.postal_code}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">City / Town :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.city}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">County :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.county}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Region :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.region}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Date created :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.created_date}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">User Name :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.user_name}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Remarks :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.notes}</span>
+                                        </div>
+
+                                    
+									</div>
+									</div>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+						<div className= "box-footer text-end space-x-3 rtl:space-x-reverse" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem' }}>
+							
+                            <Link to="#" className= "ti-btn m-0 ti-btn-soft-warning" onClick={deactivate}><i className="ri ri-refresh-line"></i> Deactivate</Link>
+							<Link to="#" className= "ti-btn m-0 ti-btn-soft-danger" onClick={deleteDistribution}><i className= "ri ri-close-circle-line"></i> Delete</Link>
+						</div>
+					</div>
+				</div>
+                </div>
                     <div id="loader" style={{ display: 'none' }}>
                         <span className="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent text-blue rounded-full" role="status" aria-label="loading">
                             <span className="sr-only">Loading...</span>
                         </span>
                     </div>
-                    <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                        <button
-                            onClick={deactivate}
-                            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 dark:text-white dark:hover:text-white"
-                        >
-                            Deactivate
-                        </button>
-                        <button
-                            onClick={deleteDistribution}
-                            className="py-2.5 px-5 ms-3 text-sm border-2 border-black font-medium focus:outline-none rounded-lg hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"
-                        >
-                            Remove
-                        </button>
-                    </div>
+
+                    
                     {alert && <Alert alert={alert} />}
                     {success && <Success success={success} />}
                     {showStatusModal && <Status closeModal={closeModal} deleteEXP={deleteEXP} />}

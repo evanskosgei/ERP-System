@@ -15,6 +15,7 @@ const mtaApi = {
     create_distribution: (data: any) => post("/distribution-centers/create-distribution-center", data),
     list_distribution: (status: any) => post("/distribution-centers/list-distribution-centers", { status }),
     approve_distribution: (status: any) => post("/distribution-centers/approve-distribution-center", { id: status }),
+    list_distribution_center_types: (status: any) => post("/distribution-centers/list-distribution-center-types", { status }),
     delete_distribution: (id: any) => post('', id)
   },
   suppliers: {
