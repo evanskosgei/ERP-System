@@ -40,9 +40,22 @@ const Createphonemodel = () => {
         reset()
         // setFilePaths([]);
     };
+
+    const formatAmount = (value) => {
+        const parts = value.toString().split('.');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        return parts.join('.');
+    };
+    
+    const handleAmountChange = (event) => {
+        const inputValue = event.target.value.replace(/,/g, '');
+        const formattedValue = formatAmount(inputValue);
+        setValue("amount", formattedValue);
+    };
+
     return (
         <div>
-            <PageHeader currentpage="Create Phone Model" href="/inventory/product-management" activepage="Inventory" mainpage="Create Phone Model" />
+            <PageHeader currentpage="Create Mobile Phone Model" href="/inventory/product-management" activepage="Inventory" mainpage="Add Mobile Phone Model" />
             <div className="col-span-12">
                 <div className="box">
                     <div className="box-header">
@@ -52,7 +65,7 @@ const Createphonemodel = () => {
                         <div className="grid lg:grid-cols-2 gap-6">
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">Select product sub-category</label>
-                                <select type="text" {...register("product_sub_category_id", { required: true })} className="my-auto ti-form-input" required>
+                                <select type="text" {...register("product_sub_category_id", { required: true })} className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                                     <option value="">Select phone category</option>
                                     <option value="1">Android Phones</option>
                                     <option value="2">iOS Phones</option>
@@ -61,51 +74,55 @@ const Createphonemodel = () => {
                             </div>
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">Phone name</label>
-                                <input type="text" {...register("phone_name", { required: true })} id='name' className="my-auto ti-form-input" placeholder=" ... Enter Phone name" />
+                                <input type="text" {...register("phone_name", { required: true })} id='name' className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder=" ... Enter Phone name" />
                             </div>
                             <div className="space-y-2">
-                                <label className="ti-form-label mb-0">Ram</label>
-                                <input type="text" {...register("ram", { required: true })} id='ram' className="my-auto ti-form-input" placeholder=" ... Enter phone ram capacity" />
+                                <label className="ti-form-label mb-0">RAM</label>
+                                <input type="text" {...register("ram", { required: true })} id='ram' className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder=" ... Enter phone ram capacity i.e 8 GB" />
                             </div>
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">Internal Storage</label>
-                                <input type="text" {...register("internal_storage", { required: true })} id='internal_storage' className="my-auto ti-form-input" placeholder=" ...Enter Internal storage capacity" required />
+                                <input type="text" {...register("internal_storage", { required: true })} id='internal_storage' className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder=" ...Enter Internal storage capacity i.e 256 GB" required />
                             </div>
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">Main Camera Pixels</label>
-                                <input type="text" {...register("main_camera", { required: true })} id='main_camera' className="my-auto ti-form-input" placeholder=" ...Enter main camera pixels" required />
+                                <input type="text" {...register("main_camera", { required: true })} id='main_camera' className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder=" ...Enter main camera pixels i.e 30 MP" required />
                             </div>
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">Front Camera Pixels</label>
-                                <input type="text" {...register("front_camera", { required: true })} id='front_camera' className="my-auto ti-form-input" placeholder=" ...Enter front camera pixels" required />
+                                <input type="text" {...register("front_camera", { required: true })} id='front_camera' className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder=" ...Enter front camera pixels i.e 30 MP" required />
                             </div>
                             <div className="space-y-2">
-                                <label className="ti-form-label mb-0">Display</label>
-                                <input type="text" {...register("display", { required: true })} id='display' className="my-auto ti-form-input" placeholder=" ...sample 6.66 inch AMOLED screen" required />
+                                <label className="ti-form-label mb-0">Display Size</label>
+                                <input type="text" {...register("display", { required: true })} id='display' className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder=" ...Enter screen size 6.66 inch AMOLED screen" required />
                             </div>
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">Processor</label>
-                                <input type="text" {...register("processor", { required: true })} id='processor' className="my-auto ti-form-input" placeholder="...Enter processor type" required />
+                                <input type="text" {...register("processor", { required: true })} id='processor' className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="...Enter processor type" required />
                             </div>
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">Operating System</label>
-                                <input type="text" {...register("operating_system")} id='operating_system' className="my-auto ti-form-input" placeholder="...Enter Operating system type" required />
+                                <input type="text" {...register("operating_system")} id='operating_system' className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="...Enter Operating system type" required />
                             </div>
                             <div className="space-y-2">
-                                <label className="ti-form-label mb-0">connectivity</label>
-                                <input type="text" {...register("connectivity")} className="my-auto ti-form-input" placeholder="Enter phone's connectivity" required />
+                                <label className="ti-form-label mb-0">Connectivity</label>
+                                <input type="text" {...register("connectivity")} className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter phone's connectivity" required />
                             </div>
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">Colors</label>
-                                <input type="text" {...register("colors")} id='colors' className="my-auto ti-form-input" placeholder="Enter phone's colour" required />
+                                <input type="text" {...register("colors")} id='colors' className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter phone's colour" required />
                             </div>
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">Battery Capacity</label>
-                                <input type="text" {...register("battery")} id='battery' className="my-auto ti-form-input" placeholder="Enter phone's battery capacity" required />
+                                <input type="text" {...register("battery")} id='battery' className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter phone's battery capacity" required />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="ti-form-label mb-0">VAT Tax Amount</label>
+                                <input type="number" {...register("vat_percent_amount")} id='vat_percent_amount' className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter vat percentage amount. i.e 16" onChange={handleAmountChange} required />
                             </div>
                             <div className="space-y-2 hidden">
                                 <label className="ti-form-label mb-0">Image path</label>
-                                <input type="text" {...register("image_path")} id='image_path' className="my-auto ti-form-input" placeholder="Enter phone's battery capacity" required />
+                                <input type="text" {...register("image_path")} id='image_path' className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter phone's battery capacity" required />
                             </div>
                         </div>
                         {/* <div className="box-body dropzone-file-upload">

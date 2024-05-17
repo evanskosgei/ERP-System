@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 import PageHeader from "../../../../layout/layoutsection/pageHeader/pageHeader";
 import { AgGridReact } from "ag-grid-react";
+import { Link } from 'react-router-dom';
 import "@ag-grid-community/styles/ag-grid.css";
 import "@ag-grid-community/styles/ag-theme-alpine.css";
 import { CSVLink } from "react-csv";
@@ -20,16 +21,16 @@ const Activephones = () => {
     const [showStatusModal, setShowStatusModal] = useState(false);
 
     const columnDefs = [
-        { headerName: "#", field: "id", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 3 },
-        { headerName: "Phone Name", field: "name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5 },
-        { headerName: "Ram", field: "ram", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 3 },
-        { headerName: "Rom", field: "internal_storage", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 3 },
-        { headerName: "Back Camera", field: "main_camera", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5 },
-        { headerName: "Selfie Camera", field: "front_camera", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5 },
-        { headerName: "Dispaly", field: "display", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5 },
-        { headerName: "Battery", field: "battery", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5 },
-        { headerName: "OS", field: "operating_system", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5 },
-        { headerName: "Connectivity", field: "connectivity", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5 },
+        { headerName: "#", field: "number", sortable: true, editable: false, filter: true, flex: 1, resizable: true, maxWidth: 30 },
+        { headerName: "Model Name", field: "name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5, },
+        { headerName: "RAM", field: "ram", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 3, },
+        { headerName: "Internal Storage", field: "internal_storage", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 3, },
+        { headerName: "Back Camera", field: "main_camera", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5, },
+        { headerName: "Front Camera", field: "front_camera", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5, },
+        { headerName: "Dispaly", field: "display", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5, },
+        { headerName: "Battery", field: "battery", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5, },
+        { headerName: "OS", field: "operating_system", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5, },
+        { headerName: "Connectivity", field: "connectivity", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 5, },
     ];
 
     const defaultColDef = { sortable: true, flex: 1, filter: true, floatingFilter: false };
@@ -90,7 +91,7 @@ const Activephones = () => {
         <div>
             {currentDiv === "table" && (
                 <div>
-                    <PageHeader currentpage="Active Phone Models" href="/inventory/product-management" activepage="Inventory" mainpage="Active Phone Models" />
+                    <PageHeader currentpage="Phone Models" href="/inventory/product-management" activepage="Inventory" mainpage="Active Phone Models" />
 
                     <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                         <input
@@ -98,7 +99,22 @@ const Activephones = () => {
                             value={searchQuery}
                             onChange={handleSearchChange}
                             placeholder="Search..."
-                            style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '50%', boxSizing: 'border-box' }}
+                            style={{
+                                marginTop: '5px',
+                                marginBottom: '15px',
+                                padding: '8px',
+                                width: '30%',
+                                boxSizing: 'border-box',
+                                border: '1px solid #ccc',
+                                borderRadius: '4px',
+                                fontFamily: 'Arial, sans-serif',
+                                fontSize: '14px',
+                                backgroundColor: '#f9f9f9',
+                                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                                transition: 'border-color 0.3s',
+                            }}
+                            onFocus={(e) => e.target.style.borderColor = '#007BFF'}
+                            onBlur={(e) => e.target.style.borderColor = '#ccc'}
                         />
                         <CSVLink data={filteredData.length > 0 ? filteredData :rowData.length > 0 ? rowData: []} filename="Active Phone Models.csv" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -124,144 +140,151 @@ const Activephones = () => {
 
             {currentDiv === "phoneDetails" && (
                 <div>
-                    <PageHeader currentpage="Active Phone Model" href="/inventory/product-management" activepage="Inventory" mainpage="Active Phone Model" />
+                    <PageHeader currentpage="Phone Model Details" href="/inventory/product-management" activepage="Inventory" mainpage="Active Phone Model Details" />
                     <div className="box">
-                        <div className="grid grid-cols-12">
-                            <div className="col-span-12 xxl:col-span-5">
-                                <div className="box mb-0 border-0 shadow-none bg-transparent">
-                                    <div className="box-body">
-                                        <Swiper
-                                            style={{ "--swiper-navigation-color": "#fff", "--swiper-pagination-color": "#fff" }}
-                                            className="mySwiper2"
-                                            loop={true}
-                                            spaceBetween={10}
-                                            navigation={true}
-                                            thumbs={{ swiper: thumbsSwiper }}
-                                            modules={[FreeMode, Navigation, Thumbs]}
-                                        >
-                                            {Array.from(Array(8)).map((_, index) => (
-                                                <SwiperSlide key={index}>
-                                                    <img alt={`product-image-${index}`} src={ALLImages(`png${index + 17}`)} />
-                                                </SwiperSlide>
-                                            ))}
-                                        </Swiper>
-                                        <Swiper
-                                            onSwiper={setThumbsSwiper}
-                                            loop={true}
-                                            spaceBetween={10}
-                                            slidesPerView={4}
-                                            freeMode={true}
-                                            watchSlidesProgress={true}
-                                            modules={[FreeMode, Navigation, Thumbs]}
-                                            className="mySwiper"
-                                        >
-                                            {Array.from(Array(8)).map((_, index) => (
-                                                <SwiperSlide key={index}>
-                                                    <img alt={`product-image-${index}`} src={ALLImages(`png${index + 17}`)} />
-                                                </SwiperSlide>
-                                            ))}
-                                        </Swiper>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-span-12 xxl:col-span-4">
-                                <div className="box mb-0 border-0 shadow-none bg-transparent">
-                                    <div className="box-body xxl:px-0">
-                                        <div className="space-y-5">
-                                            <h5 className="font-bold text-xl text-gray-800 dark:text-white">
-                                                {selectedRowData.name}
-                                            </h5>
-                                            {/* <div className="space-y-4">
-                                                <h5 className="font-bold text-sm my-auto w-28 text-gray-800 dark:text-white">Description :</h5>
+            <div className="grid grid-cols-12">
+              <div className="col-span-12 xxl:col-span-5">
+                <div className="box mb-0 border-0 shadow-none bg-transparent">
+                  <div className="box-body">
+                    <Swiper
+                      style={{ "--swiper-navigation-color": "#fff", "--swiper-pagination-color": "#fff" }}
+                      className="mySwiper2"
+                      loop={true}
+                      spaceBetween={10}
+                      navigation={true}
+                      thumbs={{ swiper: thumbsSwiper }}
+                      modules={[FreeMode, Navigation, Thumbs]}
+                    >
+                      {Array.from(Array(8)).map((_, index) => (
+                        <SwiperSlide key={index}>
+                          <img alt={`product-image-${index}`} src={ALLImages(`png${index + 17}`)} />
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
+                    <Swiper
+                      onSwiper={setThumbsSwiper}
+                      loop={true}
+                      spaceBetween={10}
+                      slidesPerView={4}
+                      freeMode={true}
+                      watchSlidesProgress={true}
+                      modules={[FreeMode, Navigation, Thumbs]}
+                      className="mySwiper"
+                    >
+                      {Array.from(Array(8)).map((_, index) => (
+                        <SwiperSlide key={index}>
+                          <img alt={`product-image-${index}`} src={ALLImages(`png${index + 17}`)} />
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
+                  </div>
+                </div>
+              </div>
 
-                                                <p className="my-auto font-medium text-sm text-gray-500 dark:text-white/70">
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas sint exercitationem
-                                                    veritatis harum maiores corporis perspiciatis quos accusantium velit. Deserunt tenetur
-                                                    rerum nemo illum. Dolor laboriosam atque accusantium perspiciatis rerum?
-                                                </p>
-                                            </div> */}
-                                            <div className="sm:flex sm:space-x-5">
-                                                <h5 className="font-bold text-sm my-auto w-28 text-gray-800 dark:text-white">Ram :</h5>
-                                                <span className="my-auto font-medium text-md">
-                                                    {selectedRowData.ram}
-                                                </span>
-                                            </div>
-                                            <div className="sm:flex sm:space-x-2">
-                                                <h5 className="font-bold text-sm my-auto w-30 text-gray-800 dark:text-white">
-                                                    Internal Storage :
-                                                </h5>
-                                                <h5 className="font-medium text-sm my-auto w-28 text-gray-800 dark:text-white">
-                                                    {selectedRowData.internal_storage}
-                                                </h5>
-                                            </div>
-                                            <div className="sm:flex sm:space-x-2">
-                                                <h5 className="font-bold text-sm my-auto w-30 text-gray-800 dark:text-white">Main Camera :</h5>
-                                                <h5 className="font-medium text-sm my-auto w-auto text-gray-800 dark:text-white">
-                                                    {selectedRowData.main_camera}
-                                                </h5>
-                                            </div>
-                                            <div className="sm:flex sm:space-x-2">
-                                                <h5 className="font-bold text-sm my-auto w-30 text-gray-800 dark:text-white">Front Camera :</h5>
-                                                <h5 className="font-medium text-sm my-auto w-28 text-gray-800 dark:text-white">
-                                                    {selectedRowData.front_camera}
-                                                </h5>
-                                            </div>
-                                            <div className="sm:flex sm:space-x-2">
-                                                <h5 className="font-bold text-sm my-auto w-30 text-gray-800 dark:text-white">Display :</h5>
-                                                <h5 className="font-medium text-sm my-auto w-28 text-gray-800 dark:text-white">
-                                                    {selectedRowData.display}
-                                                </h5>
-                                            </div>
-                                            <div className="sm:flex sm:space-x-2">
-                                                <h5 className="font-bold text-sm my-auto w-35 text-gray-800 dark:text-white">Processor :</h5>
-                                                <h5 className="font-medium text-sm my-auto w-35 text-gray-800 dark:text-white">
-                                                    {selectedRowData.processor}
-                                                </h5>
-                                            </div>
-                                            <div className="sm:flex sm:space-x-2">
-                                                <h5 className="font-bold text-sm my-auto w-30 text-gray-800 dark:text-white">
-                                                    Operating System :
-                                                </h5>
-                                                <h5 className="font-medium text-sm my-auto w-28 text-gray-800 dark:text-white">
-                                                    {selectedRowData.operating_system}
-                                                </h5>
-                                            </div>
-                                            <div className="sm:flex sm:space-x-2">
-                                                <h5 className="font-bold text-sm my-auto w-30 text-gray-800 dark:text-white">Connectivity :</h5>
-                                                <h5 className="font-medium text-sm my-auto w-28 text-gray-800 dark:text-white">
-                                                    {selectedRowData.connectivity}
-                                                </h5>
-                                            </div>
-                                            <div className="sm:flex sm:space-x-2">
-                                                <h5 className="font-bold text-sm my-auto w-30 text-gray-800 dark:text-white">Colors :</h5>
-                                                <h5 className="font-medium text-sm my-auto w-28 text-gray-800 dark:text-white">
-                                                    {selectedRowData.colors}
-                                                </h5>
-                                            </div>
-                                            <div id="loader" style={{ display: "none" }}>
-                                                <span
-                                                    className="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent text-blue rounded-full"
-                                                    role="status"
-                                                    aria-label="loading"
-                                                >
-                                                    <span className="sr-only">Loading...</span>
-                                                </span>
-                                            </div>
-                                            <button className="ti-btn ti-btn-ghost-primary text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:text-white dark:hover:text-white">
-                                                Deactivate
-                                            </button>
-                                            <button
-                                                onClick=""
-                                                className="ti-btn ti-btn-ghost-danger"
-                                            >
-                                                Delete
-                                            </button>
+              <div className="col-span-12 xxl:col-span-7">
+
+              <div className= "box">
+						<div className= "box-body p-0">
+							<div id="profile-settings-1" role="tabpanel" aria-labelledby="profile-settings-item-1">
+								<div className= "box border-0 shadow-none mb-0">
+									<div className= "box-header">
+										<h5 className= "box-title leading-none flex"><i className= "ri ri-phone-line ltr:mr-2 rtl:ml-2"></i> Mobile Phone Model Details</h5>
+									</div>
+									<div className= "box-body">
+										<div>
+										<div className= "grid lg:grid-cols-2 gap-6">
+                                        
+                                        <div className= "space-x-3">
+                                          <span className= "text-sm font-bold">Category Name :</span>
+                                          <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.category_name}</span>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+                                        <div className= "space-x-3">
+                                          <span className= "text-sm font-bold">Model Name :</span>
+                                          <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.name}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">RAM Size :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.ram}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Internal Storage :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.internal_storage}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Battery :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.battery}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">VAT Amount :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.vat_percent_amount}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Main Camera :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.main_camera}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Front Camera :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.front_camera}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Display :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.display}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Connectivity :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.connectivity}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Colors :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.colors}</span> user_name
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Processor :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.processor}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Operating System :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.operating_system}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Created By:</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.user_name}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Date Created :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.date_created}</span>
+                                        </div>
+									</div>
+									</div>
+									</div>
+								</div>
+							</div>
+						
+						</div>
+						<div className= "box-footer text-end space-x-3 rtl:space-x-reverse" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem' }}>
+							
+            <Link to="#" className= "ti-btn m-0 ti-btn-soft-primary" ><i className="ri ri-refresh-line"></i> Deactivate</Link>
+			<Link to="#" className= "ti-btn m-0 ti-btn-soft-secondary" ><i className= "ri ri-close-circle-line"></i> Edit</Link>
+						</div>
+					</div>
+               
+              </div>
+            </div>
+          </div>
                 </div>
             )}
         </div>
