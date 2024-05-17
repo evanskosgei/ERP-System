@@ -1,9 +1,9 @@
-import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader';
+import PageHeader from '../../../../layout/layoutsection/pageHeader/pageHeader';
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import Alert from "../../../components/Alert";
-import mtaApi from "../../../api/mtaApi";
+import Alert from "../../../../components/Alert";
+import mtaApi from "../../../../api/mtaApi";
 
 const Create_accounts = () => {
   const { register, handleSubmit, formState: { errors, isValid } } = useForm();
@@ -16,7 +16,7 @@ const Create_accounts = () => {
 
   useEffect(() => {
     const getDetails = async () => {
-        await mtaApi.Accounts_model.list_account_categories('1')
+        await mtaApi.accounts.list_account_categories('1')
             .then(data => {
                 if(data.status === 200){
                 setAccountCategory(data.data.response)
@@ -25,7 +25,7 @@ const Create_accounts = () => {
                 const message = error.response?.data?.error ?? error.message;
                 setAlert({ type: "error", message });
             })
-            await mtaApi.Accounts_model.list_account_types("1")
+            await mtaApi.accounts.list_account_types("1")
             .then(data =>{
                 if(data.status === 200){
                 setAccountType(data.data.response)
@@ -40,7 +40,7 @@ const Create_accounts = () => {
 
 const onSubmit = async (values) => {
     try {
-        const { data } = await mtaApi.Accounts_model.create_account(values)
+        const { data } = await mtaApi.accounts.create_account(values)
         if (data.status === 200) {
             navigate("/finance/unapproved-accounts");
         } else {

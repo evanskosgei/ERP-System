@@ -2,14 +2,14 @@ import { AgGridReact } from 'ag-grid-react';
 import '@ag-grid-community/styles/ag-grid.css';
 import '@ag-grid-community/styles/ag-theme-alpine.css';
 import { CSVLink } from "react-csv";
+import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useCallback } from "react";
 import Alert from '../../../components/Alert';
 import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader';
 import mtaApi from '../../../api/mtaApi';
 
-const Deactivated_capital_injections = () => {
-
+const Reactivated_capital_injection = () => {
     const navigate = useNavigate();
     const [rowData, setRowData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
@@ -37,7 +37,7 @@ const Deactivated_capital_injections = () => {
     const onGridReady = useEffect(() => {
         const newUnApproved = async () => {
             try {
-                const { data } = await mtaApi.finance_module.list_capital_entries("4")
+                const { data } = await mtaApi.capital_injection.list_capital_injection_entries("4")
                 if (data.status === 200) {
                     const modifiedData = data.response.map((item, index) => ({
                         ...item,
@@ -109,19 +109,18 @@ const Deactivated_capital_injections = () => {
     }
     const Approve = async () => {
         try {
-            const { data } = await mtaApi.finance_module.approve_capital_injections(selectedRowData.id)
+            const { data } = await mtaApi.capital_injection.approve_capital_injection(selectedRowData.id)
             navigate("/finance/active-capital-injection");
         } catch (error) {
             const message = error.response?.data?.error ?? error.message;
             setAlert({ type: "error", message });
         }
     }
-
     return (
         <div>
             {currentDiv === "listpage" && (
                 <div>
-                    <PageHeader currentpage="Deactivated Capital Injections" href="/finance/expenses/" activepage="Dashboard" mainpage="Deactivated Capital Injections approval" />
+                    <PageHeader currentpage="Reactivated Capital Injections" href="/finance/expenses/" activepage="Dashboard" mainpage="Reactivated Capital Injections approval" />
                     <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                         <input
                             type="text"
@@ -130,7 +129,7 @@ const Deactivated_capital_injections = () => {
                             placeholder="Search..."
                             style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '50%', boxSizing: 'border-box' }}
                         />
-                        <CSVLink data={filteredData.length > 0 ? filteredData : rowData.length > 0 ? rowData : []} filename="deactivated_capital_injections" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
+                        <CSVLink data={filteredData.length > 0 ? filteredData : rowData.length > 0 ? rowData : []} filename="Reactivated_capital_injections" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                             </svg>
@@ -154,7 +153,7 @@ const Deactivated_capital_injections = () => {
 
             {currentDiv === "details" && (
                 <div>
-                    <PageHeader currentpage="Deactivated capital injection Details" activepage="finance" mainpage="Deactivated Capital Injection Details" />
+                    <PageHeader currentpage="Reactivated capital injection Details" activepage="finance" mainpage="Reactivated Capital Injection Details" />
                     <button className='className="flex left-0 text-blue-700 hover:bg-gray-100 p-3 font-bold'
                         onClick={handleBack}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -246,7 +245,7 @@ const Deactivated_capital_injections = () => {
                             onClick={Approve}
                             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 dark:text-white dark:hover:text-white"
                         >
-                            Activate
+                            APprove
                         </button>
                         <button
                             onClick={deleteRecord}
@@ -262,4 +261,4 @@ const Deactivated_capital_injections = () => {
     )
 }
 
-export default Deactivated_capital_injections;
+export default Reactivated_capital_injection;

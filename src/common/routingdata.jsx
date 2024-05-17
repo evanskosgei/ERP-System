@@ -86,20 +86,20 @@ import ProductCategories from "../views/inventory_module/product_management/prod
 import ProductsubCategories from "../views/inventory_module/product_management/product_categories/list_product_subCategories";
 
 // accounting pages
-import Create_accounts from "../views/finance_module/accounts_module/create_accounts";
-import Unapproved_accounts from "../views/finance_module/accounts_module/list_unapproved_account";
-import Active_accounts from "../views/finance_module/accounts_module/list_active_accounts";
-import Deactivated_accounts from "../views/finance_module/accounts_module/list_deactivated_accounts";
-import Reactivated_accounts from "../views/finance_module/accounts_module/list_reactivated_accounts";
-import Deleted_accounts from "../views/finance_module/accounts_module/list_deleted_accounts";
+import Create_accounts from "../views/finance_module/accounting_module/accounts/create_accounts";
+import Unapproved_accounts from "../views/finance_module/accounting_module/accounts/list_unapproved_account";
+import Active_accounts from "../views/finance_module/accounting_module/accounts/list_active_accounts";
+import Deactivated_accounts from "../views/finance_module/accounting_module/accounts/list_deactivated_accounts";
+import Reactivated_accounts from "../views/finance_module/accounting_module/accounts/list_reactivated_accounts";
+import Deleted_accounts from "../views/finance_module/accounting_module/accounts/list_deleted_accounts";
 
 // finance module
-import Create_capital_injection from "../views/finance_module/finance_module/create_capital_injection";
-import Unapproved_capital_injection from "../views/finance_module/finance_module/list_unapproved_capital_injection";
-import Active_capital_injection from "../views/finance_module/finance_module/list_active_capital_injection";
-import Deactivated_capital_injections from "../views/finance_module/finance_module/list_deactivated_capital_injections";
-import Reactivated_capital_injection from "../views/finance_module/finance_module/list_reactivated_capital_injection";
-import Deleted_capital_injection from "../views/finance_module/finance_module/list_deleted_capital_injection";
+import Create_capital_injection from "../views/finance_module/accounting_module/capital_injection/create_capital_injection";
+import Unapproved_capital_injection from "../views/finance_module/accounting_module/capital_injection/list_unapproved_capital_injection";
+import Active_capital_injection from "../views/finance_module/accounting_module/capital_injection/list_active_capital_injection";
+import Deactivated_capital_injections from "../views/finance_module/accounting_module/capital_injection/list_deactivated_capital_injections";
+import Reactivated_capital_injection from "../views/finance_module/accounting_module/capital_injection/list_deactivated_capital_injections";
+import Deleted_capital_injection from "../views/finance_module/accounting_module/capital_injection/list_deleted_capital_injection";
 
 
 //Transport Pages
