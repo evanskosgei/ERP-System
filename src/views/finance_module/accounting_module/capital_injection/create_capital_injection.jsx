@@ -93,7 +93,7 @@ const Create_capital_injection = () => {
                             <div className="grid lg:grid-cols-2 gap-6">
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Bank Account Number</label>
-                                    <select type="text" {...register("bank_account_number", { required: true })} className="ti-form-input">
+                                    <select type="text" {...register("bank_account_number", { required: true })} className="ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500">
                                         {bank_accounts.map((mode, index) => (
                                             <option key={index} value={mode.account_number}>{mode.account_name}</option>
                                         ))}
@@ -102,7 +102,7 @@ const Create_capital_injection = () => {
                                 
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Shareholder Account Number</label>
-                                    <select type="text" {...register("shareholder_account_number", { required: true })} className="ti-form-input">
+                                    <select type="text" {...register("shareholder_account_number", { required: true })} className="ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500">
                                         {shareholder_accounts.map((mode, index) => (
                                             <option key={index} value={mode.account_number}>{mode.account_name}</option>
                                         ))}
@@ -111,15 +111,15 @@ const Create_capital_injection = () => {
 
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Amount</label>
-                                    <input type="text" {...register("amount")} className="my-auto ti-form-input" placeholder="Enter amount" onChange={handleAmountChange}/>
+                                    <input type="text" {...register("amount")} className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter amount" onChange={handleAmountChange}/>
                                 </div>
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Transaction ID</label>
-                                    <input type="text" {...register("transaction_id")} className="my-auto ti-form-input" placeholder="Enter transaction ID" />
+                                    <input type="text" {...register("transaction_id")} className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter transaction ID" />
                                 </div>
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Reference</label>
-                                    <input type="text" {...register("reference")} className="my-auto ti-form-input" placeholder="Enter reference" />
+                                    <input type="text" {...register("reference")} className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter reference" />
                                 </div>
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Value Date</label>
@@ -136,7 +136,7 @@ const Create_capital_injection = () => {
                                
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Narrative</label>
-                                    <input type="text" {...register("narrative")} className="my-auto ti-form-input" placeholder="Enter narrative" />
+                                    <input type="text" {...register("narrative")} className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter narrative" />
                                 </div>
                             </div>
                         </div>

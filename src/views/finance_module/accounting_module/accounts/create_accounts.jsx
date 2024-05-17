@@ -66,14 +66,14 @@ const onSubmit = async (values) => {
               <div className="grid lg:grid-cols-2 gap-6">
               <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Account Name</label>
-                                    <input type="text" {...register("name", { required: true })} className="my-auto ti-form-input" placeholder="Enter name" />
+                                    <input type="text" {...register("name", { required: true })} className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter name" />
                                 </div>
 
                 <div className="space-y-2">
                   <label className="ti-form-label mb-0">Account Type</label>
                   <select
                     {...register("accountType", { required: true })}
-                    className="custom-select my-auto ti-form-input"
+                    className="custom-select my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500"
                     value={accountTypeId}
                     onChange={(e) => {
                       const selectedTypeId = e.currentTarget.value;
@@ -98,7 +98,7 @@ const onSubmit = async (values) => {
                   <label className="ti-form-label mb-0">Account Category</label>
                   <select
                     {...register("accountCategory", { required: true })}
-                    className="my-auto ti-form-input"
+                    className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="">...Select Account category</option>
                     {allowedAccountCategories.map((cat, index) => (
@@ -109,25 +109,25 @@ const onSubmit = async (values) => {
 
                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Account Subcategory</label>
-                                    <input type="number" {...register("accountSubCategory")} className="my-auto ti-form-input" placeholder="Enter account subcategory" />
+                                    <input type="number" {...register("accountSubCategory")} className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter account subcategory" />
                                 </div>
                                 
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Opening Balance</label>
-                                    <input type="number" {...register("opening_balance")} className="my-auto ti-form-input" placeholder="Enter opening balance" />
+                                    <input type="number" {...register("opening_balance")} className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter opening balance" />
                                 </div>
                                 
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Notes</label>
-                                    <input type="text" {...register("notes")} className="my-auto ti-form-input" placeholder="Enter notes" />
+                                    <input type="text" {...register("notes")} className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter notes" />
                                 </div>
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Description</label>
-                                    <input type="text" {...register("description")} className="my-auto ti-form-input" placeholder="Enter description" />
+                                    <input type="text" {...register("description")} className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter description" />
                                 </div>
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Reference Number</label>
-                                    <input type="number" {...register("reference_number")} className="my-auto ti-form-input" placeholder="Enter reference number" />
+                                    <input type="number" {...register("reference_number")} className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter reference number" />
                                 </div>
               </div>
             </div>
