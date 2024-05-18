@@ -54,9 +54,9 @@ import Active_team_leader_distributions from "../views/distribution_module/team_
 import Receive_Team_leader_dispatched from "../views/distribution_module/team_leader/receive_dispatched_phones";
 
 // purchased with cash
-import BuyusingPrepayment from "../views/inventory_module/purchase_stock_cash/buy_using_prepayment";
-import Unapproved_stock_cash_purchased from "../views/inventory_module/purchase_stock_cash/list_unapproved_stock_cash_purchased";
-import Active_purchase_stock_cash from "../views/inventory_module/purchase_stock_cash/list_active_purchase_stock_cash";
+import BuyusingPrepayment from "../views/inventory_module/purchase_stock_using_cash/buy_stock_using_cash";
+import Unapproved_stock_cash_purchased from "../views/inventory_module/purchase_stock_using_cash/list_unapproved_stock_cash_purchased";
+import Active_purchase_stock_cash from "../views/inventory_module/purchase_stock_using_cash/list_active_purchase_stock_cash";
 
 // Receive in transit
 import Receivestock from "../views/inventory_module/stock_in_transit/receive_stock";
