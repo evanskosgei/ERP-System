@@ -117,7 +117,6 @@ const ApprovedStockCashPurchased = () => {
     ) || [];
 
 
-
     return (
         <div>
             {currentDiv === "listpage" && (

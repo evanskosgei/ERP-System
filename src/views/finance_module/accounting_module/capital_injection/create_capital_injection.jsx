@@ -51,7 +51,7 @@ const Create_capital_injection = () => {
         try {
             const { data } = await mtaApi.capital_injection.create_capital_injection(values);
             if (data.status === 200) {
-                navigate("/finance/new-unapproved-capital-injection");
+                navigate("/finance/active-capital-injection");
             } else {
                 const message = data.description;
                 setAlert({ type: "error", message });

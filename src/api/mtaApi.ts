@@ -39,6 +39,8 @@ const mtaApi = {
     list_account_categories: (status: any) => post("accounting/list-account-categories", { status }),
     list_account_types: (status: any) => post("/accounting/list-account-types", { status }),
     list_account_by_type: (data: any) => post("/accounting/list-specific-accounts-by-type",  data ),
+    get_transport_payable_default_account: (data: any) => post("/accounting/get-transport-payable-default-account", { id: data }),
+
   },
   capital_injection: {
     create_capital_injection: (data: any) => post("/finance/create-capital-injection", data),
