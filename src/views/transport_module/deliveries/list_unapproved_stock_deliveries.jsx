@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import mtaApi from '../../../api/mtaApi';
 import Alert from '../../../components/Alert';
 
-const New_unapproved_stock_in_transit = () => {
+const NewUnapprovedStockDelivery = () => {
     const navigate = useNavigate();
     const [rowData, setRowData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
@@ -107,7 +107,7 @@ const New_unapproved_stock_in_transit = () => {
         <div>
             {currentDiv === "listpage" && (
                 <div>
-                    <PageHeader currentpage="New Stock In Transit" href="/transport/transit/" activepage="Transport" mainpage="New Stock in Transit Pending Approval" />
+                    <PageHeader currentpage="Approve New Stock Delivery" href="/transport/dashboard/" activepage="Transport" mainpage="New Stock Delivery Pending Approval" />
                     <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                         <input
                             type="text"
@@ -259,4 +259,4 @@ const New_unapproved_stock_in_transit = () => {
     )
 }
 
-export default New_unapproved_stock_in_transit;
+export default NewUnapprovedStockDelivery;
