@@ -1,61 +1,47 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import PageHeader from "../../../layout/layoutsection/pageHeader/pageHeader";
+import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader';
 import { AgGridReact } from 'ag-grid-react';
-import { Link } from 'react-router-dom';
-import { useAuth } from "../../../providers/AuthProvider";
 import '@ag-grid-community/styles/ag-grid.css';
 import '@ag-grid-community/styles/ag-theme-alpine.css';
 import { CSVLink } from "react-csv";
-import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
-import Alert from '../../../components/Alert';
-import ALLImages from "../../../common/imagesdata";
 import mtaApi from '../../../api/mtaApi';
+import Alert from '../../../components/Alert';
+import { useForm } from "react-hook-form";
 
-const ApprovedStockCashPurchased = () => {
-
-    const navigate = useNavigate(); 
+const CreateStockDelivery = () => {
+    const { register, handleSubmit, formState: { errors, isValid }, formState, reset } = useForm();
+    const navigate = useNavigate();
     const [rowData, setRowData] = useState([]);
-    const [purchasedItems, setPurchasedItems] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
-    const [productDetailsSearchQuery, setProductDetailsSearchQuery] = useState(''); // New state variable
-    const [selectedRowData, setSelectedRowData] = useState(null);
     const [divStack, setDivStack] = useState(["listpage"]);
     const [editMode, setEditMode] = useState(false);
     const [alert, setAlert] = useState(null);
-    const { user } = useAuth();
+    const [selectedRows, setSelectedRows] = useState([]);
     const [modes, setModes] = useState([]);
-    const {
-        register,
-        handleSubmit,
-        formState: { errors, isValid },
-        formState,
-        setValue,
-        reset
-    } = useForm();
 
     const columnDefs = [
+        { cellRenderer: 'agCheckboxCellRenderer', checkboxSelection: true, showDisabledCheckboxes: false, cellEditor: 'agCheckboxCellEditor', resizable: true, minWidth: 10 },
         { headerName: "#", field: "count", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 5 },
-        { headerName: "Supplier Name", field: "supplier_name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
         { headerName: "Transaction ID", field: "transaction_id", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
         { headerName: "Total Amount", field: "total_amount", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10, valueFormatter: (params) => formatAmount(params.value) },
-        { headerName: "Date Purchased", field: "purchase_date", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 }, 
-        { headerName: "Date Created", field: "created_date", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Supplier Name", field: "supplier_name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Date Purchased", field: "purchase_date", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
         { headerName: "Created By", field: "user_name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Created Date", field: "created_date", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
     ];
     const defaultColDef = { sortable: true, flex: 1, filter: true, floatingFilter: false };
 
     const onGridReady = useCallback(() => {
         const newUnApproved = async () => {
             try {
-                const { data } = await mtaApi.purchase.list_purchases_todeliver('1');
+                const { data } = await mtaApi.purchase.list_stock_purchased_cash('1');
                 if (data.status === 200) {
                     const modifiedData = data.response.map((item, index) => ({
                         ...item,
                         count: index + 1
                     }));
                     setRowData(modifiedData);
-                    setPurchasedItems(modifiedData.product_details);
                 }
             } catch (error) {
                 console.log(error)
@@ -63,60 +49,6 @@ const ApprovedStockCashPurchased = () => {
         }
         newUnApproved();
     }, []);
-
-    const onRowClicked = (event) => {
-        const selectedData = event.data;
-        setSelectedRowData(selectedData);
-        handleClick('details');
-    };
-
-    const handleClick = (divId) => {
-        setDivStack(prevStack => {
-            if (prevStack.includes(divId)) {
-                return prevStack.slice(0, prevStack.indexOf(divId) + 1);
-            } else {
-                return [...prevStack, divId];
-            }
-        });
-    };
-
-    const handleBack = () => {
-        if (divStack.length > 1) {
-            setDivStack(prevStack => prevStack.slice(0, -1));
-        }
-    };
-
-    const toggleEditMode = () => {
-        setEditMode(!editMode);
-    };
-
-    const currentDiv = divStack[divStack.length - 1];
-
-    const handleSearchChange = (event) => {
-        setSearchQuery(event.target.value);
-    };
-
-    
-
-    const filteredData = rowData.filter((row) => {
-        return columnDefs.some((column) => {
-            const fieldValue = row[column.field];
-            if (fieldValue && typeof fieldValue === 'string') {
-                return fieldValue.toLowerCase().includes(searchQuery.toLowerCase());
-            } else if (fieldValue && typeof fieldValue !== 'string') {
-                return fieldValue.toString().toLowerCase().includes(searchQuery.toLowerCase());
-            }
-            return false;
-        });
-    });
-    const filteredProductDetails = selectedRowData?.product_details?.filter((item) =>
-        Object.values(item).some(
-            (value) =>
-                value &&
-                typeof value === 'string' &&
-                value.toLowerCase().includes(productDetailsSearchQuery.toLowerCase())
-        )
-    ) || [];
 
     useEffect(() => {
         const get_transporter_modes = async () => {
@@ -133,6 +65,70 @@ const ApprovedStockCashPurchased = () => {
         get_transporter_modes();
     }, [])
 
+    const handleClick = () => {
+        if (!selectedRows || selectedRows.length === 0) {
+            const message = "Please select rows to put in transit.";
+            setAlert({ type: "error", message });
+            return;
+        } else {
+            setDivStack(prevStack => [...prevStack, "details"]);
+            setAlert('');
+        }
+    };
+
+    const handleBack = () => {
+        if (divStack.length > 1) {
+            setDivStack(prevStack => prevStack.slice(0, -1));
+            setSelectedRows()
+            setAlert('')
+        }
+    };
+    const currentDiv = divStack[divStack.length - 1];
+    const handleSearchChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
+    // const filteredData = rowData.filter((row) => {
+    //     return columnDefs.some((column) => {
+    //         const fieldValue = row[column.field];
+    //         if (fieldValue && typeof fieldValue === 'string') {
+    //             return fieldValue.toLowerCase().includes(searchQuery.toLowerCase());
+    //         } else if (fieldValue && typeof fieldValue !== 'string') {
+    //             return fieldValue.toString().toLowerCase().includes(searchQuery.toLowerCase());
+    //         }
+    //         return false;
+    //     });
+    // });
+
+
+    const onSubmit = async (data) => {
+        const formattedData = {
+            ...data,
+            product_details: selectedRows.flatMap((row, index) => row.product_details.map((product, productIndex) => ({
+                model_id: product.model_id,
+                quantity: product.quantity
+            })))
+        };
+        try {
+            const response = await mtaApi.stock_in_transit.create_stock_delivery(formattedData)
+            if(response.data.status === 200){
+                navigate("/transport/new-unapproved-stock-delivery")
+                reset()
+            }else{
+                const message = response.data.description
+                setAlert({ type: "error", message });
+            }
+        } catch (error) {
+            const message = error.response?.data?.error ?? error.message;
+            setAlert({ type: "error", message });
+        }
+    };
+
+    const rowTotals = selectedRows ? selectedRows.map((row) =>
+        row.product_details.reduce((total, product) => total + product.quantity, 0)
+    ) : [];
+    const grandTotal = rowTotals.reduce((total, subtotal) => total + subtotal, 0);
+
     const formatAmount = (amount) => {
         return new Intl.NumberFormat('en-US', {
             style: 'decimal',
@@ -140,52 +136,37 @@ const ApprovedStockCashPurchased = () => {
             maximumFractionDigits: 2,
         }).format(amount);
     };
-
     return (
         <div>
             {currentDiv === "listpage" && (
                 <div>
-                    <PageHeader currentpage="Create Stock Delivery" href="/transport/dashboard/" activepage="Transport" mainpage="Deliver Stock Purchased" />
-                    <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
+                    <PageHeader currentpage="Create Stock Delivery" href="/transport/dashboard/" activepage="Transport" mainpage="Put Stock in Transit" />
+                    {alert && <Alert alert={alert} />}
+
+                    <div className="col-span-2 flex justify-between">
+                        <button onClick={handleClick} type="submit" className={`ti-btn ti-btn-primary  ti-custom-validate-btn`}>Put In Transit</button>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', margin: '2', maxWidth: '50' }}>
                         <input
                             type="text"
                             value={searchQuery}
                             onChange={handleSearchChange}
                             placeholder="Search..."
-                            style={{
-                                marginTop: '5px',
-                                marginBottom: '15px',
-                                padding: '8px',
-                                width: '30%',
-                                boxSizing: 'border-box',
-                                border: '1px solid #ccc',
-                                borderRadius: '4px',
-                                fontFamily: 'Arial, sans-serif',
-                                fontSize: '14px',
-                                backgroundColor: '#f9f9f9',
-                                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                                transition: 'border-color 0.3s',
-                            }}
-                            onFocus={(e) => e.target.style.borderColor = '#007BFF'}
-                            onBlur={(e) => e.target.style.borderColor = '#ccc'}
+                            style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '50%', border: 'none', borderBottom: '1px solid black' }}
                         />
-                        <CSVLink data={filteredData.length > 0 ? filteredData : rowData.length > 0 ? rowData : []} filename="new_unapproved_purchased_stock" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                            </svg>
-                            Export
-                        </CSVLink>
                     </div>
-                    <div className="ag-theme-alpine" style={{ height: 'calc(100dvh - 130px)', width: '100%', position: 'relative', zIndex: 1, overflowY: 'auto' }}>
+                    <div className="ag-theme-alpine" style={{ height: 'calc(60vh - 100px)', width: '100%', position: 'relative', zIndex: 1, overflowY: 'auto', overflowX: 'auto' }}>
                         <AgGridReact
-                            rowData={filteredData.length > 0 ? filteredData : rowData}
+                            rowData={rowData}
                             columnDefs={columnDefs}
                             defaultColDef={defaultColDef}
                             pagination={true}
-                            paginationPageSize={20}
                             onGridReady={onGridReady}
-                            getRowNodeId={(data) => data}
-                            onRowClicked={onRowClicked}
+                            paginationPageSize={20}
+                            getRowNodeId={(data) => data.id}
+                            rowSelection={"multiple"}
+                            rowMultiSelectWithClick={true}
+                            onSelectionChanged={(event) => setSelectedRows(event.api.getSelectedRows())}
                         />
                     </div>
                 </div>
@@ -194,6 +175,7 @@ const ApprovedStockCashPurchased = () => {
             {currentDiv === "details" && (
                 <div>
                     <PageHeader currentpage="Create Stock Delivery" href="/transport/dashboard/" activepage="Transport" mainpage="Stock Purchased Details" />
+                    {alert && <Alert alert={alert} />}
                     <button className='className="flex left-0 text-blue-700 hover:bg-gray-100 p-3 font-bold'
                         onClick={handleBack}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -202,21 +184,14 @@ const ApprovedStockCashPurchased = () => {
                         <h4>back</h4>
                     </button>
 
-                    <div className= "grid grid-cols-12 gap-x-12">
-                    <div className= "col-span-12 xl:col-span-12">
-					<div className= "box">
-						<div className= "box-body p-0">
-
-							<div id="profile-settings-1" role="tabpanel" aria-labelledby="profile-settings-item-1">
-								<div className= "box border-0 shadow-none mb-0">
-									
-                                    <div className="box-header">
-                            <h5 className="box-title  text-center">Product Details</h5>
-                        </div>
-									<div className= "box-body">
-										<div>
-										<div className= "grid lg:grid-cols-2 gap-6">
-                                        
+                    <div className="grid grid-cols-12 gap-6">
+                        <div className="col-span-12">
+                            <div className="box">
+                                <div className="box-header">
+                                    <h5 className="box-title text-center">Product Details</h5>
+                                </div>
+                                <div className="box-body">
+                                    <div className="grid lg:grid-cols-2 gap-6">
                                         <div className="space-y-2">
                                             <label className="ti-form-label mb-0">Purchase Type</label>
                                             <select {...register("purchase_type", { required: true })} className="my-auto ti-form-input">
@@ -226,14 +201,10 @@ const ApprovedStockCashPurchased = () => {
                                                 <option value="3">Credit Purchases</option>
                                             </select>
                                         </div>
-
-                                        <div className="space-x-3">
-                                            <span className="text-sm font-bold">Total Amount :</span> 
-                                            <span className="text-sm text-gray-800 dark:text-white/70">
-                                                {user.currency} {Number(selectedRowData.total_amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                                            </span>
+                                        <div className="space-y-2">
+                                            <label className="ti-form-label mb-0">Stock Purchase ID</label>
+                                            <input type="text" {...register("stock_purchases_id", { required: true })} className="my-auto ti-form-input" placeholder=" ... Enter stack purchases id" required />
                                         </div>
-
                                         <div className="space-y-2">
                                             <label className="ti-form-label mb-0">Global ID</label>
                                             <input type="text" {...register("global_id", { required: true })} className="my-auto ti-form-input" placeholder=" ... Enter Global id" />
@@ -262,7 +233,6 @@ const ApprovedStockCashPurchased = () => {
                                             <label className="ti-form-label mb-0">Recipient mobile number</label>
                                             <input type="text" {...register("recipient_mobile_number")} className="my-auto ti-form-input" placeholder="Enter recipient mobile number" required />
                                         </div>
-
                                         <div className="space-y-2">
                                             <label className="ti-form-label mb-0">Transporter name</label>
                                             <input type="text" {...register("transporter_name", { required: true })} className="ti-form-input" placeholder=" ... Enter transporter name" required />
@@ -283,7 +253,6 @@ const ApprovedStockCashPurchased = () => {
                                             <label className="ti-form-label mb-0">Transporter cost</label>
                                             <input type="text" {...register("transporter_cost", { required: true })} className="ti-form-input" placeholder=" ...Enter transporter cost" required />
                                         </div>
-
                                         <div className="space-y-2">
                                             <label className="ti-form-label mb-0">Transport mode</label>
                                             <select type="text" {...register("transport_mode", { required: true })} className="ti-form-input">
@@ -312,104 +281,68 @@ const ApprovedStockCashPurchased = () => {
                                             <label className="ti-form-label mb-0">Add Note</label>
                                             <input type="text" {...register("notes", { required: true })} className="ti-form-input" placeholder=" ...Enter a note" required />
                                         </div>
-
-
-									</div>
-									</div>
-									</div>
-
-                                    <div className="box-body">
-							<div className="pb-5">
-								<div className="md:flex justify-between space-y-2 md:space-y-0">
-									<div className="relative max-w-xs">
-										<label htmlFor="hs-table-search" className="sr-only">Search</label>
-										{/* <input type="text" onChange={(ele) => { myfunction(ele.target.value) }} name="hs-table-search" id="hs-table-search" className="p-2 ltr:pr-10 rtl:pl-10 ti-form-input" placeholder="Search for items" /> */}
-                                        <input
-  type="text"
-  value={productDetailsSearchQuery}
-  onChange={(e) => setProductDetailsSearchQuery(e.target.value)}
-  placeholder="Search for items"
-  className="p-2 ltr:pr-10 rtl:pl-10 ti-form-input"
-  onFocus={(e) => e.target.style.borderColor = '#007BFF'}
-  onBlur={(e) => e.target.style.borderColor = '#ccc'}
-/>
-										
-                                        <div className="absolute inset-y-0 ltr:right-0 rtl:left-0 flex items-center pointer-events-none ltr:pr-4 rtl:pl-4">
-											<svg className="h-3.5 w-3.5 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-												<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
-											</svg>
-										</div>
-									</div>
-									<div className="md:ltr:ml-auto md:rtl:mr-auto">
-										<Link to="#" className="ti-btn text-xs m-0 ti-btn-soft-success p-2"><i className="ri ri-add-circle-line"></i>View Stock in Transit</Link>
-									</div>
-								</div>
-							</div>
-							<div className="overflow-auto">
-                            <table className="ti-custom-table table-bordered ti-custom-table-head">
-                                    <thead className="bg-gray-50 dark:bg-black/20">
-                                        <tr>
-                                            <th scope="col" className="!min-w-[13rem]">Model ID</th>
-                                            <th scope="col">Price Per Unit</th>
-                                            <th scope="col">Quantity</th>
-                                            <th scope="col">Total Amount Per Model</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {selectedRowData && Array.isArray(filteredProductDetails) && filteredProductDetails.length > 0 ? (
-                                            filteredProductDetails.map((item, index) => (
-                                                <tr key={index}>
-                                                    <td>{item.model_id}</td>
-                                                    <td>{item.price_per_unit}</td>
-                                                    <td>{item.quantity}</td>
-                                                    <td>{item.total_amount_per_model}</td>
-                                                </tr>
-                                            ))
-                                        ) : (
-                                            <tr key="no-product-details">
-                                                <td colSpan="4">No product details available</td>
-                                            </tr>
-                                        )}
-                                    </tbody>
-                                </table>
-
-							</div>
-							<div className="py-1 ltr:float-right rtl:float-left">
-								<nav className="flex items-center space-x-2 rtl:space-x-reverse">
-									<Link className="text-gray-500 dark:text-white/70 hover:text-primary p-4 inline-flex items-center gap-2 font-medium rounded-md" to="#">
-										<span aria-hidden="true">«</span>
-										<span className="sr-only">Previous</span>
-									</Link>
-									<Link className="w-10 h-10 bg-primary text-white p-4 inline-flex items-center text-sm font-medium rounded-full" to="#" aria-current="page">1</Link>
-									<Link className="w-10 h-10 text-gray-500 dark:text-white/70 hover:text-primary p-4 inline-flex items-center text-sm font-medium rounded-full" to="#">2</Link>
-									<Link className="w-10 h-10 text-gray-500 dark:text-white/70 hover:text-primary p-4 inline-flex items-center text-sm font-medium rounded-full" to="#">3</Link>
-									<Link className="text-gray-500 dark:text-white/70 hover:text-primary p-4 inline-flex items-center gap-2 font-medium rounded-md" to="#">
-										<span className="sr-only">Next</span>
-										<span aria-hidden="true">»</span>
-									</Link>
-								</nav>
-							</div>
-						</div>
-								</div>
-							</div>
-							
-						</div>
-						
-					</div>
-				</div>
-                </div>
-
-                    <div id="loader" style={{ display: 'none' }}>
-                        <span className="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent text-blue rounded-full" role="status" aria-label="loading">
-                            <span className="sr-only">Loading...</span>
-                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    {alert && <Alert alert={alert} />}
+                    <h5 className="hidden box-title text-center mb-4">Product Details</h5>
+                    <div>
+                        {selectedRows && selectedRows.length > 0 ? (
+                            selectedRows.map((row, index) => (
+                                <div key={index}>
+                                    {row.product_details.map((product, productIndex) => (
+                                        <div key={productIndex} className="grid lg:grid-cols-2 gap-6">
+                                            <div className="hidden space-y-2">
+                                                <label className="ti-form-label mb-0">Model ID</label>
+                                                <input
+                                                    type="text"
+                                                    defaultValue={product.model_id}
+                                                    {...register(`product_details[${index}][${productIndex}].model_id`)}
+                                                    className="my-auto ti-form-input"
+                                                    readOnly
+                                                />
+                                            </div>
+                                            <div className="hidden space-y-2">
+                                                <label className="ti-form-label mb-0">Quantity</label>
+                                                <input
+                                                    type="text"
+                                                    defaultValue={product.quantity}
+                                                    {...register(`product_details[${index}][${productIndex}].quantity`)}
+                                                    className="my-auto ti-form-input"
+                                                    readOnly
+                                                />
+                                            </div>
+                                        </div>
+                                    ))}
+                                    {/* <div>
+                                        <h2 className="text-md font-medium" ><strong>Total Quantity for Row  {index + 1} : {rowTotals[index]}</strong></h2>
+                                    </div> */}
+                                </div>
+                            ))
+                        ) : (
+                            <div>No data available</div>
+                        )}
+                        {/* {selectedRows && selectedRows.length > 0 && (
+                            <div className="text-lg font-bold mt-4">
+                                <strong>Grand Total Quantity: {grandTotal}</strong>
+                            </div>
+                        )} */}
+                    </div>
+                    <div className="grid grid-cols-12 gap-x-6">
+                        <div className="col-span-12">
+                            <div className="box !bg-transparent border-0 shadow-none">
+                                <div className="box-footer text-center border-t-0 px-0">
+                                    <button type="submit" onClick={handleSubmit(onSubmit)} className={`ti-btn ti-btn-primary ti-custom-validate-btn ${!isValid && 'opacity-50 cursor-not-allowed'}`} disabled={!isValid}>Submit Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div >
             )}
-        </div >
+
+        </div>
     )
 }
 
-export default ApprovedStockCashPurchased;
+export default CreateStockDelivery;

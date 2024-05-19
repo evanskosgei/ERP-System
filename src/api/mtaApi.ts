@@ -48,10 +48,12 @@ const mtaApi = {
   purchase: {
     cashstockPurchase: (data: any) => post("/cashstock-purchase/create-cash-stock-purchase", data),
     list_stock_purchased_cash: (status: any) => post("/cashstock-purchase/list-cash-stock-purchase", { status }),
-    approve_stock_purchased_cash: (status: any) => post("/cashstock-purchase/approve-cash-stock-purchase", { id: status })
+    approve_stock_purchased_cash: (status: any) => post("/cashstock-purchase/approve-cash-stock-purchase", { id: status }),
+    list_purchases_todeliver: (status: any) => post("/cashstock-purchase/list-cash-stock-todeliver", { status }),
   },
 
   stock_in_transit: {
+    
     create_stock_delivery: (data: any) => post("/transit-stock/create-stock-transit", data),
     list_stock_in_transit: (status: any) => post("/transit-stock/list-stock-transit", { status }),
     approve_stock_in_transit: (status: any) => post("/transit-stock/approve-stock-transit", { id: status }),
