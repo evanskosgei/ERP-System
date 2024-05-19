@@ -29,6 +29,9 @@ const mtaApi = {
     list_mobile_phone_model: (status: any) => post('/products/list-phone-models', { status: status }),
     approve_mobile_phone_model: (status: any) => post("/products/approve-phone-model", { id: status }),
   },
+  payment: {
+    list_payment_modes: (status: any) => post('/payments/list-payments-modes', { status: status }),
+  },
   accounts: {
     create_account: (data: any) => post("/accounting/create-account", data),
     list_account: (status: any) => post("/accounting/list-accounts", { status }),
@@ -72,6 +75,12 @@ const mtaApi = {
     team_leader_dispatches: (status: any) => post("/teamleader-distribution/list-dispatched-stock", { status }),
     team_leader_approve_dispatch: (status: any) => post("/teamleader-distribution/approve-dispatched-stock", {id:status}),
     team_leader_receive_stock: (data: any) => post("/teamleader-distribution/receive-dispatched-stock", data)
+  },
+  agent:{
+    get_agent_stock:(status:any)=>post("/agent-distribution/list-dispatched-stock",{status:status})
+  },
+  sale:{
+    cash_sale:(data:any) => post("/mobilephone-cash-sales/create-cash-sales",data),
   }
 };
 
