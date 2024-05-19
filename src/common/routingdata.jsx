@@ -118,6 +118,7 @@ import TicketManagement from "../views/crm_module/ticket_management/ticket_dashb
 
 //Sales Pages
 import SalesDashboard from "../views/sales_module/dashboard/sales_dashboard";
+import Sale from "../views/sales_module/sale/sale";
 
 //Payments Pages
 import PaymentsDashboard from "../views/payments_module/dashboard/payments_dashboard";
@@ -397,6 +398,7 @@ export const RouteData = [
 
     // {/* Sales content */}
     { path: `${import.meta.env.BASE_URL}sales/dashboard`, element: <SalesDashboard />, title: '' },
+    { path: `${import.meta.env.BASE_URL}sales/sell`, element: <Sale />, title: '' },
 
 
     // {/* Payments content */}
