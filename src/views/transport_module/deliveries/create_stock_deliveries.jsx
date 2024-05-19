@@ -9,7 +9,7 @@ import mtaApi from '../../../api/mtaApi';
 import Alert from '../../../components/Alert';
 import { useForm } from "react-hook-form";
 
-const Put_products_in_transit = () => {
+const CreateStockDelivery = () => {
     const { register, handleSubmit, formState: { errors, isValid }, formState, reset } = useForm();
     const navigate = useNavigate();
     const [rowData, setRowData] = useState([]);
@@ -24,10 +24,11 @@ const Put_products_in_transit = () => {
         { cellRenderer: 'agCheckboxCellRenderer', checkboxSelection: true, showDisabledCheckboxes: false, cellEditor: 'agCheckboxCellEditor', resizable: true, minWidth: 10 },
         { headerName: "#", field: "count", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 5 },
         { headerName: "Transaction ID", field: "transaction_id", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Total Amount", field: "total_amount", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Supplier Account", field: "supplier_payable_account_number", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Total Amount", field: "total_amount", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10, valueFormatter: (params) => formatAmount(params.value) },
+        { headerName: "Supplier Name", field: "supplier_name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
         { headerName: "Date Purchased", field: "purchase_date", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Bank Account", field: "bank_account_number", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Created By", field: "user_name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Created Date", field: "created_date", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
     ];
     const defaultColDef = { sortable: true, flex: 1, filter: true, floatingFilter: false };
 
@@ -109,9 +110,9 @@ const Put_products_in_transit = () => {
             })))
         };
         try {
-            const response = await mtaApi.stock_in_transit.put_in_transit(formattedData)
+            const response = await mtaApi.stock_in_transit.create_stock_delivery(formattedData)
             if(response.data.status === 200){
-                navigate("/transport/new-uanpproved-products-in-transit")
+                navigate("/transport/new-unapproved-stock-delivery")
                 reset()
             }else{
                 const message = response.data.description
@@ -128,11 +129,18 @@ const Put_products_in_transit = () => {
     ) : [];
     const grandTotal = rowTotals.reduce((total, subtotal) => total + subtotal, 0);
 
+    const formatAmount = (amount) => {
+        return new Intl.NumberFormat('en-US', {
+            style: 'decimal',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        }).format(amount);
+    };
     return (
         <div>
             {currentDiv === "listpage" && (
                 <div>
-                    <PageHeader currentpage="Put In Transit" href="/transport/transit/" activepage="Transporter" mainpage="Put In Transit" />
+                    <PageHeader currentpage="Create Stock Delivery" href="/transport/dashboard/" activepage="Transport" mainpage="Put Stock in Transit" />
                     {alert && <Alert alert={alert} />}
 
                     <div className="col-span-2 flex justify-between">
@@ -166,7 +174,7 @@ const Put_products_in_transit = () => {
 
             {currentDiv === "details" && (
                 <div>
-                    <PageHeader currentpage="Stock Purchased Details" href="/transport/transit/" activepage="Transport" mainpage="Stock Purchased Details" />
+                    <PageHeader currentpage="Create Stock Delivery" href="/transport/dashboard/" activepage="Transport" mainpage="Stock Purchased Details" />
                     {alert && <Alert alert={alert} />}
                     <button className='className="flex left-0 text-blue-700 hover:bg-gray-100 p-3 font-bold'
                         onClick={handleBack}>
@@ -188,9 +196,9 @@ const Put_products_in_transit = () => {
                                             <label className="ti-form-label mb-0">Purchase Type</label>
                                             <select {...register("purchase_type", { required: true })} className="my-auto ti-form-input">
                                                 <option value="">...select purchase type</option>
-                                                <option value="1">Cash</option>
-                                                <option value="2">Prepay</option>
-                                                <option value="3">PostPay</option>
+                                                <option value="1">Cash Purchases</option>
+                                                <option value="2">Prepaid Purchases</option>
+                                                <option value="3">Credit Purchases</option>
                                             </select>
                                         </div>
                                         <div className="space-y-2">
@@ -337,4 +345,4 @@ const Put_products_in_transit = () => {
     )
 }
 
-export default Put_products_in_transit;
+export default CreateStockDelivery;

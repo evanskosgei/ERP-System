@@ -79,7 +79,8 @@ export const MenuItems = [
 			{
 				id: 7, icon: PagesSvg, title: "Transport Module", type: "sub", active: false, selected: false, children: [
 					{ id: 7.1, path: `${import.meta.env.BASE_URL}transport/dashboard`, type: "link", active: false, selected: false, title: "Transport Dashboard" },
-					{ id: 7.2, path: `${import.meta.env.BASE_URL}transport/transit`, type: "link", active: false, selected: false, title: "Products In Transit" },
+					{ id: 7.2, path: `${import.meta.env.BASE_URL}transport/delivery`, type: "link", active: false, selected: false, title: "Stock In Transit" },
+					{ id: 7.3, path: `${import.meta.env.BASE_URL}transport/dispatch`, type: "link", active: false, selected: false, title: "Products Dispatched" },
 
 				]
 			},

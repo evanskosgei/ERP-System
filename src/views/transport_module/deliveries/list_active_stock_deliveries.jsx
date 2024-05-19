@@ -9,7 +9,7 @@ import mtaApi from '../../../api/mtaApi';
 import Alert from '../../../components/Alert';
 
 
-const Activestock_in_transit = () => {
+const ActiveStockDelivery = () => {
   const navigate = useNavigate();
   const [rowData, setRowData] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -98,7 +98,7 @@ const Activestock_in_transit = () => {
     <div>
       {currentDiv === "listpage" && (
         <div>
-          <PageHeader currentpage="Active Stock In Transit" href="/transport/transit/" activepage="Transport" mainpage="Active Stock in Transit" />
+          <PageHeader currentpage="Stock In Transit" href="/transport/dashboard/" activepage="Transport" mainpage="Stock Deliveries" />
           <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
             <input
               type="text"
@@ -237,4 +237,4 @@ const Activestock_in_transit = () => {
   )
 }
 
-export default Activestock_in_transit;
+export default ActiveStockDelivery;

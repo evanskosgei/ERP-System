@@ -52,7 +52,7 @@ const mtaApi = {
   },
 
   stock_in_transit: {
-    put_in_transit: (data: any) => post("/transit-stock/create-stock-transit", data),
+    create_stock_delivery: (data: any) => post("/transit-stock/create-stock-transit", data),
     list_stock_in_transit: (status: any) => post("/transit-stock/list-stock-transit", { status }),
     approve_stock_in_transit: (status: any) => post("/transit-stock/approve-stock-transit", { id: status }),
   },
