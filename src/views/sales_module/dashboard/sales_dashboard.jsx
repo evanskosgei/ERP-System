@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Sales_dashboard = () => {
     return (
         <div>
-            <PageHeader currentpage="Distribution Dashboard" activepage="Distribution" mainpage="Distributions Dashboard" />
+            <PageHeader currentpage="Sales Dashboard" activepage="Sales" mainpage="Sales Dashboard" />
             <div className="grid grid-cols-12 gap-6">
                 <div className="col-span-12 md:col-span-6 xxl:!col-span-4">
                     <div className="box">

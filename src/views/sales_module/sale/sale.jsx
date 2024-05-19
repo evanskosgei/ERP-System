@@ -6,6 +6,7 @@ import "@ag-grid-community/styles/ag-grid.css";
 import "@ag-grid-community/styles/ag-theme-alpine.css";
 import mtaApi from '../../../api/mtaApi';
 import Alert from "../../../components/Alert";
+import Success from '../../../components/Success';
 import { useNavigate } from 'react-router-dom';
 
 const Sale = () => {
@@ -17,6 +18,7 @@ const Sale = () => {
     const [modalData, setModalData] = useState({});
     const [selectedSupplierId, setSelectedSupplierId] = useState('');
     const [alert, setAlert] = useState(null);
+    const [success, setSuccess] = useState(null);
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
     const navigate = useNavigate();
 
@@ -103,10 +105,11 @@ const Sale = () => {
                 mobilephone_agentstock_id: row.id
             }))
         };
-console.log(payload)
         try {
             const { data } = await mtaApi.sale.cash_sale(payload);
-            navigate("/sale/approve-sale");
+            let message = data.description
+            console.log("ok",message,data)
+            setSuccess({type:"success",msg:message});
         } catch (error) {
             const message = error.response?.data?.error ?? error.message;
             setAlert({ type: "error", message });
@@ -116,25 +119,13 @@ console.log(payload)
         <div>
             <PageHeader currentpage="Buy Using Cash" href="/inventory/dashboard/" activepage="Inventory" mainpage="Buy Using Prepayments" />
             {alert && <Alert alert={alert} />}
+            {success && <Success success={success} />}
             <div className="col-span-12">
                 <div className="box">
                     <div className="box-header">
                         <h5 className="box-title text-center">Purchase Stock</h5>
                     </div>
                     <div className="box-body">
-                        <div className="grid lg:grid-cols-2 gap-6">
-                            <div className="space-y-2">
-                                <div className='mb-4'>
-                                    <label className="ti-form-label mb-0">Select Payment mode</label>
-                                    <select {...register("supplier", { required: true })} id='supplier' className="my-auto ti-form-input" onChange={handleSupplierChange}>
-                                        <option value="">...select payment mode</option>
-                                        {modes.map((pay_mode, index) => (
-                                            <option key={index} value={pay_mode.id}>{pay_mode.name}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
                         <form onSubmit={handleSubmit(onSubmitModal)} className="grid grid-cols-2 gap-6">
                             <div className="mb-4">
                                 <label htmlFor="sales_remarks" className="block text-gray-700">Sales Remarks:</label>

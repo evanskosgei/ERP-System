@@ -2,7 +2,7 @@
 export default function Success({ success }) {
     return (
       <div className="bg-green-100 border border-sky-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-        <strong className="font-bold">{success.type.toUpperCase()} | </strong>
+        <strong className="font-bold">{success.type} | </strong>
         <span className="block sm:inline">{success.msg}</span>
         <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
           <svg
