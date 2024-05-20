@@ -125,6 +125,8 @@ const ApprovenewPhone = () => {
       .then(response => {
         if (response.data.status === 200) {
           navigate("/inventory/active-phones-models")
+          // navigate("/inventory/approve-new-phone-model")
+          // window.location = "/inventory/approve-new-phone-model"
         }
       }).catch(error => {
         console.log(error)

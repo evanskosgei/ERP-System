@@ -51,7 +51,7 @@ const Create_capital_injection = () => {
         try {
             const { data } = await mtaApi.capital_injection.create_capital_injection(values);
             if (data.status === 200) {
-                navigate("/finance/new-unapproved-capital-injection");
+                navigate("/finance/active-capital-injection");
             } else {
                 const message = data.description;
                 setAlert({ type: "error", message });
@@ -113,6 +113,7 @@ const Create_capital_injection = () => {
                                     <label className="ti-form-label mb-0">Amount</label>
                                     <input type="text" {...register("amount")} className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter amount" onChange={handleAmountChange}/>
                                 </div>
+                                
                                 <div className="space-y-2">
                                     <label className="ti-form-label mb-0">Transaction ID</label>
                                     <input type="text" {...register("transaction_id")} className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter transaction ID" />
