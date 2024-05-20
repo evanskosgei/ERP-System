@@ -117,7 +117,22 @@ const Available_stock = () => {
                             value={searchQuery}
                             onChange={handleSearchChange}
                             placeholder="Search..."
-                            style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '50%', boxSizing: 'border-box' }}
+                            style={{
+                                marginTop: '5px',
+                                marginBottom: '15px',
+                                padding: '8px',
+                                width: '30%',
+                                boxSizing: 'border-box',
+                                border: '1px solid #ccc',
+                                borderRadius: '4px',
+                                fontFamily: 'Arial, sans-serif',
+                                fontSize: '14px',
+                                backgroundColor: '#f9f9f9',
+                                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                                transition: 'border-color 0.3s',
+                            }}
+                            onFocus={(e) => e.target.style.borderColor = '#007BFF'}
+                            onBlur={(e) => e.target.style.borderColor = '#ccc'}
                         />
                         <CSVLink data={filteredData.length > 0 ? filteredData : rowData.length > 0 ? rowData : []} filename="available_stock" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -151,73 +166,132 @@ const Available_stock = () => {
                         </svg>
                         <h4>back</h4>
                     </button>
-                    <div id="profile-1" className="ml-4" role="tabpanel">
-                        <h5 className="box-title my-3">Product Information</h5>
-                        <div className="overflow-auto">
-                            <table className="ti-custom-table border-0 whitespace-nowrap">
-                                <tbody>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Distribution Center</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.distribution_center_id}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Global ID</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.global_id}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">IMEI 1</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.imei_1}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">IMEI 2</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.imei_2}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">QR ID</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.qr_code_id}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Received Date</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.received_date}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Date Created</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.created_date}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Availability</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.state}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Remarks</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.remarks}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div className= "grid grid-cols-12 gap-x-12">
+                    <div className= "col-span-12 xl:col-span-12">
+					<div className= "box">
+						<div className= "box-body p-0">
+
+							<div id="profile-settings-1" role="tabpanel" aria-labelledby="profile-settings-item-1">
+								<div className= "box border-0 shadow-none mb-0">
+									
+                                    <div className="box-header">
+                            <h5 className="box-title  text-center">Mobile Phone Details</h5>
                         </div>
-                    </div>
+									<div className= "box-body">
+										<div>
+										<div className= "grid lg:grid-cols-2 gap-6">
+                                        
+                                        <div className= "space-x-3">
+										    <span className= "text-sm font-bold">Distribution Center :</span>
+										    <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.distribution_center_name}</span>
+									    </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Global ID :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.global_id}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Model Name :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.model_name}</span>
+                                        </div>
+
+                                    
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Device IMEI 1 :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.imei_1}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Device IMEI 2 :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.imei_2}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Device Qr Code :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.qr_code_id}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Warranty Period :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.warranty_period}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">RAM Size :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.ram}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Internal Storage Size :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.internal_storage}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Main Camera :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.main_camera}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Front Camera :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.front_camera}</span>
+                                        </div>
+
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Display :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.display}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Processor :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.processor}</span>
+                                        </div>
+
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Date Received :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.received_date}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Device State :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.state}</span>
+                                        </div>
+                                     
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Remarks :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.remarks}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Date Created  :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.created_date}</span>
+                                        </div>
+
+                                        <div className= "space-x-3">
+                                            <span className= "text-sm font-bold">Created By :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.user_name}</span>
+                                        </div>
+									</div>
+									</div>
+									</div>
+
+                                 
+								</div>
+							</div>
+							
+						</div>
+						
+					</div>
+				</div>
+                </div>
                     <div id="loader" style={{ display: 'none' }}>
                         <span className="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent text-blue rounded-full" role="status" aria-label="loading">
                             <span className="sr-only">Loading...</span>
                         </span>
                     </div>
-                    <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                        <button
-                            onClick={""}
-                            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 dark:text-white dark:hover:text-white"
-                        >
-                            Remove
-                        </button>
-                    </div>
+                   
                     {alert && <Alert alert={alert} />}
                 </div>
             )}

@@ -55,16 +55,17 @@ const mtaApi = {
   },
 
   stock_in_transit: {
-    
     create_stock_delivery: (data: any) => post("/transit-stock/create-stock-transit", data),
     list_stock_in_transit: (status: any) => post("/transit-stock/list-stock-transit", { status }),
     approve_stock_in_transit: (status: any) => post("/transit-stock/approve-stock-transit", { id: status }),
+    
   },
   transport: {
     list_transport_modes: (status: any) => post("/transport/list-transport-modes", {status}),
   },
   receive_stock:{
   receive_phone_models: (data: any) =>post("/mobilephone-receive-transit-stock/receive-stock", data),
+  list_phone_devices_intransit: (status: any) =>post("/mobilephone-receive-transit-stock/list-devices", { status }),
   list_received_phone_models: (status :any) =>post("/mobilephone-receive-transit-stock/list-received-stock", {status}),
   approve_received_phones_models: (status: any) => post("/mobilephone-receive-transit-stock/approve-received-stock",{id:status}),
   },
