@@ -92,6 +92,11 @@ const Sale = () => {
     };
 
     const onSubmitModal = async (formData) => {
+        if (selectedRows.length === 0) {
+            const message = "Please select the devices you're selling"
+            setAlert({ type: "error", message });
+            return;
+        }
         const payload = {
             sales_date: new Date().toISOString(), // Automatically generate sales_date
             sales_remarks: formData.sales_remarks,
@@ -117,31 +122,31 @@ const Sale = () => {
     };
     return (
         <div>
-            <PageHeader currentpage="Buy Using Cash" href="/inventory/dashboard/" activepage="Inventory" mainpage="Buy Using Prepayments" />
+            <PageHeader currentpage="Sell a mobile Phone" href="/sales/dashboard/" activepage="Sales" mainpage="Sell a phone" />
             {alert && <Alert alert={alert} />}
             {success && <Success success={success} />}
             <div className="col-span-12">
                 <div className="box">
                     <div className="box-header">
-                        <h5 className="box-title text-center">Purchase Stock</h5>
+                        <h5 className="box-title text-center">Make a sale</h5>
                     </div>
                     <div className="box-body">
                         <form onSubmit={handleSubmit(onSubmitModal)} className="grid grid-cols-2 gap-6">
                             <div className="mb-4">
                                 <label htmlFor="sales_remarks" className="block text-gray-700">Sales Remarks:</label>
-                                <input id="sales_remarks" {...register("sales_remarks")} className="my-auto ti-form-input" />
+                                <input id="sales_remarks" required {...register("sales_remarks")} className="my-auto ti-form-input" />
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="customer_name" className="block text-gray-700">Customer Name:</label>
-                                <input id="customer_name" {...register("customer_name")} className="my-auto ti-form-input" />
+                                <input id="customer_name" required {...register("customer_name")} className="my-auto ti-form-input" />
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="customer_mobile_number" className="block text-gray-700">Customer Mobile Number:</label>
-                                <input id="customer_mobile_number" {...register("customer_mobile_number")} className="my-auto ti-form-input" />
+                                <input id="customer_mobile_number" required {...register("customer_mobile_number")} className="my-auto ti-form-input" />
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="customer_email" className="block text-gray-700">Customer Email:</label>
-                                <input id="customer_email" {...register("customer_email")} className="my-auto ti-form-input" />
+                                <input id="customer_email" required {...register("customer_email")} className="my-auto ti-form-input" />
                             </div>
                             <div className="mb-4">
                                 <label className="block text-gray-700">Select Payment method</label>
@@ -153,7 +158,7 @@ const Sale = () => {
                                 </select>
                             </div>
                             <div className="col-span-2 flex justify-center">
-                                <button type="submit" className={`ti-btn ti-btn-primary  ti-custom-validate-btn`}>Purchase</button>
+                                <button type="submit" className={`ti-btn ti-btn-primary  ti-custom-validate-btn`}>Sell</button>
                             </div>
                         </form>
                     </div>
