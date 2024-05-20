@@ -54,9 +54,9 @@ import Active_team_leader_distributions from "../views/distribution_module/team_
 import Receive_Team_leader_dispatched from "../views/distribution_module/team_leader/receive_dispatched_phones";
 
 // purchased with cash
-import BuyusingPrepayment from "../views/inventory_module/purchase_stock_using_cash/buy_stock_using_cash";
-import Unapproved_stock_cash_purchased from "../views/inventory_module/purchase_stock_using_cash/list_unapproved_stock_cash_purchased";
-import Active_purchase_stock_cash from "../views/inventory_module/purchase_stock_using_cash/list_active_purchase_stock_cash";
+import BuyStockUsingCash from "../views/inventory_module/purchase_stock_using_cash/buy_stock_using_cash";
+import Unapproved_cash_stock_purchase from "../views/inventory_module/purchase_stock_using_cash/list_unapproved_cash_stock_purchase";
+import Active_cash_stock_purchase from "../views/inventory_module/purchase_stock_using_cash/list_active_cash_stock_purchase";
 
 // Receive in transit
 import Receivestock from "../views/inventory_module/stock_in_transit/receive_stock";
@@ -356,9 +356,9 @@ export const RouteData = [
     { path: `${import.meta.env.BASE_URL}inventory/available-stock`, element: <Available_stock />, title: '' },
 
     // purchase stock with cash
-    { path: `${import.meta.env.BASE_URL}inventory/buy-using-cash`, element: <BuyusingPrepayment />, title: '' },
-    { path: `${import.meta.env.BASE_URL}inventory/new-stock-purchased-using-cash`, element: <Unapproved_stock_cash_purchased />, title: '' },
-    { path: `${import.meta.env.BASE_URL}inventory/active-stock-purchased-using-cash`, element: <Active_purchase_stock_cash />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/buy-using-cash`, element: <BuyStockUsingCash />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/new-stock-purchased-using-cash`, element: <Unapproved_cash_stock_purchase />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/active-stock-purchased-using-cash`, element: <Active_cash_stock_purchase />, title: '' },
     // { path: `${import.meta.env.BASE_URL}inventory/active-stock-purchased-using-cash`, element: <NewUnapprovedStockDelivery /> , title: ''},
 
     // product managment

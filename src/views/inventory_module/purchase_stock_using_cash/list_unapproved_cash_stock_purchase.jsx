@@ -1,63 +1,62 @@
-import PageHeader from "../../../layout/layoutsection/pageHeader/pageHeader";
 import React, { useState, useEffect, useCallback } from 'react';
+import PageHeader from "../../../layout/layoutsection/pageHeader/pageHeader";
 import { AgGridReact } from 'ag-grid-react';
+import { Link } from 'react-router-dom';
+import { useAuth } from "../../../providers/AuthProvider";
 import '@ag-grid-community/styles/ag-grid.css';
 import '@ag-grid-community/styles/ag-theme-alpine.css';
 import { CSVLink } from "react-csv";
+import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
-import mtaApi from '../../../api/mtaApi';
 import Alert from '../../../components/Alert';
-import { useAuth } from "../../../providers/AuthProvider";
-import { Link } from 'react-router-dom';
+import ALLImages from "../../../common/imagesdata";
+import mtaApi from '../../../api/mtaApi';
 
+const Unapproved_stock_cash_purchased = () => {
 
-
-const NewUnapprovedStockDelivery = () => {
     const navigate = useNavigate();
     const [rowData, setRowData] = useState([]);
-    const [productModels, setModels] = useState([]);
-    const [filteredModels, setFilteredModels] = useState([]);
+    const [purchasedItems, setPurchasedItems] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
+    const [productDetailsSearchQuery, setProductDetailsSearchQuery] = useState(''); // New state variable
     const [selectedRowData, setSelectedRowData] = useState(null);
     const [divStack, setDivStack] = useState(["listpage"]);
     const [editMode, setEditMode] = useState(false);
     const [alert, setAlert] = useState(null);
-    const [productDetailsSearchQuery, setProductDetailsSearchQuery] = useState("");
     const { user } = useAuth();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isValid },
+        formState,
+        setValue,
+        reset
+    } = useForm();
 
     const columnDefs = [
         { headerName: "#", field: "count", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 5 },
-        { headerName: "Delivery Number", field: "delivery_note_number", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Delivery From", field: "delivery_address", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Recipient Name", field: "recipient_name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Recipient Address", field: "recipient_address", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Recipient Mobile", field: "recipient_mobile_number", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Transporter Name", field: "transporter_name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Contact Person", field: "contact_name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Contact Number", field: "contact_number", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Delivery Date", field: "delivery_date", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Transaction ID", field: "transaction_id", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Total Amount", field: "total_amount", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Supplier Account", field: "supplier_payable_account_number", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Date Purchased", field: "purchase_date", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Bank Account", field: "bank_account_number", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
     ];
     const defaultColDef = { sortable: true, flex: 1, filter: true, floatingFilter: false };
 
     const onGridReady = useCallback(() => {
         const newUnApproved = async () => {
             try {
-                const { data } = await mtaApi.stock_in_transit.list_stock_in_transit('2')
+                const { data } = await mtaApi.purchase.list_stock_purchased_cash('2');
                 if (data.status === 200) {
                     const modifiedData = data.response.map((item, index) => ({
                         ...item,
                         count: index + 1
                     }));
                     setRowData(modifiedData);
-
-                    // Aggregate all product details
-                    const allProductDetails = data.response.flatMap(item => item.product_details);
-                    setModels(allProductDetails);
-                    setFilteredModels(allProductDetails);
+                    setPurchasedItems(modifiedData.product_details);
                 }
             } catch (error) {
-                const message = error.response?.data?.error ?? error.message;
-                setAlert({ type: "error", message });
+                console.log(error)
             }
         }
         newUnApproved();
@@ -95,6 +94,8 @@ const NewUnapprovedStockDelivery = () => {
         setSearchQuery(event.target.value);
     };
 
+
+
     const filteredData = rowData.filter((row) => {
         return columnDefs.some((column) => {
             const fieldValue = row[column.field];
@@ -106,15 +107,23 @@ const NewUnapprovedStockDelivery = () => {
             return false;
         });
     });
+    const filteredProductDetails = selectedRowData?.product_details?.filter((item) =>
+        Object.values(item).some(
+            (value) =>
+                value &&
+                typeof value === 'string' &&
+                value.toLowerCase().includes(productDetailsSearchQuery.toLowerCase())
+        )
+    ) || [];
+
+    const onSubmit = async (values) => {
+
+    }
     const approve = async () => {
         try {
-            const { data } = await mtaApi.stock_in_transit.approve_stock_in_transit(selectedRowData.id)
+            const { data } = await mtaApi.purchase.approve_stock_purchased_cash(selectedRowData.id)
             if (data.status === 200) {
-                navigate("/transport/active-stock-delivery")
-            }
-            else {
-                // Handle unexpected status code
-                setAlert({ type: "error", message: `Unexpected status code: ${data.status}` });
+                navigate("/inventory/active-stock-purchased-using-cash");
             }
         } catch (error) {
             const message = error.response?.data?.error ?? error.message;
@@ -122,23 +131,11 @@ const NewUnapprovedStockDelivery = () => {
         }
     }
 
-    useEffect(() => {
-        onGridReady();
-    }, [onGridReady]);
-
-    useEffect(() => {
-        const lowercasedQuery = productDetailsSearchQuery.toLowerCase();
-        const filtered = productModels.filter(model =>
-            String(model.model_id).toLowerCase().includes(lowercasedQuery)
-        );
-        setFilteredModels(filtered);
-    }, [productDetailsSearchQuery, productModels]);
-    
     return (
         <div>
             {currentDiv === "listpage" && (
                 <div>
-                    <PageHeader currentpage="Approve New Stock Delivery" href="/transport/dashboard/" activepage="Transport" mainpage="New Stock Delivery Pending Approval" />
+                    <PageHeader currentpage="Approve Stock Purchased Using Cash" href="/inventory/dashboard/" activepage="Inventory" mainpage="Stock Purchased Details" />
                     <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                         <input
                             type="text"
@@ -162,7 +159,7 @@ const NewUnapprovedStockDelivery = () => {
                             onFocus={(e) => e.target.style.borderColor = '#007BFF'}
                             onBlur={(e) => e.target.style.borderColor = '#ccc'}
                         />
-                        <CSVLink data={filteredData.length > 0 ? filteredData : rowData.length > 0 ? rowData : []} filename="new_stock_in_transit" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
+                        <CSVLink data={filteredData.length > 0 ? filteredData : rowData.length > 0 ? rowData : []} filename="new_unapproved_purchased_stock" separator={","} className="h-6 w-6 items-center mb-7 ml-7 mr-8 text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                             </svg>
@@ -183,9 +180,10 @@ const NewUnapprovedStockDelivery = () => {
                     </div>
                 </div>
             )}
+
             {currentDiv === "details" && (
                 <div>
-                    <PageHeader currentpage="Approve New Stock Delivery" href="/inventory/dashboard/" activepage="Inventory" mainpage="Stock Purchased Details" />
+                    <PageHeader currentpage="Approve Stock Purchased Using Cash" href="/inventory/dashboard/" activepage="Inventory" mainpage="Stock Purchased Details" />
                     <button className='className="flex left-0 text-blue-700 hover:bg-gray-100 p-3 font-bold'
                         onClick={handleBack}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -193,76 +191,74 @@ const NewUnapprovedStockDelivery = () => {
                         </svg>
                         <h4>back</h4>
                     </button>
-                    
-                    <div className= "grid grid-cols-12 gap-x-12">
-                    <div className= "col-span-12 xl:col-span-12">
-					<div className= "box">
-						<div className= "box-body p-0">
 
-							<div id="profile-settings-1" role="tabpanel" aria-labelledby="profile-settings-item-1">
-								<div className= "box border-0 shadow-none mb-0">
-									
-                                    <div className="box-header">
-                            <h5 className="box-title  text-center">Stock Delivery Details</h5>
-                        </div>
-									<div className= "box-body">
-										<div>
-										<div className= "grid lg:grid-cols-2 gap-6">
-                                        
-                                        <div className= "space-x-3">
-										    <span className= "text-sm font-bold">Delivery Note :</span>
-										    <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.delivery_note_number}</span>
-									    </div>
+                    <div className="grid grid-cols-12 gap-x-12">
+                        <div className="col-span-12 xl:col-span-12">
+                            <div className="box">
+                                <div className="box-body p-0">
 
-                                        <div className= "space-x-3">
-                                            <span className= "text-sm font-bold">Delivery From :</span>
-                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.delivery_address}</span>
-                                        </div>
+                                    <div id="profile-settings-1" role="tabpanel" aria-labelledby="profile-settings-item-1">
+                                        <div className="box border-0 shadow-none mb-0">
 
-                                        <div className= "space-x-3">
-                                            <span className= "text-sm font-bold">Recipient Name :</span>
-                                            <span className= "text-sm text-gray-800 dark:text-white/70">{user.currency} {selectedRowData.recipient_name}</span>
-                                        </div>
+                                            <div className="box-header">
+                                                <h5 className="box-title  text-center">Cash Stock Purchase Transaction Details</h5>
+                                            </div>
+                                            <div className="box-body">
+                                                <div>
+                                                    <div className="grid lg:grid-cols-2 gap-6">
 
-                                        <div className= "space-x-3">
-                                            <span className= "text-sm font-bold">Recipient Mobile Number :</span>
-                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.recipient_mobile_number}</span>
-                                        </div>
+                                                        <div className="space-x-3">
+                                                            <span className="text-sm font-bold">Transaction ID :</span>
+                                                            <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.transaction_id}</span>
+                                                        </div>
 
-                                        <div className= "space-x-3">
-                                            <span className= "text-sm font-bold">Transaction Reference :</span>
-                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.currency} {selectedRowData.reference}</span>
-                                        </div>
+                                                        <div className="space-x-3">
+                                                            <span className="text-sm font-bold">Total Amount :</span>
+                                                            <span className="text-sm text-gray-800 dark:text-white/70">
+                                                                {user.currency} {Number(selectedRowData.total_amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                                            </span>
+                                                        </div>
 
-                                        <div className= "space-x-3">
-                                            <span className= "text-sm font-bold">Delivery Date :</span>
-                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.delivery_date}</span>
-                                        </div>
 
-                                        <div className= "space-x-3">
-                                            <span className= "text-sm font-bold">Mode of Transport :</span>
-                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.transport_mode_name}</span>
-                                        </div>
+                                                        <div className="space-x-3">
+                                                            <span className="text-sm font-bold">Supplier Name :</span>
+                                                            <span className="text-sm text-gray-800 dark:text-white/70"> {selectedRowData.supplier_name}</span>
+                                                        </div>
 
-                                        <div className= "space-x-3">
-                                            <span className= "text-sm font-bold">Remarks :</span>
-                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.notes}</span>
-                                        </div>
+                                                        <div className="space-x-3">
+                                                            <span className="text-sm font-bold">Supplier Account :</span>
+                                                            <span className="text-sm text-gray-800 dark:text-white/70"> {selectedRowData.supplier_payable_account_number}</span>
+                                                        </div>
 
-                                        <div className= "space-x-3">
-                                            <span className= "text-sm font-bold">Date Created  :</span>
-                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.created_date}</span>
-                                        </div>
+                                                        <div className="space-x-3">
+                                                            <span className="text-sm font-bold">Bank Account :</span>
+                                                            <span className="text-sm text-gray-800 dark:text-white/70"> {selectedRowData.bank_account_number}</span>
+                                                        </div>
 
-                                        <div className= "space-x-3">
-                                            <span className= "text-sm font-bold">Created By :</span>
-                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.user_name}</span>
-                                        </div>
-									</div>
-									</div>
-									</div>
+                                                        <div className="space-x-3">
+                                                            <span className="text-sm font-bold">Purchase Date :</span>
+                                                            <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.purchase_date}</span>
+                                                        </div>
 
-                                    <div className="box-body">
+                                                        <div className="space-x-3">
+                                                            <span className="text-sm font-bold">Created By :</span>
+                                                            <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.user_name}</span>
+                                                        </div>
+
+                                                        <div className="space-x-3">
+                                                            <span className="text-sm font-bold">Date Created :</span>
+                                                            <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.created_date}</span>
+                                                        </div>
+
+                                                        <div className="space-x-3">
+                                                            <span className="text-sm font-bold">Narrative :</span>
+                                                            <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.notes}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="box-body">
                                                 <div className="pb-5">
                                                     <div className="md:flex justify-between space-y-2 md:space-y-0">
                                                         <div className="relative max-w-xs">
@@ -294,19 +290,19 @@ const NewUnapprovedStockDelivery = () => {
                                                         <thead className="bg-gray-50 dark:bg-black/20">
                                                             <tr>
                                                                 <th scope="col" className="!min-w-[13rem]">Model ID</th>
-                                                                <th scope="col">Amount Delivered</th>
-                                                                <th scope="col">Amount Received</th>
-                                                                <th scope="col">Items in Transit</th>
+                                                                <th scope="col">Price Per Unit</th>
+                                                                <th scope="col">Quantity</th>
+                                                                <th scope="col">Total Amount Per Model</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            { Array.isArray(productModels) && productModels.length > 0 ? (
-                                                                productModels.map((item, index) => (
+                                                            {selectedRowData && Array.isArray(filteredProductDetails) && filteredProductDetails.length > 0 ? (
+                                                                filteredProductDetails.map((item, index) => (
                                                                     <tr key={index}>
                                                                         <td>{item.model_id}</td>
+                                                                        <td>{item.price_per_unit}</td>
                                                                         <td>{item.quantity}</td>
-                                                                        <td>{item.quantity_received}</td>
-                                                                        <td>{item.pending_intransit}</td>
+                                                                        <td>{item.total_amount_per_model}</td>
                                                                     </tr>
                                                                 ))
                                                             ) : (
@@ -334,30 +330,30 @@ const NewUnapprovedStockDelivery = () => {
                                                     </nav>
                                                 </div>
                                             </div>
-								</div>
-							</div>
-							
-						</div>
-						<div className= "box-footer text-end space-x-3 rtl:space-x-reverse" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem' }}>
-							
-                            <Link to="#" className= "ti-btn m-0 ti-btn-soft-primary" onClick={approve}><i className="ri ri-refresh-line"></i> Approve</Link>
-							<Link to="#" className= "ti-btn m-0 ti-btn-soft-secondary" onClick={editMode ? handleSubmit(onSubmit) : toggleEditMode}><i className= "ri ri-close-circle-line"></i> {editMode ? "Save" : "Edit"}</Link>
-						</div>
-					</div>
-				</div>
-                </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div className="box-footer text-end space-x-3 rtl:space-x-reverse" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem' }}>
+
+                                    <Link to="#" className="ti-btn m-0 ti-btn-soft-primary" onClick={approve}><i className="ri ri-refresh-line"></i> Approve</Link>
+                                    <Link to="#" className="ti-btn m-0 ti-btn-soft-secondary" onClick={editMode ? handleSubmit(onSubmit) : toggleEditMode}><i className="ri ri-close-circle-line"></i> {editMode ? "Save" : "Edit"}</Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div id="loader" style={{ display: 'none' }}>
                         <span className="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent text-blue rounded-full" role="status" aria-label="loading">
                             <span className="sr-only">Loading...</span>
                         </span>
                     </div>
-                   
+
                     {alert && <Alert alert={alert} />}
                 </div >
-            )
-            }
+            )}
         </div >
     )
 }
 
-export default NewUnapprovedStockDelivery;
+export default Unapproved_stock_cash_purchased;

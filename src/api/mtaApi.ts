@@ -39,6 +39,8 @@ const mtaApi = {
     list_account_categories: (status: any) => post("accounting/list-account-categories", { status }),
     list_account_types: (status: any) => post("/accounting/list-account-types", { status }),
     list_account_by_type: (data: any) => post("/accounting/list-specific-accounts-by-type",  data ),
+    get_transport_payable_default_account: (data: any) => post("/accounting/get-transport-payable-default-account", { id: data }),
+
   },
   capital_injection: {
     create_capital_injection: (data: any) => post("/finance/create-capital-injection", data),
@@ -48,19 +50,22 @@ const mtaApi = {
   purchase: {
     cashstockPurchase: (data: any) => post("/cashstock-purchase/create-cash-stock-purchase", data),
     list_stock_purchased_cash: (status: any) => post("/cashstock-purchase/list-cash-stock-purchase", { status }),
-    approve_stock_purchased_cash: (status: any) => post("/cashstock-purchase/approve-cash-stock-purchase", { id: status })
+    approve_stock_purchased_cash: (status: any) => post("/cashstock-purchase/approve-cash-stock-purchase", { id: status }),
+    list_purchases_todeliver: (status: any) => post("/cashstock-purchase/list-cash-stock-todeliver", { status }),
   },
 
   stock_in_transit: {
     create_stock_delivery: (data: any) => post("/transit-stock/create-stock-transit", data),
     list_stock_in_transit: (status: any) => post("/transit-stock/list-stock-transit", { status }),
     approve_stock_in_transit: (status: any) => post("/transit-stock/approve-stock-transit", { id: status }),
+    
   },
   transport: {
     list_transport_modes: (status: any) => post("/transport/list-transport-modes", {status}),
   },
   receive_stock:{
   receive_phone_models: (data: any) =>post("/mobilephone-receive-transit-stock/receive-stock", data),
+  list_phone_devices_intransit: (status: any) =>post("/mobilephone-receive-transit-stock/list-devices", { status }),
   list_received_phone_models: (status :any) =>post("/mobilephone-receive-transit-stock/list-received-stock", {status}),
   approve_received_phones_models: (status: any) => post("/mobilephone-receive-transit-stock/approve-received-stock",{id:status}),
   },

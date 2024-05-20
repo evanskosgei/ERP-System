@@ -42,7 +42,7 @@ const onSubmit = async (values) => {
     try {
         const { data } = await mtaApi.accounts.create_account(values)
         if (data.status === 200) {
-            navigate("/finance/unapproved-accounts");
+            navigate("/finance/active-accounts");
         } else {
             const message = data.description;
             setAlert({ type: "error", message });

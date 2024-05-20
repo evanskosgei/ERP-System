@@ -12,7 +12,7 @@ import Alert from '../../../components/Alert';
 import ALLImages from "../../../common/imagesdata";
 import mtaApi from '../../../api/mtaApi';
 
-const Unapproved_stock_cash_purchased = () => {
+const ApprovedStockCashPurchased = () => {
 
     const navigate = useNavigate(); 
     const [rowData, setRowData] = useState([]);
@@ -46,7 +46,7 @@ const Unapproved_stock_cash_purchased = () => {
     const onGridReady = useCallback(() => {
         const newUnApproved = async () => {
             try {
-                const { data } = await mtaApi.purchase.list_stock_purchased_cash('2');
+                const { data } = await mtaApi.purchase.list_stock_purchased_cash('1');
                 if (data.status === 200) {
                     const modifiedData = data.response.map((item, index) => ({
                         ...item,
@@ -116,26 +116,12 @@ const Unapproved_stock_cash_purchased = () => {
         )
     ) || [];
 
-    const onSubmit = async (values) => {
-        
-    }
-    const approve = async () => {
-        try {
-            const { data } = await mtaApi.purchase.approve_stock_purchased_cash(selectedRowData.id)
-            if(data.status === 200){
-            navigate("/inventory/active-stock-purchased-using-cash");
-            }
-        } catch (error) {
-            const message = error.response?.data?.error ?? error.message;
-            setAlert({ type: "error", message });
-        }
-    }
 
     return (
         <div>
             {currentDiv === "listpage" && (
                 <div>
-                    <PageHeader currentpage="Approve Stock Purchased Using Cash" href="/inventory/dashboard/" activepage="Inventory" mainpage="Stock Purchased Details" />
+                    <PageHeader currentpage="Stock Purchased Using Cash" href="/inventory/dashboard/" activepage="Inventory" mainpage="Stock Purchased Details" />
                     <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                         <input
                             type="text"
@@ -183,7 +169,7 @@ const Unapproved_stock_cash_purchased = () => {
 
             {currentDiv === "details" && (
                 <div>
-                    <PageHeader currentpage="Approve Stock Purchased Using Cash" href="/inventory/dashboard/" activepage="Inventory" mainpage="Stock Purchased Details" />
+                    <PageHeader currentpage="Stock Purchased Using Cash" href="/inventory/dashboard/" activepage="Inventory" mainpage="Stock Purchased Details" />
                     <button className='className="flex left-0 text-blue-700 hover:bg-gray-100 p-3 font-bold'
                         onClick={handleBack}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -281,7 +267,7 @@ const Unapproved_stock_cash_purchased = () => {
 										</div>
 									</div>
 									<div className="md:ltr:ml-auto md:rtl:mr-auto">
-										<Link to="#" className="ti-btn text-xs m-0 ti-btn-soft-success p-2"><i className="ri ri-add-circle-line"></i>Create New File</Link>
+										<Link to="#" className="ti-btn text-xs m-0 ti-btn-soft-success p-2"><i className="ri ri-add-circle-line"></i>View Stock in Transit</Link>
 									</div>
 								</div>
 							</div>
@@ -334,11 +320,7 @@ const Unapproved_stock_cash_purchased = () => {
 							</div>
 							
 						</div>
-						<div className= "box-footer text-end space-x-3 rtl:space-x-reverse" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem' }}>
-							
-                            <Link to="#" className= "ti-btn m-0 ti-btn-soft-primary" onClick={approve}><i className="ri ri-refresh-line"></i> Approve</Link>
-							<Link to="#" className= "ti-btn m-0 ti-btn-soft-secondary" onClick={editMode ? handleSubmit(onSubmit) : toggleEditMode}><i className= "ri ri-close-circle-line"></i> {editMode ? "Save" : "Edit"}</Link>
-						</div>
+						
 					</div>
 				</div>
                 </div>
@@ -356,4 +338,4 @@ const Unapproved_stock_cash_purchased = () => {
     )
 }
 
-export default Unapproved_stock_cash_purchased;
+export default ApprovedStockCashPurchased;
