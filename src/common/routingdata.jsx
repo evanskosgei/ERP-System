@@ -345,6 +345,7 @@ export const RouteData = [
     { path: `${import.meta.env.BASE_URL}distribution/manager/approve/dispatch/`, element: <ApproveDispatch />, title: '' },
     { path: `${import.meta.env.BASE_URL}distribution/manager/active-dispatch`, element: <List_active_dispatch />, title: '' },
     { path: `${import.meta.env.BASE_URL}distribution/manager/receive-dispatch`, element: <Receive_stock />, title: '' },
+    
     { path: `${import.meta.env.BASE_URL}distribution/teamleader/dispatch`, element: <Team_leader_dispatch_phones />, title: '' },
     { path: `${import.meta.env.BASE_URL}distribution/teamleader/new-dispatch`, element: <List_new_Team_leader_dispatch />, title: '' },
     { path: `${import.meta.env.BASE_URL}distribution/teamleader/active-dispatch`, element: <Active_team_leader_distributions />, title: '' },

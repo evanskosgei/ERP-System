@@ -12,7 +12,7 @@ const Receive_Team_leader_dispatched = () => {
     useEffect(() => {
         const get_distributions = async () => {
             try {
-                const { data } = await mtaApi.product_models.list_mobile_phone_model('1')
+                const { data } = await mtaApi.team_leader_distribution.team_leader_dispatches('1')
                 if (data.status === 200) {
                     setStockDispached(data.response)
                 }
@@ -27,8 +27,8 @@ const Receive_Team_leader_dispatched = () => {
     const onSubmit = async (values) => {
         try {
             const { data } = await mtaApi.team_leader_distribution.team_leader_receive_stock(values)
-            if (data.status !== 200) {
-                throw new Error("Request failed: " + data.description);
+            if (data.status === 200) {
+                navigate("/distribution/teamleader/active-dispatch");
             }
             reset()
         } catch (error) {
