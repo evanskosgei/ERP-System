@@ -3,11 +3,14 @@ import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader';
 import mtaApi from '../../../api/mtaApi';
 import Alert from '../../../components/Alert';
 import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom';
+
 
 const Receive_stock = () => {
     const { register, handleSubmit, formState: { errors, isValid }, formState, reset} = useForm();
     const [stockDispatched, setStockDispached] = useState([]);
     const [alert, setAlert] = useState(null)
+    const navigate = useNavigate();
 
     useEffect(() => {
         const get_distributions = async () => {
