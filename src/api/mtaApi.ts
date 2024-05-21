@@ -88,21 +88,29 @@ const mtaApi = {
       approve_teamleader_dispatch:(id:any)=>post("manager-distribution/approve-teamleader-dispatched-stock",{ id: id}),
       },
 
+  team_leader_dispatch : {
+    list_stock_toreceive:(data:any)=>post("/teamleader-distribution/list-stock-to-receive",data),
+    receive_dispatch: (data: any) =>post("/teamleader-distribution/teamleader-receive-dispatched-stock", data),
+    list_stock_available:(data:any)=>post("/teamleader-distribution/list-stock-available",data),
+    create_agent_dispatch: (data: any) =>post("/teamleader-distribution/create-agent-dispatch",data),
+    list_agent_dispatch:(status:any)=>post("teamleader-distribution/list-agent-dispatched-stock",{ status }),
+    approve_agent_dispatch:(id:any)=>post("teamleader-distribution/approve-agent-dispatched-stock",{ id: id}),
+
+    // team_leader_dispatches: (status: any) => post("/teamleader-distribution/list-dispatched-stock", { status }),
+    // team_leader_approve_dispatch: (status: any) => post("/teamleader-distribution/approve-dispatched-stock", {id:status}),
+    // team_leader_receive_stock: (data: any) => post("/teamleader-distribution/receive-dispatched-stock", data)
+  },
+  agent:{
+    get_agent_stock:(status:any)=>post("/agent-distribution/list-dispatched-stock",{status:status})
+  },
+
   distribute_stock_stockist:{
     distribute_stock_manager: (data: any) =>post("/manager-distribution/dispatch-stock",data),
     list_distribution:(status:any)=>post("manager-distribution/list-dispatched-stock",{ status }),
     approve_distribution:(status:any)=>post("manager-distribution/approve-dispatched-stock",{ id: status}),
     receive_stock:(data: any) => post("/manager-distribution/receive-dispatched-stock", data)
     },
-  team_leader_distribution : {
-    team_leader_dispatch_phones:(data:any) => post("/teamleader-distribution/dispatch-stock", data),
-    team_leader_dispatches: (status: any) => post("/teamleader-distribution/list-dispatched-stock", { status }),
-    team_leader_approve_dispatch: (status: any) => post("/teamleader-distribution/approve-dispatched-stock", {id:status}),
-    team_leader_receive_stock: (data: any) => post("/teamleader-distribution/receive-dispatched-stock", data)
-  },
-  agent:{
-    get_agent_stock:(status:any)=>post("/agent-distribution/list-dispatched-stock",{status:status})
-  },
+ 
   sale:{
     cash_sale:(data:any) => post("/mobilephone-cash-sales/create-cash-sales",data),
   }

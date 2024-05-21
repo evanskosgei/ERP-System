@@ -59,13 +59,14 @@ import ManagerApproveTeamLeaderDispatch from "../views/distribution_module/manag
 
 
 //Team Leader Distribution / Dispatch Management Pages
-import TeamLeaderStockToReceive from "../views/inventory_module/stock_in_transit/list_available_stock";
-import TeamLeaderCreateAgentDispatch from "../views/distribution_module/stockist/create_manager_dispatch";
-import TeamLeaderListAgentDispatch from "../views/distribution_module/stockist/list_manager_dispatch";
-import TeamLeaderApproveAgentDispatch from "../views/distribution_module/stockist/approve_manager_dispatch";
+import TeamLeaderStockToReceive from "../views/distribution_module/team_leader/receive_dispatch";
+import TeamLeaderStockAvailable from "../views/distribution_module/team_leader/list_available_stock";
+import TeamLeaderCreateAgentDispatch from "../views/distribution_module/team_leader/create_agent_dispatch";
+import TeamLeaderListAgentDispatch from "../views/distribution_module/team_leader/list_agent_dispatch";
+import TeamLeaderApproveAgentDispatch from "../views/distribution_module/team_leader/approve_agent_dispatch";
 
 //Agents Management Pages
-import AgentStockToReceive from "../views/distribution_module/stockist/create_manager_dispatch";
+// import AgentStockToReceive from "../views/distribution_module/agents/create_manager_dispatch";
 
 // purchased with cash
 import BuyStockUsingCash from "../views/inventory_module/purchase_stock_using_cash/buy_stock_using_cash";
@@ -368,12 +369,13 @@ export const RouteData = [
 
     // Team Leaders Distribution
     { path: `${import.meta.env.BASE_URL}distribution/team-leader-stock-to-receive/`, element: <TeamLeaderStockToReceive />, title: '' },
+    { path: `${import.meta.env.BASE_URL}distribution/team-leader-stock-available/`, element: <TeamLeaderStockAvailable />, title: '' },
     { path: `${import.meta.env.BASE_URL}distribution/team-leader-create-dispatch-to-agents/`, element: <TeamLeaderCreateAgentDispatch />, title: '' },
     { path: `${import.meta.env.BASE_URL}distribution/team-leader-list-dispatch-to-agents/`, element: <TeamLeaderListAgentDispatch />, title: '' },
     { path: `${import.meta.env.BASE_URL}distribution/team-leader-approve-dispatch-to-agents/`, element: <TeamLeaderApproveAgentDispatch />, title: '' },
 
     // Agents Distribution
-    { path: `${import.meta.env.BASE_URL}distribution/agent-stock-to-receive/`, element: <AgentStockToReceive />, title: '' },
+    // { path: `${import.meta.env.BASE_URL}distribution/agent-stock-to-receive/`, element: <AgentStockToReceive />, title: '' },
 
 
     // { path: `${import.meta.env.BASE_URL}distribution/manager/approve/dispatch/`, element: <ApproveDispatch />, title: '' },
