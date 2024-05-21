@@ -66,7 +66,8 @@ import TeamLeaderListAgentDispatch from "../views/distribution_module/team_leade
 import TeamLeaderApproveAgentDispatch from "../views/distribution_module/team_leader/approve_agent_dispatch";
 
 //Agents Management Pages
-// import AgentStockToReceive from "../views/distribution_module/agents/create_manager_dispatch";
+import AgentStockToReceive from "../views/distribution_module/sales_agent/receive_dispatch";
+import AgentStockAvailable from "../views/distribution_module/sales_agent/list_available_stock";
 
 // purchased with cash
 import BuyStockUsingCash from "../views/inventory_module/purchase_stock_using_cash/buy_stock_using_cash";
@@ -375,7 +376,8 @@ export const RouteData = [
     { path: `${import.meta.env.BASE_URL}distribution/team-leader-approve-dispatch-to-agents/`, element: <TeamLeaderApproveAgentDispatch />, title: '' },
 
     // Agents Distribution
-    // { path: `${import.meta.env.BASE_URL}distribution/agent-stock-to-receive/`, element: <AgentStockToReceive />, title: '' },
+    { path: `${import.meta.env.BASE_URL}distribution/agent-stock-to-receive/`, element: <AgentStockToReceive />, title: '' },
+    { path: `${import.meta.env.BASE_URL}distribution/agent-stock-available/`, element: <AgentStockAvailable />, title: '' },
 
 
     // { path: `${import.meta.env.BASE_URL}distribution/manager/approve/dispatch/`, element: <ApproveDispatch />, title: '' },

@@ -100,8 +100,10 @@ const mtaApi = {
     // team_leader_approve_dispatch: (status: any) => post("/teamleader-distribution/approve-dispatched-stock", {id:status}),
     // team_leader_receive_stock: (data: any) => post("/teamleader-distribution/receive-dispatched-stock", data)
   },
-  agent:{
-    get_agent_stock:(status:any)=>post("/agent-distribution/list-dispatched-stock",{status:status})
+  sales_agents:{
+    list_stock_toreceive:(data:any)=>post("/agent-distribution/list-stock-to-receive",data),
+    receive_dispatch: (data: any) =>post("/agent-distribution/agent-receive-dispatched-stock", data),
+    list_stock_available:(data:any)=>post("/agent-distribution/list-stock-available",data),
   },
 
   distribute_stock_stockist:{
