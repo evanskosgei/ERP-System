@@ -9,6 +9,7 @@ const mtaApi = {
     create_user: (data: any) => post("/users/create-user", data),
     list_categories: (status: any) => post("/users/list-user-categories", { status }),
     list_users: (status: any) => post("/users/list-users", { status }),
+    list_users_by_category: (data: any) => post("/users/list-users-by-category", data),
     approve_users: (status: any) => post("/users/approve-user", { id: status }),
   },
   distributions: {
@@ -69,6 +70,15 @@ const mtaApi = {
   list_received_phone_models: (status :any) =>post("/mobilephone-receive-transit-stock/list-received-stock", {status}),
   approve_received_phones_models: (status: any) => post("/mobilephone-receive-transit-stock/approve-received-stock",{id:status}),
   },
+
+  stockist_dispatch:{
+    list_stock_available:(data:any)=>post("/stockist-distribution/list-available-stock-to-dispatch",data),
+    create_manager_dispatch: (data: any) =>post("/stockist-distribution/create-manager-dispatch",data),
+    list_manager_dispatch:(status:any)=>post("stockist-distribution/list-manager-dispatched-stock",{ status }),
+    approve_manager_dispatch:(status:any)=>post("stockist-distribution/approve-manager-dispatched-stock",{ id: status}),
+    // receive_stock:(data: any) => post("/stockist-distribution/receive-dispatched-stock", data)
+    },
+
   distribute_stock_stockist:{
     distribute_stock_manager: (data: any) =>post("/manager-distribution/dispatch-stock",data),
     list_distribution:(status:any)=>post("manager-distribution/list-dispatched-stock",{ status }),

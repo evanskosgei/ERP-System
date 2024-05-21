@@ -44,7 +44,15 @@ import Reactivateddistributions from "../views/inventory_module/distribution_cen
 
 // distributions
 import Distribution_dashboard from "../views/distribution_module/dashboard";
-import Dispatch from "../views/distribution_module/manager/dispatch";
+
+//Stockist Distribution
+// import StockistListStockAvailable from "../views/distribution_module/stockist/list_stock_available";
+import StockistCreateManagerDispatch from "../views/distribution_module/stockist/create_manager_dispatch";
+import StockistListManagerDispatch from "../views/distribution_module/stockist/list_manager_dispatch";
+import StockistApproveManagerDispatch from "../views/distribution_module/stockist/approve_manager_dispatch";
+
+
+import DispatchStock from "../views/distribution_module/manager/dispatch";
 import ApproveDispatch from "../views/distribution_module/manager/approve_dispatch";
 import List_active_dispatch from "../views/distribution_module/manager/list_active_dispatch";
 import Receive_stock from "../views/distribution_module/manager/receive_stock";
@@ -341,7 +349,13 @@ export const RouteData = [
 
     // Distribution Dashboard
     { path: `${import.meta.env.BASE_URL}distribution/dashboard/`, element: <Distribution_dashboard />, title: '' },
-    { path: `${import.meta.env.BASE_URL}distribution/manager/dispatch/`, element: <Dispatch />, title: '' },
+
+    // Stockist Distribution
+    // { path: `${import.meta.env.BASE_URL}distribution/list-stock-available/`, element: <StockistListStockAvailable />, title: '' },
+    { path: `${import.meta.env.BASE_URL}distribution/create-dispatch-to-manager/`, element: <StockistCreateManagerDispatch />, title: '' },
+    { path: `${import.meta.env.BASE_URL}distribution/list-dispatch-to-manager/`, element: <StockistListManagerDispatch />, title: '' },
+    { path: `${import.meta.env.BASE_URL}distribution/approve-dispatch-to-manager/`, element: <StockistApproveManagerDispatch />, title: '' },
+    
     { path: `${import.meta.env.BASE_URL}distribution/manager/approve/dispatch/`, element: <ApproveDispatch />, title: '' },
     { path: `${import.meta.env.BASE_URL}distribution/manager/active-dispatch`, element: <List_active_dispatch />, title: '' },
     { path: `${import.meta.env.BASE_URL}distribution/manager/receive-dispatch`, element: <Receive_stock />, title: '' },
