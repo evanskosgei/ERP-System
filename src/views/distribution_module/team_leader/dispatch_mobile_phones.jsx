@@ -64,7 +64,7 @@ const Team_leader_dispatch_phones = () => {
 
     return (
         <div>
-       <PageHeader currentpage="Dispatch Mobile Phones" href="/distribution/dashboard/" activepage="Distribution" mainpage="Dispatch Mobile Phones" />
+       <PageHeader currentpage="Dispatch Mobile Phones" href="/inventory/distribution-dashboard" activepage="Distribution" mainpage="Dispatch Mobile Phones" />
         {alert && <Alert alert={alert} />}
         <div className="col-span-12">
             <div className="box">

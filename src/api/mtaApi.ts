@@ -64,6 +64,7 @@ const mtaApi = {
   transport: {
     list_transport_modes: (status: any) => post("/transport/list-transport-modes", {status}),
   },
+
   receive_stock:{
   receive_phone_models: (data: any) =>post("/mobilephone-receive-transit-stock/receive-stock", data),
   list_phone_devices_intransit: (status: any) =>post("/mobilephone-receive-transit-stock/list-devices", { status }),
@@ -76,8 +77,16 @@ const mtaApi = {
     create_manager_dispatch: (data: any) =>post("/stockist-distribution/create-manager-dispatch",data),
     list_manager_dispatch:(status:any)=>post("stockist-distribution/list-manager-dispatched-stock",{ status }),
     approve_manager_dispatch:(status:any)=>post("stockist-distribution/approve-manager-dispatched-stock",{ id: status}),
-    // receive_stock:(data: any) => post("/stockist-distribution/receive-dispatched-stock", data)
     },
+
+  manager_dispatch:{
+      list_stock_toreceive:(data:any)=>post("/manager-distribution/list-stock-to-receive",data),
+      receive_dispatch: (data: any) =>post("/manager-distribution/manager-received-dispatched-stock", data),
+      list_stock_available:(data:any)=>post("/manager-distribution/list-stock-available",data),
+      create_teamleader_dispatch: (data: any) =>post("/manager-distribution/create-teamleader-dispatch",data),
+      list_teamleader_dispatch:(status:any)=>post("manager-distribution/list-teamleader-dispatched-stock",{ status }),
+      approve_teamleader_dispatch:(id:any)=>post("manager-distribution/approve-teamleader-dispatched-stock",{ id: id}),
+      },
 
   distribute_stock_stockist:{
     distribute_stock_manager: (data: any) =>post("/manager-distribution/dispatch-stock",data),

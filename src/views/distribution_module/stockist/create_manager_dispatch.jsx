@@ -215,7 +215,7 @@ const CreateDispatchToManager = () => {
             
             const response = await mtaApi.stockist_dispatch.create_manager_dispatch(formattedData)
             if (response.data.status === 200) {
-                navigate("/distribution/approve-dispatch-to-manager/")
+                navigate("/distribution/approve-dispatch-to-manager")
                 reset()
             } else {
                 const message = response.data.description
@@ -240,7 +240,7 @@ const CreateDispatchToManager = () => {
         <div>
             {currentDiv === "listpage" && (
                 <div>
-                    <PageHeader currentpage="Create Dispatch to Manager" href="/distribution/dashboard/" activepage="Dispatch" mainpage="Select Device to Send To Manager" />
+                    <PageHeader currentpage="Create Dispatch to Manager" href="/inventory/distribution-dashboard" activepage="Dispatch" mainpage="Select Device to Send To Manager" />
                     <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                         <input
                             type="text"

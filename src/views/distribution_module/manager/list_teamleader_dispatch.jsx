@@ -10,14 +10,14 @@ import Alert from '../../../components/Alert';
 import { Link } from 'react-router-dom';
 import { useAuth } from "../../../providers/AuthProvider";
 
-const ApproveManagerDispatch = () => {
+const ListManagerDispatchToTeamLeaders = () => {
     const navigate = useNavigate();
     const [rowData, setRowData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedRowData, setSelectedRowData] = useState(null);
     const [divStack, setDivStack] = useState(["listpage"]);
     const [editMode, setEditMode] = useState(false);
-    const [alert, setAlert] = useState(null);
+    const [alert, setAlert] = useState(null);  
     const { user } = useAuth();
 
 
@@ -25,12 +25,13 @@ const ApproveManagerDispatch = () => {
         { headerName: "#", field: "count", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 5 },
         { headerName: "Global ID", field: "global_id", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
         { headerName: "Distribution Center", field: "distribution_center_name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Manager Name", field: "manager_name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Model Name", field: "model_name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
         { headerName: "IMEI 1", field: "imei_1", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
         { headerName: "IMEI 2", field: "imei_2", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
         { headerName: "QR Code", field: "qr_code_id", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Date Dispatched", field: "stockist_dispatch_date", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Stockist Name", field: "stockist_name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Date Dispatched", field: "manager_dispatch_date", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Team Leader", field: "teamleader_name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Stock Status", field: "stock_status", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
         { headerName: "Date Created", field: "created_date", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
     ];
     const defaultColDef = { sortable: true, flex: 1, filter: true, floatingFilter: false };
@@ -38,7 +39,7 @@ const ApproveManagerDispatch = () => {
     const onGridReady = useCallback(() => {
         const newUnApproved = async () => {
             try {
-                const { data } = await mtaApi.stockist_dispatch.list_manager_dispatch('2')
+                const { data } = await mtaApi.manager_dispatch.list_teamleader_dispatch('1')
                 console.log(data)
                 if (data.status === 200) {
                     const modifiedData = data.response.map((item, index) => ({
@@ -77,9 +78,6 @@ const ApproveManagerDispatch = () => {
         }
     };
 
-    const toggleEditMode = () => {
-        setEditMode(!editMode);
-    };
 
     const currentDiv = divStack[divStack.length - 1];
 
@@ -98,22 +96,12 @@ const ApproveManagerDispatch = () => {
             return false;
         });
     });
-    const approve = async () => {
-        try {
-            const { data } = await mtaApi.stockist_dispatch.approve_manager_dispatch(selectedRowData.id)
-            if (data.status === 200) {
-                navigate("/distribution/list-dispatch-to-manager")
-            }
-        } catch (error) {
-            const message = error.response?.data?.error ?? error.message;
-            setAlert({ type: "error", message });
-        }
-    }
+
     return (
         <div>
             {currentDiv === "listpage" && (
                 <div>
-                    <PageHeader currentpage="Approve Dispatch to Manager" href="/inventory/dashboard/" activepage="Dispatch" mainpage="Stock Dispatched Pending Approval" />
+                    <PageHeader currentpage="Stock Dispatched to Team Leaders" href="/inventory/distribution-dashboard/" activepage="Distribution" mainpage="Stock sent to team leaders" />
                     <div className="grid grid-cols-12 gap-6">
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
@@ -162,7 +150,7 @@ const ApproveManagerDispatch = () => {
             )}
             {currentDiv === "details" && (
                 <div>
-                    <PageHeader currentpage="Approve Dispatch to Manager" href="/inventory/dashboard/" activepage="Dispatch" mainpage="Stock Dispatched Pending Approval" />
+                    <PageHeader currentpage="Stock Dispatched to Team Leaders" href="/inventory/distribution-dashboard/" activepage="Distribution" mainpage="Stock sent to team leaders" />
                     <button className='className="flex left-0 text-blue-700 hover:bg-gray-100 p-3 font-bold'
                         onClick={handleBack}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -179,7 +167,7 @@ const ApproveManagerDispatch = () => {
 								<div className= "box border-0 shadow-none mb-0">
 									
                                     <div className="box-header">
-                            <h5 className="box-title  text-center">Manager Stock Dispatch Details</h5>
+                            <h5 className="box-title  text-center">Team Leader Stock Dispatch Details</h5>
                         </div>
 									<div className= "box-body">
 										<div>
@@ -191,8 +179,8 @@ const ApproveManagerDispatch = () => {
 									    </div>
 
                                         <div className= "space-x-3">
-										    <span className= "text-sm font-bold">Manager Name :</span>
-										    <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.manager_name}</span>
+										    <span className= "text-sm font-bold">Team Leader Name :</span>
+										    <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.teamleader_name}</span>
 									    </div>
 
                                         <div className= "space-x-3">
@@ -259,7 +247,7 @@ const ApproveManagerDispatch = () => {
 
                                         <div className= "space-x-3">
                                             <span className= "text-sm font-bold">Date Dispatched :</span>
-                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.stockist_dispatch_date}</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.manager_dispatch_date}</span>
                                         </div>
 
                                         <div className= "space-x-3">
@@ -268,13 +256,13 @@ const ApproveManagerDispatch = () => {
                                         </div>
 
                                         <div className= "space-x-3">
-                                            <span className= "text-sm font-bold">Stockist Remarks :</span>
-                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.stockist_remarks}</span>
+                                            <span className= "text-sm font-bold">Manager Remarks :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.manager_remarks}</span>
                                         </div>
 
                                         <div className= "space-x-3">
-                                            <span className= "text-sm font-bold">Stockist Name :</span>
-                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.stockist_name}</span>
+                                            <span className= "text-sm font-bold">Team Leader Name :</span>
+                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.teamleader_name}</span>
                                         </div>
 									</div>
 									</div>
@@ -285,11 +273,7 @@ const ApproveManagerDispatch = () => {
 							</div>
 							
 						</div>
-						<div className= "box-footer text-end space-x-3 rtl:space-x-reverse" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem' }}>
-							
-                            <Link to="#" className= "ti-btn m-0 ti-btn-soft-primary" onClick={approve}><i className="ri ri-refresh-line"></i> Approve</Link>
-							<Link to="#" className= "ti-btn m-0 ti-btn-soft-secondary" onClick={editMode ? handleSubmit(onSubmit) : toggleEditMode}><i className= "ri ri-close-circle-line"></i> {editMode ? "Save" : "Edit"}</Link>
-						</div>
+						
 					</div>
 				</div>
                 </div>
@@ -307,4 +291,4 @@ const ApproveManagerDispatch = () => {
     )
 }
 
-export default ApproveManagerDispatch;
+export default ListManagerDispatchToTeamLeaders;

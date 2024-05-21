@@ -9,17 +9,18 @@ import { useNavigate } from 'react-router-dom';
 import Alert from '../../../components/Alert';
 import mtaApi from '../../../api/mtaApi';
 
-const ManagerStockAvailable = () => {
+const CreateDispatchToTeamLeader = () => {
 
     const navigate = useNavigate();
     const [rowData, setRowData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
-
     const [selectedRowData, setSelectedRowData] = useState(null);
     const [selectedRows, setSelectedRows] = useState([]);
     const [divStack, setDivStack] = useState(["listpage"]);
     const [alert, setAlert] = useState(null);
-    const [managers, setManagers] = useState([])
+
+    const [teamleaders, setTeamLeaders] = useState([])
+    const [distributionCenters, setDistributionCenters] = useState([]);
 
     const { register, handleSubmit, formState: { errors, isValid }, formState, setValue, reset } = useForm();
 
@@ -59,14 +60,14 @@ const ManagerStockAvailable = () => {
 
         const getManagers = async () => {
             try {
-                const params = {"status":1, "category":3}
+                const params = {"status":1, "category":4}
                 const { data } = await mtaApi.users.list_users_by_category(params)
                 if (data.status === 200) {
                     const modifiedData = data.response.map((item, index) => ({
                         ...item,
                         count: index + 1,
                     }));
-                    setManagers(modifiedData);
+                    setTeamLeaders(modifiedData);
 
                 }
             } catch (error) {
@@ -123,13 +124,51 @@ const ManagerStockAvailable = () => {
             return false;
         });
     });
-    [];
+     [];
+
+    useEffect(() => {
+        
+
+        const fetchDistributionCenters = async () => {
+            try {
+                const { data } = await mtaApi.distributions.list_distribution('1');
+                if (data.status === 200) {
+                    setDistributionCenters(data.response);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchDistributionCenters();
+
+    }, [])
+
+    const onSubmit = async (data) => {
+        const formattedData = {
+            ...data,
+            mobilephone_managerstock_id: selectedRows.length > 0 ? selectedRows[0].id : null,
+        };
+        try {
+            
+            const response = await mtaApi.manager_dispatch.create_teamleader_dispatch(formattedData)
+            if (response.data.status === 200) {
+                navigate("/distribution/manager-approve-dispatch-to-team-leader")
+                reset()
+            } else {
+                const message = response.data.description
+                setAlert({ type: "error", message });
+            }
+        } catch (error) {
+            const message = error.response?.data?.error ?? error.message;
+            setAlert({ type: "error", message });
+        }
+    };
 
     return (
         <div>
             {currentDiv === "listpage" && (
                 <div>
-                    <PageHeader currentpage="Manager Stock Available" href="/inventory/distribution-dashboard/" activepage="Distribution" mainpage="Manager stock available" />
+                    <PageHeader currentpage="Create Dispatch to Team Leader" href="/inventory/distribution-dashboard" activepage="Dispatch" mainpage="Select Device to Send To Team Leader" />
                     <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                         <input
                             type="text"
@@ -180,7 +219,7 @@ const ManagerStockAvailable = () => {
 
             {currentDiv === "details" && (
                 <div>
-                    <PageHeader currentpage="Manager Stock Available" href="/inventory/distribution-dashboard/" activepage="Distribution" mainpage="Manager Stock Pending Dispatch" />
+                    <PageHeader currentpage="Create Dispatch to Team Leader" href="/inventory/distribution-dashboard" activepage="Dispatch" mainpage="Device Details" />
                     <button className='flex items-center text-blue-700 hover:bg-gray-100 p-2 font-semibold text-sm'
                         onClick={handleBack}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
@@ -273,54 +312,59 @@ const ManagerStockAvailable = () => {
                                                                 {selectedRowData.warranty_period}
                                                             </span>
                                                         </div>
-
-                                                        <div className="space-x-3">
-                                                            <span className="text-sm font-bold">Dispatch Date :</span>
-                                                            <span className="text-sm text-gray-800 dark:text-white/70">
-                                                                {selectedRowData.stockist_dispatch_date}
-                                                            </span>
-                                                        </div>
-
-                                                        <div className="space-x-3">
-                                                            <span className="text-sm font-bold">Received Date :</span>
-                                                            <span className="text-sm text-gray-800 dark:text-white/70">
-                                                                {selectedRowData.manager_received_date}
-                                                            </span>
-                                                        </div>
-
-                                                        <div className="space-x-3">
-                                                            <span className="text-sm font-bold">Manager Name :</span>
-                                                            <span className="text-sm text-gray-800 dark:text-white/70">
-                                                                {selectedRowData.manager_user_name}
-                                                            </span>
-                                                        </div>
-
-                                                        <div className="space-x-3">
-                                                            <span className="text-sm font-bold">Warranty Period :</span>
-                                                            <span className="text-sm text-gray-800 dark:text-white/70">
-                                                                {selectedRowData.warranty_period}
-                                                            </span>
-                                                        </div>
-
-                                                        <div className="space-x-3">
-                                                            <span className="text-sm font-bold">Stockist Remarks :</span>
-                                                            <span className="text-sm text-gray-800 dark:text-white/70">
-                                                                {selectedRowData.stockist_remarks}
-                                                            </span>
-                                                        </div>
-
-                                                        <div className="space-x-3">
-                                                            <span className="text-sm font-bold">Manager Remarks :</span>
-                                                            <span className="text-sm text-gray-800 dark:text-white/70">
-                                                                {selectedRowData.manager_remarks}
-                                                            </span>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                       
+                                        <div className="box border-0 shadow-none mb-0">
+
+                                            <div className="box-header">
+                                                <h5 className="box-title  text-center">Enter Team Leader Dispatch Details</h5>
+                                            </div>
+                                            <div className="box-body">
+                                                <div>
+                                                    <div className="grid lg:grid-cols-2 gap-6">
+
+                                                    <div className="space-y-2">
+                                                            <label className="ti-form-label mb-0">Select Team Leader</label>
+                                                            <select {...register("teamleader_id", { required: true })} className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                                                <option value="">Select team leader ...</option>
+                                                                {teamleaders.map(user => (
+                                                                    <option key={user.id} value={user.id}>{user.name}</option>
+                                                                ))}
+                                                            </select>
+                                                            {errors.teamleader_id && <span className="text-red-500">{errors.teamleader_id.message}</span>}
+                                                        </div>
+
+                                                        <div className="space-y-2">
+                                                            <label className="ti-form-label mb-0">Select Distribution Center</label>
+                                                            <select {...register("distribution_center_id", { required: true })} className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                                                <option value="">Select Store or Shop ...</option>
+                                                                {distributionCenters.map(center => (
+                                                                    <option key={center.id} value={center.id}>{center.name}</option>
+                                                                ))}
+                                                            </select>
+                                                            {errors.distribution_center_id && <span className="text-red-500">{errors.distribution_center_id.message}</span>}
+                                                        </div>
+
+                                                        <div className="space-y-2">
+                                                            <label className="ti-form-label mb-0">Dispatch Date</label>
+                                                            <input type="date" {...register("manager_dispatch_date", { required: true })} className="my-auto ti-form-input" placeholder=" ... Enter dispatch date" required />
+                                                        </div>
+
+                                                        <div className="space-y-2">
+                                                            <label className="ti-form-label mb-0">Product Remarks</label>
+                                                            <input type="text" {...register("manager_remarks", { required: true })} className="ti-form-input" placeholder=" ...Enter product remarks" required />
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            
+                                        </div>
                                     </div>
 
                                 </div>
@@ -335,6 +379,16 @@ const ManagerStockAvailable = () => {
                         </span>
                     </div>
 
+                    <div className="grid grid-cols-12 gap-x-6">
+                        <div className="col-span-12">
+                            <div className="box !bg-transparent border-0 shadow-none">
+                                <div className="box-footer text-center border-t-0 px-0">
+                                    <button type="submit" onClick={handleSubmit(onSubmit)} className={`ti-btn ti-btn-primary ti-custom-validate-btn ${!isValid && 'opacity-50 cursor-not-allowed'}`} disabled={!isValid}>Submit Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     {alert && <Alert alert={alert} />}
                 </div >
             )}
@@ -342,4 +396,4 @@ const ManagerStockAvailable = () => {
     )
 }
 
-export default ManagerStockAvailable;
+export default CreateDispatchToTeamLeader;

@@ -60,21 +60,14 @@ export const MenuItems = [
 			{
 				id: 6, icon: MapsSvg, title: "Inventory Module", type: "sub", active: false, selected: false, children: [
 					{ id: 6.1, path: `${import.meta.env.BASE_URL}inventory/dashboard`, type: "link", active: false, selected: false, title: "Inventory Dashboard" },
-					{ id: 6.2, path: `${import.meta.env.BASE_URL}inventory/product-management`, type: "link", active: false, selected: false, title: "Product Management" },
-					{ id: 6.3, path: `${import.meta.env.BASE_URL}inventory/inventory-management`, type: "link", active: false, selected: false, title: "Inventory Management" },
-					{ id: 6.4, path: `${import.meta.env.BASE_URL}inventory/quality-control`, type: "link", active: false, selected: false, title: "Quality Control" },
+					{ id: 6.2, path: `${import.meta.env.BASE_URL}inventory/distribution-dashboard`, type: "link", active: false, selected: false, title: "Dispatch Management" },
+					{ id: 6.3, path: `${import.meta.env.BASE_URL}inventory/product-management`, type: "link", active: false, selected: false, title: "Product Management" },
+					{ id: 6.4, path: `${import.meta.env.BASE_URL}inventory/inventory-management`, type: "link", active: false, selected: false, title: "Inventory Management" },
+					{ id: 6.5, path: `${import.meta.env.BASE_URL}inventory/quality-control`, type: "link", active: false, selected: false, title: "Quality Control" },
 
 				]
 			},
-			{
-				id: 6, icon: MapsSvg, title: "Distribution Module", type: "sub", active: false, selected: false, children: [
-					{ id: 6.1, path: `${import.meta.env.BASE_URL}distribution/dashboard`, type: "link", active: false, selected: false, title: "Distribution Dashboard" },
-					// { id: 6.2, path: `${import.meta.env.BASE_URL}inventory/product-management`, type: "link", active: false, selected: false, title: "Product Management" },
-					// { id: 6.3, path: `${import.meta.env.BASE_URL}inventory/inventory-management`, type: "link", active: false, selected: false, title: "Inventory Management" },
-					// { id: 6.4, path: `${import.meta.env.BASE_URL}inventory/quality-control`, type: "link", active: false, selected: false, title: "Quality Control" },
-
-				]
-			},
+			
 
 			{
 				id: 7, icon: PagesSvg, title: "Transport Module", type: "sub", active: false, selected: false, children: [

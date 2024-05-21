@@ -105,7 +105,7 @@ const List_new_Team_leader_dispatch = () => {
         <div>
             {currentDiv === "table" && (
                 <div>
-                    <PageHeader currentpage="Approve Team Leader Distribution" href="/distribution/dashboard/" activepage="Distribution" mainpage="New Team Leader Distributions" />
+                    <PageHeader currentpage="Approve Team Leader Distribution" href="/inventory/distribution-dashboard" activepage="Distribution" mainpage="New Team Leader Distributions" />
                     {alert && <Alert alert={alert} />}
                     <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                         <input

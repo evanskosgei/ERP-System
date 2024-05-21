@@ -39,7 +39,7 @@ const Receive_stock = () => {
     }
     return (
         <div>
-            <PageHeader currentpage="Receive Distributions" href="/distribution/dashboard/" activepage="Distribution" mainpage="Receive Distribution Centers" />
+            <PageHeader currentpage="Receive Distributions" href="/inventory/distribution-dashboard" activepage="Distribution" mainpage="Receive Distribution Centers" />
             {alert && <Alert alert={alert} />}
             <div className="col-span-12">
                 <div className="box">

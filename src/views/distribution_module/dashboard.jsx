@@ -123,7 +123,7 @@ const Distribution_dashboard = () => {
                                     <ul className="flex flex-col">
                                     <li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
                                             <div className="sm:flex w-full space-y-2">
-                                                <Link to="/distribution/manager/receive-dispatch" className="">
+                                                <Link to="/distribution/manager-stock-to-receive" className="">
                                                     <div className="flex space-x-3 rtl:space-x-reverse">
                                                         <div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
                                                             <i className="ri ri-airplay-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -139,7 +139,23 @@ const Distribution_dashboard = () => {
 
                                         <li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
                                             <div className="sm:flex w-full space-y-2">
-                                                <Link to="/distribution/manager/dispatch/" className="">
+                                                <Link to="/distribution/manager-stock-available" className="">
+                                                    <div className="flex space-x-3 rtl:space-x-reverse">
+                                                        <div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
+                                                            <i className="ri ri-airplay-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
+                                                        </div>
+                                                        <div className="">
+                                                            <p className="mb-0 text-sm">Manager Stock Available</p>
+                                                            <p className="mb-0 text-gray-500 dark:text-white/70 text-xs">List manager's stock available</p>
+                                                        </div>
+                                                    </div>
+                                                </Link>
+                                            </div>
+                                        </li>
+
+                                        <li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
+                                            <div className="sm:flex w-full space-y-2">
+                                                <Link to="/distribution/manager-create-dispatch-to-team-leader" className=""> 
                                                     <div className="flex space-x-3 rtl:space-x-reverse">
                                                         <div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
                                                             <i className="ri ri-smartphone-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -156,7 +172,7 @@ const Distribution_dashboard = () => {
                                         </li>
                                         <li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
                                             <div className="sm:flex w-full space-y-2">
-                                                <Link to="/distribution/manager/approve/dispatch/" className="">
+                                                <Link to="/distribution/manager-approve-dispatch-to-team-leader" className="">
                                                     <div className="flex space-x-3 rtl:space-x-reverse">
                                                         <div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
                                                             <i className="ri ri-tablet-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -171,7 +187,7 @@ const Distribution_dashboard = () => {
                                         </li>
                                         <li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
                                             <div className="sm:flex w-full space-y-2">
-                                                <Link to="/distribution/manager/active-dispatch" className="">
+                                                <Link to="/distribution/manager-list-dispatch-to-team-leader" className="">
                                                     <div className="flex space-x-3 rtl:space-x-reverse">
                                                         <div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
                                                             <i className="ri ri-airplay-line text-xl leading-none text-gray-500 dark:text-white/70"></i>

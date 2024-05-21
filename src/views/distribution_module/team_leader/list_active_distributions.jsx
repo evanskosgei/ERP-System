@@ -104,7 +104,7 @@ const Active_team_leader_distributions = () => {
         <div>
         {currentDiv === "table" && (
             <div>
-                <PageHeader currentpage="Active Distributions" href="/distribution/dashboard/" activepage="Distribution" mainpage="Active Distribution Centers" />
+                <PageHeader currentpage="Active Distributions" href="/inventory/distribution-dashboard" activepage="Distribution" mainpage="Active Distribution Centers" />
                 {alert && <Alert alert={alert} />}
                 <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                     <input

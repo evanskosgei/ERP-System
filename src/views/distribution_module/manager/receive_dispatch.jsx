@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import Alert from '../../../components/Alert';
 import mtaApi from '../../../api/mtaApi';
 
-const ManagerStockAvailable = () => {
+const ManagerStockToReceive = () => {
 
     const navigate = useNavigate();
     const [rowData, setRowData] = useState([]);
@@ -42,8 +42,8 @@ const ManagerStockAvailable = () => {
         const newUnApproved = async () => {
             try {
                 
-                const params = {"status":1, "stock_state":1}
-                const { data } = await mtaApi.manager_dispatch.list_stock_available(params)
+                const params = {"status":1, "stock_state":0}
+                const { data } = await mtaApi.manager_dispatch.list_stock_toreceive(params)
                 if (data.status === 200) {
                     const modifiedData = data.response.map((item, index) => ({
                         ...item,
@@ -125,11 +125,32 @@ const ManagerStockAvailable = () => {
     });
     [];
 
+    const onSubmit = async (data) => {
+        const formattedData = {
+            ...data,
+            id: selectedRows.length > 0 ? selectedRows[0].id : null,
+        };
+        try {
+            
+            const response = await mtaApi.manager_dispatch.receive_dispatch(formattedData)
+            if (response.data.status === 200) {
+                navigate("/distribution/manager-stock-available")
+                reset()
+            } else {
+                const message = response.data.description
+                setAlert({ type: "error", message });
+            }
+        } catch (error) {
+            const message = error.response?.data?.error ?? error.message;
+            setAlert({ type: "error", message });
+        }
+    };
+
     return (
         <div>
             {currentDiv === "listpage" && (
                 <div>
-                    <PageHeader currentpage="Manager Stock Available" href="/inventory/distribution-dashboard/" activepage="Distribution" mainpage="Manager stock available" />
+                    <PageHeader currentpage="Manager Receive Stock" href="/inventory/distribution-dashboard" activepage="Distribution" mainpage="Select Device to Receive from Stockist" />
                     <div style={{ display: 'flex', alignItems: 'center', margin: '2' }}>
                         <input
                             type="text"
@@ -180,7 +201,7 @@ const ManagerStockAvailable = () => {
 
             {currentDiv === "details" && (
                 <div>
-                    <PageHeader currentpage="Manager Stock Available" href="/inventory/distribution-dashboard/" activepage="Distribution" mainpage="Manager Stock Pending Dispatch" />
+                    <PageHeader currentpage="Manager Receive Stock" href="/inventory/distribution-dashboard/" activepage="Distribution" mainpage="Device Details" />
                     <button className='flex items-center text-blue-700 hover:bg-gray-100 p-2 font-semibold text-sm'
                         onClick={handleBack}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
@@ -275,30 +296,23 @@ const ManagerStockAvailable = () => {
                                                         </div>
 
                                                         <div className="space-x-3">
-                                                            <span className="text-sm font-bold">Dispatch Date :</span>
+                                                            <span className="text-sm font-bold">Distribution Center :</span>
+                                                            <span className="text-sm text-gray-800 dark:text-white/70">
+                                                                {selectedRowData.distribution_center_name}
+                                                            </span>
+                                                        </div>
+
+                                                        <div className="space-x-3">
+                                                            <span className="text-sm font-bold">Stockist Name :</span>
+                                                            <span className="text-sm text-gray-800 dark:text-white/70">
+                                                                {selectedRowData.user_name}
+                                                            </span>
+                                                        </div>
+
+                                                        <div className="space-x-3">
+                                                            <span className="text-sm font-bold">Stockist Dispatch Date :</span>
                                                             <span className="text-sm text-gray-800 dark:text-white/70">
                                                                 {selectedRowData.stockist_dispatch_date}
-                                                            </span>
-                                                        </div>
-
-                                                        <div className="space-x-3">
-                                                            <span className="text-sm font-bold">Received Date :</span>
-                                                            <span className="text-sm text-gray-800 dark:text-white/70">
-                                                                {selectedRowData.manager_received_date}
-                                                            </span>
-                                                        </div>
-
-                                                        <div className="space-x-3">
-                                                            <span className="text-sm font-bold">Manager Name :</span>
-                                                            <span className="text-sm text-gray-800 dark:text-white/70">
-                                                                {selectedRowData.manager_user_name}
-                                                            </span>
-                                                        </div>
-
-                                                        <div className="space-x-3">
-                                                            <span className="text-sm font-bold">Warranty Period :</span>
-                                                            <span className="text-sm text-gray-800 dark:text-white/70">
-                                                                {selectedRowData.warranty_period}
                                                             </span>
                                                         </div>
 
@@ -308,19 +322,38 @@ const ManagerStockAvailable = () => {
                                                                 {selectedRowData.stockist_remarks}
                                                             </span>
                                                         </div>
-
-                                                        <div className="space-x-3">
-                                                            <span className="text-sm font-bold">Manager Remarks :</span>
-                                                            <span className="text-sm text-gray-800 dark:text-white/70">
-                                                                {selectedRowData.manager_remarks}
-                                                            </span>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                       
+                                        <div className="box border-0 shadow-none mb-0">
+
+                                            <div className="box-header">
+                                                <h5 className="box-title  text-center">Enter Manager Dispatch Details</h5>
+                                            </div>
+                                            <div className="box-body">
+                                                <div>
+                                                    <div className="grid lg:grid-cols-2 gap-6">
+
+                                                 
+                                                        <div className="space-y-2">
+                                                            <label className="ti-form-label mb-0">Received Date</label>
+                                                            <input type="date" {...register("manager_received_date", { required: true })} className="my-auto ti-form-input" placeholder=" ... Enter received date" required />
+                                                        </div>
+
+                                                        <div className="space-y-2">
+                                                            <label className="ti-form-label mb-0">Manager Product Remarks</label>
+                                                            <input type="text" {...register("manager_remarks", { required: true })} className="ti-form-input" placeholder=" ...Enter product remarks" required />
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            
+                                        </div>
                                     </div>
 
                                 </div>
@@ -335,6 +368,16 @@ const ManagerStockAvailable = () => {
                         </span>
                     </div>
 
+                    <div className="grid grid-cols-12 gap-x-6">
+                        <div className="col-span-12">
+                            <div className="box !bg-transparent border-0 shadow-none">
+                                <div className="box-footer text-center border-t-0 px-0">
+                                    <button type="submit" onClick={handleSubmit(onSubmit)} className={`ti-btn ti-btn-primary ti-custom-validate-btn ${!isValid && 'opacity-50 cursor-not-allowed'}`} disabled={!isValid}>Submit Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     {alert && <Alert alert={alert} />}
                 </div >
             )}
@@ -342,4 +385,4 @@ const ManagerStockAvailable = () => {
     )
 }
 
-export default ManagerStockAvailable;
+export default ManagerStockToReceive;
