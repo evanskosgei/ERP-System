@@ -27,7 +27,7 @@ const Sales_dashboard = () => {
                                     
                                     <li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
                                             <div className="sm:flex w-full space-y-2">
-                                                <Link to="" className="">
+                                                <Link to="/distribution/agent-stock-to-receive" className="">
                                                     <div className="flex space-x-3 rtl:space-x-reverse">
                                                         <div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
                                                             <i className="ri ri-smartphone-line text-xl leading-none text-gray-500 dark:text-white/70"></i>
@@ -45,7 +45,7 @@ const Sales_dashboard = () => {
 
                                         <li className="ti-list-group bg-white text-gray-800 dark:bg-bgdark dark:border-white/10 dark:text-white">
                                             <div className="sm:flex w-full space-y-2">
-                                                <Link to="" className="">
+                                                <Link to="/distribution/agent-stock-available" className="">
                                                     <div className="flex space-x-3 rtl:space-x-reverse">
                                                         <div className="avatar rounded-sm avatar-sm bg-gray-100 dark:bg-black/20 p-2.5">
                                                             <i className="ri ri-smartphone-line text-xl leading-none text-gray-500 dark:text-white/70"></i>

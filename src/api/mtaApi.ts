@@ -9,6 +9,7 @@ const mtaApi = {
     create_user: (data: any) => post("/users/create-user", data),
     list_categories: (status: any) => post("/users/list-user-categories", { status }),
     list_users: (status: any) => post("/users/list-users", { status }),
+    list_users_by_category: (data: any) => post("/users/list-users-by-category", data),
     approve_users: (status: any) => post("/users/approve-user", { id: status }),
   },
   distributions: {
@@ -63,27 +64,55 @@ const mtaApi = {
   transport: {
     list_transport_modes: (status: any) => post("/transport/list-transport-modes", {status}),
   },
+
   receive_stock:{
   receive_phone_models: (data: any) =>post("/mobilephone-receive-transit-stock/receive-stock", data),
   list_phone_devices_intransit: (status: any) =>post("/mobilephone-receive-transit-stock/list-devices", { status }),
   list_received_phone_models: (status :any) =>post("/mobilephone-receive-transit-stock/list-received-stock", {status}),
   approve_received_phones_models: (status: any) => post("/mobilephone-receive-transit-stock/approve-received-stock",{id:status}),
   },
+
+  stockist_dispatch:{
+    list_stock_available:(data:any)=>post("/stockist-distribution/list-available-stock-to-dispatch",data),
+    create_manager_dispatch: (data: any) =>post("/stockist-distribution/create-manager-dispatch",data),
+    list_manager_dispatch:(status:any)=>post("stockist-distribution/list-manager-dispatched-stock",{ status }),
+    approve_manager_dispatch:(status:any)=>post("stockist-distribution/approve-manager-dispatched-stock",{ id: status}),
+    },
+
+  manager_dispatch:{
+      list_stock_toreceive:(data:any)=>post("/manager-distribution/list-stock-to-receive",data),
+      receive_dispatch: (data: any) =>post("/manager-distribution/manager-received-dispatched-stock", data),
+      list_stock_available:(data:any)=>post("/manager-distribution/list-stock-available",data),
+      create_teamleader_dispatch: (data: any) =>post("/manager-distribution/create-teamleader-dispatch",data),
+      list_teamleader_dispatch:(status:any)=>post("manager-distribution/list-teamleader-dispatched-stock",{ status }),
+      approve_teamleader_dispatch:(id:any)=>post("manager-distribution/approve-teamleader-dispatched-stock",{ id: id}),
+      },
+
+  team_leader_dispatch : {
+    list_stock_toreceive:(data:any)=>post("/teamleader-distribution/list-stock-to-receive",data),
+    receive_dispatch: (data: any) =>post("/teamleader-distribution/teamleader-receive-dispatched-stock", data),
+    list_stock_available:(data:any)=>post("/teamleader-distribution/list-stock-available",data),
+    create_agent_dispatch: (data: any) =>post("/teamleader-distribution/create-agent-dispatch",data),
+    list_agent_dispatch:(status:any)=>post("teamleader-distribution/list-agent-dispatched-stock",{ status }),
+    approve_agent_dispatch:(id:any)=>post("teamleader-distribution/approve-agent-dispatched-stock",{ id: id}),
+
+    // team_leader_dispatches: (status: any) => post("/teamleader-distribution/list-dispatched-stock", { status }),
+    // team_leader_approve_dispatch: (status: any) => post("/teamleader-distribution/approve-dispatched-stock", {id:status}),
+    // team_leader_receive_stock: (data: any) => post("/teamleader-distribution/receive-dispatched-stock", data)
+  },
+  sales_agents:{
+    list_stock_toreceive:(data:any)=>post("/agent-distribution/list-stock-to-receive",data),
+    receive_dispatch: (data: any) =>post("/agent-distribution/agent-receive-dispatched-stock", data),
+    list_stock_available:(data:any)=>post("/agent-distribution/list-stock-available",data),
+  },
+
   distribute_stock_stockist:{
     distribute_stock_manager: (data: any) =>post("/manager-distribution/dispatch-stock",data),
     list_distribution:(status:any)=>post("manager-distribution/list-dispatched-stock",{ status }),
     approve_distribution:(status:any)=>post("manager-distribution/approve-dispatched-stock",{ id: status}),
     receive_stock:(data: any) => post("/manager-distribution/receive-dispatched-stock", data)
     },
-  team_leader_distribution : {
-    team_leader_dispatch_phones:(data:any) => post("/teamleader-distribution/dispatch-stock", data),
-    team_leader_dispatches: (status: any) => post("/teamleader-distribution/list-dispatched-stock", { status }),
-    team_leader_approve_dispatch: (status: any) => post("/teamleader-distribution/approve-dispatched-stock", {id:status}),
-    team_leader_receive_stock: (data: any) => post("/teamleader-distribution/receive-dispatched-stock", data)
-  },
-  agent:{
-    get_agent_stock:(status:any)=>post("/agent-distribution/list-dispatched-stock",{status:status})
-  },
+ 
   sale:{
     cash_sale:(data:any) => post("/mobilephone-cash-sales/create-cash-sales",data),
   }

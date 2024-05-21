@@ -44,14 +44,30 @@ import Reactivateddistributions from "../views/inventory_module/distribution_cen
 
 // distributions
 import Distribution_dashboard from "../views/distribution_module/dashboard";
-import Dispatch from "../views/distribution_module/manager/dispatch";
-import ApproveDispatch from "../views/distribution_module/manager/approve_dispatch";
-import List_active_dispatch from "../views/distribution_module/manager/list_active_dispatch";
-import Receive_stock from "../views/distribution_module/manager/receive_stock";
-import Team_leader_dispatch_phones from "../views/distribution_module/team_leader/dispatch_mobile_phones";
-import List_new_Team_leader_dispatch from "../views/distribution_module/team_leader/list_new_dispatch";
-import Active_team_leader_distributions from "../views/distribution_module/team_leader/list_active_distributions";
-import Receive_Team_leader_dispatched from "../views/distribution_module/team_leader/receive_dispatched_phones";
+
+//Stockist Distribution / Dispatch Management Pages
+import StockistCreateManagerDispatch from "../views/distribution_module/stockist/create_manager_dispatch";
+import StockistListManagerDispatch from "../views/distribution_module/stockist/list_manager_dispatch";
+import StockistApproveManagerDispatch from "../views/distribution_module/stockist/approve_manager_dispatch";
+
+//Manager Distribution / Dispatch Management Pages
+import ManagerStockToReceive from "../views/distribution_module/manager/receive_dispatch";
+import ManagerStockAvailable from "../views/distribution_module/manager/list_available_stock";
+import ManagerCreateTeamLeaderDispatch from "../views/distribution_module/manager/create_teamleader_dispatch";
+import ManagerListTeamLeaderDispatch from "../views/distribution_module/manager/list_teamleader_dispatch";
+import ManagerApproveTeamLeaderDispatch from "../views/distribution_module/manager/approve_teamleader_dispatch";
+
+
+//Team Leader Distribution / Dispatch Management Pages
+import TeamLeaderStockToReceive from "../views/distribution_module/team_leader/receive_dispatch";
+import TeamLeaderStockAvailable from "../views/distribution_module/team_leader/list_available_stock";
+import TeamLeaderCreateAgentDispatch from "../views/distribution_module/team_leader/create_agent_dispatch";
+import TeamLeaderListAgentDispatch from "../views/distribution_module/team_leader/list_agent_dispatch";
+import TeamLeaderApproveAgentDispatch from "../views/distribution_module/team_leader/approve_agent_dispatch";
+
+//Agents Management Pages
+import AgentStockToReceive from "../views/distribution_module/sales_agent/receive_dispatch";
+import AgentStockAvailable from "../views/distribution_module/sales_agent/list_available_stock";
 
 // purchased with cash
 import BuyStockUsingCash from "../views/inventory_module/purchase_stock_using_cash/buy_stock_using_cash";
@@ -338,18 +354,40 @@ export const RouteData = [
     { path: `${import.meta.env.BASE_URL}inventory/deactivated-distribution-centers`, element: <Deactivateddistributions />, title: '' },
     { path: `${import.meta.env.BASE_URL}inventory/reactivated-distribution-centers`, element: <Reactivateddistributions />, title: '' },
     { path: `${import.meta.env.BASE_URL}inventory/reactivated-distribution-centers`, element: <Reactivateddistributions />, title: '' },
+    { path: `${import.meta.env.BASE_URL}inventory/distribution-dashboard`, element: <Distribution_dashboard />, title: '' },
 
-    // Distribution Dashboard
-    { path: `${import.meta.env.BASE_URL}distribution/dashboard/`, element: <Distribution_dashboard />, title: '' },
-    { path: `${import.meta.env.BASE_URL}distribution/manager/dispatch/`, element: <Dispatch />, title: '' },
-    { path: `${import.meta.env.BASE_URL}distribution/manager/approve/dispatch/`, element: <ApproveDispatch />, title: '' },
-    { path: `${import.meta.env.BASE_URL}distribution/manager/active-dispatch`, element: <List_active_dispatch />, title: '' },
-    { path: `${import.meta.env.BASE_URL}distribution/manager/receive-dispatch`, element: <Receive_stock />, title: '' },
+    // Stockist Distribution
+    { path: `${import.meta.env.BASE_URL}distribution/create-dispatch-to-manager/`, element: <StockistCreateManagerDispatch />, title: '' },
+    { path: `${import.meta.env.BASE_URL}distribution/list-dispatch-to-manager/`, element: <StockistListManagerDispatch />, title: '' },
+    { path: `${import.meta.env.BASE_URL}distribution/approve-dispatch-to-manager/`, element: <StockistApproveManagerDispatch />, title: '' },
     
-    { path: `${import.meta.env.BASE_URL}distribution/teamleader/dispatch`, element: <Team_leader_dispatch_phones />, title: '' },
-    { path: `${import.meta.env.BASE_URL}distribution/teamleader/new-dispatch`, element: <List_new_Team_leader_dispatch />, title: '' },
-    { path: `${import.meta.env.BASE_URL}distribution/teamleader/active-dispatch`, element: <Active_team_leader_distributions />, title: '' },
-    { path: `${import.meta.env.BASE_URL}distribution/teamleader/receive-dispatch`, element: <Receive_Team_leader_dispatched />, title: '' },
+    // Manager Distribution
+    { path: `${import.meta.env.BASE_URL}distribution/manager-stock-to-receive/`, element: <ManagerStockToReceive />, title: '' },
+    { path: `${import.meta.env.BASE_URL}distribution/manager-stock-available/`, element: <ManagerStockAvailable />, title: '' },
+    { path: `${import.meta.env.BASE_URL}distribution/manager-create-dispatch-to-team-leader/`, element: <ManagerCreateTeamLeaderDispatch />, title: '' },
+    { path: `${import.meta.env.BASE_URL}distribution/manager-list-dispatch-to-team-leader/`, element: <ManagerListTeamLeaderDispatch />, title: '' },
+    { path: `${import.meta.env.BASE_URL}distribution/manager-approve-dispatch-to-team-leader/`, element: <ManagerApproveTeamLeaderDispatch />, title: '' },
+
+    // Team Leaders Distribution
+    { path: `${import.meta.env.BASE_URL}distribution/team-leader-stock-to-receive/`, element: <TeamLeaderStockToReceive />, title: '' },
+    { path: `${import.meta.env.BASE_URL}distribution/team-leader-stock-available/`, element: <TeamLeaderStockAvailable />, title: '' },
+    { path: `${import.meta.env.BASE_URL}distribution/team-leader-create-dispatch-to-agents/`, element: <TeamLeaderCreateAgentDispatch />, title: '' },
+    { path: `${import.meta.env.BASE_URL}distribution/team-leader-list-dispatch-to-agents/`, element: <TeamLeaderListAgentDispatch />, title: '' },
+    { path: `${import.meta.env.BASE_URL}distribution/team-leader-approve-dispatch-to-agents/`, element: <TeamLeaderApproveAgentDispatch />, title: '' },
+
+    // Agents Distribution
+    { path: `${import.meta.env.BASE_URL}distribution/agent-stock-to-receive/`, element: <AgentStockToReceive />, title: '' },
+    { path: `${import.meta.env.BASE_URL}distribution/agent-stock-available/`, element: <AgentStockAvailable />, title: '' },
+
+
+    // { path: `${import.meta.env.BASE_URL}distribution/manager/approve/dispatch/`, element: <ApproveDispatch />, title: '' },
+    // { path: `${import.meta.env.BASE_URL}distribution/manager/active-dispatch`, element: <List_active_dispatch />, title: '' },
+    // { path: `${import.meta.env.BASE_URL}distribution/manager/receive-dispatch`, element: <Receive_stock />, title: '' },
+    
+    // { path: `${import.meta.env.BASE_URL}distribution/teamleader/dispatch`, element: <Team_leader_dispatch_phones />, title: '' },
+    // { path: `${import.meta.env.BASE_URL}distribution/teamleader/new-dispatch`, element: <List_new_Team_leader_dispatch />, title: '' },
+    // { path: `${import.meta.env.BASE_URL}distribution/teamleader/active-dispatch`, element: <Active_team_leader_distributions />, title: '' },
+    // { path: `${import.meta.env.BASE_URL}distribution/teamleader/receive-dispatch`, element: <Receive_Team_leader_dispatched />, title: '' },
 
     // receive stock
     { path: `${import.meta.env.BASE_URL}inventory/receive-stock`, element: <Receivestock />, title: '' },
