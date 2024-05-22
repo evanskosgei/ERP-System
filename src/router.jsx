@@ -5,9 +5,7 @@ import App from "./layout/App";
 import App2 from "./layout/AppAgent";
 
 //Dashboards
-import MainDashboard from "./component/dashboards/main/main_dashboard";
-
-
+import MainDashboard from "./views/general/main_dashboard/main_dashboard";
 
 import Pagelayout from "./layout/pagelayout";
 import Aboutus from "./component/pagecomponent/aboutus/aboutus";
