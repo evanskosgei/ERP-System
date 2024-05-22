@@ -15,8 +15,6 @@ const Sale = () => {
     const [modes, setPaymentModes] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedRows, setSelectedRows] = useState([]);
-    const [modalData, setModalData] = useState({});
-    const [selectedSupplierId, setSelectedSupplierId] = useState('');
     const [alert, setAlert] = useState(null);
     const [success, setSuccess] = useState(null);
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
@@ -71,7 +69,7 @@ const Sale = () => {
     const onGridReady = useCallback(() => {
         const newUnApproved = async () => {
             try {
-                const { data } = await mtaApi.agent.get_agent_stock('1')
+                const { data } = await mtaApi.sales_agents.list_stock_available('1')
                 console.log("data = ", data)
                 if (data.status === 200) {
                     const modifiedData = data.response.map((item, index) => ({
@@ -98,9 +96,9 @@ const Sale = () => {
             return;
         }
         const payload = {
-            sales_date: new Date().toISOString(), // Automatically generate sales_date
+            sales_date: formData.sales_date,
             sales_remarks: formData.sales_remarks,
-            payment_mothod: selectedPaymentMethod,
+            payment_method: selectedPaymentMethod,
             customer_name: formData.customer_name,
             customer_mobile_number: formData.customer_mobile_number,
             customer_email: formData.customer_email,
@@ -111,10 +109,15 @@ const Sale = () => {
             }))
         };
         try {
-            const { data } = await mtaApi.sale.cash_sale(payload);
-            let message = data.description
-            console.log("ok",message,data)
-            setSuccess({type:"success",msg:message});
+            const { data } = await mtaApi.cash_sales.cash_sale(payload);
+            
+            if (data.status === 200) {
+                navigate("/sales/unapproved-cash-sales-receipts")
+                reset()
+            } else {
+                const message = data.description
+                setAlert({ type: "error", message });
+            }
         } catch (error) {
             const message = error.response?.data?.error ?? error.message;
             setAlert({ type: "error", message });
@@ -157,6 +160,14 @@ const Sale = () => {
                                     ))}
                                 </select>
                             </div>
+
+                            <div className="mb-4">
+                                <label htmlFor="sales_date" className="ti-form-label mb-0">Sales Date</label>
+                                <input id="sales_date" type='date' {...register("sales_date", { required: true })} className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                {errors.sales_date && <span className="text-red-500">{errors.sales_date.message}</span>}
+                            </div>
+
+
                             <div className="col-span-2 flex justify-center">
                                 <button type="submit" className={`ti-btn ti-btn-primary  ti-custom-validate-btn`}>Sell</button>
                             </div>

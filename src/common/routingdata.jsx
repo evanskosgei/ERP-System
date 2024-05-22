@@ -135,7 +135,9 @@ import TicketManagement from "../views/crm_module/ticket_management/ticket_dashb
 
 //Sales Pages
 import SalesDashboard from "../views/sales_module/dashboard/sales_dashboard";
-import Sale from "../views/sales_module/sale/sale";
+import CreateCashSale from "../views/sales_module/cash_sales/create_cash_sale";
+import UnapprovedCashSales from "../views/sales_module/cash_sales/list_unapproved_cash_sales";
+import ApprovedCashSales from "../views/sales_module/cash_sales/list_approved_cash_sales";
 
 //Payments Pages
 import PaymentsDashboard from "../views/payments_module/dashboard/payments_dashboard";
@@ -439,7 +441,9 @@ export const RouteData = [
 
     // {/* Sales content */}
     { path: `${import.meta.env.BASE_URL}sales/dashboard`, element: <SalesDashboard />, title: '' },
-    { path: `${import.meta.env.BASE_URL}sales/sell`, element: <Sale />, title: '' },
+    { path: `${import.meta.env.BASE_URL}sales/generate-cash-sales-receipt`, element: <CreateCashSale />, title: '' },
+    { path: `${import.meta.env.BASE_URL}sales/unapproved-cash-sales-receipts`, element: <UnapprovedCashSales />, title: '' },
+    { path: `${import.meta.env.BASE_URL}sales/approved-cash-sales-receipts`, element: <ApprovedCashSales />, title: '' },
 
 
     // {/* Payments content */}
