@@ -164,7 +164,7 @@ const Sale = () => {
 
 
                             <div className="col-span-2 flex justify-center">
-                                <button type="submit" className={`ti-btn ti-btn-primary  ti-custom-validate-btn`}>Purchase</button>
+                                <button type="submit" className={`ti-btn ti-btn-primary  ti-custom-validate-btn`}>Submit Details</button>
                             </div>
                         </form>
                     </div>
