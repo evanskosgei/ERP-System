@@ -91,10 +91,10 @@ const Activedistributioncenters = () => {
     const deleteDistribution = (data) => {
         console.log('Deleting distributions:', data);
         setShowStatusModal(true);
-      };
+    };
     const closeModal = () => {
         setShowStatusModal(false);
-      };
+    };
 
     const deleteEXP = async () => {
         await mtaApi.distributions.delete_distribution(selectedRowData.id)
@@ -179,121 +179,120 @@ const Activedistributioncenters = () => {
                         </svg>
                         <h4>back</h4>
                     </button>
-                    <div className= "grid grid-cols-12 gap-x-12">
-                    <div className= "col-span-12 xl:col-span-12">
-					<div className= "box">
-						<div className= "box-body p-0">
+                    <div className="grid grid-cols-12 gap-x-12">
+                        <div className="col-span-12 xl:col-span-12">
+                            <div className="box">
+                                <div className="box-body p-0">
 
-							<div id="profile-settings-1" role="tabpanel" aria-labelledby="profile-settings-item-1">
-								<div className= "box border-0 shadow-none mb-0">
-									
-                                    <div className="box-header">
-                            <h5 className="box-title  text-center">Distribution Center Details</h5>
+                                    <div id="profile-settings-1" role="tabpanel" aria-labelledby="profile-settings-item-1">
+                                        <div className="box border-0 shadow-none mb-0">
+
+                                            <div className="box-header">
+                                                <h5 className="box-title  text-center">Distribution Center Details</h5>
+                                            </div>
+                                            <div className="box-body">
+                                                <div>
+                                                    <div className="grid lg:grid-cols-2 gap-6">
+
+                                                        <div className="space-x-3">
+                                                            <span className="text-sm font-bold">Shop Name :</span>
+                                                            <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.name}</span>
+                                                        </div>
+
+                                                        <div className="space-x-3">
+                                                            <span className="text-sm font-bold">Shop Number :</span>
+                                                            <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.shop_number}</span>
+                                                        </div>
+
+
+
+                                                        <div className="space-x-3">
+                                                            <span className="text-sm font-bold">Mobile Number :</span>
+                                                            <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.mobile_number}</span>
+                                                        </div>
+
+                                                        <div className="space-x-3">
+                                                            <span className="text-sm font-bold">Telephone Number :</span>
+                                                            <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.telephone_number}</span>
+                                                        </div>
+
+                                                        <div className="space-x-3">
+                                                            <span className="text-sm font-bold">Email Address :</span>
+                                                            <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.email}</span>
+                                                        </div>
+
+                                                        <div className="space-x-3">
+                                                            <span className="text-sm font-bold">Building Name :</span>
+                                                            <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.building}</span>
+                                                        </div>
+
+                                                        <div className="space-x-3">
+                                                            <span className="text-sm font-bold">Physical Location :</span>
+                                                            <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.physical_location}</span>
+                                                        </div>
+
+                                                        <div className="space-x-3">
+                                                            <span className="text-sm font-bold">Address :</span>
+                                                            <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.address}</span>
+                                                        </div>
+
+                                                        <div className="space-x-3">
+                                                            <span className="text-sm font-bold">Postal Code :</span>
+                                                            <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.postal_code}</span>
+                                                        </div>
+
+                                                        <div className="space-x-3">
+                                                            <span className="text-sm font-bold">City / Town :</span>
+                                                            <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.city}</span>
+                                                        </div>
+
+                                                        <div className="space-x-3">
+                                                            <span className="text-sm font-bold">County :</span>
+                                                            <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.county}</span>
+                                                        </div>
+
+                                                        <div className="space-x-3">
+                                                            <span className="text-sm font-bold">Region :</span>
+                                                            <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.region}</span>
+                                                        </div>
+
+                                                        <div className="space-x-3">
+                                                            <span className="text-sm font-bold">Date created :</span>
+                                                            <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.created_date}</span>
+                                                        </div>
+
+                                                        <div className="space-x-3">
+                                                            <span className="text-sm font-bold">User Name :</span>
+                                                            <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.user_name}</span>
+                                                        </div>
+
+                                                        <div className="space-x-3">
+                                                            <span className="text-sm font-bold">Remarks :</span>
+                                                            <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.notes}</span>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="box-footer text-end space-x-3 rtl:space-x-reverse" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem' }}>
+
+                                    <Link to="#" className="ti-btn m-0 ti-btn-soft-warning" onClick={deactivate}><i className="ri ri-refresh-line"></i> Deactivate</Link>
+                                    <Link to="#" className="ti-btn m-0 ti-btn-soft-danger" onClick={deleteDistribution}><i className="ri ri-close-circle-line"></i> Delete</Link>
+                                </div>
+                            </div>
                         </div>
-									<div className= "box-body">
-										<div>
-										<div className= "grid lg:grid-cols-2 gap-6">
-
-                                        <div className= "space-x-3">
-                                            <span className= "text-sm font-bold">Shop Name :</span>
-                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.name}</span>
-                                        </div>
-
-                                        <div className= "space-x-3">
-										    <span className= "text-sm font-bold">Shop Number :</span>
-										    <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.shop_number}</span>
-									    </div>
-
-                                       
-
-                                        <div className= "space-x-3">
-                                            <span className= "text-sm font-bold">Mobile Number :</span>
-                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.mobile_number}</span>
-                                        </div>
-
-                                        <div className= "space-x-3">
-                                            <span className= "text-sm font-bold">Telephone Number :</span>
-                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.telephone_number}</span>
-                                        </div>
-
-                                        <div className= "space-x-3">
-                                            <span className= "text-sm font-bold">Email Address :</span>
-                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.email}</span>
-                                        </div>
-
-                                        <div className= "space-x-3">
-                                            <span className= "text-sm font-bold">Building Name :</span>
-                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.building}</span>
-                                        </div>
-
-                                        <div className= "space-x-3">
-                                            <span className= "text-sm font-bold">Physical Location :</span>
-                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.physical_location}</span>
-                                        </div>
-
-                                        <div className= "space-x-3">
-                                            <span className= "text-sm font-bold">Address :</span>
-                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.address}</span>
-                                        </div>
-
-                                        <div className= "space-x-3">
-                                            <span className= "text-sm font-bold">Postal Code :</span>
-                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.postal_code}</span>
-                                        </div>
-
-                                        <div className= "space-x-3">
-                                            <span className= "text-sm font-bold">City / Town :</span>
-                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.city}</span>
-                                        </div>
-
-                                        <div className= "space-x-3">
-                                            <span className= "text-sm font-bold">County :</span>
-                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.county}</span>
-                                        </div>
-
-                                        <div className= "space-x-3">
-                                            <span className= "text-sm font-bold">Region :</span>
-                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.region}</span>
-                                        </div>
-
-                                        <div className= "space-x-3">
-                                            <span className= "text-sm font-bold">Date created :</span>
-                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.created_date}</span>
-                                        </div>
-
-                                        <div className= "space-x-3">
-                                            <span className= "text-sm font-bold">User Name :</span>
-                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.user_name}</span>
-                                        </div>
-
-                                        <div className= "space-x-3">
-                                            <span className= "text-sm font-bold">Remarks :</span>
-                                            <span className= "text-sm text-gray-800 dark:text-white/70">{selectedRowData.notes}</span>
-                                        </div>
-
-                                    
-									</div>
-									</div>
-									</div>
-								</div>
-							</div>
-							
-						</div>
-						<div className= "box-footer text-end space-x-3 rtl:space-x-reverse" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem' }}>
-							
-                            <Link to="#" className= "ti-btn m-0 ti-btn-soft-warning" onClick={deactivate}><i className="ri ri-refresh-line"></i> Deactivate</Link>
-							<Link to="#" className= "ti-btn m-0 ti-btn-soft-danger" onClick={deleteDistribution}><i className= "ri ri-close-circle-line"></i> Delete</Link>
-						</div>
-					</div>
-				</div>
-                </div>
+                    </div>
                     <div id="loader" style={{ display: 'none' }}>
                         <span className="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent text-blue rounded-full" role="status" aria-label="loading">
                             <span className="sr-only">Loading...</span>
                         </span>
                     </div>
 
-                    
+
                     {alert && <Alert alert={alert} />}
                     {success && <Success success={success} />}
                     {showStatusModal && <Status closeModal={closeModal} deleteEXP={deleteEXP} />}

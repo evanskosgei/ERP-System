@@ -30,8 +30,10 @@ const Createphonemodel = () => {
 
         // const filePathsJSON = JSON.stringify(filePaths);
         try {
-            const response = await mtaApi.product_models.createPhoneModel(values)
-            navigate("/inventory/approve-new-phone-model")
+            const { data } = await mtaApi.product_models.createPhoneModel(values)
+            if (data.status === 200) {
+                navigate("/inventory/approve-new-phone-model")
+            }
         } catch (error) {
             console.log(error)
             const message = error.response?.data?.error ?? error.message;
@@ -41,17 +43,17 @@ const Createphonemodel = () => {
         // setFilePaths([]);
     };
 
-    const formatAmount = (value) => {
-        const parts = value.toString().split('.');
-        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        return parts.join('.');
-    };
-    
-    const handleAmountChange = (event) => {
-        const inputValue = event.target.value.replace(/,/g, '');
-        const formattedValue = formatAmount(inputValue);
-        setValue("amount", formattedValue);
-    };
+    // const formatAmount = (value) => {
+    //     const parts = value.toString().split('.');
+    //     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    //     return parts.join('.');
+    // };
+
+    // const handleAmountChange = (event) => {
+    //     const inputValue = event.target.value.replace(/,/g, '');
+    //     const formattedValue = formatAmount(inputValue);
+    //     setValue("amount", formattedValue);
+    // };
 
     return (
         <div>
@@ -118,7 +120,7 @@ const Createphonemodel = () => {
                             </div>
                             <div className="space-y-2">
                                 <label className="ti-form-label mb-0">VAT Tax Amount</label>
-                                <input type="number" {...register("vat_percent_amount")} id='vat_percent_amount' className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter vat percentage amount. i.e 16" onChange={handleAmountChange} required />
+                                <input type="number" {...register("vat_percent_amount")} className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter vat percentage amount. i.e 16" required />
                             </div>
                             <div className="space-y-2 hidden">
                                 <label className="ti-form-label mb-0">Image path</label>
