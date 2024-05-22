@@ -115,7 +115,6 @@ const Approvenewdistribution = () => {
 
     const approve = async () => {
         try {
-            console.log(selectedRowData.id)
             const { data } = await mtaApi.distributions.approve_distribution(selectedRowData.id)
             navigate("/inventory/active-distribution-centers");
         } catch (error) {

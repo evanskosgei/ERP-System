@@ -10,10 +10,10 @@ import { Provider } from "react-redux";
 import store from "../redux/store";
 import { useState } from "react";
 import * as switcherdata from "../common/switcherdata";
-import {ThemeChanger} from "../redux/Action"
+import { ThemeChanger } from "../redux/Action"
 
-const App2 = () => {
-	let [MyclassName , setMyClass] = useState("")
+const App_Agents = () => {
+	let [MyclassName, setMyClass] = useState("")
 
 	const Bodyclickk = () => {
 		if (localStorage.getItem("Syntoverticalstyles") == "icontext") {
@@ -21,43 +21,39 @@ const App2 = () => {
 		}
 	}
 	useEffect(() => {
-
-
-
 		import("preline");
-
 	}, []);
 	return (
 		<Fragment>
 			<Provider store={store}>
-			<Helmet
-                htmlAttributes={{
-					lang: "en",
-					// "data-menu-styles":"dark",
-					dir: "ltr",
-					class: "light",
-					"data-nav-layout":"vertical",
-					"data-header-styles":"light",
-					"data-vertical-style":"overlay",
-					"icon-text": MyclassName
-                }}
-            />
-			<Switcher />
-			<div className="page">
-				<SidemenuAgents />
-				<Header />
-				<div className="content">
-					<div className="main-content" onClick={Bodyclickk}>
-						<Outlet />
+				<Helmet
+					htmlAttributes={{
+						lang: "en",
+						// "data-menu-styles":"dark",
+						dir: "ltr",
+						class: "light",
+						"data-nav-layout": "vertical",
+						"data-header-styles": "light",
+						"data-vertical-style": "overlay",
+						"icon-text": MyclassName
+					}}
+				/>
+				<Switcher />
+				<div className="page">
+					<SidemenuAgents />
+					<Header />
+					<div className="content">
+						<div className="main-content" onClick={Bodyclickk}>
+							<Outlet />
+						</div>
 					</div>
+					<Footer />
 				</div>
-				<Footer />
-			</div>
-			<Backtotop />
-			<div id="responsive-overlay"></div>
+				<Backtotop />
+				<div id="responsive-overlay"></div>
 			</Provider>
 		</Fragment>
 	);
 };
 
-export default App2;
+export default App_Agents;

@@ -1,224 +1,323 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader';
-import { useForm } from "react-hook-form";
-import { AgGridReact } from "ag-grid-react";
-import "@ag-grid-community/styles/ag-grid.css";
-import "@ag-grid-community/styles/ag-theme-alpine.css";
-import mtaApi from '../../../api/mtaApi';
-import Alert from "../../../components/Alert";
-import Success from '../../../components/Success';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from 'react'
+import PageHeader from '../../../layout/layoutsection/pageHeader/pageHeader'
+import { useForm } from 'react-hook-form'
+import { AgGridReact } from 'ag-grid-react'
+import '@ag-grid-community/styles/ag-grid.css'
+import '@ag-grid-community/styles/ag-theme-alpine.css'
+import mtaApi from '../../../api/mtaApi'
+import Alert from '../../../components/Alert'
+import Success from '../../../components/Success'
+import { useNavigate } from 'react-router-dom'
 
 const Sale = () => {
-    const { register, handleSubmit, formState: { errors, isValid }, formState } = useForm();
-    const [rowData, setRowData] = useState([]);
-    const [modes, setPaymentModes] = useState([]);
-    const [searchQuery, setSearchQuery] = useState('');
-    const [selectedRows, setSelectedRows] = useState([]);
-    const [alert, setAlert] = useState(null);
-    const [success, setSuccess] = useState(null);
-    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
-    const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+    formState,
+  } = useForm()
+  const [rowData, setRowData] = useState([])
+  const [modes, setPaymentModes] = useState([])
+  const [searchQuery, setSearchQuery] = useState('')
+  const [selectedRows, setSelectedRows] = useState([])
+  const [alert, setAlert] = useState(null)
+  const [success, setSuccess] = useState(null)
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('')
+  const navigate = useNavigate()
+  // const [close, handleClose] = useState(true)
 
-    const columnDefs = [
-        { cellRenderer: 'agCheckboxCellRenderer', checkboxSelection: true, showDisabledCheckboxes: false, cellEditor: 'agCheckboxCellEditor', resizable: true, minWidth: 10 },
-        { headerName: "#", field: "count", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 5 },
-        { headerName: "Global ID", field: "global_id", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Model Name", field: "model_name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Ram Size", field: "ram", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Internal Storage", field: "internal_storage", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "Distribution ID", field: "distribution_center_id", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "IMEI 1", field: "imei_1", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: "IMEI 2", field: "imei_2", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-        { headerName: " Date Created", field: "created_date", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
-    ];
+  const handleCloseAlert = () => {
+    setAlert(null)
+  }
+  const columnDefs = [
+    {
+      cellRenderer: 'agCheckboxCellRenderer',
+      checkboxSelection: true,
+      showDisabledCheckboxes: false,
+      cellEditor: 'agCheckboxCellEditor',
+      resizable: true,
+      minWidth: 10,
+    },
+    {
+      headerName: '#',
+      field: 'count',
+      sortable: true,
+      editable: false,
+      filter: true,
+      flex: 1,
+      resizable: true,
+      minWidth: 5,
+    },
+    {
+      headerName: 'Global ID',
+      field: 'global_id',
+      sortable: true,
+      editable: false,
+      filter: true,
+      flex: 2,
+      resizable: true,
+      minWidth: 10,
+    },
+    {
+      headerName: 'Distribution ID',
+      field: 'distribution_center_id',
+      sortable: true,
+      editable: false,
+      filter: true,
+      flex: 2,
+      resizable: true,
+      minWidth: 10,
+    },
+    {
+      headerName: 'IMEI 1',
+      field: 'imei_1',
+      sortable: true,
+      editable: false,
+      filter: true,
+      flex: 2,
+      resizable: true,
+      minWidth: 10,
+    },
+    {
+      headerName: 'IMEI 2',
+      field: 'imei_2',
+      sortable: true,
+      editable: false,
+      filter: true,
+      flex: 2,
+      resizable: true,
+      minWidth: 10,
+    },
+    {
+      headerName: ' Date Created',
+      field: 'created_date',
+      sortable: true,
+      editable: false,
+      filter: true,
+      flex: 2,
+      resizable: true,
+      minWidth: 10,
+    },
+  ]
 
-    const defaultColDef = { sortable: true, filter: true, flex: 1, floatingFilter: false };
-    const handlePaymentMethodChange = (event) => {
-        setSelectedPaymentMethod(event.target.value);
-    };
+  const defaultColDef = { sortable: true, filter: true, flex: 1, floatingFilter: false }
+  const handlePaymentMethodChange = (event) => {
+    setSelectedPaymentMethod(event.target.value)
+  }
 
-    useEffect(() => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await mtaApi.payment.list_payment_modes('1')
 
-        const fetchData = async () => {
-            try {
-                const response = await mtaApi.payment.list_payment_modes("1");
+        console.log('response = ', response)
+        setPaymentModes(response.data.response)
+      } catch (error) {
+        const message = error.response?.data?.error ?? error.message
+        setAlert({ type: 'error', message })
+      }
+    }
+    fetchData()
+  }, [])
 
-                console.log("response = ", response)
-                setPaymentModes(response.data.response);
-            } catch (error) {
-                const message = error.response?.data?.error ?? error.message;
-                setAlert({ type: "error", message });
-            }
-        };
-        fetchData();
-    }, []);
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value)
+  }
+  const filteredData = rowData.filter((row) => {
+    return columnDefs.some((column) => {
+      const fieldValue = row[column.field]
+      if (fieldValue && typeof fieldValue === 'string') {
+        return fieldValue.toLowerCase().includes(searchQuery.toLowerCase())
+      } else if (fieldValue && typeof fieldValue !== 'string') {
+        return fieldValue.toString().toLowerCase().includes(searchQuery.toLowerCase())
+      }
+      return false
+    })
+  })
 
-    const handleSearchChange = (event) => {
-        setSearchQuery(event.target.value);
-    };
-    const filteredData = rowData.filter((row) => {
-        return columnDefs.some((column) => {
-            const fieldValue = row[column.field];
-            if (fieldValue && typeof fieldValue === 'string') {
-                return fieldValue.toLowerCase().includes(searchQuery.toLowerCase());
-            } else if (fieldValue && typeof fieldValue !== 'string') {
-                return fieldValue.toString().toLowerCase().includes(searchQuery.toLowerCase());
-            }
-            return false;
-        });
-    });
-
-    const onGridReady = useCallback(() => {
-        const newUnApproved = async () => {
-            try {
-                const { data } = await mtaApi.sales_agents.list_stock_available('1')
-                console.log("data = ", data)
-                if (data.status === 200) {
-                    const modifiedData = data.response.map((item, index) => ({
-                        ...item,
-                        count: index + 1
-                    }));
-                    setRowData(modifiedData);
-                }
-            } catch (error) {
-                const message = error.response?.data?.error ?? error.message;
-                setAlert({ type: "error", message });
-            }
+  const onGridReady = useCallback(() => {
+    const newUnApproved = async () => {
+      try {
+        const { data } = await mtaApi.sales_agents.list_stock_available('1')
+        console.log('data = ', data)
+        if (data.status === 200) {
+          const modifiedData = data.response.map((item, index) => ({
+            ...item,
+            count: index + 1,
+          }))
+          setRowData(modifiedData)
         }
-        newUnApproved();
-    }, []);
-    const handleSupplierChange = (event) => {
-        setSelectedSupplierId(event.target.value);
-    };
+      } catch (error) {
+        const message = error.response?.data?.error ?? error.message
+        setAlert({ type: 'error', message })
+      }
+    }
+    newUnApproved()
+  }, [])
+  const handleSupplierChange = (event) => {
+    setSelectedSupplierId(event.target.value)
+  }
 
-    const onSubmitModal = async (formData) => {
-        if (selectedRows.length === 0) {
-            const message = "Please select the devices you're selling"
-            setAlert({ type: "error", message });
-            return;
-        }
-        const payload = {
-            sales_date: formData.sales_date,
-            sales_remarks: formData.sales_remarks,
-            payment_method: selectedPaymentMethod,
-            customer_name: formData.customer_name,
-            customer_mobile_number: formData.customer_mobile_number,
-            customer_email: formData.customer_email,
-            product_details: selectedRows.map(row => ({
-                model_id: row.model_id,
-                imei_1: row.imei_1,
-                mobilephone_agentstock_id: row.id
-            }))
-        };
-        try {
-            const { data } = await mtaApi.cash_sales.cash_sale(payload);
-            
-            if (data.status === 200) {
-                navigate("/sales/unapproved-cash-sales-receipts")
-                reset()
-            } else {
-                const message = data.description
-                setAlert({ type: "error", message });
-            }
-        } catch (error) {
-            const message = error.response?.data?.error ?? error.message;
-            setAlert({ type: "error", message });
-        }
-    };
-    return (
-        <div>
-            <PageHeader currentpage="Sell a mobile Phone" href="/sales/dashboard/" activepage="Sales" mainpage="Sell a phone" />
-            {alert && <Alert alert={alert} />}
-            {success && <Success success={success} />}
-            <div className="col-span-12">
-                <div className="box">
-                    <div className="box-header">
-                        <h5 className="box-title text-center">Make a sale</h5>
-                    </div>
-                    <div className="box-body">
-                        <form onSubmit={handleSubmit(onSubmitModal)} className="grid grid-cols-2 gap-6">
-                            <div className="mb-4">
-                                <label htmlFor="sales_remarks" className="block text-gray-700">Sales Remarks:</label>
-                                <input id="sales_remarks" required {...register("sales_remarks")} className="my-auto ti-form-input" />
-                            </div>
-                            <div className="mb-4">
-                                <label htmlFor="customer_name" className="block text-gray-700">Customer Name:</label>
-                                <input id="customer_name" required {...register("customer_name")} className="my-auto ti-form-input" />
-                            </div>
-                            <div className="mb-4">
-                                <label htmlFor="customer_mobile_number" className="block text-gray-700">Customer Mobile Number:</label>
-                                <input id="customer_mobile_number" required {...register("customer_mobile_number")} className="my-auto ti-form-input" />
-                            </div>
-                            <div className="mb-4">
-                                <label htmlFor="customer_email" className="block text-gray-700">Customer Email:</label>
-                                <input id="customer_email" required {...register("customer_email")} className="my-auto ti-form-input" />
-                            </div>
-                            <div className="mb-4">
-                                <label className="block text-gray-700">Select Payment method</label>
-                                <select {...register("payment_method")} className="my-auto ti-form-input" onChange={handlePaymentMethodChange}>
-                                    <option value="">...select payment method</option>
-                                    {modes.map((pay_mode, index) => (
-                                        <option key={index} value={pay_mode.id}>{pay_mode.name}</option>
-                                    ))}
-                                </select>
-                            </div>
+  const onSubmitModal = async (formData) => {
+    if (selectedRows.length === 0) {
+      const message = "Please select the devices you're selling"
+      setAlert({ type: 'error', message })
+      return
+    }
+    const payload = {
+      sales_date: formData.sales_date,
+      sales_remarks: formData.sales_remarks,
+      payment_method: selectedPaymentMethod,
+      customer_name: formData.customer_name,
+      customer_mobile_number: formData.customer_mobile_number,
+      customer_email: formData.customer_email,
+      product_details: selectedRows.map((row) => ({
+        model_id: row.model_id,
+        imei_1: row.imei_1,
+        mobilephone_agentstock_id: row.id,
+      })),
+    }
+    try {
+      const { data } = await mtaApi.cash_sales.cash_sale(payload)
 
-                            <div className="mb-4">
-                                <label htmlFor="sales_date" className="ti-form-label mb-0">Sales Date</label>
-                                <input id="sales_date" type='date' {...register("sales_date", { required: true })} className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                {errors.sales_date && <span className="text-red-500">{errors.sales_date.message}</span>}
-                            </div>
-
-
-                            <div className="col-span-2 flex justify-center">
-                                <button type="submit" className={`ti-btn ti-btn-primary  ti-custom-validate-btn`}>Sell</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', margin: '2', maxWidth: '50' }}>
+      if (data.status === 200) {
+        navigate('/sales/unapproved-cash-sales-receipts')
+        reset()
+      } else {
+        const message = data.description
+        setAlert({ type: 'error', message })
+      }
+    } catch (error) {
+      const message = error.response?.data?.error ?? error.message
+      setAlert({ type: 'error', message })
+    }
+  }
+  return (
+    <div>
+      <PageHeader
+        currentpage='Sell a mobile Phone'
+        href='/sales/dashboard/'
+        activepage='Sales'
+        mainpage='Sell a phone'
+      />
+      {alert && <Alert alert={alert} onClose={handleCloseAlert} />}
+      {success && <Success success={success} />}
+      <div className='col-span-12'>
+        <div className='box'>
+          <div className='box-header'>
+            <h5 className='box-title text-center'>Make a sale</h5>
+          </div>
+          <div className='box-body'>
+            <form onSubmit={handleSubmit(onSubmitModal)} className='grid grid-cols-2 gap-6'>
+              <div className='mb-4'>
+                <label htmlFor='sales_remarks' className='block text-gray-700'>
+                  Sales Remarks:
+                </label>
+                <input id='sales_remarks' required {...register('sales_remarks')} className='my-auto ti-form-input' />
+              </div>
+              <div className='mb-4'>
+                <label htmlFor='customer_name' className='block text-gray-700'>
+                  Customer Name:
+                </label>
+                <input id='customer_name' required {...register('customer_name')} className='my-auto ti-form-input' />
+              </div>
+              <div className='mb-4'>
+                <label htmlFor='customer_mobile_number' className='block text-gray-700'>
+                  Customer Mobile Number:
+                </label>
                 <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={handleSearchChange}
-                    placeholder="Search products to sale ..."
-                    style={{
-                        marginTop: '5px',
-                        marginBottom: '15px',
-                        padding: '8px',
-                        width: '30%',
-                        boxSizing: 'border-box',
-                        border: '1px solid #ccc',
-                        borderRadius: '4px',
-                        fontFamily: 'Arial, sans-serif',
-                        fontSize: '14px',
-                        backgroundColor: '#f9f9f9',
-                        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                        transition: 'border-color 0.3s',
-                    }}
-                    onFocus={(e) => e.target.style.borderColor = '#007BFF'}
-                    onBlur={(e) => e.target.style.borderColor = '#ccc'}
+                  id='customer_mobile_number'
+                  required
+                  {...register('customer_mobile_number')}
+                  className='my-auto ti-form-input'
                 />
-            </div>
-            <div className="ag-theme-alpine" style={{ height: 'calc(50vh - 100px)', width: '100%', position: 'relative', zIndex: 1, overflowY: 'auto', overflowX: 'auto' }}>
-                <AgGridReact
-                    rowData={rowData.length < 0 ? filteredData : rowData}
-                    columnDefs={columnDefs}
-                    defaultColDef={defaultColDef}
-                    pagination={true}
-                    paginationPageSize={20}
-                    onGridReady={onGridReady}
-                    getRowNodeId={(data) => data.id}
-                    rowSelection={"multiple"}
-                    rowMultiSelectWithClick={true}
-                    onSelectionChanged={(event) => setSelectedRows(event.api.getSelectedRows())}
-                />
-            </div>
+              </div>
+              <div className='mb-4'>
+                <label htmlFor='customer_email' className='block text-gray-700'>
+                  Customer Email:
+                </label>
+                <input id='customer_email' required {...register('customer_email')} className='my-auto ti-form-input' />
+              </div>
+              <div className='mb-4'>
+                <label className='block text-gray-700'>Select Payment method</label>
+                <select
+                  {...register('payment_method')}
+                  className='my-auto ti-form-input'
+                  onChange={handlePaymentMethodChange}
+                >
+                  <option value=''>...select payment method</option>
+                  {modes.map((pay_mode, index) => (
+                    <option key={index} value={pay_mode.id}>
+                      {pay_mode.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
+              <div className='mb-4'>
+                <label htmlFor='sales_date' className='ti-form-label mb-0'>
+                  Sales Date
+                </label>
+                <input
+                  id='sales_date'
+                  type='date'
+                  {...register('sales_date', { required: true })}
+                  className='my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500'
+                />
+                {errors.sales_date && <span className='text-red-500'>{errors.sales_date.message}</span>}
+              </div>
+
+              <div className='col-span-2 flex justify-center'>
+                <button type='submit' className={`ti-btn ti-btn-primary  ti-custom-validate-btn`}>
+                  Sell
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-    );
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', margin: '2', maxWidth: '50' }}>
+        <input
+          type='text'
+          value={searchQuery}
+          onChange={handleSearchChange}
+          placeholder='Search...'
+          style={{
+            marginTop: '10px',
+            marginBottom: '10px',
+            padding: '5px',
+            width: '50%',
+            border: 'none',
+            borderBottom: '1px solid black',
+          }}
+        />
+      </div>
+      <div
+        className='ag-theme-alpine'
+        style={{
+          height: 'calc(50vh - 100px)',
+          width: '100%',
+          position: 'relative',
+          zIndex: 1,
+          overflowY: 'auto',
+          overflowX: 'auto',
+        }}
+      >
+        <AgGridReact
+          rowData={rowData.length < 0 ? filteredData : rowData}
+          columnDefs={columnDefs}
+          defaultColDef={defaultColDef}
+          pagination={true}
+          paginationPageSize={20}
+          onGridReady={onGridReady}
+          getRowNodeId={(data) => data.id}
+          rowSelection={'multiple'}
+          rowMultiSelectWithClick={true}
+          onSelectionChanged={(event) => setSelectedRows(event.api.getSelectedRows())}
+        />
+      </div>
+    </div>
+  )
 }
 
-export default Sale;
+export default Sale

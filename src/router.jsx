@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { RouteData } from "./common/routingdata";
 
 import App from "./layout/App";
-import App2 from "./layout/AppAgent";
+import App_Agents from "./layout/AppAgent";
 
 //Dashboards
 import MainDashboard from "./views/general/main_dashboard/main_dashboard";
@@ -68,26 +68,35 @@ export default function Router() {
           {/* //Sign in page (Landing) */}
           {user === null && <Route path={`${import.meta.env.BASE_URL}`} element={<SignInPage />} />}
           {/* //Main page */}
-          <></>
           {user !== null && (
             <>
-              {user.user_type === 1 ? (
-                <Route path={`${import.meta.env.BASE_URL}`} element={<App2 />}>
-                  <Route index element={<Agents_dashboard />} />
-                  <Route exact path={idx.path} element={idx.element} />
-                </Route>
-              ) : (
-                user.user_type === 2 && (
+              {(user.user_type === 1 || user.user_type === 2 || user.user_type === 3) ? (
                   <Route path={`${import.meta.env.BASE_URL}`} element={<App />}>
                     <Route index element={<MainDashboard />} />
                     <Route exact path={idx.path} element={idx.element} />
                   </Route>
+              ) : (
+                
+                  <Route path={`${import.meta.env.BASE_URL}`} element={<App_Agents />}>
+                    <Route index element={<Agents_dashboard />} />
+                    <Route exact path={idx.path} element={idx.element} />
+                  </Route>
                 )
-              )}
+              }
             </>
           )}
-
-
+          {/* {user !== null && (
+            <>
+              {(user.user_type === 4 || user.user_type === 5) ? (
+                <Route path={`${import.meta.env.BASE_URL}`} element={<App_Agents />}>
+                  <Route index element={<Agents_dashboard />} />
+                  <Route exact path={idx.path} element={idx.element} />
+                </Route>
+              ) : (
+                
+              )}
+            </>
+          )} */}
           <Route path={`${import.meta.env.BASE_URL}`} element={<Pagelayout />}>
             <Route path={`${import.meta.env.BASE_URL}pagecomponent/aboutus`} element={<Aboutus />} />
             <Route path={`${import.meta.env.BASE_URL}pagecomponent/faqs`} element={<Faqs />} />
