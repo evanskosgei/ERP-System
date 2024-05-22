@@ -113,8 +113,10 @@ const mtaApi = {
     receive_stock:(data: any) => post("/manager-distribution/receive-dispatched-stock", data)
     },
  
-  sale:{
+  cash_sales:{
     cash_sale:(data:any) => post("/mobilephone-cash-sales/create-cash-sales",data),
+    approve_cash_sale:(id:any) => post("/mobilephone-cash-sales/approve-cash-sales",{ id: id}),
+    list_cash_sale:(status:any) => post("/mobilephone-cash-sales/list-cash-sales",{ status }),
   }
 };
 
