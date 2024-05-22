@@ -24,6 +24,9 @@ const Sale = () => {
         { cellRenderer: 'agCheckboxCellRenderer', checkboxSelection: true, showDisabledCheckboxes: false, cellEditor: 'agCheckboxCellEditor', resizable: true, minWidth: 10 },
         { headerName: "#", field: "count", sortable: true, editable: false, filter: true, flex: 1, resizable: true, minWidth: 5 },
         { headerName: "Global ID", field: "global_id", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Model Name", field: "model_name", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Ram Size", field: "ram", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
+        { headerName: "Internal Storage", field: "internal_storage", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
         { headerName: "Distribution ID", field: "distribution_center_id", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
         { headerName: "IMEI 1", field: "imei_1", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
         { headerName: "IMEI 2", field: "imei_2", sortable: true, editable: false, filter: true, flex: 2, resizable: true, minWidth: 10 },
@@ -180,8 +183,23 @@ const Sale = () => {
                     type="text"
                     value={searchQuery}
                     onChange={handleSearchChange}
-                    placeholder="Search..."
-                    style={{ marginTop: '10px', marginBottom: '10px', padding: '5px', width: '50%', border: 'none', borderBottom: '1px solid black' }}
+                    placeholder="Search products to sale ..."
+                    style={{
+                        marginTop: '5px',
+                        marginBottom: '15px',
+                        padding: '8px',
+                        width: '30%',
+                        boxSizing: 'border-box',
+                        border: '1px solid #ccc',
+                        borderRadius: '4px',
+                        fontFamily: 'Arial, sans-serif',
+                        fontSize: '14px',
+                        backgroundColor: '#f9f9f9',
+                        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                        transition: 'border-color 0.3s',
+                    }}
+                    onFocus={(e) => e.target.style.borderColor = '#007BFF'}
+                    onBlur={(e) => e.target.style.borderColor = '#ccc'}
                 />
             </div>
             <div className="ag-theme-alpine" style={{ height: 'calc(50vh - 100px)', width: '100%', position: 'relative', zIndex: 1, overflowY: 'auto', overflowX: 'auto' }}>
