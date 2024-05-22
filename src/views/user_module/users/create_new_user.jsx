@@ -145,7 +145,7 @@ const CreateUser = () => {
 
                         <div className="space-y-2">
                                 <label className="ti-form-label mb-0">Date of Birth</label>
-                                <input type="text" {...register("date_of_birth", { required: false })} id='date_of_birth' className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder=" Select Date of Birth" required />
+                                <input type="date" {...register("date_of_birth", { required: false })} id='date_of_birth' className="my-auto ti-form-input focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder=" Select Date of Birth" required />
                                 {errors.address && <span className="text-red-500 text-xs">Address Number is required</span>}
                             </div>
                             

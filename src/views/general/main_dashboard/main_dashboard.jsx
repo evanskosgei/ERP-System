@@ -2,9 +2,34 @@ import React from "react";
 import ALLImages from "../../../common/imagesdata";
 import PageHeader from "../../../layout/layoutsection/pageHeader/pageHeader";
 import { connect } from "react-redux"
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import mtaApi from '../../../api/mtaApi';
 
 const MainDashboard = ({local_varaiable}) => {
+	const [managers, setManagers] = useState([]);
+    const [alert, setAlert] = useState(null);
+	
+	useEffect(() => {
+		const getAgents = async () => {
+		  try {
+			const params = { "status": 1, "category": 5 };
+			const { data } = await mtaApi.users.list_users_by_category(params);
+			if (data.status === 200) {
+			  const modifiedData = data.response.map((item, index) => ({
+				...item,
+				count: index + 1,
+			  }));
+			  setManagers(modifiedData.slice(0, 5)); // Limit to the first 5 items
+			}
+		  } catch (error) {
+			const message = error.response?.data?.error ?? error.message;
+			setAlert({ type: "error", message });
+		  }
+		};
+	
+		getAgents();
+	  }, []);
 	return (
 		<div>
 			<PageHeader currentpage="Dashboard" activepage="Home" mainpage="Dashboard"/>
@@ -229,84 +254,32 @@ const MainDashboard = ({local_varaiable}) => {
 							</div>
 						</div>
 						<div className="box-body">
-							<ul className="flex flex-col">
-								<li className="px-0 pt-0 ti-list-group border-0 text-gray-800 dark:text-white">
-									<Link to="#" className="flex  justify-between items-center w-full">
-										<div className="flex space-x-3 rtl:space-x-reverse w-full">
-											<img className="avatar avatar-sm rounded-sm" src={ALLImages('jpg58')}
-												alt="Image Description"/>
-											<div className="flex w-full">
-												<div className="block my-auto">
-													<p className="block text-sm font-semibold text-gray-800 hover:text-gray-900 my-auto  dark:text-white dark:hover:text-gray-200">
-                              Socrates Itumay</p>
-													<p
-														className="text-xs text-gray-400 dark:text-white/80 truncate sm:max-w-max max-w-[100px] font-normal">
-                              15 Purchases</p>
-												</div>
-											</div>
-										</div>
-										<div className=""><span className="text-sm font-bold">1,835</span></div>
-									</Link>
-								</li>
-								<li className="px-0 pt-3 ti-list-group border-0 text-gray-800 dark:text-white">
-									<Link to="#" className="flex  justify-between items-center w-full">
-										<div className="flex space-x-3 rtl:space-x-reverse w-full">
-											<img className="avatar avatar-sm rounded-sm" src={ALLImages('jpg59')}
-												alt="Image Description"/>
-											<div className="flex w-full">
-												<div className="block my-auto">
-													<p
-														className="block text-sm font-semibold text-gray-800 hover:text-gray-900 my-auto  dark:text-white dark:hover:text-gray-200">
-                              Json Taylor</p>
-													<p
-														className="text-xs text-gray-400 dark:text-white/80 truncate sm:max-w-max max-w-[100px] font-normal">
-                              18 Purchases</p>
-												</div>
-											</div>
-										</div>
-										<div className=""><span className="text-sm font-bold">2,415</span></div>
-									</Link>
-								</li>
-								<li className="px-0 pt-3 ti-list-group border-0 text-gray-800 dark:text-white">
-									<Link to="#" className="flex  justify-between items-center w-full">
-										<div className="flex space-x-3 rtl:space-x-reverse w-full">
-											<img className="avatar avatar-sm rounded-sm" src={ALLImages('jpg60')}
-												alt="Image Description"/>
-											<div className="flex w-full">
-												<div className="block my-auto">
-													<p
-														className="block text-sm font-semibold text-gray-800 hover:text-gray-900 my-auto  dark:text-white dark:hover:text-gray-200">
-                              Suzika Stallone</p>
-													<p
-														className="text-xs text-gray-400 dark:text-white/80 truncate sm:max-w-max max-w-[100px] font-normal">
-                              21 Purchases</p>
-												</div>
-											</div>
-										</div>
-										<div className=""><span className="text-sm font-bold">2,341</span></div>
-									</Link>
-								</li>
-								<li className="px-0 pt-3 ti-list-group border-0 text-gray-800 dark:text-white">
-									<Link to="#" className="flex  justify-between items-center w-full">
-										<div className="flex space-x-3 rtl:space-x-reverse w-full">
-											<img className="avatar avatar-sm rounded-sm" src={ALLImages('jpg61')}
-												alt="Image Description"/>
-											<div className="flex w-full">
-												<div className="block my-auto">
-													<p
-														className="block text-sm font-semibold text-gray-800 hover:text-gray-900 my-auto  dark:text-white dark:hover:text-gray-200">
-                              Angelina Hose</p>
-													<p
-														className="text-xs text-gray-400 dark:text-white/80 truncate sm:max-w-max max-w-[100px] font-normal">
-                              24 Purchases</p>
-												</div>
-											</div>
-										</div>
-										<div className=""><span className="text-sm font-bold">2,624</span></div>
-									</Link>
-								</li>
-								
-							</ul>
+
+						<ul className="flex flex-col">
+      {managers.map((manager) => (
+        <li key={manager.id} className="px-0 pt-0 ti-list-group border-0 text-gray-800 dark:text-white">
+          <Link to="#" className="flex justify-between items-center w-full">
+            <div className="flex space-x-3 rtl:space-x-reverse w-full">
+			<img className="avatar avatar-sm rounded-sm" src={ALLImages('jpg58')} alt="Image Description"/>
+              <div className="flex w-full">
+                <div className="block my-auto">
+                  <p className="block text-sm font-semibold text-gray-800 hover:text-gray-900 my-auto dark:text-white dark:hover:text-gray-200">
+                    {manager.name}
+                  </p>
+                  <p className="text-xs text-gray-400 dark:text-white/80 truncate sm:max-w-max max-w-[100px] font-normal">
+                    {manager.contact}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className=""><span className="text-sm font-bold">{manager.count}</span></div>
+          </Link>
+        </li>
+      ))}
+    </ul>
+
+
+							
 						</div>
 					</div>
 				</div>
