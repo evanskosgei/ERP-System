@@ -9,6 +9,7 @@ import mtaApi from '../../../api/mtaApi';
 import Status from './status';
 import { useNavigate } from 'react-router-dom';
 import Success from '../../../components/Success';
+import { Link } from 'react-router-dom';
 
 const ActiveSuppliers = () => {
     const navigate = useNavigate();
@@ -128,6 +129,24 @@ const ActiveSuppliers = () => {
             })
     }
 
+    const PayableAccounts = Array.isArray(selectedRowData?.payable_account)
+        ? selectedRowData.payable_account.filter((item) =>
+            Object.values(item).some(
+                (value) =>
+                    value &&
+                    typeof value === 'string' &&
+                    value.toLowerCase().includes(searchQuery.toLowerCase())
+            )
+        ) : [];
+    const PrepaidAccount = Array.isArray(selectedRowData?.prepaid_account)
+    ? selectedRowData.prepaid_account.filter((item) =>
+        Object.values(item).some(
+            (value) =>
+                value &&
+                typeof value === 'string' &&
+                value.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+    ) : [];
     return (
         <div>
             {currentDiv === "table" && (
@@ -165,139 +184,150 @@ const ActiveSuppliers = () => {
 
             {currentDiv === "Activesupplier" && (
                 <div>
-                    <PageHeader currentpage="Active Supplier Details" activepage="Supplier" mainpage="Active Supplier Details" />
-                    <button className='className="flex left-0 text-blue-700 hover:bg-gray-100 p-3 font-bold'
-                        onClick={handleBack}>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                            <path fillRule="evenodd" d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0Z" clipRule="evenodd" />
-                        </svg>
-                        <h4>back</h4>
-                    </button>
-                    <div id="profile-1" className="ml-4" role="tabpanel">
-                        <h5 className="box-title my-3">Business Information</h5>
-                        <div className="overflow-auto">
-                            <table className="ti-custom-table border-0 whitespace-nowrap">
-                                <tbody>
-                                    <tr className="">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Business Name</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.business_name}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Trading Name</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.trading_name}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Business Email</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70"> {selectedRowData.company_email}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Mobile Number</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.company_mobile_number}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Business Address</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.address}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Business Postal Code</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.postal_code}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Business Country</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.country}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Created By</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.createdby}</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Created By</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">{selectedRowData.datecreated}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                <PageHeader currentpage=" Supplier Details" activepage="Supplier" mainpage="Active supplier Details" />
+                <button className='className="flex left-0 text-blue-700 hover:bg-gray-100 p-3 font-bold'
+                    onClick={handleBack}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                        <path fillRule="evenodd" d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0Z" clipRule="evenodd" />
+                    </svg>
+                    <h4>back</h4>
+                </button>
+                <div className="grid grid-cols-12 gap-x-12">
+                    <div className="col-span-12 xl:col-span-12">
+                        <div className="box">
+                            <div className="box-body p-0">
+
+                                <div id="profile-settings-1" role="tabpanel" aria-labelledby="profile-settings-item-1">
+                                    <div className="box border-0 shadow-none mb-0">
+
+                                        <div className="box-header">
+                                            <h5 className="box-title  text-center">Supplier Details</h5>
+                                        </div>
+                                        <div className="box-body">
+                                            <div>
+                                                <div className="grid lg:grid-cols-2 gap-6">
+                                                    <div className="space-x-3">
+                                                        <span className="text-sm font-bold">Business Name :</span>
+                                                        <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.business_name}</span>
+                                                    </div>
+                                                    <div className="space-x-3">
+                                                        <span className="text-sm font-bold">Trading Name :</span>
+                                                        <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.trading_name}</span>
+                                                    </div>
+                                                    <div className="space-x-3">
+                                                        <span className="text-sm font-bold">Company Email :</span>
+                                                        <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.company_email}</span>
+                                                    </div>
+
+                                                    <div className="space-x-3">
+                                                        <span className="text-sm font-bold"> Telephone Number :</span>
+                                                        <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.company_mobile_number}</span>
+                                                    </div>
+
+                                                    <div className="space-x-3">
+                                                        <span className="text-sm font-bold">Address:</span>
+                                                        <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.address}</span>
+                                                    </div>
+
+                                                    <div className="space-x-3">
+                                                        <span className="text-sm font-bold">Postal Code :</span>
+                                                        <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.postal_code}</span>
+                                                    </div>
+                                                    <div className="space-x-3">
+                                                        <span className="text-sm font-bold">Country :</span>
+                                                        <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.country}</span>
+                                                    </div>
+
+                                                    <div className="space-x-3">
+                                                        <span className="text-sm font-bold">Created By :</span>
+                                                        <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.createdby}</span>
+                                                    </div>
+
+                                                    <div className="space-x-3">
+                                                        <span className="text-sm font-bold">Date Created :</span>
+                                                        <span className="text-sm text-gray-800 dark:text-white/70">{selectedRowData.datecreated}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="overflow-auto">
+                                            <h5 className="box-title  text-center">Payable Account Details</h5>
+                                            <table className="ti-custom-table table-bordered ti-custom-table-head">
+                                                <thead className="bg-gray-50 dark:bg-black/20">
+                                                    <tr>
+                                                        <th scope="col" className="!min-w-[13rem]">Account Name</th>
+                                                        <th scope="col">Account Number</th>
+                                                        <th scope="col">Account Currency</th>
+                                                        <th scope="col">Account Balance</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {selectedRowData && Array.isArray(selectedRowData.payable_account) && selectedRowData.payable_account.length > 0 ? (
+                                                        PayableAccounts.map((item, index) => (
+                                                            <tr key={index}>
+                                                                <td>{item.account_name}</td>
+                                                                <td>{item.account_number}</td>
+                                                                <td>{item.account_currency}</td>
+                                                                <td>{item.account_balance}</td>
+                                                            </tr>
+                                                        ))
+                                                    ) : (
+                                                        <tr key="no-product-details">
+                                                            <td colSpan="4">No Payable account details</td>
+                                                        </tr>
+                                                    )}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <hr className='mt-8 mb-8 text-gray-400' />
+                                        <div className="overflow-auto">
+                                            <h5 className="box-title  text-center">Prepaid Account Details</h5>
+                                            <table className="ti-custom-table table-bordered ti-custom-table-head">
+                                                <thead className="bg-gray-50 dark:bg-black/20">
+                                                    <tr>
+                                                        <th scope="col" className="!min-w-[13rem]">Account Name</th>
+                                                        <th scope="col">Account Number</th>
+                                                        <th scope="col">Account Currency</th>
+                                                        <th scope="col">Account Balance</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {selectedRowData && Array.isArray(selectedRowData.prepaid_account) && selectedRowData.prepaid_account.length > 0 ? (
+                                                        PrepaidAccount.map((item, index) => (
+                                                            <tr key={index}>
+                                                                <td>{item.account_name}</td>
+                                                                <td>{item.account_number}</td>
+                                                                <td>{item.account_currency}</td>
+                                                                <td>{item.account_balance}</td>
+                                                            </tr>
+                                                        ))
+                                                    ) : (
+                                                        <tr key="no-product-details">
+                                                            <td colSpan="4">No Prepaid account details</td>
+                                                        </tr>
+                                                    )}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div className="box-footer text-end space-x-3 rtl:space-x-reverse" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem' }}>
+                                <Link to="#" className= "ti-btn m-0 ti-btn-soft-warning" onClick=""><i className="ri ri-refresh-line"></i> Deactivate</Link> 
+                                <Link to="#" className= "ti-btn m-0 ti-btn-soft-danger" onClick=""><i className= "ri ri-close-circle-line"></i>Delete </Link>
+                                <Link to="#" className= "ti-btn m-0 ti-btn-soft-secondary" onClick={() => window.print()}><i className= "ri ri-printer-line"></i>Print</Link>
+                            </div>
                         </div>
-                        {/* <h5 className="box-title my-3">Personal Information</h5> */}
-                        {/* <div className="overflow-auto">
-                            <table className="ti-custom-table border-0 whitespace-nowrap">
-                                <tbody>
-                                    <tr className="">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">First Name</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">John</td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Middle Name</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">Pombe
-                                        </td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Last Name</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">Magufuli
-                                        </td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Email Address</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">@pombeM@gmail.com
-                                        </td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Phone Number</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">+254 12345678
-                                        </td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Alternative Phone Number</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">+254 12345678
-                                        </td>
-                                    </tr>
-                                    <tr className="!border-0">
-                                        <td className="!p-2 font-medium !text-gray-500 dark:!text-white/70 w-[252px]">Date Created</td>
-                                        <td className="!p-2">:</td>
-                                        <td className="!p-2 !text-gray-500 dark:!text-white/70">4/5/1960
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div> */}
                     </div>
-                    <div id="loader" style={{ display: 'none' }}>
-                        <span className="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent text-blue rounded-full" role="status" aria-label="loading">
-                            <span className="sr-only">Loading...</span>
-                        </span>
-                    </div>
-                    <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                        <button
-                            onClick={deactivate}
-                            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 dark:text-white dark:hover:text-white"
-                        >
-                            Deactivate
-                        </button>
-                        <button
-                            onClick={deleteSupplier}
-                            className="py-2.5 px-5 ms-3 text-sm border-2 border-black font-medium focus:outline-none rounded-lg hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"
-                        >
-                            Delete
-                        </button>
-                    </div>
-                    {alert && <Alert alert={alert} />}
-                    {success && <Success success={success} />}
-                    {showStatusModal && <Status closeModal={closeModal} deleteEXP={deleteEXP} />}
                 </div>
+                <div id="loader" style={{ display: 'none' }}>
+                    <span className="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent text-blue rounded-full" role="status" aria-label="loading">
+                        <span className="sr-only">Loading...</span>
+                    </span>
+                </div>
+            </div>
             )}
         </div>
     );
