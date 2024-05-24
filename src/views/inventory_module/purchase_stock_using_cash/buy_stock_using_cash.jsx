@@ -159,18 +159,18 @@ const BuyUsingCash = () => {
     const totalAmount = validRows.reduce((acc, row) => acc + row.amount * row.quantity, 0).toFixed(2)
 
     const payload = {
-      transaction_id: data.transaction_id,
-      total_amount: totalAmount,
+      transaction_id: String(data.transaction_id),
+      total_amount: totalAmount.toLocaleString('en-US', { minimumFractionDigits: 2 }),
       supplier_name: '',
-      supplier_id: selectedSupplierId,
-      supplier_payable_account_number: data.supplier_payable_account_number,
-      bank_account_number: data.bank_account_number,
+      supplier_id: String(selectedSupplierId),
+      supplier_payable_account_number: String(data.supplier_payable_account_number),
+      bank_account_number: String(data.bank_account_number),
       purchase_date: data.purchase_date,
       product_details: validRows.map((row) => ({
-        model_id: row.id,
-        quantity: row.quantity,
-        price_per_unit: row.amount,
-        total_amount_per_model: (row.amount * row.quantity).toFixed(2),
+        model_id: String(row.id),
+        quantity: String(row.quantity),
+        price_per_unit: row.amount.toLocaleString('en-US', { minimumFractionDigits: 2 }),
+        total_amount_per_model: (row.amount * row.quantity).toLocaleString('en-US', { minimumFractionDigits: 2 }),
       })),
       notes: 'Stock purchased to be delivered immediately',
     }
