@@ -138,14 +138,17 @@ const BuyUsingCash = () => {
 
   const onSubmitModal = async (data) => {
     // Build validRows using quantities and amounts
-    const validRows = Object.keys(quantities)
-      .map((id) => {
-        return {
-          id: Number(id),
-          quantity: quantities[id],
-          amount: amount[id],
-        }
-      })
+    if (selectedRows.length === 0) {
+      setAlert({ type: 'error', message: 'Please select mobile model from table' })
+      return
+    }
+
+    const validRows = selectedRows
+      .map((row) => ({
+        id: row.id,
+        quantity: quantities[row.id],
+        amount: amount[row.id],
+      }))
       .filter((row) => row.amount != null && row.quantity != null)
 
     if (!selectedSupplierId) {
@@ -336,16 +339,7 @@ const BuyUsingCash = () => {
             <table className='ti-custom-table ti-custom-table-head'>
               <thead className=''>
                 <tr>
-                  <th scope='col' className='dark:text-white'>
-                    <div className='flex leading-[0] justify-center'>
-                      <input
-                        type='checkbox'
-                        className='border-gray-500 ti-form-checkbox mt-0.5'
-                        id='hs-default-checkbox'
-                      />
-                      <label htmlFor='hs-default-checkbox' className='text-sm text-gray-500 dark:text-white/70'></label>
-                    </div>
-                  </th>
+                  <th scope='col' className='dark:text-white'></th>
                   <th scope='col' className='!text-sm !p-4 !text-gray-800 dark:!text-white'>
                     Phone Model
                   </th>
