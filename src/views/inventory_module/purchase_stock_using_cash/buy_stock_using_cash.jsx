@@ -52,6 +52,25 @@ const BuyUsingCash = () => {
       [productId]: Math.max((prevQuantities[productId] || 0) - 1, 0),
     }))
   }
+  const handleAmountChange = (event, productId) => {
+    const value = parseInt(event.target.value, 10)
+    if (!isNaN(value) && value >= 0) {
+      setAmount((prevAmounts) => ({
+        ...prevAmounts,
+        [productId]: value,
+      }))
+    }
+  }
+  const handleQuantityChange = (event, productId) => {
+    const value = parseInt(event.target.value, 10)
+    if (!isNaN(value) && value >= 0) {
+      setQuantities((prevQuantities) => ({
+        ...prevQuantities,
+        [productId]: value,
+      }))
+    }
+  }
+
   // Function to handle quantity change when the plus button is clicked
   const handlePlusClick = (productId) => {
     setQuantities((prevQuantities) => ({
@@ -400,6 +419,7 @@ const BuyUsingCash = () => {
                           placeholder='0'
                           min='0'
                           value={quantities[data.id] || 0} // Set the value of the input field to the corresponding quantity
+                          onChange={(e) => handleQuantityChange(e, data.id)} // Handle the input change event
                         />
                         <button
                           aria-label='button'
@@ -428,6 +448,7 @@ const BuyUsingCash = () => {
                           placeholder='0'
                           min='0'
                           value={amount[data.id] || 0} // Set the value of the input field to the corresponding quantity
+                          onChange={(e) => handleAmountChange(e, data.id)} // Handle the input change event
                         />
                         <button
                           aria-label='button'
