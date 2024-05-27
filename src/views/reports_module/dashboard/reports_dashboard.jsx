@@ -30,6 +30,19 @@ const ReportsDashboard = () => {
 								</div>
 
 								<div className="col-span-12 md:col-span-6 xxl:!col-span-3">
+									<div className="box">
+										<div className="box-header">
+											<h5 className="box-title">Accounting Reports</h5>
+										</div>
+										<div className="box-body">
+
+											<p className="mb-0 text-sm">Accounting reports track payables, receivables, budget variances, financial ratios, cost analysis, transaction history, for informed decision-making.</p>
+
+										</div>
+									</div>
+								</div>
+
+								<div className="col-span-12 md:col-span-6 xxl:!col-span-3">
 									<div className="box" onClick={() => navigate('/reports/supplier-reports')} style={{ cursor: 'pointer' }}>
 										<div className="box-header">
 											<h5 className="box-title">Suppliers Reports</h5>
@@ -128,19 +141,6 @@ const ReportsDashboard = () => {
 										<div className="box-body">
 
 											<p className="mb-0 text-sm">Payments reports detail financial transactions, including incoming / outgoing payments, transaction types, payment methods, and financial analysis.</p>
-
-										</div>
-									</div>
-								</div>
-
-								<div className="col-span-12 md:col-span-6 xxl:!col-span-3">
-									<div className="box">
-										<div className="box-header">
-											<h5 className="box-title">Accounting Reports</h5>
-										</div>
-										<div className="box-body">
-
-											<p className="mb-0 text-sm">Accounting reports track payables, receivables, budget variances, financial ratios, cost analysis, transaction history, for informed decision-making.</p>
 
 										</div>
 									</div>

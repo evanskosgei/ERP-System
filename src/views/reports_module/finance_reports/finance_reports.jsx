@@ -9,109 +9,245 @@ const FinanceReports = () => {
 			<PageHeader currentpage="Finance Reports" href="/reports/dashboard" activepage="Reports" mainpage="Finance Reports" />
 
 			<div className="grid grid-cols-12 gap-6">
-				<div className="col-span-12">
-					<div className="box">
-						<div className="box-body">
 
-						<div className="grid grid-cols-12 gap-6">
-								<div className="col-span-12 md:col-span-6 xxl:!col-span-3">
-									<div className="box">
-										<div className="box-header">
-											<h5 className="box-title">Balance Sheet</h5>
-										</div>
-										<div className="box-body">
 
-											<p className="mb-0 text-sm">The balance sheet reports a corporation's assets, liabilities, and stockholders' equity as of the final moment of an accounting period.</p>
-
-										</div>
-									</div>
-								</div>
-
-								<div className="col-span-12 md:col-span-6 xxl:!col-span-3">
-									<div className="box">
-										<div className="box-header">
-											<h5 className="box-title">Balance Sheet Standard</h5>
-										</div>
-										<div className="box-body">
-
-											<p className="mb-0 text-sm">Balance Sheet Summary. Assets = Liabilities + Equity</p>
-
-										</div>
-									</div>
-								</div>
-
-								<div className="col-span-12 md:col-span-6 xxl:!col-span-3">
-									<div className="box">
-										<div className="box-header">
-											<h5 className="box-title">Profit and Loss / Income Statement</h5>
-										</div>
-										<div className="box-body">
-
-											<p className="mb-0 text-sm">Profit and Loss statement reports a summary of a company's revenues, expenses, gains, losses, and the net income that occurred during a year, quarter etc </p>
-
-										</div>
-									</div>
-								</div>
-
-								<div className="col-span-12 md:col-span-6 xxl:!col-span-3">
-									<div className="box">
-										<div className="box-header">
-											<h5 className="box-title">Profit and Loss / Income Statement Standard</h5>
-										</div>
-										<div className="box-body">
-
-											<p className="mb-0 text-sm">Profit and Loss Statement </p>
-
-										</div>
-									</div>
-								</div>
-
-								<div className="col-span-12 md:col-span-6 xxl:!col-span-3">
-									<div className="box">
-										<div className="box-header">
-											<h5 className="box-title">Trial Balance</h5>
-										</div>
-										<div className="box-body">
-
-											<p className="mb-0 text-sm">A trial balance is accounting report that lists the balances in each of an organization's general ledger accounts. The debit balance amounts are listed in a column with the heading "Debit balances" and the credit balance amounts are listed in another column with the heading "Credit balances." The total of each of these two columns should be identical.</p>
-
-										</div>
-									</div>
-								</div>
-
-								<div className="col-span-12 md:col-span-6 xxl:!col-span-3">
-									<div className="box">
-										<div className="box-header">
-											<h5 className="box-title">Cash Flow</h5>
-										</div>
-										<div className="box-body">
-
-											<p className="mb-0 text-sm">Email reports include email scheduled, email send, email delivered.</p>
-
-										</div>
-									</div>
-								</div>
-
-								<div className="col-span-12 md:col-span-6 xxl:!col-span-3">
-									<div className="box">
-										<div className="box-header">
-											<h5 className="box-title">Trial Balance</h5>
-										</div>
-										<div className="box-body">
-
-											<p className="mb-0 text-sm">Trial Balance Report.</p>
-
-										</div>
-									</div>
-								</div>
-
-							
-
-							</div>
-							
+			<div className= "col-span-12 xl:col-span-3">
+					<div className= "box">
+						<div className= "box-header">
+							<h2 className= "text-gray-800 dark:text-white/70 my-3 font-semibold">Balance Sheet and Profit and Loss</h2>
 						</div>
+						<div className= "box-body">
+							<ul>
+								<li>
+									<Link to="/reports/finance-reports/balance-sheet" className= "p-2 mb-1 flex items-center align-middle justify-between text-gray-500 dark:text-white/70 space-x-2 rtl:space-x-reverse rounded-sm bg-gray-100 font-normal hover:bg-gray-200 focus:bg-gary-800 dark:bg-black/20 dark:hover:bg-black/20">
+										<div className= "flex space-x-3 rtl:space-x-reverse">
+										<span className= "w-2.5 h-2.5 inline-block bg-success rounded-full my-auto"></span>
+											<i className= "ri ri-mail-line"></i>
+											<span className= "">Balance Sheet</span>
+										</div>
+									</Link>
+								</li>
+
+								<li>
+									<Link to="#" className= "p-2 mb-1 flex justify-between text-gray-500 dark:text-white/70 space-x-2 rtl:space-x-reverse rounded-sm font-normal hover:bg-gray-200 focus:bg-gary-800 dark:bg-bgdark dark:hover:bg-black/20">
+										<div className= "flex space-x-3 rtl:space-x-reverse">
+										<span className= "w-2.5 h-2.5 inline-block bg-warning rounded-full my-auto"></span>
+											<i className= "ri ri-inbox-archive-line"></i>
+											<span className= "">Balance Sheet Standard</span>
+										</div>
+									</Link>
+								</li>
+
+								<li>
+									<Link to="#" className= "p-2 mb-1 flex justify-between text-gray-500 dark:text-white/70 space-x-2 rtl:space-x-reverse rounded-sm font-normal hover:bg-gray-200 focus:bg-gary-800 dark:bg-bgdark dark:hover:bg-black/20">
+										<div className= "flex space-x-3 rtl:space-x-reverse">
+										<span className= "w-2.5 h-2.5 inline-block bg-success rounded-full my-auto"></span>
+											<i className= "ri ri-star-line"></i>
+											<span className= "">Profit and Loss </span>
+										</div>
+									</Link>
+								</li>
+
+								<li>
+									<Link to="#" className= "p-2 mb-1 flex justify-between text-gray-500 dark:text-white/70 space-x-2 rtl:space-x-reverse rounded-sm font-normal hover:bg-gray-200 focus:bg-gary-800 dark:bg-bgdark dark:hover:bg-black/20">
+										<div className= "flex space-x-3 rtl:space-x-reverse">
+										<span className= "w-2.5 h-2.5 inline-block bg-warning rounded-full my-auto"></span>
+											<i className= "ri ri-price-tag-3-line"></i>
+											<span className= "">Profit and Loss Standard</span>
+										</div>
+									</Link>
+								</li>
+							</ul>
+				    	</div>
 					</div>
-				</div>
+			</div>
+
+			<div className= "col-span-12 xl:col-span-3">
+					<div className= "box">
+						<div className= "box-header">
+							<h2 className= "text-gray-800 dark:text-white/70 my-3 font-semibold">Trial Balance and Cash Flow</h2>
+						</div>
+						<div className= "box-body">
+							<ul>
+								<li>
+									<Link to="#" className= "p-2 mb-1 flex items-center align-middle justify-between text-gray-500 dark:text-white/70 space-x-2 rtl:space-x-reverse rounded-sm bg-gray-100 font-normal hover:bg-gray-200 focus:bg-gary-800 dark:bg-black/20 dark:hover:bg-black/20">
+										<div className= "flex space-x-3 rtl:space-x-reverse">
+										<span className= "w-2.5 h-2.5 inline-block bg-warning rounded-full my-auto"></span>
+											<i className= "ri ri-mail-line"></i>
+											<span className= "">Trial Balance</span>
+										</div>
+									</Link>
+								</li>
+
+								<li>
+									<Link to="#" className= "p-2 mb-1 flex justify-between text-gray-500 dark:text-white/70 space-x-2 rtl:space-x-reverse rounded-sm font-normal hover:bg-gray-200 focus:bg-gary-800 dark:bg-bgdark dark:hover:bg-black/20">
+										<div className= "flex space-x-3 rtl:space-x-reverse">
+										<span className= "w-2.5 h-2.5 inline-block bg-warning rounded-full my-auto"></span>
+											<i className= "ri ri-inbox-archive-line"></i>
+											<span className= "">Trial Balance Standard</span>
+										</div>
+									</Link>
+								</li>
+
+								<li>
+									<Link to="#" className= "p-2 mb-1 flex justify-between text-gray-500 dark:text-white/70 space-x-2 rtl:space-x-reverse rounded-sm font-normal hover:bg-gray-200 focus:bg-gary-800 dark:bg-bgdark dark:hover:bg-black/20">
+										<div className= "flex space-x-3 rtl:space-x-reverse">
+										<span className= "w-2.5 h-2.5 inline-block bg-warning rounded-full my-auto"></span>
+											<i className= "ri ri-star-line"></i>
+											<span className= "">Cash Flow </span>
+										</div>
+									</Link>
+								</li>
+
+								<li>
+									<Link to="#" className= "p-2 mb-1 flex justify-between text-gray-500 dark:text-white/70 space-x-2 rtl:space-x-reverse rounded-sm font-normal hover:bg-gray-200 focus:bg-gary-800 dark:bg-bgdark dark:hover:bg-black/20">
+										<div className= "flex space-x-3 rtl:space-x-reverse">
+										<span className= "w-2.5 h-2.5 inline-block bg-warning rounded-full my-auto"></span>
+											<i className= "ri ri-price-tag-3-line"></i>
+											<span className= "">Cash Flow Standard</span>
+										</div>
+									</Link>
+								</li>
+							</ul>
+				    	</div>
+					</div>
+			</div>
+
+			<div className= "col-span-12 xl:col-span-3">
+					<div className= "box">
+						<div className= "box-header">
+							<h2 className= "text-gray-800 dark:text-white/70 my-3 font-semibold">General Ledger Report</h2>
+						</div>
+						<div className= "box-body">
+							<ul>
+								<li>
+									<Link to="#" className= "p-2 mb-1 flex items-center align-middle justify-between text-gray-500 dark:text-white/70 space-x-2 rtl:space-x-reverse rounded-sm bg-gray-100 font-normal hover:bg-gray-200 focus:bg-gary-800 dark:bg-black/20 dark:hover:bg-black/20">
+										<div className= "flex space-x-3 rtl:space-x-reverse">
+										<span className= "w-2.5 h-2.5 inline-block bg-warning rounded-full my-auto"></span>
+											<i className= "ri ri-mail-line"></i>
+											<span className= "">General Ledger Report</span>
+										</div>
+									</Link>
+								</li>
+
+								<li>
+									<Link to="#" className= "p-2 mb-1 flex justify-between text-gray-500 dark:text-white/70 space-x-2 rtl:space-x-reverse rounded-sm font-normal hover:bg-gray-200 focus:bg-gary-800 dark:bg-bgdark dark:hover:bg-black/20">
+										<div className= "flex space-x-3 rtl:space-x-reverse">
+										<span className= "w-2.5 h-2.5 inline-block bg-warning rounded-full my-auto"></span>
+											<i className= "ri ri-inbox-archive-line"></i>
+											<span className= "">Standard General Ledger Report</span>
+										</div>
+									</Link>
+								</li>
+
+								<li>
+									<Link to="#" className= "p-2 mb-1 flex justify-between text-gray-500 dark:text-white/70 space-x-2 rtl:space-x-reverse rounded-sm font-normal hover:bg-gray-200 focus:bg-gary-800 dark:bg-bgdark dark:hover:bg-black/20">
+										<div className= "flex space-x-3 rtl:space-x-reverse">
+										<span className= "w-2.5 h-2.5 inline-block bg-warning rounded-full my-auto"></span>
+											<i className= "ri ri-star-line"></i>
+											<span className= "">Detailed General Ledger Report </span>
+										</div>
+									</Link>
+								</li>
+
+								<li>
+									<Link to="#" className= "p-2 mb-1 flex justify-between text-gray-500 dark:text-white/70 space-x-2 rtl:space-x-reverse rounded-sm font-normal hover:bg-gray-200 focus:bg-gary-800 dark:bg-bgdark dark:hover:bg-black/20">
+										<div className= "flex space-x-3 rtl:space-x-reverse">
+										<span className= "w-2.5 h-2.5 inline-block bg-warning rounded-full my-auto"></span>
+											<i className= "ri ri-price-tag-3-line"></i>
+											<span className= "">Account Activity Report</span>
+										</div>
+									</Link>
+								</li>
+							</ul>
+				    	</div>
+					</div>
+			</div>
+
+			<div className= "col-span-12 xl:col-span-3">
+					<div className= "box">
+						<div className= "box-header">
+							<h2 className= "text-gray-800 dark:text-white/70 my-3 font-semibold">Chart of Accounts</h2>
+						</div>
+						<div className= "box-body">
+							<ul>
+								<li>
+									<Link to="#" className= "p-2 mb-1 flex items-center align-middle justify-between text-gray-500 dark:text-white/70 space-x-2 rtl:space-x-reverse rounded-sm bg-gray-100 font-normal hover:bg-gray-200 focus:bg-gary-800 dark:bg-black/20 dark:hover:bg-black/20">
+										<div className= "flex space-x-3 rtl:space-x-reverse">
+										<span className= "w-2.5 h-2.5 inline-block bg-warning rounded-full my-auto"></span>
+											<i className= "ri ri-mail-line"></i>
+											<span className= "">Assets Accounts</span>
+										</div>
+									</Link>
+								</li>
+
+								<li>
+									<Link to="#" className= "p-2 mb-1 flex justify-between text-gray-500 dark:text-white/70 space-x-2 rtl:space-x-reverse rounded-sm font-normal hover:bg-gray-200 focus:bg-gary-800 dark:bg-bgdark dark:hover:bg-black/20">
+										<div className= "flex space-x-3 rtl:space-x-reverse">
+										<span className= "w-2.5 h-2.5 inline-block bg-warning rounded-full my-auto"></span>
+											<i className= "ri ri-inbox-archive-line"></i>
+											<span className= "">Liability Accounts</span>
+										</div>
+									</Link>
+								</li>
+
+								<li>
+									<Link to="#" className= "p-2 mb-1 flex justify-between text-gray-500 dark:text-white/70 space-x-2 rtl:space-x-reverse rounded-sm font-normal hover:bg-gray-200 focus:bg-gary-800 dark:bg-bgdark dark:hover:bg-black/20">
+										<div className= "flex space-x-3 rtl:space-x-reverse">
+										<span className= "w-2.5 h-2.5 inline-block bg-warning rounded-full my-auto"></span>
+											<i className= "ri ri-star-line"></i>
+											<span className= "">Equity Accounts </span>
+										</div>
+									</Link>
+								</li>
+
+								<li>
+									<Link to="#" className= "p-2 mb-1 flex justify-between text-gray-500 dark:text-white/70 space-x-2 rtl:space-x-reverse rounded-sm font-normal hover:bg-gray-200 focus:bg-gary-800 dark:bg-bgdark dark:hover:bg-black/20">
+										<div className= "flex space-x-3 rtl:space-x-reverse">
+										<span className= "w-2.5 h-2.5 inline-block bg-warning rounded-full my-auto"></span>
+											<i className= "ri ri-price-tag-3-line"></i>
+											<span className= "">Revenue Accounts</span>
+										</div>
+									</Link>
+								</li>
+
+								<li>
+									<Link to="#" className= "p-2 mb-1 flex justify-between text-gray-500 dark:text-white/70 space-x-2 rtl:space-x-reverse rounded-sm font-normal hover:bg-gray-200 focus:bg-gary-800 dark:bg-bgdark dark:hover:bg-black/20">
+										<div className= "flex space-x-3 rtl:space-x-reverse">
+										<span className= "w-2.5 h-2.5 inline-block bg-warning rounded-full my-auto"></span>
+											<i className= "ri ri-price-tag-3-line"></i>
+											<span className= "">Cost of Goods Sold (COGS)</span>
+										</div>
+									</Link>
+								</li>
+
+								<li>
+									<Link to="#" className= "p-2 mb-1 flex justify-between text-gray-500 dark:text-white/70 space-x-2 rtl:space-x-reverse rounded-sm font-normal hover:bg-gray-200 focus:bg-gary-800 dark:bg-bgdark dark:hover:bg-black/20">
+										<div className= "flex space-x-3 rtl:space-x-reverse">
+										<span className= "w-2.5 h-2.5 inline-block bg-warning rounded-full my-auto"></span>
+											<i className= "ri ri-price-tag-3-line"></i>
+											<span className= "">Operating Expenses</span>
+										</div>
+									</Link>
+								</li>
+
+								<li>
+									<Link to="#" className= "p-2 mb-1 flex justify-between text-gray-500 dark:text-white/70 space-x-2 rtl:space-x-reverse rounded-sm font-normal hover:bg-gray-200 focus:bg-gary-800 dark:bg-bgdark dark:hover:bg-black/20">
+										<div className= "flex space-x-3 rtl:space-x-reverse">
+										<span className= "w-2.5 h-2.5 inline-block bg-warning rounded-full my-auto"></span>
+											<i className= "ri ri-price-tag-3-line"></i>
+											<span className= "">Other Income and Expenses</span>
+										</div>
+									</Link>
+								</li>
+							</ul>
+				    	</div>
+					</div>
+			</div>
+
+
+
+				
 			</div>
 		</div>
 	);
