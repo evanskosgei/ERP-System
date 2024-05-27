@@ -39,7 +39,7 @@ const FinanceReports = () => {
 								</li>
 
 								<li>
-									<Link to="#" className= "p-2 mb-1 flex justify-between text-gray-500 dark:text-white/70 space-x-2 rtl:space-x-reverse rounded-sm font-normal hover:bg-gray-200 focus:bg-gary-800 dark:bg-bgdark dark:hover:bg-black/20">
+									<Link to="/reports/finance-reports/income-statement" className= "p-2 mb-1 flex justify-between text-gray-500 dark:text-white/70 space-x-2 rtl:space-x-reverse rounded-sm font-normal hover:bg-gray-200 focus:bg-gary-800 dark:bg-bgdark dark:hover:bg-black/20">
 										<div className= "flex space-x-3 rtl:space-x-reverse">
 										<span className= "w-2.5 h-2.5 inline-block bg-success rounded-full my-auto"></span>
 											<i className= "ri ri-star-line"></i>

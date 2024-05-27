@@ -120,12 +120,20 @@ const mtaApi = {
   },
   finance_reports:{
     fetchAssetAccounts:(data:any) => post("/finance-reports/get-assets-accounts",data),
-    fetchLiabilitiesAccounts: (data:any) => post("/finance-reports/get-liability-accounts", data),
+    fetchLiabilitiesAccounts: (data:any) => post("/finance-reports/get-liability-accounts", data), 
     fetchEquityAccounts: (data:any) => post("/finance-reports/get-equity-accounts", data),
 
     fetchIncomeStatementBalance: (data:any) => post("/finance-reports/get-profit-loss", data),
     fetchShareHolderFunds: (data:any) => post("/finance-reports/get-shareholder-equity", data),
-    fetchShareHolderEquity: (data:any) => post("/finance-reports/get-shareholder-funds", data),
+    fetchShareHolderEquity: (data:any) => post("/finance-reports/get-shareholder-funds", data), 
+
+    fetchRevenueAccounts: (data:any) => post("/finance-reports/get-revenue-accounts", data),
+    fetchDiscountAccounts: (data:any) => post("/finance-reports/get-discount-accounts", data), 
+
+    fetchCogAccounts: (data:any) => post("/finance-reports/get-cog-accounts", data),
+    fetchExpensesAccounts: (data:any) => post("/finance-reports/get-expenses-accounts", data),
+    fetchOtherIncomeAccounts: (data:any) => post("/finance-reports/get-other-income-accounts", data),
+    fetchOtherExpenseAccounts: (data:any) => post("/finance-reports/get-other-expenses-accounts", data),
 
   }
 };
