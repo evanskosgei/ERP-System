@@ -162,6 +162,19 @@ const BuyUsingCash = () => {
     }
   }
 
+  const formatAmount = (value) => {
+    return value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};
+
+const handleAmountChange = (event) => {
+    const inputValue = event.target.value.replace(/,/g, '');
+    const formattedValue = formatAmount(inputValue);
+    setAmount(formattedValue);
+    setValue("amount", formattedValue);
+};
+
+
+
   return (
     <div>
       <PageHeader
@@ -340,7 +353,7 @@ const BuyUsingCash = () => {
                     Display
                   </th>
                   <th scope='col' className='!text-sm !p-4 !text-gray-800 dark:!text-white'>
-                    QNTY
+                    Quantity
                   </th>
                   <th scope='col' className='!text-sm !p-4 !text-gray-800 dark:!text-white'>
                     Amount
@@ -385,30 +398,7 @@ const BuyUsingCash = () => {
                     <td>{data.display}</td>
                     <td>
                       <div className='flex rounded-sm'>
-                        <button
-                          aria-label='button'
-                          type='button'
-                          onClick={() => handleMinusClick(data.id)}
-                          className='product-quantity-minus inline-flex flex-shrink-0 justify-center items-center h-8 w-8 ltr:rounded-l-sm rtl:rounded-r-sm border border-transparent font-semibold ti-btn-soft-light transition-all text-sm'
-                        >
-                          <i className='ti ti-minus'></i>
-                        </button>
-                        <input
-                          type='number'
-                          name='quantity'
-                          className='product-quantity p-0 ti-form-input w-20 rounded-none focus:z-10 text-center'
-                          placeholder='0'
-                          min='0'
-                          value={quantities[data.id] || 0} // Set the value of the input field to the corresponding quantity
-                        />
-                        <button
-                          aria-label='button'
-                          type='button'
-                          onClick={() => handlePlusClick(data.id)}
-                          className='product-quantity-plus inline-flex flex-shrink-0 justify-center items-center h-8 w-8 ltr:rounded-r-sm rtl:rounded-l-sm border border-transparent font-semibold ti-btn-soft-light transition-all text-sm'
-                        >
-                          <i className='ti ti-plus'></i>
-                        </button>
+                      <input type="number" {...register("quantity")} className="product-quantity p-0 ti-form-input h-8 w-40 rounded-none focus:z-10 text-center" placeholder="0" onChange={handleAmountChange}/>
                       </div>
                     </td>
                     <td>
