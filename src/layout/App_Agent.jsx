@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet-async";
 import Backtotop from "./layoutsection/backtotop/backtotop";
 import Footer from "./layoutsection/footer/footer";
 import Header from "./layoutsection/header/header";
-import SidemenuAgents from "./layoutsection/sidemenu/sidemenu-agents";
+import SidemenuAgents from "./layoutsection/sidemenu/sidemenubar-agent";
 import Switcher from "./layoutsection/switcher/switcher";
 import { Provider } from "react-redux";
 import store from "../redux/store";
