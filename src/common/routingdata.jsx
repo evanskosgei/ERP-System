@@ -181,6 +181,12 @@ import PaymentsReports from "../views/reports_module/payments_reports/payments_r
 import CustomerReports from "../views/reports_module/customer_reports/customer_reports";
 import HrReports from "../views/reports_module/hr_reports/hr_reports";
 
+////Balance Sheet
+import BalanceSheet from "../views/reports_module/finance_reports/balance_sheet/balance_sheet_statament";
+import IncomeStatement from "../views/reports_module/finance_reports/income_statement/income_statament";
+
+
+
 
 //Settings Module
 import SettingsDashboard from "../views/settings_module/dashboard/settings_dashboard";
@@ -501,6 +507,10 @@ export const RouteData = [
     { path: `${import.meta.env.BASE_URL}reports/hr-reports`, element: <HrReports />, title: '' },
     { path: `${import.meta.env.BASE_URL}reports/payments-reports`, element: <PaymentsReports />, title: '' },
     { path: `${import.meta.env.BASE_URL}reports/customer-reports`, element: <CustomerReports />, title: '' },
+
+    // {/* Reports content - Balance Sheet */}
+    { path: `${import.meta.env.BASE_URL}reports/finance-reports/balance-sheet`, element: <BalanceSheet />, title: '' },
+    { path: `${import.meta.env.BASE_URL}reports/finance-reports/income-statement`, element: <IncomeStatement />, title: '' },
 
 
     // {/* Settings content */}

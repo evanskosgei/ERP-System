@@ -117,6 +117,24 @@ const mtaApi = {
     cash_sale:(data:any) => post("/mobilephone-cash-sales/create-cash-sales",data),
     approve_cash_sale:(id:any) => post("/mobilephone-cash-sales/approve-cash-sales",{ id: id}),
     list_cash_sale:(status:any) => post("/mobilephone-cash-sales/list-cash-sales",{ status }),
+  },
+  finance_reports:{
+    fetchAssetAccounts:(data:any) => post("/finance-reports/get-assets-accounts",data),
+    fetchLiabilitiesAccounts: (data:any) => post("/finance-reports/get-liability-accounts", data), 
+    fetchEquityAccounts: (data:any) => post("/finance-reports/get-equity-accounts", data),
+
+    fetchIncomeStatementBalance: (data:any) => post("/finance-reports/get-profit-loss", data),
+    fetchShareHolderFunds: (data:any) => post("/finance-reports/get-shareholder-equity", data),
+    fetchShareHolderEquity: (data:any) => post("/finance-reports/get-shareholder-funds", data), 
+
+    fetchRevenueAccounts: (data:any) => post("/finance-reports/get-revenue-accounts", data),
+    fetchDiscountAccounts: (data:any) => post("/finance-reports/get-discount-accounts", data), 
+
+    fetchCogAccounts: (data:any) => post("/finance-reports/get-cog-accounts", data),
+    fetchExpensesAccounts: (data:any) => post("/finance-reports/get-expenses-accounts", data),
+    fetchOtherIncomeAccounts: (data:any) => post("/finance-reports/get-other-income-accounts", data),
+    fetchOtherExpenseAccounts: (data:any) => post("/finance-reports/get-other-expenses-accounts", data),
+
   }
 };
 

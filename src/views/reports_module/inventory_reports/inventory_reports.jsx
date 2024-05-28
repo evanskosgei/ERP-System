@@ -4,7 +4,7 @@ import PageHeader from "../../../layout/layoutsection/pageHeader/pageHeader";
 const InventoryReports = () => {
 	return (
 		<div>
-			<PageHeader currentpage="Inventory Reports" activepage="Reports" mainpage="Inventory Reports" />
+			<PageHeader currentpage="Inventory Reports" href="/reports/dashboard" activepage="Reports" mainpage="Inventory Reports" />
 
 			<div className="grid grid-cols-12 gap-6">
 				<div className="col-span-12">
