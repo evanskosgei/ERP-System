@@ -53,37 +53,37 @@ const BuyUsingCash = () => {
     }))
   }
   const handleAmountChange = (event, productId) => {
-    const value = parseInt(event.target.value, 10)
-    if (!isNaN(value) && value >= 0) {
+    const value = event.target.value.replace(/,/g, '')
+    const parsedValue = parseInt(value, 10)
+
+    if (value === '') {
       setAmount((prevAmounts) => ({
         ...prevAmounts,
-        [productId]: value,
+        [productId]: null,
+      }))
+    } else if (!isNaN(parsedValue) && parsedValue >= 0) {
+      setAmount((prevAmounts) => ({
+        ...prevAmounts,
+        [productId]: parsedValue,
       }))
     }
   }
+
   const handleQuantityChange = (event, productId) => {
-    const value = parseInt(event.target.value, 10)
-    if (!isNaN(value) && value >= 0) {
-      setQuantities((prevQuantities) => ({
-        ...prevQuantities,
-        [productId]: value,
+    const value = event.target.value.replace(/,/g, '')
+    const parsedValue = parseInt(value, 10)
+
+    if (value === '') {
+      setQuantities((prevAmounts) => ({
+        ...prevAmounts,
+        [productId]: null,
+      }))
+    } else if (!isNaN(parsedValue) && parsedValue >= 0) {
+      setQuantities((prevAmounts) => ({
+        ...prevAmounts,
+        [productId]: parsedValue,
       }))
     }
-  }
-
-  // Function to handle quantity change when the plus button is clicked
-  const handlePlusClick = (productId) => {
-    setQuantities((prevQuantities) => ({
-      ...prevQuantities,
-      [productId]: (prevQuantities[productId] || 0) + 1,
-    }))
-  }
-
-  const handleAmountPlusClick = (productId) => {
-    setAmount((prevQuantities) => ({
-      ...prevQuantities,
-      [productId]: (prevQuantities[productId] || 0) + 1,
-    }))
   }
   useEffect(() => {
     const fetchData = async () => {
@@ -116,7 +116,6 @@ const BuyUsingCash = () => {
       setFilteredData(rowData)
     }
   }
- 
 
   const handleCategoryChange = async (event) => {
     const selectedCategory = event.target.value
@@ -194,8 +193,8 @@ const BuyUsingCash = () => {
     setQuantities(formattedValue)
     setValue('quantity', formattedValue)
   }
-//  console.log(filteredData);
-const displayData = filteredData.length >0 ? filteredData: rowData;
+  //  console.log(filteredData);
+  const displayData = filteredData.length > 0 ? filteredData : rowData
   return (
     <div>
       <PageHeader
@@ -414,8 +413,13 @@ const displayData = filteredData.length >0 ? filteredData: rowData;
                           type='text'
                           className='product-quantity p-0 ti-form-input h-8 w-40 rounded-none focus:z-10 text-center'
                           placeholder='quantity'
-                          value={quantity[data.id]}
-                          onChange={(e) => handleQuantityChange(e, data.id)} // Handle the input change event
+                          name='quantity'
+                          value={
+                            quantity[data.id] !== null && quantity[data.id] !== undefined
+                              ? quantity[data.id].toLocaleString()
+                              : ''
+                          }
+                          onChange={(e) => handleQuantityChange(e, data.id)}
                         />
                       </div>
                     </td>
@@ -426,8 +430,12 @@ const displayData = filteredData.length >0 ? filteredData: rowData;
                           name='amount'
                           placeholder='amount'
                           className='product-quantity p-0 ti-form-input h-8 w-40 rounded-none focus:z-10 text-center'
-                          value={amount[data.id]} // Set the value of the input field to the corresponding quantity
-                          onChange={(e) => handleAmountChange(e, data.id)} // Handle the input change event
+                          value={
+                            amount[data.id] !== null && amount[data.id] !== undefined
+                              ? amount[data.id].toLocaleString()
+                              : ''
+                          }
+                          onChange={(e) => handleAmountChange(e, data.id)}
                         />
                       </div>
                     </td>
