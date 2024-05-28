@@ -28,15 +28,15 @@ const BuyUsingCash = () => {
   const [bankAccounts, setBankAccounts] = useState([])
   const [supplierAccounts, setSupplierAccounts] = useState([])
   const [selectedSupplierAccounts, setSelectedSupplierAccounts] = useState([])
-  const [quantities, setQuantities] = useState({})
+  const [quantity, setQuantities] = useState({})
   const [amount, setAmount] = useState({})
 
-  const handleMinusClick = (productId) => {
-    setQuantities((prevQuantities) => ({
-      ...prevQuantities,
-      [productId]: Math.max((prevQuantities[productId] || 0) - 1, 0), // Ensure the quantity doesn't go below 0
-    }))
-  }
+  // const handleMinusClick = (productId) => {
+  //   setQuantities((prevQuantities) => ({
+  //     ...prevQuantities,
+  //     [productId]: Math.max((prevQuantities[productId] || 0) - 1, 0), // Ensure the quantity doesn't go below 0
+  //   }))
+  // }
 
   const handleCheckboxChange = (event, data) => {
     const isChecked = event.target.checked
@@ -52,6 +52,25 @@ const BuyUsingCash = () => {
       [productId]: Math.max((prevQuantities[productId] || 0) - 1, 0),
     }))
   }
+  const handleAmountChange = (event, productId) => {
+    const value = parseInt(event.target.value, 10)
+    if (!isNaN(value) && value >= 0) {
+      setAmount((prevAmounts) => ({
+        ...prevAmounts,
+        [productId]: value,
+      }))
+    }
+  }
+  // const handleQuantityChange = (event, productId) => {
+  //   const value = parseInt(event.target.value, 10)
+  //   if (!isNaN(value) && value >= 0) {
+  //     setQuantities((prevQuantities) => ({
+  //       ...prevQuantities,
+  //       [productId]: value,
+  //     }))
+  //   }
+  // }
+
   // Function to handle quantity change when the plus button is clicked
   const handlePlusClick = (productId) => {
     setQuantities((prevQuantities) => ({
@@ -119,14 +138,17 @@ const BuyUsingCash = () => {
 
   const onSubmitModal = async (data) => {
     // Build validRows using quantities and amounts
-    const validRows = Object.keys(quantities)
-      .map((id) => {
-        return {
-          id: Number(id),
-          quantity: quantities[id],
-          amount: amount[id],
-        }
-      })
+    if (selectedRows.length === 0) {
+      setAlert({ type: 'error', message: 'Please select mobile model from table' })
+      return
+    }
+
+    const validRows = selectedRows
+      .map((row) => ({
+        id: row.id,
+        quantity: quantity[row.id],
+        amount: amount[row.id],
+      }))
       .filter((row) => row.amount != null && row.quantity != null)
 
     if (!selectedSupplierId) {
@@ -137,18 +159,18 @@ const BuyUsingCash = () => {
     const totalAmount = validRows.reduce((acc, row) => acc + row.amount * row.quantity, 0).toFixed(2)
 
     const payload = {
-      transaction_id: data.transaction_id,
-      total_amount: totalAmount,
+      transaction_id: String(data.transaction_id),
+      total_amount: totalAmount.toLocaleString('en-US', { minimumFractionDigits: 2 }),
       supplier_name: '',
-      supplier_id: selectedSupplierId,
-      supplier_payable_account_number: data.supplier_payable_account_number,
-      bank_account_number: data.bank_account_number,
+      supplier_id: String(selectedSupplierId),
+      supplier_payable_account_number: String(data.supplier_payable_account_number),
+      bank_account_number: String(data.bank_account_number),
       purchase_date: data.purchase_date,
       product_details: validRows.map((row) => ({
-        model_id: row.id,
-        quantity: row.quantity,
-        price_per_unit: row.amount,
-        total_amount_per_model: (row.amount * row.quantity).toFixed(2),
+        model_id: String(row.id),
+        quantity: String(row.quantity),
+        price_per_unit: row.amount.toLocaleString('en-US', { minimumFractionDigits: 2 }),
+        total_amount_per_model: (row.amount * row.quantity).toLocaleString('en-US', { minimumFractionDigits: 2 }),
       })),
       notes: 'Stock purchased to be delivered immediately',
     }
@@ -166,11 +188,11 @@ const BuyUsingCash = () => {
     return value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
-const handleAmountChange = (event) => {
+const handleQuantitiesChange = (event) => {
     const inputValue = event.target.value.replace(/,/g, '');
     const formattedValue = formatAmount(inputValue);
-    setAmount(formattedValue);
-    setValue("amount", formattedValue);
+    setQuantities(formattedValue);
+    setValue("quantity", formattedValue);
 };
 
 
@@ -330,16 +352,7 @@ const handleAmountChange = (event) => {
             <table className='ti-custom-table ti-custom-table-head'>
               <thead className=''>
                 <tr>
-                  <th scope='col' className='dark:text-white'>
-                    <div className='flex leading-[0] justify-center'>
-                      <input
-                        type='checkbox'
-                        className='border-gray-500 ti-form-checkbox mt-0.5'
-                        id='hs-default-checkbox'
-                      />
-                      <label htmlFor='hs-default-checkbox' className='text-sm text-gray-500 dark:text-white/70'></label>
-                    </div>
-                  </th>
+                  <th scope='col' className='dark:text-white'></th>
                   <th scope='col' className='!text-sm !p-4 !text-gray-800 dark:!text-white'>
                     Phone Model
                   </th>
@@ -418,6 +431,7 @@ const handleAmountChange = (event) => {
                           placeholder='0'
                           min='0'
                           value={amount[data.id] || 0} // Set the value of the input field to the corresponding quantity
+                          onChange={(e) => handleAmountChange(e, data.id)} // Handle the input change event
                         />
                         <button
                           aria-label='button'
