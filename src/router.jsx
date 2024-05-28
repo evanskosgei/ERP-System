@@ -1,11 +1,11 @@
 import { Route, Routes } from "react-router-dom";
 import { RouteData } from "./common/routingdata";
 
-import App from "./layout/App";
-import App_Agents from "./layout/AppAgent";
+import App_Administrator from "./layout/App_Administrator";
+import App_Agent from "./layout/App_Agent";
 
 //Dashboards
-import MainDashboard from "./views/general/main_dashboard/main_dashboard";
+import MainDashboard from "./views_administrator/general/main_dashboard/main_dashboard";
 
 import Pagelayout from "./layout/pagelayout";
 import Aboutus from "./component/pagecomponent/aboutus/aboutus";
@@ -44,10 +44,10 @@ import Underconstruction from "./component/Authentication/underconstruction/unde
 import Undermaintenance from "./component/Authentication/undermaintenance/undermaintenance";
 
 // manager Dashbaord
-// import Managerdashboard from "./views/Agents_portal/dashboard";
-import Agents_dashboard from "./views/Agents_portal/dashboard";
+// import Managerdashboard from "./views_administrator/Agents_portal/dashboard";
+import Agent_dashboard from "./views_agents/general/main_dashboard/dashboard";
 
-// import AddSupplier from "./views/supplier_module/supplierForms/addSupplier";
+// import AddSupplier from "./views_administrator/supplier_module/supplierForms/addSupplier";
 
 // Pages
 import SignInPage from "./pages/Auth/SignIn";
@@ -70,15 +70,15 @@ export default function Router() {
           {/* //Main page */}
           {user !== null && (
             <>
-              {(user.user_type === 1 || user.user_type === 2 || user.user_type === 3) ? (
-                  <Route path={`${import.meta.env.BASE_URL}`} element={<App />}>
+              {(user.user_type === 2) ? (
+                  <Route path={`${import.meta.env.BASE_URL}`} element={<App_Administrator />}>
                     <Route index element={<MainDashboard />} />
                     <Route exact path={idx.path} element={idx.element} />
                   </Route>
               ) : (
                 
-                  <Route path={`${import.meta.env.BASE_URL}`} element={<App_Agents />}>
-                    <Route index element={<Agents_dashboard />} />
+                  <Route path={`${import.meta.env.BASE_URL}`} element={<App_Agent />}>
+                    <Route index element={<Agent_dashboard />} />
                     <Route exact path={idx.path} element={idx.element} />
                   </Route>
                 )
@@ -88,8 +88,8 @@ export default function Router() {
           {/* {user !== null && (
             <>
               {(user.user_type === 4 || user.user_type === 5) ? (
-                <Route path={`${import.meta.env.BASE_URL}`} element={<App_Agents />}>
-                  <Route index element={<Agents_dashboard />} />
+                <Route path={`${import.meta.env.BASE_URL}`} element={<App_Agent />}>
+                  <Route index element={<Agent_dashboard />} />
                   <Route exact path={idx.path} element={idx.element} />
                 </Route>
               ) : (

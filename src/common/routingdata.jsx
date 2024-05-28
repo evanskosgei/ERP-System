@@ -1,200 +1,213 @@
 //Dashboards 
-import MainDashboard from "../views/general/main_dashboard/main_dashboard";
+import MainDashboard from "../views_administrator/general/main_dashboard/main_dashboard";
+
+
+
 // agents
-import Agents_dashboard from "../views/Agents_portal/dashboard";
+import Agent_dashboard from "../views_agents/general/main_dashboard/dashboard";
+
+import Agent_activities from "../views_agents/general/activities/activities";
+import Agent_notifications from "../views_agents/general/notifications/notifications";
+import Agent_widgets from "../views_agents/widgets/dashboard/widgets";
+
+import Agent_profile from "../views_agents/profile/home";
+import Agent_products from "../views_agents/products/product_management";
+import Agent_customers from "../views_agents/customers/customer_dashboard";
+import Agent_reports from "../views_agents/reports/dashboard/reports_dashboard";
+import Agent_analytics from "../views_agents/reports/dashboard/analytics_dashboard";
 
 
 //Other Pages
-import Activities from "../views/general/activities/activities";
-import Notifications from "../views/general/notifications/notifications";
-import Widgets from "../views/widgets/dashboard/widgets";
+import Activities from "../views_administrator/general/activities/activities";
+import Notifications from "../views_administrator/general/notifications/notifications";
+import Widgets from "../views_administrator/widgets/dashboard/widgets";
 
 //User Pages
-import Profile from "../views/user_module/profile/home/home";
-import UserDashboard from "../views/user_module/dashboard/user_dashboard";
-import CreateUser from "../views/user_module/users/create_new_user";
-import Activeusers from "../views/user_module/users/list_active_users";
-import Deletedusers from "../views/user_module/users/list_deleted_users";
-import Deactivatedusers from "../views/user_module/users/list_deactivated_users";
-import Newusers from "../views/user_module/users/list_newUnapproved_users";
-import Reactivatedusers from "../views/user_module/users/list_reactivated_users";
+import Profile from "../views_administrator/user_module/profile/home/home";
+import UserDashboard from "../views_administrator/user_module/dashboard/user_dashboard";
+import CreateUser from "../views_administrator/user_module/users/create_new_user";
+import Activeusers from "../views_administrator/user_module/users/list_active_users";
+import Deletedusers from "../views_administrator/user_module/users/list_deleted_users";
+import Deactivatedusers from "../views_administrator/user_module/users/list_deactivated_users";
+import Newusers from "../views_administrator/user_module/users/list_newUnapproved_users";
+import Reactivatedusers from "../views_administrator/user_module/users/list_reactivated_users";
 
 //Supplier Pages
-import SupplierDashboard from "../views/supplier_module/dashboard/supplier_dashboard";
-import SupplyChain from "../views/supplier_module/supply_chain/supply_chain";
-import SmsManagement from "../views/supplier_module/sms_management/sms_management";
-import CreateSupplier from "../views/supplier_module/inventory_suppliers/create_supplier";
-import ActiveSuppliers from "../views/supplier_module/inventory_suppliers/list_active_suppliers";
-import InactiveSuppliers from "../views/supplier_module/inventory_suppliers/list_deactived_suppliers";
-import ApproveSupplier from "../views/supplier_module/inventory_suppliers/list_unapproved_suppliers";
-import DeletedSuppliers from "../views/supplier_module/inventory_suppliers/list_deleted_suppliers";
-import ReactivatedSuppliers from "../views/supplier_module/inventory_suppliers/list_reactivated_suppliers";
+import SupplierDashboard from "../views_administrator/supplier_module/dashboard/supplier_dashboard";
+import SupplyChain from "../views_administrator/supplier_module/supply_chain/supply_chain";
+import SmsManagement from "../views_administrator/supplier_module/sms_management/sms_management";
+import CreateSupplier from "../views_administrator/supplier_module/inventory_suppliers/create_supplier";
+import ActiveSuppliers from "../views_administrator/supplier_module/inventory_suppliers/list_active_suppliers";
+import InactiveSuppliers from "../views_administrator/supplier_module/inventory_suppliers/list_deactived_suppliers";
+import ApproveSupplier from "../views_administrator/supplier_module/inventory_suppliers/list_unapproved_suppliers";
+import DeletedSuppliers from "../views_administrator/supplier_module/inventory_suppliers/list_deleted_suppliers";
+import ReactivatedSuppliers from "../views_administrator/supplier_module/inventory_suppliers/list_reactivated_suppliers";
 
 //Inventory Pages
-import InventoryDashboard from "../views/inventory_module/dashboard/inventory_dashboard";
-import ProductManagement from "../views/inventory_module/product_management/product_management";
-import QualityControl from "../views/inventory_module/quality_control/quality_control";
-import InventoryManagement from "../views/inventory_module/inventory_management/inventory_management";
-import CreatedistributionCenter from "../views/inventory_module/distribution_centers/create_distribution";
-import Approvenewdistribution from "../views/inventory_module/distribution_centers/list_newunapproved_distribution";
-import Activedistributioncenters from "../views/inventory_module/distribution_centers/list_active_distribution-centers";
-import Deleteddistributions from "../views/inventory_module/distribution_centers/list_deleted_distributions";
-import Deactivateddistributions from "../views/inventory_module/distribution_centers/list_deactivated_distributions";
-import Reactivateddistributions from "../views/inventory_module/distribution_centers/list_reactivated_distributions";
+import InventoryDashboard from "../views_administrator/inventory_module/dashboard/inventory_dashboard";
+import ProductManagement from "../views_administrator/inventory_module/product_management/product_management";
+import QualityControl from "../views_administrator/inventory_module/quality_control/quality_control";
+import InventoryManagement from "../views_administrator/inventory_module/inventory_management/inventory_management";
+import CreatedistributionCenter from "../views_administrator/inventory_module/distribution_centers/create_distribution";
+import Approvenewdistribution from "../views_administrator/inventory_module/distribution_centers/list_newunapproved_distribution";
+import Activedistributioncenters from "../views_administrator/inventory_module/distribution_centers/list_active_distribution-centers";
+import Deleteddistributions from "../views_administrator/inventory_module/distribution_centers/list_deleted_distributions";
+import Deactivateddistributions from "../views_administrator/inventory_module/distribution_centers/list_deactivated_distributions";
+import Reactivateddistributions from "../views_administrator/inventory_module/distribution_centers/list_reactivated_distributions";
 
 // distributions
-import Distribution_dashboard from "../views/distribution_module/dashboard";
+import Distribution_dashboard from "../views_administrator/distribution_module/dashboard";
 
 //Stockist Distribution / Dispatch Management Pages
-import StockistCreateManagerDispatch from "../views/distribution_module/stockist/create_manager_dispatch";
-import StockistListManagerDispatch from "../views/distribution_module/stockist/list_manager_dispatch";
-import StockistApproveManagerDispatch from "../views/distribution_module/stockist/approve_manager_dispatch";
+import StockistCreateManagerDispatch from "../views_administrator/distribution_module/stockist/create_manager_dispatch";
+import StockistListManagerDispatch from "../views_administrator/distribution_module/stockist/list_manager_dispatch";
+import StockistApproveManagerDispatch from "../views_administrator/distribution_module/stockist/approve_manager_dispatch";
 
 //Manager Distribution / Dispatch Management Pages
-import ManagerStockToReceive from "../views/distribution_module/manager/receive_dispatch";
-import ManagerStockAvailable from "../views/distribution_module/manager/list_available_stock";
-import ManagerCreateTeamLeaderDispatch from "../views/distribution_module/manager/create_teamleader_dispatch";
-import ManagerListTeamLeaderDispatch from "../views/distribution_module/manager/list_teamleader_dispatch";
-import ManagerApproveTeamLeaderDispatch from "../views/distribution_module/manager/approve_teamleader_dispatch";
+import ManagerStockToReceive from "../views_administrator/distribution_module/manager/receive_dispatch";
+import ManagerStockAvailable from "../views_administrator/distribution_module/manager/list_available_stock";
+import ManagerCreateTeamLeaderDispatch from "../views_administrator/distribution_module/manager/create_teamleader_dispatch";
+import ManagerListTeamLeaderDispatch from "../views_administrator/distribution_module/manager/list_teamleader_dispatch";
+import ManagerApproveTeamLeaderDispatch from "../views_administrator/distribution_module/manager/approve_teamleader_dispatch";
 
 
 //Team Leader Distribution / Dispatch Management Pages
-import TeamLeaderStockToReceive from "../views/distribution_module/team_leader/receive_dispatch";
-import TeamLeaderStockAvailable from "../views/distribution_module/team_leader/list_available_stock";
-import TeamLeaderCreateAgentDispatch from "../views/distribution_module/team_leader/create_agent_dispatch";
-import TeamLeaderListAgentDispatch from "../views/distribution_module/team_leader/list_agent_dispatch";
-import TeamLeaderApproveAgentDispatch from "../views/distribution_module/team_leader/approve_agent_dispatch";
+import TeamLeaderStockToReceive from "../views_administrator/distribution_module/team_leader/receive_dispatch";
+import TeamLeaderStockAvailable from "../views_administrator/distribution_module/team_leader/list_available_stock";
+import TeamLeaderCreateAgentDispatch from "../views_administrator/distribution_module/team_leader/create_agent_dispatch";
+import TeamLeaderListAgentDispatch from "../views_administrator/distribution_module/team_leader/list_agent_dispatch";
+import TeamLeaderApproveAgentDispatch from "../views_administrator/distribution_module/team_leader/approve_agent_dispatch";
 
 //Agents Management Pages
-import AgentStockToReceive from "../views/distribution_module/sales_agent/receive_dispatch";
-import AgentStockAvailable from "../views/distribution_module/sales_agent/list_available_stock";
+import AgentStockToReceive from "../views_administrator/distribution_module/sales_agent/receive_dispatch";
+import AgentStockAvailable from "../views_administrator/distribution_module/sales_agent/list_available_stock";
 
 // purchased with cash
-import BuyStockUsingCash from "../views/inventory_module/purchase_stock_using_cash/buy_stock_using_cash";
-import Unapproved_cash_stock_purchase from "../views/inventory_module/purchase_stock_using_cash/list_unapproved_cash_stock_purchase";
-import Active_cash_stock_purchase from "../views/inventory_module/purchase_stock_using_cash/list_active_cash_stock_purchase";
+import BuyStockUsingCash from "../views_administrator/inventory_module/purchase_stock_using_cash/buy_stock_using_cash";
+import Unapproved_cash_stock_purchase from "../views_administrator/inventory_module/purchase_stock_using_cash/list_unapproved_cash_stock_purchase";
+import Active_cash_stock_purchase from "../views_administrator/inventory_module/purchase_stock_using_cash/list_active_cash_stock_purchase";
 
 // Receive in transit
-import Receivestock from "../views/inventory_module/stock_in_transit/receive_stock";
-import Approve_received_stock from "../views/inventory_module/stock_in_transit/list_unapproved_received_stock";
-import Available_stock from "../views/inventory_module/stock_in_transit/list_available_stock";
+import Receivestock from "../views_administrator/inventory_module/stock_in_transit/receive_stock";
+import Approve_received_stock from "../views_administrator/inventory_module/stock_in_transit/list_unapproved_received_stock";
+import Available_stock from "../views_administrator/inventory_module/stock_in_transit/list_available_stock";
 
 // product Managment
-import Activephones from "../views/inventory_module/product_management/mobile-models/list_active_phone_models";
-import Createphonemodel from "../views/inventory_module/product_management/mobile-models/create_phone_model";
-import ApprovenewPhone from "../views/inventory_module/product_management/mobile-models/list_unapproved_new_phone_model";
-import Deactivatedphones from "../views/inventory_module/product_management/mobile-models/list_deactivated_phone_models";
-import Deletedphonedmodels from "../views/inventory_module/product_management/mobile-models/list_deleted_phone_models";
-import ReactivatedPhonemodels from "../views/inventory_module/product_management/mobile-models/list_reactivated_phone_models";
-import Createtvmodels from "../views/inventory_module/product_management/television_models/create_tv_models";
-import Activetvmodels from "../views/inventory_module/product_management/television_models/list_active_tv_models";
-import NewUnapprovedtv from "../views/inventory_module/product_management/television_models/list_new_unapproved_tv_models";
-import Deactivatedtv from "../views/inventory_module/product_management/television_models/list_deactivated_tv_models";
-import DeletedtvModels from "../views/inventory_module/product_management/television_models/list_deleted_tv_models";
-import Reactivatedtvmodels from "../views/inventory_module/product_management/television_models/list_reactivated_tv_models";
-import Activeaccessories from "../views/inventory_module/product_management/accessories_models/list_active_accessories";
-import Createaccessory from "../views/inventory_module/product_management/accessories_models/create_accessory_model";
-import Newunapprovedaccessories from "../views/inventory_module/product_management/accessories_models/list_new_unapproved_accessories_model";
-import Deactivatedaccessory from "../views/inventory_module/product_management/accessories_models/list_deactivated_accessory_models";
-import Deletedaccessory from "../views/inventory_module/product_management/accessories_models/list_deleted_accessory_models";
-import Reactivatedaccessory from "../views/inventory_module/product_management/accessories_models/list_reactivated_accessory_models";
-import ProductCategories from "../views/inventory_module/product_management/product_categories/list_product_categories";
-import ProductsubCategories from "../views/inventory_module/product_management/product_categories/list_product_subCategories";
+import Activephones from "../views_administrator/inventory_module/product_management/mobile-models/list_active_phone_models";
+import Createphonemodel from "../views_administrator/inventory_module/product_management/mobile-models/create_phone_model";
+import ApprovenewPhone from "../views_administrator/inventory_module/product_management/mobile-models/list_unapproved_new_phone_model";
+import Deactivatedphones from "../views_administrator/inventory_module/product_management/mobile-models/list_deactivated_phone_models";
+import Deletedphonedmodels from "../views_administrator/inventory_module/product_management/mobile-models/list_deleted_phone_models";
+import ReactivatedPhonemodels from "../views_administrator/inventory_module/product_management/mobile-models/list_reactivated_phone_models";
+import Createtvmodels from "../views_administrator/inventory_module/product_management/television_models/create_tv_models";
+import Activetvmodels from "../views_administrator/inventory_module/product_management/television_models/list_active_tv_models";
+import NewUnapprovedtv from "../views_administrator/inventory_module/product_management/television_models/list_new_unapproved_tv_models";
+import Deactivatedtv from "../views_administrator/inventory_module/product_management/television_models/list_deactivated_tv_models";
+import DeletedtvModels from "../views_administrator/inventory_module/product_management/television_models/list_deleted_tv_models";
+import Reactivatedtvmodels from "../views_administrator/inventory_module/product_management/television_models/list_reactivated_tv_models";
+import Activeaccessories from "../views_administrator/inventory_module/product_management/accessories_models/list_active_accessories";
+import Createaccessory from "../views_administrator/inventory_module/product_management/accessories_models/create_accessory_model";
+import Newunapprovedaccessories from "../views_administrator/inventory_module/product_management/accessories_models/list_new_unapproved_accessories_model";
+import Deactivatedaccessory from "../views_administrator/inventory_module/product_management/accessories_models/list_deactivated_accessory_models";
+import Deletedaccessory from "../views_administrator/inventory_module/product_management/accessories_models/list_deleted_accessory_models";
+import Reactivatedaccessory from "../views_administrator/inventory_module/product_management/accessories_models/list_reactivated_accessory_models";
+import ProductCategories from "../views_administrator/inventory_module/product_management/product_categories/list_product_categories";
+import ProductsubCategories from "../views_administrator/inventory_module/product_management/product_categories/list_product_subCategories";
 
 // accounting pages
-import Create_accounts from "../views/finance_module/accounting_module/accounts/create_accounts";
-import Unapproved_accounts from "../views/finance_module/accounting_module/accounts/list_unapproved_account";
-import Active_accounts from "../views/finance_module/accounting_module/accounts/list_active_accounts";
-import Deactivated_accounts from "../views/finance_module/accounting_module/accounts/list_deactivated_accounts";
-import Reactivated_accounts from "../views/finance_module/accounting_module/accounts/list_reactivated_accounts";
-import Deleted_accounts from "../views/finance_module/accounting_module/accounts/list_deleted_accounts";
+import Create_accounts from "../views_administrator/finance_module/accounting_module/accounts/create_accounts";
+import Unapproved_accounts from "../views_administrator/finance_module/accounting_module/accounts/list_unapproved_account";
+import Active_accounts from "../views_administrator/finance_module/accounting_module/accounts/list_active_accounts";
+import Deactivated_accounts from "../views_administrator/finance_module/accounting_module/accounts/list_deactivated_accounts";
+import Reactivated_accounts from "../views_administrator/finance_module/accounting_module/accounts/list_reactivated_accounts";
+import Deleted_accounts from "../views_administrator/finance_module/accounting_module/accounts/list_deleted_accounts";
 
 // finance module
-import Create_capital_injection from "../views/finance_module/accounting_module/capital_injection/create_capital_injection";
-import Unapproved_capital_injection from "../views/finance_module/accounting_module/capital_injection/list_unapproved_capital_injection";
-import Active_capital_injection from "../views/finance_module/accounting_module/capital_injection/list_active_capital_injection";
-import Deactivated_capital_injections from "../views/finance_module/accounting_module/capital_injection/list_deactivated_capital_injections";
-import Reactivated_capital_injection from "../views/finance_module/accounting_module/capital_injection/list_deactivated_capital_injections";
-import Deleted_capital_injection from "../views/finance_module/accounting_module/capital_injection/list_deleted_capital_injection";
+import Create_capital_injection from "../views_administrator/finance_module/accounting_module/capital_injection/create_capital_injection";
+import Unapproved_capital_injection from "../views_administrator/finance_module/accounting_module/capital_injection/list_unapproved_capital_injection";
+import Active_capital_injection from "../views_administrator/finance_module/accounting_module/capital_injection/list_active_capital_injection";
+import Deactivated_capital_injections from "../views_administrator/finance_module/accounting_module/capital_injection/list_deactivated_capital_injections";
+import Reactivated_capital_injection from "../views_administrator/finance_module/accounting_module/capital_injection/list_deactivated_capital_injections";
+import Deleted_capital_injection from "../views_administrator/finance_module/accounting_module/capital_injection/list_deleted_capital_injection";
 
 
 //Transport Pages
-import TransportDashboard from "../views/transport_module/dashboard/transport_dashboard";
+import TransportDashboard from "../views_administrator/transport_module/dashboard/transport_dashboard";
 
 // stock in transit
-import StockDelivery from "../views/transport_module/deliveries/list_stock_deliveries";
-import ProductDispatch from "../views/transport_module/deliveries/list_products_dispatch";
-import CreateStockDelivery from "../views/transport_module/deliveries/create_stock_deliveries";
-import ActiveStockDelivery from "../views/transport_module/deliveries/list_active_stock_deliveries";
-import NewUnapprovedStockDelivery from "../views/transport_module/deliveries/list_unapproved_stock_deliveries";
+import StockDelivery from "../views_administrator/transport_module/deliveries/list_stock_deliveries";
+import ProductDispatch from "../views_administrator/transport_module/deliveries/list_products_dispatch";
+import CreateStockDelivery from "../views_administrator/transport_module/deliveries/create_stock_deliveries";
+import ActiveStockDelivery from "../views_administrator/transport_module/deliveries/list_active_stock_deliveries";
+import NewUnapprovedStockDelivery from "../views_administrator/transport_module/deliveries/list_unapproved_stock_deliveries";
 
 //Customer Pages
-import CustomerDashboard from "../views/crm_module/dashboard/crm_dashboard";
-import TicketManagement from "../views/crm_module/ticket_management/ticket_dashboard";
+import CustomerDashboard from "../views_administrator/crm_module/dashboard/crm_dashboard";
+import TicketManagement from "../views_administrator/crm_module/ticket_management/ticket_dashboard";
 
 
 //Sales Pages
-import SalesDashboard from "../views/sales_module/dashboard/sales_dashboard";
-import CreateCashSale from "../views/sales_module/cash_sales/create_cash_sale";
-import UnapprovedCashSales from "../views/sales_module/cash_sales/list_unapproved_cash_sales";
-import ApprovedCashSales from "../views/sales_module/cash_sales/list_approved_cash_sales";
+import SalesDashboard from "../views_administrator/sales_module/dashboard/sales_dashboard";
+import CreateCashSale from "../views_administrator/sales_module/cash_sales/create_cash_sale";
+import UnapprovedCashSales from "../views_administrator/sales_module/cash_sales/list_unapproved_cash_sales";
+import ApprovedCashSales from "../views_administrator/sales_module/cash_sales/list_approved_cash_sales";
 
 //Payments Pages
-import PaymentsDashboard from "../views/payments_module/dashboard/payments_dashboard";
-import MobileMoney from "../views/payments_module/mobile_money/mobile_money_dashboard";
-import BankPayments from "../views/payments_module/bank_payments/bank_payments_dashboard";
-import CashPayments from "../views/payments_module/cash_payments/cash_payments_dashboard";
+import PaymentsDashboard from "../views_administrator/payments_module/dashboard/payments_dashboard";
+import MobileMoney from "../views_administrator/payments_module/mobile_money/mobile_money_dashboard";
+import BankPayments from "../views_administrator/payments_module/bank_payments/bank_payments_dashboard";
+import CashPayments from "../views_administrator/payments_module/cash_payments/cash_payments_dashboard";
 
 //Finance Accounting Pages
-import AccountingDashboard from "../views/finance_module/dashboard/accouting_dashboard";
+import AccountingDashboard from "../views_administrator/finance_module/dashboard/accouting_dashboard";
 
 //Finance Expenses Pages
-import ExpensesDashboard from "../views/finance_module/dashboard/expenses_dashboard";
+import ExpensesDashboard from "../views_administrator/finance_module/dashboard/expenses_dashboard";
 
 //Email-SMS SMS Pages
-import SmsDashboard from "../views/email_sms_module/dashboard/sms_dashboard";
+import SmsDashboard from "../views_administrator/email_sms_module/dashboard/sms_dashboard";
 
 //Email-SMS Email Pages
-import EmailDashboard from "../views/email_sms_module/dashboard/email_dashboard";
+import EmailDashboard from "../views_administrator/email_sms_module/dashboard/email_dashboard";
 
 //HR Pages
-import HrDashboard from "../views/hr_module/dashboard/hr_dashboard";
-import EmployeeProfile from "../views/hr_module/profile/employee_profile";
-import PerformanceManagement from "../views/hr_module/performance/performance_management";
-import PayrollManagement from "../views/hr_module/payroll/payroll_management";
+import HrDashboard from "../views_administrator/hr_module/dashboard/hr_dashboard";
+import EmployeeProfile from "../views_administrator/hr_module/profile/employee_profile";
+import PerformanceManagement from "../views_administrator/hr_module/performance/performance_management";
+import PayrollManagement from "../views_administrator/hr_module/payroll/payroll_management";
 
 //Analytics Pages
-import AnalyticsDashboard from "../views/analytics_module/dashboard/analytics_dashboard";
-import SalesAnalysis from "../views/analytics_module/sales/sales_analysis";
-import InventoryAnalysis from "../views/analytics_module/inventory/inventory_analysis";
-import SupplierAnalysis from "../views/analytics_module/supplier/supplier_analysis";
+import AnalyticsDashboard from "../views_administrator/analytics_module/dashboard/analytics_dashboard";
+import SalesAnalysis from "../views_administrator/analytics_module/sales/sales_analysis";
+import InventoryAnalysis from "../views_administrator/analytics_module/inventory/inventory_analysis";
+import SupplierAnalysis from "../views_administrator/analytics_module/supplier/supplier_analysis";
 
 
 //Reports Module
-import ReportsDashboard from "../views/reports_module/dashboard/reports_dashboard";
-import FinanceReports from "../views/reports_module/finance_reports/finance_reports";
-import InventoryReports from "../views/reports_module/inventory_reports/inventory_reports";
-import SalesReports from "../views/reports_module/sales_reports/sales_reports";
-import SupplierReports from "../views/reports_module/supplier_reports/supplier_reports";
-import TransporterReports from "../views/reports_module/transporter_reports/transporter_reports";
-import PaymentsReports from "../views/reports_module/payments_reports/payments_reports";
-import CustomerReports from "../views/reports_module/customer_reports/customer_reports";
-import HrReports from "../views/reports_module/hr_reports/hr_reports";
+import ReportsDashboard from "../views_administrator/reports_module/dashboard/reports_dashboard";
+import FinanceReports from "../views_administrator/reports_module/finance_reports/finance_reports";
+import InventoryReports from "../views_administrator/reports_module/inventory_reports/inventory_reports";
+import SalesReports from "../views_administrator/reports_module/sales_reports/sales_reports";
+import SupplierReports from "../views_administrator/reports_module/supplier_reports/supplier_reports";
+import TransporterReports from "../views_administrator/reports_module/transporter_reports/transporter_reports";
+import PaymentsReports from "../views_administrator/reports_module/payments_reports/payments_reports";
+import CustomerReports from "../views_administrator/reports_module/customer_reports/customer_reports";
+import HrReports from "../views_administrator/reports_module/hr_reports/hr_reports";
 
 ////Balance Sheet
-import BalanceSheet from "../views/reports_module/finance_reports/balance_sheet/balance_sheet_statament";
-import IncomeStatement from "../views/reports_module/finance_reports/income_statement/income_statament";
+import BalanceSheet from "../views_administrator/reports_module/finance_reports/balance_sheet/balance_sheet_statament";
+import IncomeStatement from "../views_administrator/reports_module/finance_reports/income_statement/income_statament";
 
 
 
 
 //Settings Module
-import SettingsDashboard from "../views/settings_module/dashboard/settings_dashboard";
-import RolesAndPermissions from "../views/settings_module/roles_and_permissions/roles_and_permissions";
-import SmsSettings from "../views/settings_module/sms_settings/sms_settings";
-import EmailSettings from "../views/settings_module/email_settings/email_settings";
-import GeneralSettings from "../views/settings_module/general_settings/general_settings";
-import LogsSettings from "../views/settings_module/logs_settings/logs_settings";
+import SettingsDashboard from "../views_administrator/settings_module/dashboard/settings_dashboard";
+import RolesAndPermissions from "../views_administrator/settings_module/roles_and_permissions/roles_and_permissions";
+import SmsSettings from "../views_administrator/settings_module/sms_settings/sms_settings";
+import EmailSettings from "../views_administrator/settings_module/email_settings/email_settings";
+import GeneralSettings from "../views_administrator/settings_module/general_settings/general_settings";
+import LogsSettings from "../views_administrator/settings_module/logs_settings/logs_settings";
 
 
 import Calender from "../component/advancedUi/calender/calender";
@@ -306,7 +319,7 @@ export const RouteData = [
 
     { path: `${import.meta.env.BASE_URL}dashboards/sales`, element: <Sales />, title: '' },
     { path: `${import.meta.env.BASE_URL}dashboards/main`, element: <MainDashboard />, title: '' },
-    { path: `${import.meta.env.BASE_URL}dashboards/agents`, element: <Agents_dashboard />, title: '' },
+
     { path: `${import.meta.env.BASE_URL}dashboards/ecommerce`, element: <Ecommerce />, title: '' },
     { path: `${import.meta.env.BASE_URL}dashboards/crypto`, element: <Crypto />, title: '' },
     { path: `${import.meta.env.BASE_URL}dashboards/jobs`, element: <Jobs />, title: '' },
@@ -318,6 +331,18 @@ export const RouteData = [
     { path: `${import.meta.env.BASE_URL}dashboards/personal`, element: <Personal />, title: '' },
     { path: `${import.meta.env.BASE_URL}dashboards/stocks`, element: <Stocks />, title: '' },
     { path: `${import.meta.env.BASE_URL}dashboards/course`, element: <Course />, title: '' },
+
+
+    // Agents Widgets 
+    { path: `${import.meta.env.BASE_URL}agent/dashboard`, element: <Agent_dashboard />, title: '' },
+    { path: `${import.meta.env.BASE_URL}agent/activities`, element: <Agent_activities />, title: '' }, 
+    { path: `${import.meta.env.BASE_URL}agent/notifications`, element: <Agent_notifications />, title: '' },
+    { path: `${import.meta.env.BASE_URL}agent/widgets`, element: <Agent_widgets />, title: '' },
+    { path: `${import.meta.env.BASE_URL}agent/profile`, element: <Agent_profile />, title: '' },
+    { path: `${import.meta.env.BASE_URL}agent/products`, element: <Agent_products />, title: '' },
+    { path: `${import.meta.env.BASE_URL}agent/customers`, element: <Agent_customers />, title: '' },
+    { path: `${import.meta.env.BASE_URL}agent/reports-dashboard`, element: <Agent_reports />, title: '' },
+    { path: `${import.meta.env.BASE_URL}agent/analytics-dashboard`, element: <Agent_analytics />, title: '' },
 
 
     // {/* Activities content */}
