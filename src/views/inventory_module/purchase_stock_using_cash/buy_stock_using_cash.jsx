@@ -61,15 +61,15 @@ const BuyUsingCash = () => {
       }))
     }
   }
-  // const handleQuantityChange = (event, productId) => {
-  //   const value = parseInt(event.target.value, 10)
-  //   if (!isNaN(value) && value >= 0) {
-  //     setQuantities((prevQuantities) => ({
-  //       ...prevQuantities,
-  //       [productId]: value,
-  //     }))
-  //   }
-  // }
+  const handleQuantityChange = (event, productId) => {
+    const value = parseInt(event.target.value, 10)
+    if (!isNaN(value) && value >= 0) {
+      setQuantities((prevQuantities) => ({
+        ...prevQuantities,
+        [productId]: value,
+      }))
+    }
+  }
 
   // Function to handle quantity change when the plus button is clicked
   const handlePlusClick = (productId) => {
@@ -116,12 +116,12 @@ const BuyUsingCash = () => {
       setFilteredData(rowData)
     }
   }
+ 
 
   const handleCategoryChange = async (event) => {
     const selectedCategory = event.target.value
     try {
       const response = await mtaApi.product_models.list_mobile_phone_model('1')
-      console.log(response.data.response)
       setRowData(response.data.response)
       setFilteredData(response.data.response)
     } catch (error) {
@@ -185,18 +185,17 @@ const BuyUsingCash = () => {
   }
 
   const formatAmount = (value) => {
-    return value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-};
+    return value.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  }
 
-const handleQuantitiesChange = (event) => {
-    const inputValue = event.target.value.replace(/,/g, '');
-    const formattedValue = formatAmount(inputValue);
-    setQuantities(formattedValue);
-    setValue("quantity", formattedValue);
-};
-
-
-
+  const handleQuantitiesChange = (event) => {
+    const inputValue = event.target.value.replace(/,/g, '')
+    const formattedValue = formatAmount(inputValue)
+    setQuantities(formattedValue)
+    setValue('quantity', formattedValue)
+  }
+//  console.log(filteredData);
+const displayData = filteredData.length >0 ? filteredData: rowData;
   return (
     <div>
       <PageHeader
@@ -374,7 +373,7 @@ const handleQuantitiesChange = (event) => {
                 </tr>
               </thead>
               <tbody>
-                {rowData.map((data, index) => (
+                {displayData.map((data, index) => (
                   <tr className='cart-box' key={index}>
                     <td className=''>
                       <div className='flex items-center h-5 product-checkbox justify-center'>
@@ -411,36 +410,25 @@ const handleQuantitiesChange = (event) => {
                     <td>{data.display}</td>
                     <td>
                       <div className='flex rounded-sm'>
-                      <input type="number" {...register("quantity")} className="product-quantity p-0 ti-form-input h-8 w-40 rounded-none focus:z-10 text-center" placeholder="0" onChange={handleAmountChange}/>
+                        <input
+                          type='text'
+                          className='product-quantity p-0 ti-form-input h-8 w-40 rounded-none focus:z-10 text-center'
+                          placeholder='quantity'
+                          value={quantity[data.id]}
+                          onChange={(e) => handleQuantityChange(e, data.id)} // Handle the input change event
+                        />
                       </div>
                     </td>
                     <td>
                       <div className='flex rounded-sm'>
-                        <button
-                          aria-label='button'
-                          type='button'
-                          onClick={() => handleAmountMinusClick(data.id)}
-                          className='product-quantity-minus inline-flex flex-shrink-0 justify-center items-center h-8 w-8 ltr:rounded-l-sm rtl:rounded-r-sm border border-transparent font-semibold ti-btn-soft-light transition-all text-sm'
-                        >
-                          <i className='ti ti-minus'></i>
-                        </button>
                         <input
-                          type='number'
+                          type='text'
                           name='amount'
-                          className='product-quantity p-0 ti-form-input w-20 rounded-none focus:z-10 text-center'
-                          placeholder='0'
-                          min='0'
-                          value={amount[data.id] || 0} // Set the value of the input field to the corresponding quantity
+                          placeholder='amount'
+                          className='product-quantity p-0 ti-form-input h-8 w-40 rounded-none focus:z-10 text-center'
+                          value={amount[data.id]} // Set the value of the input field to the corresponding quantity
                           onChange={(e) => handleAmountChange(e, data.id)} // Handle the input change event
                         />
-                        <button
-                          aria-label='button'
-                          type='button'
-                          onClick={() => handleAmountPlusClick(data.id)}
-                          className='product-quantity-plus inline-flex flex-shrink-0 justify-center items-center h-8 w-8 ltr:rounded-r-sm rtl:rounded-l-sm border border-transparent font-semibold ti-btn-soft-light transition-all text-sm'
-                        >
-                          <i className='ti ti-plus'></i>
-                        </button>
                       </div>
                     </td>
                   </tr>
