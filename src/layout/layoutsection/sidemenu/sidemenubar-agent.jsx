@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect, useRef } from "react";
 import { Link } from 'react-router-dom'
 import ALLImages from "../../../common/imagesdata";
 // import MenuItems from "../../../common/sidemenudata";
-import MenuItems_agents from "../../../common/sidemenudata-agents";
+import MenuItems_agents from "../../../common/sidemenudata-agent";
 import { connect } from "react-redux"
 import { ThemeChanger } from "../../../redux/Action"
 import store from "../../../redux/store";
@@ -409,7 +409,7 @@ const SidemenuAgents = ({ local_varaiable, ThemeChanger }) => {
 
 
                 <div className="main-sidebar-header">
-                    <Link to={`${import.meta.env.BASE_URL}dashboards/main`} className="header-logo">
+                    <Link to={`${import.meta.env.BASE_URL}agent/dashboard`} className="header-logo">
                         <img src={ALLImages('logo')} alt="logo" className="main-logo desktop-logo" />
                         <img src={ALLImages('togglelogo')} alt="logo" className="main-logo toggle-logo" />
                         <img src={ALLImages('dark')} alt="logo" className="main-logo desktop-dark" />
