@@ -28,15 +28,15 @@ const BuyUsingCash = () => {
   const [bankAccounts, setBankAccounts] = useState([])
   const [supplierAccounts, setSupplierAccounts] = useState([])
   const [selectedSupplierAccounts, setSelectedSupplierAccounts] = useState([])
-  const [quantities, setQuantities] = useState({})
+  const [quantity, setQuantities] = useState({})
   const [amount, setAmount] = useState({})
 
-  const handleMinusClick = (productId) => {
-    setQuantities((prevQuantities) => ({
-      ...prevQuantities,
-      [productId]: Math.max((prevQuantities[productId] || 0) - 1, 0), // Ensure the quantity doesn't go below 0
-    }))
-  }
+  // const handleMinusClick = (productId) => {
+  //   setQuantities((prevQuantities) => ({
+  //     ...prevQuantities,
+  //     [productId]: Math.max((prevQuantities[productId] || 0) - 1, 0), // Ensure the quantity doesn't go below 0
+  //   }))
+  // }
 
   const handleCheckboxChange = (event, data) => {
     const isChecked = event.target.checked
@@ -61,15 +61,15 @@ const BuyUsingCash = () => {
       }))
     }
   }
-  const handleQuantityChange = (event, productId) => {
-    const value = parseInt(event.target.value, 10)
-    if (!isNaN(value) && value >= 0) {
-      setQuantities((prevQuantities) => ({
-        ...prevQuantities,
-        [productId]: value,
-      }))
-    }
-  }
+  // const handleQuantityChange = (event, productId) => {
+  //   const value = parseInt(event.target.value, 10)
+  //   if (!isNaN(value) && value >= 0) {
+  //     setQuantities((prevQuantities) => ({
+  //       ...prevQuantities,
+  //       [productId]: value,
+  //     }))
+  //   }
+  // }
 
   // Function to handle quantity change when the plus button is clicked
   const handlePlusClick = (productId) => {
@@ -146,7 +146,7 @@ const BuyUsingCash = () => {
     const validRows = selectedRows
       .map((row) => ({
         id: row.id,
-        quantity: quantities[row.id],
+        quantity: quantity[row.id],
         amount: amount[row.id],
       }))
       .filter((row) => row.amount != null && row.quantity != null)
@@ -183,6 +183,19 @@ const BuyUsingCash = () => {
       setAlert({ type: 'error', message })
     }
   }
+
+  const formatAmount = (value) => {
+    return value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};
+
+const handleQuantitiesChange = (event) => {
+    const inputValue = event.target.value.replace(/,/g, '');
+    const formattedValue = formatAmount(inputValue);
+    setQuantities(formattedValue);
+    setValue("quantity", formattedValue);
+};
+
+
 
   return (
     <div>
@@ -353,7 +366,7 @@ const BuyUsingCash = () => {
                     Display
                   </th>
                   <th scope='col' className='!text-sm !p-4 !text-gray-800 dark:!text-white'>
-                    QNTY
+                    Quantity
                   </th>
                   <th scope='col' className='!text-sm !p-4 !text-gray-800 dark:!text-white'>
                     Amount
@@ -398,31 +411,7 @@ const BuyUsingCash = () => {
                     <td>{data.display}</td>
                     <td>
                       <div className='flex rounded-sm'>
-                        <button
-                          aria-label='button'
-                          type='button'
-                          onClick={() => handleMinusClick(data.id)}
-                          className='product-quantity-minus inline-flex flex-shrink-0 justify-center items-center h-8 w-8 ltr:rounded-l-sm rtl:rounded-r-sm border border-transparent font-semibold ti-btn-soft-light transition-all text-sm'
-                        >
-                          <i className='ti ti-minus'></i>
-                        </button>
-                        <input
-                          type='number'
-                          name='quantity'
-                          className='product-quantity p-0 ti-form-input w-20 rounded-none focus:z-10 text-center'
-                          placeholder='0'
-                          min='0'
-                          value={quantities[data.id] || 0} // Set the value of the input field to the corresponding quantity
-                          onChange={(e) => handleQuantityChange(e, data.id)} // Handle the input change event
-                        />
-                        <button
-                          aria-label='button'
-                          type='button'
-                          onClick={() => handlePlusClick(data.id)}
-                          className='product-quantity-plus inline-flex flex-shrink-0 justify-center items-center h-8 w-8 ltr:rounded-r-sm rtl:rounded-l-sm border border-transparent font-semibold ti-btn-soft-light transition-all text-sm'
-                        >
-                          <i className='ti ti-plus'></i>
-                        </button>
+                      <input type="number" {...register("quantity")} className="product-quantity p-0 ti-form-input h-8 w-40 rounded-none focus:z-10 text-center" placeholder="0" onChange={handleAmountChange}/>
                       </div>
                     </td>
                     <td>
