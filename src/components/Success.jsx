@@ -7,7 +7,7 @@ export default function Success({ success, onClose }) {
   useEffect(() => {
     if (success) {
       setShowSuccess(true)
-      const timeout = setTimeout(() => setShowSuccess(false), 5000) // Auto close after 5 seconds
+      const timeout = setTimeout(() => setShowSuccess(false), 5000)
       return () => clearTimeout(timeout)
     }
   }, [success])
